@@ -30,3 +30,11 @@ extension Coordinator{
         }
     }
 }
+
+protocol ChildCoordinator: Coordinator{
+    var parentNavigationController: UINavigationController? { get set }
+    
+    var parentCoordinator: Coordinator? { get set }
+    
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator)
+}

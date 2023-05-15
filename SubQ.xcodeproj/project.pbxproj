@@ -34,6 +34,8 @@
 		CCC4B89B2A0DA147008BFF81 /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B89A2A0DA147008BFF81 /* TextInputTableViewCell.swift */; };
 		CCC4B89D2A0EF936008BFF81 /* DosageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B89C2A0EF936008BFF81 /* DosageTableViewCell.swift */; };
 		CCC4B89F2A0FCB17008BFF81 /* DayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B89E2A0FCB17008BFF81 /* DayTableViewCell.swift */; };
+		CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */; };
+		CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -68,6 +70,8 @@
 		CCC4B89A2A0DA147008BFF81 /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		CCC4B89C2A0EF936008BFF81 /* DosageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DosageTableViewCell.swift; sourceTree = "<group>"; };
 		CCC4B89E2A0FCB17008BFF81 /* DayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTableViewCell.swift; sourceTree = "<group>"; };
+		CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyViewController.swift; sourceTree = "<group>"; };
+		CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyCoordinator.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -117,7 +121,6 @@
 				CC9F517F29FEBD1E00E6FAF6 /* LaunchScreen.storyboard */,
 				CC9F518229FEBD1E00E6FAF6 /* Info.plist */,
 				CC9F517A29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld */,
-				CCE9437F2A01B23B00514710 /* Coordinator.swift */,
 				CCE943812A01B30B00514710 /* Storyboarded.swift */,
 			);
 			path = SubQ;
@@ -128,6 +131,7 @@
 			children = (
 				CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */,
 				CCC4B8942A0A825E008BFF81 /* EditInjectionTableViewController.swift */,
+				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
 				CCC4B86B2A0453B3008BFF81 /* InjectionCollectionViewController.swift */,
 				CCC4B86F2A045901008BFF81 /* InjectionSiteViewController.swift */,
 				CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */,
@@ -139,6 +143,8 @@
 		CCC4B8622A0412E1008BFF81 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				CCE9437F2A01B23B00514710 /* Coordinator.swift */,
+				CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */,
 				CCE943832A01C87200514710 /* MainCoordinator.swift */,
 				CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */,
 				CCC4B8632A0413C0008BFF81 /* InjectionTableCoordinator.swift */,
@@ -264,6 +270,7 @@
 				CCE943802A01B23B00514710 /* Coordinator.swift in Sources */,
 				CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
+				CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */,
 				CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */,
 				CCC4B8662A044738008BFF81 /* InjectionSiteCoordinator.swift in Sources */,
 				CCC4B8702A045901008BFF81 /* InjectionSiteViewController.swift in Sources */,
@@ -273,6 +280,7 @@
 				CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */,
 				CCC4B89F2A0FCB17008BFF81 /* DayTableViewCell.swift in Sources */,
 				CCC4B89D2A0EF936008BFF81 /* DosageTableViewCell.swift in Sources */,
+				CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */,
 				CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */,
 				CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */,
 			);

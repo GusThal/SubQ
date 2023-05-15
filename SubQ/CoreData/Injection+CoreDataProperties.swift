@@ -16,7 +16,7 @@ extension Injection {
         case cc = "cc", ml = "mL"
     }
     
-    enum Frequency: String{
+    enum Frequency: String, CaseIterable{
         case sun = "Sunday", mon = "Monday", tues = "Tuesday", wed = "Wednesday", thurs = "Thursday", fri = "Friday", sat = "Saturday", daily = "Daily", asNeeded = "As Needed"
     }
 

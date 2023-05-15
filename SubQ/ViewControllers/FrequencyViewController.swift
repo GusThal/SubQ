@@ -1,0 +1,197 @@
+//
+//  FrequencyViewController.swift
+//  SubQ
+//
+//  Created by Constantine Thalasinos on 5/13/23.
+//
+
+import UIKit
+
+class FrequencyViewController: UIViewController {
+    
+    weak var coordinator: FrequencyCoordinator?
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Int, Injection.Frequency>! = nil
+    private var collectionView: UICollectionView! = nil
+    
+    let days = Injection.Frequency.allCases.filter { ![Injection.Frequency.asNeeded, Injection.Frequency.daily].contains($0) }
+    
+    enum Section: Int{
+        case asNeeded = 0, daily = 1, days = 2
+    }
+    
+    
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+
+        
+        // Do any additional setup after loading the view.
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
+        
+        view.backgroundColor = .orange
+        
+        configureHierarchy()
+        configureDataSource()
+        
+    }
+    
+
+    @objc func doneButtonPressed(_ sender: Any){
+        print("done")
+        coordinator?.done()
+    }
+
+}
+
+extension FrequencyViewController{
+    
+    private func createLayout() -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout { [unowned self] section, layoutEnvironment in
+            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
+        }
+    }
+    
+    private func configureHierarchy() {
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(collectionView)
+        collectionView.delegate = self
+    }
+    
+    private func configureDataSource() {
+        
+        
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Injection.Frequency> { [weak self] (cell, indexPath, item) in
+            guard let self = self else { return }
+            
+            var content = cell.defaultContentConfiguration()
+            content.text = item.rawValue
+            cell.contentConfiguration = content
+
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Int, Injection.Frequency>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: Injection.Frequency) -> UICollectionViewCell? in
+          
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+        }
+        
+        // initial data
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Injection.Frequency>()
+        
+        snapshot.appendSections([0])
+        snapshot.appendItems([Injection.Frequency.asNeeded])
+        snapshot.appendSections([1])
+        snapshot.appendItems([Injection.Frequency.daily])
+        snapshot.appendSections([2])
+        snapshot.appendItems(days)
+        
+        
+        dataSource.apply(snapshot, animatingDifferences: false)
+        
+    }
+}
+
+extension FrequencyViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let section = indexPath.section
+        let item = indexPath.item
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! UICollectionViewListCell
+        
+        //as needed cell
+        if section == Section.asNeeded.rawValue{
+            
+            if !cell.accessories.isEmpty{
+                cell.accessories = []
+            }
+            else{
+                cell.accessories = [.checkmark()]
+                
+                let dailyCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.daily.rawValue)) as! UICollectionViewListCell
+                dailyCell.accessories = []
+                
+                uncheckAllDays()
+            }
+            
+        }
+        //daily cell
+        else if section == Section.daily.rawValue{
+            
+            if !cell.accessories.isEmpty{
+                cell.accessories = []
+            }
+            else{
+                cell.accessories = [.checkmark()]
+                
+                let asNeededCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.asNeeded.rawValue)) as! UICollectionViewListCell
+                asNeededCell.accessories = []
+                
+                uncheckAllDays()
+            }
+            
+            
+        }
+        //a day is selected
+        else{
+            if !cell.accessories.isEmpty{
+                cell.accessories = []
+               // selectedDays[row] = false
+            }
+            else{
+                cell.accessories = [.checkmark()]
+                
+                let asNeededCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.asNeeded.rawValue)) as! UICollectionViewListCell
+                asNeededCell.accessories = []
+                
+                let dailyCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.daily.rawValue)) as! UICollectionViewListCell
+                dailyCell.accessories = []
+                
+                if allDaysSelected(){
+                    dailyCell.accessories = [.checkmark()]
+                    cell.accessories = []
+                    uncheckAllDays()
+                }
+                
+                
+                //selectedDays[row] = true
+            }
+            
+        }
+        
+        collectionView.deselectItem(at: indexPath, animated: false)
+        
+        
+    }
+    
+    func uncheckAllDays(){
+            
+        for i in 0...days.count-1{
+            let cell = collectionView.cellForItem(at: IndexPath(item: i, section: Section.days.rawValue)) as! UICollectionViewListCell
+            cell.accessories = []
+        }
+    }
+    
+    func allDaysSelected() -> Bool{
+        
+        var numOfCheckedDays = 0
+        
+        for i in 0...days.count-1{
+            let cell = collectionView.cellForItem(at: IndexPath(item: i, section: Section.days.rawValue)) as! UICollectionViewListCell
+            
+            if !cell.accessories.isEmpty{
+                numOfCheckedDays+=1
+            }
+        }
+        
+        
+        return numOfCheckedDays == days.count ? true : false
+    }
+}

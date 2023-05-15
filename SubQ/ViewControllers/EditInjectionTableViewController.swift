@@ -110,6 +110,20 @@ class EditInjectionTableViewController: UITableViewController {
         // Return false if you do not want the specified item to be editable.
         return false
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let row = indexPath.row
+        
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        if row == 2{
+            coordinator?.showFrequencyController()
+        }
+        
+        
+    }
 
 
 }

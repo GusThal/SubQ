@@ -1,25 +1,17 @@
 //
-//  EditInjectionCoordinator.swift
+//  FrequencyCoordinator.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 5/8/23.
+//  Created by Constantine Thalasinos on 5/13/23.
 //
 
+import Foundation
 import UIKit
 
-class EditInjectionCoordinator: ChildCoordinator{
-    
-    var childCoordinators = [Coordinator]()
-    
-    var navigationController: UINavigationController
-    
+class FrequencyCoordinator: ChildCoordinator{
     weak var parentNavigationController: UINavigationController?
     
     weak var parentCoordinator: Coordinator?
-    
-    required init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
     
     required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator) {
         self.navigationController = navigationController
@@ -27,8 +19,18 @@ class EditInjectionCoordinator: ChildCoordinator{
         self.parentCoordinator = parentCoordinator
     }
     
+    required init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    
+    var childCoordinators = [Coordinator]()
+    
+    var navigationController: UINavigationController
+    
+    
+    
     func start() {
-        let vc = EditInjectionTableViewController()
+        let vc = FrequencyViewController()
         vc.coordinator = self
         
         //navigationController.present(vc, animated: true)
@@ -38,26 +40,12 @@ class EditInjectionCoordinator: ChildCoordinator{
         vc.modalPresentationStyle = .automatic
         
         parentNavigationController!.present(navigationController, animated: true)
-        
     }
     
-    func cancelEdit(){
+    func done(){
         parentNavigationController!.dismiss(animated: true)
 
         parentCoordinator?.childDidFinish(self)
-    }
-    
-    func saveEdit(){
-        parentNavigationController!.dismiss(animated: true)
-
-        parentCoordinator?.childDidFinish(self)
-    }
-    
-    func showFrequencyController(){
-        let child  = FrequencyCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self)
-        
-        childCoordinators.append(child)
-        child.start()
     }
     
     

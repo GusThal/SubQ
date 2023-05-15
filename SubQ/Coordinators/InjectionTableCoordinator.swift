@@ -43,9 +43,7 @@ class InjectionTableCoordinator: Coordinator{
         navigationController.viewControllers.first!.present(nc, animated: true)*/
         
         
-        let child = EditInjectionCoordinator(navigationController: UINavigationController())
-        child.parentCoordinator = self
-        child.parentNavigationController = self.navigationController
+        let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self)
         
         childCoordinators.append(child)
         child.start()
