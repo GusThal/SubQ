@@ -7,7 +7,9 @@
 
 import UIKit
 
-class EditInjectionCoordinator: ChildCoordinator{
+class EditInjectionCoordinator: ModalChildCoordinator{
+
+    
     
     var childCoordinators = [Coordinator]()
     
@@ -17,7 +19,7 @@ class EditInjectionCoordinator: ChildCoordinator{
     
     weak var parentCoordinator: Coordinator?
     
-    required init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
         self.navigationController = navigationController
     }
     

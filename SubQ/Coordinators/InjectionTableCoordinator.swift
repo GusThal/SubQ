@@ -9,17 +9,14 @@ import UIKit
 
 class InjectionTableCoordinator: Coordinator{
     
+    var parentCoordinator: Coordinator?
+    
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var tabBarController: UITabBarController?
     
-    required init(navigationController: UINavigationController) {
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
         self.navigationController = navigationController
-    }
-    
-    init(navigationController: UINavigationController, tabBarController: UITabBarController){
-        self.navigationController = navigationController
-        self.tabBarController = tabBarController
     }
     
     func start() {

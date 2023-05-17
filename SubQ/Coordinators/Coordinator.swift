@@ -13,8 +13,9 @@ import UIKit
 protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
+    var parentCoordinator: Coordinator? { get set }
     
-    init(navigationController: UINavigationController)
+    init(navigationController: UINavigationController, parentCoordinator: Coordinator?)
 
     func start()
 }
@@ -31,10 +32,8 @@ extension Coordinator{
     }
 }
 
-protocol ChildCoordinator: Coordinator{
+protocol ModalChildCoordinator: Coordinator{
     var parentNavigationController: UINavigationController? { get set }
-    
-    var parentCoordinator: Coordinator? { get set }
     
     init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator)
 }

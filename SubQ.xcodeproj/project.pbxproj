@@ -13,6 +13,10 @@
 		CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517A29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld */; };
 		CC9F517E29FEBD1E00E6FAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517D29FEBD1E00E6FAF6 /* Assets.xcassets */; };
 		CC9F518129FEBD1E00E6FAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517F29FEBD1E00E6FAF6 /* LaunchScreen.storyboard */; };
+		CCBCE2192A13C8BA001B73D6 /* ZoneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2182A13C8BA001B73D6 /* ZoneCollectionViewCell.swift */; };
+		CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */; };
+		CCBCE21D2A15149C001B73D6 /* InjectionSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21C2A15149C001B73D6 /* InjectionSectionViewController.swift */; };
+		CCBCE21F2A1524D7001B73D6 /* InjectionSectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21E2A1524D7001B73D6 /* InjectionSectionCoordinator.swift */; };
 		CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */; };
 		CCC4B8642A0413C0008BFF81 /* InjectionTableCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8632A0413C0008BFF81 /* InjectionTableCoordinator.swift */; };
 		CCC4B8662A044738008BFF81 /* InjectionSiteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8652A044738008BFF81 /* InjectionSiteCoordinator.swift */; };
@@ -50,6 +54,10 @@
 		CC9F517D29FEBD1E00E6FAF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC9F518029FEBD1E00E6FAF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC9F518229FEBD1E00E6FAF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCBCE2182A13C8BA001B73D6 /* ZoneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSupplementaryView.swift; sourceTree = "<group>"; };
+		CCBCE21C2A15149C001B73D6 /* InjectionSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionSectionViewController.swift; sourceTree = "<group>"; };
+		CCBCE21E2A1524D7001B73D6 /* InjectionSectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionSectionCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		CCC4B8632A0413C0008BFF81 /* InjectionTableCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8652A044738008BFF81 /* InjectionSiteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionSiteCoordinator.swift; sourceTree = "<group>"; };
@@ -136,6 +144,7 @@
 				CCC4B86F2A045901008BFF81 /* InjectionSiteViewController.swift */,
 				CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */,
 				CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */,
+				CCBCE21C2A15149C001B73D6 /* InjectionSectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 				CCC4B8652A044738008BFF81 /* InjectionSiteCoordinator.swift */,
 				CCC4B8672A0447C9008BFF81 /* InjectionHistoryCoordinator.swift */,
 				CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */,
+				CCBCE21E2A1524D7001B73D6 /* InjectionSectionCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -174,6 +184,8 @@
 				CCC4B89A2A0DA147008BFF81 /* TextInputTableViewCell.swift */,
 				CCC4B89C2A0EF936008BFF81 /* DosageTableViewCell.swift */,
 				CCC4B89E2A0FCB17008BFF81 /* DayTableViewCell.swift */,
+				CCBCE2182A13C8BA001B73D6 /* ZoneCollectionViewCell.swift */,
+				CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,6 +275,8 @@
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CCC4B8682A0447C9008BFF81 /* InjectionHistoryCoordinator.swift in Sources */,
 				CCC4B89B2A0DA147008BFF81 /* TextInputTableViewCell.swift in Sources */,
+				CCBCE21F2A1524D7001B73D6 /* InjectionSectionCoordinator.swift in Sources */,
+				CCBCE21D2A15149C001B73D6 /* InjectionSectionViewController.swift in Sources */,
 				CCC4B8722A04591B008BFF81 /* InjectionHistoryViewController.swift in Sources */,
 				CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */,
 				CCC4B88C2A06A49F008BFF81 /* Injection+CoreDataClass.swift in Sources */,
@@ -276,7 +290,9 @@
 				CCC4B8702A045901008BFF81 /* InjectionSiteViewController.swift in Sources */,
 				CCC4B88A2A06A49F008BFF81 /* History+CoreDataClass.swift in Sources */,
 				CCC4B88D2A06A49F008BFF81 /* Injection+CoreDataProperties.swift in Sources */,
+				CCBCE2192A13C8BA001B73D6 /* ZoneCollectionViewCell.swift in Sources */,
 				CCC4B88B2A06A49F008BFF81 /* History+CoreDataProperties.swift in Sources */,
+				CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */,
 				CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */,
 				CCC4B89F2A0FCB17008BFF81 /* DayTableViewCell.swift in Sources */,
 				CCC4B89D2A0EF936008BFF81 /* DosageTableViewCell.swift in Sources */,

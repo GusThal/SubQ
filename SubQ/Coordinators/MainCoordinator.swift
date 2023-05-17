@@ -9,13 +9,15 @@
 import UIKit
 
 class MainCoordinator: Coordinator {
-    
+    var parentCoordinator: Coordinator?
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-
-    required init(navigationController: UINavigationController) {
+    
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
         self.navigationController = navigationController
+        
     }
+
 
     func start() {
         let vc = MainTabBarController()

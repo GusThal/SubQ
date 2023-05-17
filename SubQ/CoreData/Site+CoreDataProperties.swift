@@ -13,11 +13,11 @@ import CoreData
 extension Site {
     
     enum Zone: String{
-        case abdomen = "Abdomen", thighs = "Thighs", upperArm = "Upper Arm", buttocks = "Buttocks"
+        case abdomen = "Abdomen", thigh = "Thigh", upperArm = "Upper Arm", buttocks = "Buttocks"
     }
     
-    enum InjectionSection: String{
-        case topLeft = "Top Left", bottomLeft = "Bottom Left", bottomRight = "Bottom Right", topRight = "Top Right"
+    enum InjectionSection: String, CaseIterable{
+        case topLeft = "Top Left", bottomLeft = "Bottom Left", bottomRight = "Top Right", topRight = "Bottom Right"
     }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Site> {

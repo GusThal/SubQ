@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-class FrequencyCoordinator: ChildCoordinator{
+class FrequencyCoordinator: ModalChildCoordinator{
+    
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
+        self.navigationController = navigationController
+    }
+    
     weak var parentNavigationController: UINavigationController?
     
     weak var parentCoordinator: Coordinator?
@@ -19,9 +24,6 @@ class FrequencyCoordinator: ChildCoordinator{
         self.parentCoordinator = parentCoordinator
     }
     
-    required init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
     
     var childCoordinators = [Coordinator]()
     

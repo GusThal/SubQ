@@ -9,10 +9,11 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    let injectionTableCoordinator = InjectionTableCoordinator(navigationController: UINavigationController())
-    let injectionSiteCoordinator = InjectionSiteCoordinator(navigationController: UINavigationController())
-    let injectionHistoryCoordinator = InjectionHistoryCoordinator(navigationController: UINavigationController())
-    let settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController())
+    let injectionTableCoordinator = InjectionTableCoordinator(navigationController: UINavigationController(), parentCoordinator: nil)
+    let injectionSiteCoordinator = InjectionSiteCoordinator(navigationController: UINavigationController(), parentCoordinator: nil)
+    let injectionHistoryCoordinator = InjectionHistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil)
+    let settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
+    parentCoordinator: nil)
 
     
     
