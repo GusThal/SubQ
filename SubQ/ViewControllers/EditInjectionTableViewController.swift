@@ -14,6 +14,7 @@ class EditInjectionTableViewController: UITableViewController {
     let dosageIdentifier = "dosageCell"
     let injectionIdentifier = "injectionCell"
     let dayIdentifier = "dayCell"
+    let timeIdentifier = "timeCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,10 @@ class EditInjectionTableViewController: UITableViewController {
         tableView.register(DosageTableViewCell.self, forCellReuseIdentifier: dosageIdentifier)
         
         tableView.register(DayTableViewCell.self, forCellReuseIdentifier: dayIdentifier)
+        
+        tableView.register(TimePickerTableViewCell.self, forCellReuseIdentifier: timeIdentifier)
+        
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -81,6 +86,12 @@ class EditInjectionTableViewController: UITableViewController {
             
             return cell
         }
+        
+        if row == 3{
+            let cell = tableView.dequeueReusableCell(withIdentifier: timeIdentifier, for: indexPath) as! TimePickerTableViewCell
+            
+            return cell
+        }
     
         
         else{
@@ -123,6 +134,18 @@ class EditInjectionTableViewController: UITableViewController {
         }
         
         
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        if section == 0 && row == 3{
+            return 200
+        }
+        else{
+            return UITableView.automaticDimension
+        }
     }
 
 

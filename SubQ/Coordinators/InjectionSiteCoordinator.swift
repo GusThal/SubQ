@@ -28,15 +28,19 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         vc.navigationItem.title = "Injection Sites"
     }
     
-    func showInjectionZone(){
+    func showInjectionZone(zone: Site.Zone, section: Site.InjectionSection){
         let child  = InjectionSectionCoordinator(navigationController: navigationController, parentCoordinator: self)
+        
         
         childCoordinators.append(child)
         child.start()
+        
+        let vc = child.navigationController.viewControllers.last as! InjectionSectionViewController
+        vc.zone = zone
+        vc.section = section
     }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        print("navigating...")
         
         // Read the view controller we’re moving from.
         guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
@@ -51,7 +55,6 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         // We’re still here – it means we’re popping the view controller, so we can check whether it’s an InjectionSectionViewController
         if let sectionViewController = fromViewController as? InjectionSectionViewController {
             // We're popping a buy view controller; end its coordinator
-            print("got a section controller")
             childDidFinish(sectionViewController.coordinator)
         }
     }

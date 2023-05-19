@@ -10,6 +10,8 @@ import SnapKit
 
 class ZoneCollectionViewCell: UICollectionViewCell {
     let label = UILabel()
+    var zone: Site.Zone?
+    var section: Site.InjectionSection?
 
     override init(frame: CGRect) {
         super.init(frame: frame)

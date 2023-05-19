@@ -59,6 +59,7 @@ extension InjectionSiteViewController{
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(0.5))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
             item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
 
             let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
@@ -101,7 +102,14 @@ extension InjectionSiteViewController {
     func configureDataSource() {
         
         let cellRegistration = UICollectionView.CellRegistration<ZoneCollectionViewCell, String> { (cell, indexPath, item) in
+            
             // Populate the cell with our item description.
+            cell.zone = self.enabledZones[indexPath.section]
+            
+            if let match = item.prefixMatch(of: /\w+\s\w+/){
+                cell.section = Site.InjectionSection.init(rawValue: String(match.0))
+            }
+            
             cell.label.text = item
             cell.contentView.backgroundColor = .systemGreen
            /* cell.contentView.layer.borderColor = UIColor.black.cgColor
@@ -167,7 +175,9 @@ extension InjectionSiteViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        coordinator?.showInjectionZone()
+        let cell = collectionView.cellForItem(at: indexPath) as! ZoneCollectionViewCell
+        
+        coordinator?.showInjectionZone(zone: cell.zone!, section: cell.section!)
     }
 }
 

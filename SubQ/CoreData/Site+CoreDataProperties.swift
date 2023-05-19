@@ -17,7 +17,7 @@ extension Site {
     }
     
     enum InjectionSection: String, CaseIterable{
-        case topLeft = "Top Left", bottomLeft = "Bottom Left", bottomRight = "Top Right", topRight = "Bottom Right"
+        case topLeft = "Top Left", bottomLeft = "Bottom Left", topRight = "Top Right", bottomRight = "Bottom Right"
     }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Site> {
