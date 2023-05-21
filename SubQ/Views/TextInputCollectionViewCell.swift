@@ -1,34 +1,33 @@
 //
-//  TextInputTableViewCell.swift
+//  TextInputCollectionViewCell.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 5/11/23.
+//  Created by Constantine Thalasinos on 5/19/23.
 //
 
 import UIKit
-import SnapKit
 
-class TextInputTableViewCell: UITableViewCell {
-
-    var tableView: EditInjectionTableViewController?
-    
+class TextInputCollectionViewCell: UICollectionViewListCell {
     
     let label: UILabel = {
         let label = UILabel()
         label.text = "Injection Name: "
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .purple
+       // label.backgroundColor = .purple
+        label.frame.size = label.intrinsicContentSize
         
         return label
     }()
     let textField: UITextField = {
         let field = UITextField()
-        field.backgroundColor = .green
+       // field.backgroundColor = .green
         
         field.textAlignment = .left
         field.placeholder = "beep boop"
         
         field.translatesAutoresizingMaskIntoConstraints = false
+        
+        field.adjustsFontSizeToFitWidth = true
         
         //field.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
         
@@ -37,10 +36,11 @@ class TextInputTableViewCell: UITableViewCell {
     
   
     
-   let horizonalStackView: UIStackView = {
+/*   let horizonalStackView: UIStackView = {
        let stack = UIStackView()
        stack.axis = .horizontal
-       stack.distribution = .fillEqually
+      // stack.distribution = .fillEqually
+       stack.distribution = .fillProportionally
        stack.spacing = CGFloat(10)
       // stack.alignment = .bottom
        
@@ -50,31 +50,36 @@ class TextInputTableViewCell: UITableViewCell {
        stack.translatesAutoresizingMaskIntoConstraints = false
         
        return stack
-    }()
+    }()*/
     
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+      //  horizonalStackView.addArrangedSubview(label)
+     //   horizonalStackView.addArrangedSubview(textField)
         
-        horizonalStackView.addArrangedSubview(label)
-        horizonalStackView.addArrangedSubview(textField)
         
-        textField.snp.makeConstraints { make in
-            make.right.equalToSuperview()
-            make.left.equalTo(label.snp.right)
+        contentView.addSubview(label)
+        contentView.addSubview(textField)
+       // contentView.backgroundColor = .brown
+        
+        label.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
+            make.centerY.equalToSuperview()
         }
         
-        contentView.addSubview(horizonalStackView)
+        textField.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(10)
+            make.left.equalTo(label.snp.right).offset(5)
+            make.centerY.equalToSuperview()
+        }
         
-        
-        
-        
-        
-       horizonalStackView.snp.makeConstraints {(make) -> Void in
+        //contentView.addSubview(horizonalStackView)
+
+     /*  horizonalStackView.snp.makeConstraints {(make) -> Void in
            make.center.equalToSuperview()
            make.leading.equalToSuperview()
            make.trailing.equalToSuperview()
-        }
+        }*/
     }
     
     @objc func nameTextFieldChanged(_ sender: UITextField){
@@ -92,10 +97,5 @@ class TextInputTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
 
 }

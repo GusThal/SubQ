@@ -30,7 +30,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     }
     
     func start() {
-        let vc = EditInjectionTableViewController()
+        let vc = EditInjectionViewController()
         vc.coordinator = self
         
         //navigationController.present(vc, animated: true)
