@@ -24,8 +24,13 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         navigationController.delegate = self
         navigationController.pushViewController(vc, animated: false)
         
+        
         vc.tabBarItem = UITabBarItem(title: "Injection Sites", image: UIImage(systemName: "figure.arms.open"), selectedImage: nil)
         vc.navigationItem.title = "Injection Sites"
+        
+        let backButton = UIBarButtonItem()
+        backButton.tintColor = .label
+        vc.navigationItem.backBarButtonItem = backButton
     }
     
     func showInjectionZone(zone: Site.Zone, section: Site.InjectionSection){

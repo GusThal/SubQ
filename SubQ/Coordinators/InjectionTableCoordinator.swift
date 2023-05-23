@@ -22,6 +22,7 @@ class InjectionTableCoordinator: Coordinator{
     func start() {
         let vc = InjectionCollectionViewController()
         vc.coordinator = self
+        navigationController.navigationBar.prefersLargeTitles = true
         
         navigationController.pushViewController(vc, animated: false)
         vc.tabBarItem = UITabBarItem(title: "Injections", image: UIImage(systemName: "cross.vial"), selectedImage: UIImage(systemName: "cross.vial.fill"))

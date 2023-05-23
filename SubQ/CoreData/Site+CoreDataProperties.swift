@@ -12,7 +12,7 @@ import CoreData
 
 extension Site {
     
-    enum Zone: String{
+    enum Zone: String, CaseIterable{
         case abdomen = "Abdomen", thigh = "Thigh", upperArm = "Upper Arm", buttocks = "Buttocks"
     }
     
