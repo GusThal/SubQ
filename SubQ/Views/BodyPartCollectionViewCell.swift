@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class ZoneCollectionViewCell: UICollectionViewCell {
+class BodyPartCollectionViewCell: UICollectionViewCell {
     let label = UILabel()
-    var zone: Site.Zone?
+    var bodyPart: Site.BodyPart?
     var section: Site.InjectionSection?
 
     override init(frame: CGRect) {

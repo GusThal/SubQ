@@ -33,7 +33,7 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         vc.navigationItem.backBarButtonItem = backButton
     }
     
-    func showInjectionZone(zone: Site.Zone, section: Site.InjectionSection){
+    func showInjectionBodyPart(bodyPart: Site.BodyPart, section: Site.InjectionSection){
         let child  = InjectionSectionCoordinator(navigationController: navigationController, parentCoordinator: self)
         
         
@@ -41,7 +41,7 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         child.start()
         
         let vc = child.navigationController.viewControllers.last as! InjectionSectionViewController
-        vc.zone = zone
+        vc.bodyPart = bodyPart
         vc.section = section
     }
     

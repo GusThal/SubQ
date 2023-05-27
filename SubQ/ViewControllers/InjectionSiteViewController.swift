@@ -14,14 +14,14 @@ class InjectionSiteViewController: UIViewController {
         static let layoutFooter = "layout-footer-element-kind"
     }
     
-    let enabledZones: [Site.Zone] = [.upperArm, .abdomen, .thigh, .buttocks]
+    let enabledBodyParts: [Site.BodyPart] = [.upperArm, .abdomen, .thigh, .buttocks]
     
     var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
     var collectionView: UICollectionView! = nil
     
     weak var coordinator: InjectionSiteCoordinator?
     
-    let footerText = "To customize which injection zones are displayed, please head to the Settings tab on the bottom bar."
+    let footerText = "To customize which body parts are displayed, please head to the Settings tab on the bottom bar."
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ extension InjectionSiteViewController{
             layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
             
-            let zone = self.enabledZones[sectionIndex]
+            let bodyPart = self.enabledBodyParts[sectionIndex]
             
             let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                          heightDimension: .estimated(44))
@@ -101,10 +101,10 @@ extension InjectionSiteViewController {
     }
     func configureDataSource() {
         
-        let cellRegistration = UICollectionView.CellRegistration<ZoneCollectionViewCell, String> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<BodyPartCollectionViewCell, String> { (cell, indexPath, item) in
             
             // Populate the cell with our item description.
-            cell.zone = self.enabledZones[indexPath.section]
+            cell.bodyPart = self.enabledBodyParts[indexPath.section]
             
             if let match = item.prefixMatch(of: /\w+\s\w+/){
                 cell.section = Site.InjectionSection.init(rawValue: String(match.0))
@@ -121,7 +121,7 @@ extension InjectionSiteViewController {
         let headerRegistration = UICollectionView.SupplementaryRegistration
         <TextSupplementaryView>(elementKind: ElementKind.sectionHeader) {
             (supplementaryView, string, indexPath) in
-            supplementaryView.label.text = "\(self.enabledZones[indexPath.section].rawValue)"
+            supplementaryView.label.text = "\(self.enabledBodyParts[indexPath.section].rawValue)"
            /* supplementaryView.backgroundColor = .lightGray
             supplementaryView.layer.borderColor = UIColor.black.cgColor
             supplementaryView.layer.borderWidth = 1.0*/
@@ -175,9 +175,9 @@ extension InjectionSiteViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let cell = collectionView.cellForItem(at: indexPath) as! ZoneCollectionViewCell
+        let cell = collectionView.cellForItem(at: indexPath) as! BodyPartCollectionViewCell
         
-        coordinator?.showInjectionZone(zone: cell.zone!, section: cell.section!)
+        coordinator?.showInjectionBodyPart(bodyPart: cell.bodyPart!, section: cell.section!)
     }
 }
 

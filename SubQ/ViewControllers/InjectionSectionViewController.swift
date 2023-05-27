@@ -9,7 +9,7 @@ import UIKit
 
 class InjectionSectionViewController: UIViewController {
     
-    var zone: Site.Zone?
+    var bodyPart: Site.BodyPart?
     
     var section: Site.InjectionSection?
     
@@ -23,7 +23,7 @@ class InjectionSectionViewController: UIViewController {
         
         view.backgroundColor = .systemBrown
         
-        navigationItem.title = "\(zone!.rawValue) + \(section!.rawValue)"
+        navigationItem.title = "\(bodyPart!.rawValue) + \(section!.rawValue)"
     
         configureHierarchy()
         configureDataSource()
@@ -70,7 +70,7 @@ extension InjectionSectionViewController{
         view.addSubview(collectionView)
     }
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<ZoneCollectionViewCell, String> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<BodyPartCollectionViewCell, String> { (cell, indexPath, item) in
             // Populate the cell with our item description.
             cell.label.text = "\(item)"
            /* cell.contentView.backgroundColor = .cornflowerBlue

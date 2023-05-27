@@ -12,7 +12,7 @@ import CoreData
 
 extension Site {
     
-    enum Zone: String, CaseIterable{
+    enum BodyPart: String, CaseIterable{
         case abdomen = "Abdomen", thigh = "Thigh", upperArm = "Upper Arm", buttocks = "Buttocks"
     }
     
@@ -25,7 +25,7 @@ extension Site {
     }
 
     @NSManaged public var enabled: Bool
-    @NSManaged public var injectionZone: String?
+    @NSManaged public var bodyPart: String?
     @NSManaged public var lastInjected: Date?
     @NSManaged public var section: String
     @NSManaged public var subSection: String
@@ -46,6 +46,15 @@ extension Site {
         }
         set{
             section = newValue.rawValue
+        }
+    }
+    
+    var bodyPartVal: BodyPart{
+        get{
+            return BodyPart(rawValue: bodyPart!)!
+        }
+        set{
+            bodyPart = newValue.rawValue
         }
     }
 

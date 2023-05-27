@@ -16,10 +16,10 @@ class SettingsViewController: UIViewController {
     weak var coordinator: SettingsCoordinator?
     
     enum Section: Int{
-        case zones, misc
+        case bodyParts, misc
         var description: String {
             switch self {
-            case .zones: return "Zones"
+            case .bodyParts: return "Body Parts"
             case .misc: return "Misc"
             }
         }
@@ -36,9 +36,9 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    let zones = Site.Zone.allCases
+    let bodyParts = Site.BodyPart.allCases
     
-    var enabledZones = Site.Zone.allCases
+    var enabledBodyParts = Site.BodyPart.allCases
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +60,7 @@ class SettingsViewController: UIViewController {
             guard let sectionKind = Section(rawValue: sectionIndex) else { return nil }
             
             
-            if sectionKind == .zones {
+            if sectionKind == .bodyParts {
                 
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -97,14 +97,14 @@ extension SettingsViewController{
         collectionView.delegate = self
     }
     func configureDataSource() {
-        let zoneCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { (cell, indexPath, zone) in
+        let bodyPartCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { (cell, indexPath, bodyPart) in
             // Populate the cell with our item description.
             
             var content = cell.defaultContentConfiguration()
-            content.text = zone
+            content.text = bodyPart
             cell.contentConfiguration = content
             
-            cell.accessories = self.enabledZones.contains(Site.Zone.init(rawValue: zone)!) ? [.checkmark()] : []
+            cell.accessories = self.enabledBodyParts.contains(Site.BodyPart.init(rawValue: bodyPart)!) ? [.checkmark()] : []
         
         }
         
@@ -121,8 +121,8 @@ extension SettingsViewController{
         dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: String) -> UICollectionViewCell? in
             
-            if indexPath.section == Section.zones.rawValue{
-                return collectionView.dequeueConfiguredReusableCell(using: zoneCellRegistration, for: indexPath, item: item)
+            if indexPath.section == Section.bodyParts.rawValue{
+                return collectionView.dequeueConfiguredReusableCell(using: bodyPartCellRegistration, for: indexPath, item: item)
             }
             else{
                 return collectionView.dequeueConfiguredReusableCell(using: miscCellRegistration, for: indexPath, item: item)
@@ -132,15 +132,15 @@ extension SettingsViewController{
 
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
-        snapshot.appendSections([Section.zones, Section.misc])
+        snapshot.appendSections([Section.bodyParts, Section.misc])
         dataSource.apply(snapshot, animatingDifferences: false)
 
         
         
-        var zonesSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+        var bodyPartsSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
         //zonesSnapshot.append(Site.zones)
-        zonesSnapshot.append(enabledZones.map({ $0.rawValue }))
-        dataSource.apply(zonesSnapshot, to: .zones, animatingDifferences: false)
+        bodyPartsSnapshot.append(enabledBodyParts.map({ $0.rawValue }))
+        dataSource.apply(bodyPartsSnapshot, to: .bodyParts, animatingDifferences: false)
         
         var sitesSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
         //sitesSnapshot.append(Site.sites)
@@ -161,18 +161,18 @@ extension SettingsViewController: UICollectionViewDelegate{
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        if section == Section.zones.rawValue{
+        if section == Section.bodyParts.rawValue{
             if cell.accessories.isEmpty{
                 cell.accessories = [.checkmark()]
                 
-                if !enabledZones.contains(zones[index]){
-                    enabledZones.append(zones[index])
+                if !enabledBodyParts.contains(bodyParts[index]){
+                    enabledBodyParts.append(bodyParts[index])
                 }
             }
             else{
                 cell.accessories = []
-                enabledZones.removeAll { value in
-                    return value == zones[index]
+                enabledBodyParts.removeAll { value in
+                    return value == bodyParts[index]
                 }
             }
             //applySnapshots()
@@ -182,7 +182,7 @@ extension SettingsViewController: UICollectionViewDelegate{
             
         }
         
-        print(enabledZones)
+        print(enabledBodyParts)
         
     }
     
