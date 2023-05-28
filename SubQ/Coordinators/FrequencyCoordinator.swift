@@ -10,18 +10,22 @@ import UIKit
 
 class FrequencyCoordinator: ModalChildCoordinator{
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
+        self.storageProvider = storageProvider
     }
     
     weak var parentNavigationController: UINavigationController?
     
     weak var parentCoordinator: Coordinator?
     
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator) {
+    var storageProvider: StorageProvider
+    
+    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
+        self.storageProvider = storageProvider
     }
     
     

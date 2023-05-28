@@ -14,9 +14,11 @@ class InjectionTableCoordinator: Coordinator{
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     weak var tabBarController: UITabBarController?
+    var storageProvider: StorageProvider
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
+        self.storageProvider = storageProvider
     }
     
     func start() {
@@ -41,7 +43,7 @@ class InjectionTableCoordinator: Coordinator{
         navigationController.viewControllers.first!.present(nc, animated: true)*/
         
         
-        let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self)
+        let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
         
         childCoordinators.append(child)
         child.start()

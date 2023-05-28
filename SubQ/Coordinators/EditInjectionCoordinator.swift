@@ -19,14 +19,18 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     
     weak var parentCoordinator: Coordinator?
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
+    var storageProvider: StorageProvider
+    
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
+        self.storageProvider = storageProvider
     }
     
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator) {
+    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
+        self.storageProvider = storageProvider
     }
     
     func start() {
@@ -56,7 +60,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     }
     
     func showFrequencyController(){
-        let child  = FrequencyCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self)
+        let child  = FrequencyCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
         
         childCoordinators.append(child)
         child.start()

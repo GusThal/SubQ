@@ -17,16 +17,17 @@ class InjectionSectionCoordinator: Coordinator{
     
     var navigationController: UINavigationController
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
+    var storageProvider: StorageProvider
+    
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.parentCoordinator = parentCoordinator
+        self.storageProvider = storageProvider
         
     }
     
     
-    required init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
+
     
     func start() {
         let vc = InjectionSectionViewController()

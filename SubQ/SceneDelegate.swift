@@ -12,6 +12,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     var coordinator: MainCoordinator?
+    
+    let storageProvider = StorageProvider()
+    
+    
 
 
     //I think it makes the most sense to keep a MainCoordinator that launches the TabBarController. This Coordinator can instantiate the Login/account creation flow.
@@ -30,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // tell the coordinator to take over control
         //coordinator?.start()
         
-        let tabBarController = MainTabBarController()
+        let tabBarController = MainTabBarController(storageProvider: storageProvider)
 
         // create a basic UIWindow and activate it
         window = UIWindow(windowScene: windowScene)
@@ -66,7 +70,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        
+        #warning("I commented this out, not sure if this will be needed")
+       // (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
 

@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Core Data stack
-
+/*
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         /*
          The persistent container for the application. This implementation
@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
+    }*/
 
 }
 

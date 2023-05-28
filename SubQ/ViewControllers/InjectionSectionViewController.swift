@@ -9,7 +9,7 @@ import UIKit
 
 class InjectionSectionViewController: UIViewController {
     
-    var bodyPart: Site.BodyPart?
+    var bodyPart: BodyPart.Location?
     
     var section: Site.InjectionSection?
     

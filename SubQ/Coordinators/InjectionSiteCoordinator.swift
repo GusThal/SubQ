@@ -12,9 +12,11 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
     var parentCoordinator: Coordinator?
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    var storageProvider: StorageProvider
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
+        self.storageProvider = storageProvider
     }
     
     
@@ -33,8 +35,8 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         vc.navigationItem.backBarButtonItem = backButton
     }
     
-    func showInjectionBodyPart(bodyPart: Site.BodyPart, section: Site.InjectionSection){
-        let child  = InjectionSectionCoordinator(navigationController: navigationController, parentCoordinator: self)
+    func showInjectionBodyPart(bodyPart: BodyPart.Location, section: Site.InjectionSection){
+        let child  = InjectionSectionCoordinator(navigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider)
         
         
         childCoordinators.append(child)

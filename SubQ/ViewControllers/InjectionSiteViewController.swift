@@ -14,7 +14,7 @@ class InjectionSiteViewController: UIViewController {
         static let layoutFooter = "layout-footer-element-kind"
     }
     
-    let enabledBodyParts: [Site.BodyPart] = [.upperArm, .abdomen, .thigh, .buttocks]
+    let enabledBodyParts: [BodyPart.Location] = [.upperArm, .abdomen, .thigh, .buttocks]
     
     var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
     var collectionView: UICollectionView! = nil

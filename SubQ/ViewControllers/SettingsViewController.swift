@@ -36,9 +36,9 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    let bodyParts = Site.BodyPart.allCases
+    let bodyParts = BodyPart.Location.allCases
     
-    var enabledBodyParts = Site.BodyPart.allCases
+    var enabledBodyParts = BodyPart.Location.allCases
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +104,7 @@ extension SettingsViewController{
             content.text = bodyPart
             cell.contentConfiguration = content
             
-            cell.accessories = self.enabledBodyParts.contains(Site.BodyPart.init(rawValue: bodyPart)!) ? [.checkmark()] : []
+            cell.accessories = self.enabledBodyParts.contains(BodyPart.Location.init(rawValue: bodyPart)!) ? [.checkmark()] : []
         
         }
         

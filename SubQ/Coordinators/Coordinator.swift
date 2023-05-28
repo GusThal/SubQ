@@ -14,8 +14,9 @@ protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
     var parentCoordinator: Coordinator? { get set }
+    var storageProvider: StorageProvider {get set}
     
-    init(navigationController: UINavigationController, parentCoordinator: Coordinator?)
+    init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider)
 
     func start()
 }
@@ -35,5 +36,5 @@ extension Coordinator{
 protocol ModalChildCoordinator: Coordinator{
     var parentNavigationController: UINavigationController? { get set }
     
-    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator)
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider)
 }

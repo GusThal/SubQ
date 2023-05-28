@@ -2,7 +2,7 @@
 //  Injection+CoreDataProperties.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 5/6/23.
+//  Created by Constantine Thalasinos on 5/28/23.
 //
 //
 
@@ -39,6 +39,8 @@ extension Injection {
             units = newValue.rawValue
         }
     }
+    
+    
 
 }
 

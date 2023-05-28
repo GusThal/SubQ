@@ -9,12 +9,30 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    let injectionTableCoordinator = InjectionTableCoordinator(navigationController: UINavigationController(), parentCoordinator: nil)
-    let injectionSiteCoordinator = InjectionSiteCoordinator(navigationController: UINavigationController(), parentCoordinator: nil)
-    let injectionHistoryCoordinator = InjectionHistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil)
-    let settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
-    parentCoordinator: nil)
-
+    let injectionTableCoordinator: InjectionTableCoordinator
+    let injectionSiteCoordinator: InjectionSiteCoordinator
+    let injectionHistoryCoordinator: InjectionHistoryCoordinator
+    let settingsCoordinator: SettingsCoordinator
+    
+    let storageProvider: StorageProvider
+    
+    init(storageProvider: StorageProvider){
+        self.storageProvider = storageProvider
+        
+        self.injectionTableCoordinator = InjectionTableCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
+        self.injectionSiteCoordinator = InjectionSiteCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
+        self.injectionHistoryCoordinator = InjectionHistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil,  storageProvider: storageProvider)
+        self.settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
+        parentCoordinator: nil,  storageProvider: storageProvider)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     
     override func viewDidLoad() {

@@ -2,7 +2,7 @@
 //  Site+CoreDataProperties.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 5/6/23.
+//  Created by Constantine Thalasinos on 5/28/23.
 //
 //
 
@@ -11,29 +11,24 @@ import CoreData
 
 
 extension Site {
-    
-    enum BodyPart: String, CaseIterable{
-        case abdomen = "Abdomen", thigh = "Thigh", upperArm = "Upper Arm", buttocks = "Buttocks"
-    }
-    
-    enum InjectionSection: String, CaseIterable{
-        case topLeft = "Top Left", bottomLeft = "Bottom Left", topRight = "Top Right", bottomRight = "Bottom Right"
-    }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Site> {
         return NSFetchRequest<Site>(entityName: "Site")
     }
 
-    @NSManaged public var enabled: Bool
-    @NSManaged public var bodyPart: String?
     @NSManaged public var lastInjected: Date?
-    @NSManaged public var section: String
-    @NSManaged public var subSection: String
+    @NSManaged public var section: String?
+    @NSManaged public var subSection: String?
     @NSManaged public var siteHistory: NSSet?
+    @NSManaged public var bodyPart: BodyPart?
+    
+    enum InjectionSection: String, CaseIterable{
+        case topLeft = "Top Left", bottomLeft = "Bottom Left", topRight = "Top Right", bottomRight = "Bottom Right"
+    }
     
     var subSectionVal: InjectionSection{
         get{
-            return InjectionSection(rawValue: subSection)!
+            return InjectionSection(rawValue: subSection!)!
         }
         set{
             subSection = newValue.rawValue
@@ -42,19 +37,10 @@ extension Site {
     
     var sectionVal: InjectionSection{
         get{
-            return InjectionSection(rawValue: section)!
+            return InjectionSection(rawValue: section!)!
         }
         set{
             section = newValue.rawValue
-        }
-    }
-    
-    var bodyPartVal: BodyPart{
-        get{
-            return BodyPart(rawValue: bodyPart!)!
-        }
-        set{
-            bodyPart = newValue.rawValue
         }
     }
 

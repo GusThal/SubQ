@@ -12,15 +12,17 @@ class MainCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    var storageProvider: StorageProvider
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?) {
+    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
+        self.storageProvider = storageProvider
         
     }
 
 
     func start() {
-        let vc = MainTabBarController()
+        let vc = MainTabBarController(storageProvider: storageProvider)
         navigationController.pushViewController(vc, animated: false)
     }
 }

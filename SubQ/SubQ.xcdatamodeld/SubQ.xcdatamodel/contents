@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G646" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="BodyPart" representedClassName="BodyPart" syncable="YES">
+        <attribute name="enabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="part" attributeType="String" defaultValueString="&quot;&quot;"/>
+        <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="bodyPart" inverseEntity="Site"/>
+    </entity>
     <entity name="History" representedClassName="History" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="705074820" usesScalarValueType="NO"/>
         <relationship name="injection" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Injection" inverseName="injectionHistory" inverseEntity="Injection"/>
@@ -14,11 +19,10 @@
         <relationship name="injectionHistory" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="History" inverseName="injection" inverseEntity="History"/>
     </entity>
     <entity name="Site" representedClassName="Site" syncable="YES">
-        <attribute name="bodyPart" attributeType="String" defaultValueString=""/>
-        <attribute name="enabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastInjected" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="section" attributeType="String" defaultValueString=""/>
         <attribute name="subSection" attributeType="String" defaultValueString=""/>
+        <relationship name="bodyPart" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BodyPart" inverseName="site" inverseEntity="BodyPart"/>
         <relationship name="siteHistory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="History" inverseName="site" inverseEntity="History"/>
     </entity>
 </model>
