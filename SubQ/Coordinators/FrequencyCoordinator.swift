@@ -21,6 +21,8 @@ class FrequencyCoordinator: ModalChildCoordinator{
     
     var storageProvider: StorageProvider
     
+    var viewModel: EditInjectionViewModel?
+    
     required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
@@ -48,10 +50,35 @@ class FrequencyCoordinator: ModalChildCoordinator{
         parentNavigationController!.present(navigationController, animated: true)
     }
     
-    func done(){
+    func done(isDailySelected: Bool, isAsNeededSelected: Bool, selectedDays: [Bool]){
         parentNavigationController!.dismiss(animated: true)
 
         parentCoordinator?.childDidFinish(self)
+        
+        guard let viewModel else { return }
+        
+        
+        
+        if isDailySelected{
+            viewModel.selectedFrequency = [.daily]
+        }
+        else if isAsNeededSelected{
+            viewModel.selectedFrequency = [.asNeeded]
+        }
+        else{
+            
+            viewModel.selectedFrequency = []
+            
+            for (i, day) in viewModel.days.enumerated(){
+                
+                if selectedDays[i]{
+                    viewModel.selectedFrequency.append(day)
+                }
+                
+            }
+            
+        }
+        
     }
     
     

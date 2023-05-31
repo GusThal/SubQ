@@ -18,6 +18,21 @@ extension Injection {
     
     enum Frequency: String, CaseIterable{
         case sun = "Sunday", mon = "Monday", tues = "Tuesday", wed = "Wednesday", thurs = "Thursday", fri = "Friday", sat = "Saturday", daily = "Daily", asNeeded = "As Needed"
+        
+        var shortened: String {
+            switch self{
+            case .sun: return "Sun"
+            case .mon: return "Mon"
+            case .tues:  return "Tue"
+            case .wed: return "Wed"
+            case .thurs: return "Thu"
+            case .fri: return "Fri"
+            case .sat: return "Sat"
+            default:
+                return self.rawValue
+            }
+            
+        }
     }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Injection> {

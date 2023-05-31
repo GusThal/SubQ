@@ -10,7 +10,6 @@ import UIKit
 class EditInjectionCoordinator: ModalChildCoordinator{
 
     
-    
     var childCoordinators = [Coordinator]()
     
     var navigationController: UINavigationController
@@ -21,9 +20,15 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     
     var storageProvider: StorageProvider
     
+    let viewModel: EditInjectionViewModel
+    
+    
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
+        
+        viewModel = EditInjectionViewModel(storageProvider: storageProvider, injection: nil)
+        
     }
     
     required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
@@ -31,10 +36,12 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
+        
+        viewModel = EditInjectionViewModel(storageProvider: storageProvider, injection: nil)
     }
     
     func start() {
-        let vc = EditInjectionViewController()
+        let vc = EditInjectionViewController(viewModel: viewModel)
         vc.coordinator = self
         
         //navigationController.present(vc, animated: true)
@@ -63,6 +70,9 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         let child  = FrequencyCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
         
         childCoordinators.append(child)
+        
+        child.viewModel = viewModel
+        
         child.start()
     }
     

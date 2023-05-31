@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class EditInjectionViewController: UIViewController {
 
@@ -13,6 +14,9 @@ class EditInjectionViewController: UIViewController {
     
     private var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
     private var collectionView: UICollectionView! = nil
+    
+    var viewModel: EditInjectionViewModel
+    var cancellables = Set<AnyCancellable>()
     
     
     enum Section: Int{
@@ -33,6 +37,38 @@ class EditInjectionViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         
+        bindVariables()
+        
+    }
+    
+    func bindVariables(){
+        
+        viewModel.frequencySubject.sink { [self] frequency in
+                
+            var snap = dataSource.snapshot(for: Section.frequency.rawValue)
+                
+            let firstItem = snap.items[0]
+            
+            var freq = frequency
+            
+            if frequency == nil || frequency!.isEmpty{
+                freq = "None Selected"
+            }
+            
+            //do nothing
+            if freq == "None Selected" && snap.contains(freq!){
+                
+            }
+            else{
+                snap.insert([freq!], before: firstItem)
+                snap.delete([firstItem])
+                
+                dataSource.apply(snap, to: Section.frequency.rawValue, animatingDifferences: false)
+              
+            }
+            
+        }.store(in: &cancellables)
+        
     }
     
     @objc func cancelButtonPressed(_ sender: Any){
@@ -45,7 +81,17 @@ class EditInjectionViewController: UIViewController {
         print("save")
         coordinator?.saveEdit()
     }
-
+    
+    init(viewModel: EditInjectionViewModel){
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
 }
 

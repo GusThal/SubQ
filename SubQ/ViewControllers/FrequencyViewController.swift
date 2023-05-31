@@ -16,6 +16,14 @@ class FrequencyViewController: UIViewController {
     
     let days = Injection.Frequency.allCases.filter { ![Injection.Frequency.asNeeded, Injection.Frequency.daily].contains($0) }
     
+    
+    var isDailySelected = false
+    var isAsNeededSelected = false
+    
+    var selectedDays = Array(repeating: false, count: 7)
+    
+    
+    
     enum Section: Int{
         case asNeeded = 0, daily = 1, days = 2
     }
@@ -25,9 +33,6 @@ class FrequencyViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
         
         // Do any additional setup after loading the view.
         
@@ -43,7 +48,7 @@ class FrequencyViewController: UIViewController {
 
     @objc func doneButtonPressed(_ sender: Any){
         print("done")
-        coordinator?.done()
+        coordinator?.done(isDailySelected: isDailySelected, isAsNeededSelected: isAsNeededSelected, selectedDays: selectedDays)
     }
 
 }
@@ -106,19 +111,25 @@ extension FrequencyViewController: UICollectionViewDelegate{
         
         let cell = collectionView.cellForItem(at: indexPath) as! UICollectionViewListCell
         
+        
+        
         //as needed cell
         if section == Section.asNeeded.rawValue{
             
             if !cell.accessories.isEmpty{
                 cell.accessories = []
+                isAsNeededSelected = false
             }
             else{
                 cell.accessories = [.checkmark()]
+                isAsNeededSelected = true
                 
                 let dailyCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.daily.rawValue)) as! UICollectionViewListCell
                 dailyCell.accessories = []
+                isDailySelected = false
                 
                 uncheckAllDays()
+                
             }
             
         }
@@ -127,12 +138,16 @@ extension FrequencyViewController: UICollectionViewDelegate{
             
             if !cell.accessories.isEmpty{
                 cell.accessories = []
+            
+                isDailySelected = false
             }
             else{
                 cell.accessories = [.checkmark()]
+                isDailySelected = true
                 
                 let asNeededCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.asNeeded.rawValue)) as! UICollectionViewListCell
                 asNeededCell.accessories = []
+                isAsNeededSelected = false
                 
                 uncheckAllDays()
             }
@@ -143,21 +158,39 @@ extension FrequencyViewController: UICollectionViewDelegate{
         else{
             if !cell.accessories.isEmpty{
                 cell.accessories = []
+                selectedDays[item] = false
+                
                // selectedDays[row] = false
             }
             else{
                 cell.accessories = [.checkmark()]
+                selectedDays[item] = true
                 
                 let asNeededCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.asNeeded.rawValue)) as! UICollectionViewListCell
                 asNeededCell.accessories = []
+                isAsNeededSelected = false
+                
                 
                 let dailyCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.daily.rawValue)) as! UICollectionViewListCell
-                dailyCell.accessories = []
+               // dailyCell.accessories = []
+               // isDailySelected = false
                 
                 if allDaysSelected(){
                     dailyCell.accessories = [.checkmark()]
                     cell.accessories = []
+                    isDailySelected = true
                     uncheckAllDays()
+                }
+                else{
+                    dailyCell.accessories = []
+                    isDailySelected = false
+                    isAsNeededSelected = false
+                    
+                    
+                 /*   selectedFrequencies.removeAll { !days.contains($0) }
+                    selectedFrequencies.append(dataSource.itemIdentifier(for: indexPath)!)*/
+                    
+                    
                 }
                 
                 
@@ -176,6 +209,7 @@ extension FrequencyViewController: UICollectionViewDelegate{
         for i in 0...days.count-1{
             let cell = collectionView.cellForItem(at: IndexPath(item: i, section: Section.days.rawValue)) as! UICollectionViewListCell
             cell.accessories = []
+            selectedDays[i] = false
         }
     }
     
@@ -194,4 +228,5 @@ extension FrequencyViewController: UICollectionViewDelegate{
         
         return numOfCheckedDays == days.count ? true : false
     }
+    
 }
