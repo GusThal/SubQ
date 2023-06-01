@@ -55,11 +55,9 @@ class EditInjectionViewController: UIViewController {
                 freq = "None Selected"
             }
             
-            //do nothing
-            if freq == "None Selected" && snap.contains(freq!){
+            
+            if !snap.contains(freq!){
                 
-            }
-            else{
                 snap.insert([freq!], before: firstItem)
                 snap.delete([firstItem])
                 
