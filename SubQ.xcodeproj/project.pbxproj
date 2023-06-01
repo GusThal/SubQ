@@ -24,6 +24,8 @@
 		CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517A29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld */; };
 		CC9F517E29FEBD1E00E6FAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517D29FEBD1E00E6FAF6 /* Assets.xcassets */; };
 		CC9F518129FEBD1E00E6FAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517F29FEBD1E00E6FAF6 /* LaunchScreen.storyboard */; };
+		CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */; };
+		CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980322A281B7D00BF518C /* DatePickerContentView.swift */; };
 		CCBCE2192A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2182A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift */; };
 		CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */; };
 		CCBCE21D2A15149C001B73D6 /* InjectionSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21C2A15149C001B73D6 /* InjectionSectionViewController.swift */; };
@@ -71,6 +73,8 @@
 		CC9F517D29FEBD1E00E6FAF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC9F518029FEBD1E00E6FAF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC9F518229FEBD1E00E6FAF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentConfiguration.swift; sourceTree = "<group>"; };
+		CCA980322A281B7D00BF518C /* DatePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentView.swift; sourceTree = "<group>"; };
 		CCBCE2182A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSupplementaryView.swift; sourceTree = "<group>"; };
 		CCBCE21C2A15149C001B73D6 /* InjectionSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionSectionViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,16 @@
 			path = SubQ;
 			sourceTree = "<group>";
 		};
+		CCA9802D2A281A5A00BF518C /* TimePickerCell */ = {
+			isa = PBXGroup;
+			children = (
+				CCBCE2292A17CD62001B73D6 /* TimePickerCollectionViewCell.swift */,
+				CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */,
+				CCA980322A281B7D00BF518C /* DatePickerContentView.swift */,
+			);
+			path = TimePickerCell;
+			sourceTree = "<group>";
+		};
 		CCC4B8612A0403FF008BFF81 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,11 +228,11 @@
 		CCC4B8962A0D9446008BFF81 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CCA9802D2A281A5A00BF518C /* TimePickerCell */,
 				CCBCE2182A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift */,
 				CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */,
 				CCBCE2232A16F10E001B73D6 /* TimePickerTableViewCell.swift */,
 				CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */,
-				CCBCE2292A17CD62001B73D6 /* TimePickerCollectionViewCell.swift */,
 				CCBCE2332A1A7077001B73D6 /* CenteredTextLabelCell.swift */,
 			);
 			path = Views;
@@ -317,9 +331,11 @@
 				CCE943802A01B23B00514710 /* Coordinator.swift in Sources */,
 				CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */,
 				CC31CD6C2A23ECB700C20CAB /* History+CoreDataProperties.swift in Sources */,
+				CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */,
 				CC31CD6A2A23ECB700C20CAB /* Injection+CoreDataProperties.swift in Sources */,
 				CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
+				CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */,
 				CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */,
 				CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */,
 				CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */,
