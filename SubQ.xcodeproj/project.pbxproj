@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1356DC2A294AE50073431B /* InjectionProvider.swift */; };
 		CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */; };
 		CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */; };
 		CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD5F2A23ECB700C20CAB /* BodyPart+CoreDataClass.swift */; };
@@ -40,7 +41,7 @@
 		CCC4B8662A044738008BFF81 /* InjectionSiteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8652A044738008BFF81 /* InjectionSiteCoordinator.swift */; };
 		CCC4B8682A0447C9008BFF81 /* InjectionHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8672A0447C9008BFF81 /* InjectionHistoryCoordinator.swift */; };
 		CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */; };
-		CCC4B86C2A0453B3008BFF81 /* InjectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B86B2A0453B3008BFF81 /* InjectionCollectionViewController.swift */; };
+		CCC4B86C2A0453B3008BFF81 /* InjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */; };
 		CCC4B8702A045901008BFF81 /* InjectionSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B86F2A045901008BFF81 /* InjectionSiteViewController.swift */; };
 		CCC4B8722A04591B008BFF81 /* InjectionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */; };
 		CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC1356DC2A294AE50073431B /* InjectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionProvider.swift; sourceTree = "<group>"; };
 		CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProvider.swift; sourceTree = "<group>"; };
 		CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Shared.swift"; sourceTree = "<group>"; };
 		CC31CD5F2A23ECB700C20CAB /* BodyPart+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BodyPart+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -89,7 +91,7 @@
 		CCC4B8652A044738008BFF81 /* InjectionSiteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionSiteCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8672A0447C9008BFF81 /* InjectionHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionHistoryCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
-		CCC4B86B2A0453B3008BFF81 /* InjectionCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionCollectionViewController.swift; sourceTree = "<group>"; };
+		CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionViewController.swift; sourceTree = "<group>"; };
 		CCC4B86F2A045901008BFF81 /* InjectionSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionSiteViewController.swift; sourceTree = "<group>"; };
 		CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionHistoryViewController.swift; sourceTree = "<group>"; };
 		CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -191,7 +193,7 @@
 				CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */,
 				CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */,
 				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
-				CCC4B86B2A0453B3008BFF81 /* InjectionCollectionViewController.swift */,
+				CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */,
 				CCC4B86F2A045901008BFF81 /* InjectionSiteViewController.swift */,
 				CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */,
 				CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */,
@@ -221,6 +223,7 @@
 			children = (
 				CC22B2B72A1E522F00EE9C85 /* Models */,
 				CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */,
+				CC1356DC2A294AE50073431B /* InjectionProvider.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -318,13 +321,14 @@
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
 				CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */,
 				CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */,
-				CCC4B86C2A0453B3008BFF81 /* InjectionCollectionViewController.swift in Sources */,
+				CCC4B86C2A0453B3008BFF81 /* InjectionViewController.swift in Sources */,
 				CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */,
 				CCC4B8642A0413C0008BFF81 /* InjectionTableCoordinator.swift in Sources */,
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CCBCE2242A16F10E001B73D6 /* TimePickerTableViewCell.swift in Sources */,
 				CCC4B8682A0447C9008BFF81 /* InjectionHistoryCoordinator.swift in Sources */,
 				CCBCE21F2A1524D7001B73D6 /* InjectionSectionCoordinator.swift in Sources */,
+				CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */,
 				CCBCE21D2A15149C001B73D6 /* InjectionSectionViewController.swift in Sources */,
 				CCC4B8722A04591B008BFF81 /* InjectionHistoryViewController.swift in Sources */,
 				CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */,

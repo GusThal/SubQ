@@ -22,10 +22,14 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     
     let viewModel: EditInjectionViewModel
     
+    let injectionProvider: InjectionProvider
+    
+    
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
+        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         
         viewModel = EditInjectionViewModel(storageProvider: storageProvider, injection: nil)
         
@@ -36,6 +40,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
+        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         
         viewModel = EditInjectionViewModel(storageProvider: storageProvider, injection: nil)
     }
@@ -60,8 +65,14 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         parentCoordinator?.childDidFinish(self)
     }
     
-    func saveEdit(){
+    func saveEdit(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], date: Date){
+        
+        print("\(name) + \(dosage) + \(units) + \(frequency) + \(date)")
+        
+       injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: date)
+        
         parentNavigationController!.dismiss(animated: true)
+        
 
         parentCoordinator?.childDidFinish(self)
     }

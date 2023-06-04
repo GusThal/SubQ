@@ -55,6 +55,29 @@ extension Injection {
         }
     }
     
+    var daysVal: [Injection.Frequency]{
+        get{
+            
+            days!.components(separatedBy: ", ").map({ Injection.Frequency(rawValue: $0)!})
+            
+        }
+        
+    }
+    
+    var prettyTime: String?{
+        get{
+            
+            guard let time else { return nil}
+            
+            let formatter = DateFormatter()
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            
+            
+            return formatter.string(from: time)
+        }
+    }
+    
     
 
 }

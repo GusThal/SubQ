@@ -27,7 +27,7 @@ class EditInjectionViewModel{
     lazy var frequencySubject: AnyPublisher<String?, Never> = {
 
         return $selectedFrequency.map({ frequency in
-            return frequency.count == 1 ? frequency[0].shortened : frequency.map { $0.shortened }.joined(separator: ",")
+            return frequency.count == 1 ? frequency[0].shortened : frequency.map { $0.shortened }.joined(separator: ", ")
             
         }).eraseToAnyPublisher()
     }()

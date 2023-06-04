@@ -13,13 +13,15 @@ import UIKit
 
 class TimePickerCollectionViewCell: UICollectionViewListCell {
     
+    var action: UIAction?
+    
     override func updateConfiguration(using state: UICellConfigurationState) {
         
         // Create new configuration object and update it base on state
         var newConfiguration = DatePickerContentConfiguration().updated(for: state)
         
         // Update any configuration parameters related to data item
-        //newConfiguration.item = item
+        newConfiguration.action = action
         
         // Set content configuration in order to update custom content view
         contentConfiguration = newConfiguration

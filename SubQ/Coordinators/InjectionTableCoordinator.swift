@@ -15,14 +15,16 @@ class InjectionTableCoordinator: Coordinator{
     var navigationController: UINavigationController
     weak var tabBarController: UITabBarController?
     var storageProvider: StorageProvider
+    let injectionProvider: InjectionProvider
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
+        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
     }
     
     func start() {
-        let vc = InjectionCollectionViewController()
+        let vc = InjectionViewController(injectionProvider: injectionProvider)
         vc.coordinator = self
         navigationController.navigationBar.prefersLargeTitles = true
         

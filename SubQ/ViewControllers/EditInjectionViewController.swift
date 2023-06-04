@@ -18,6 +18,12 @@ class EditInjectionViewController: UIViewController {
     var viewModel: EditInjectionViewModel
     var cancellables = Set<AnyCancellable>()
     
+    lazy var nameTextField = UITextField()
+    lazy var dosageTextField = UITextField()
+    lazy var unitsSelector = UISegmentedControl()
+    lazy var timePicker = UIDatePicker()
+    lazy var selectedDate = Date()
+    
     
     enum Section: Int{
         case info = 0, frequency = 1, delete = 2
@@ -77,7 +83,12 @@ class EditInjectionViewController: UIViewController {
     
     @objc func saveButtonPressed(_ sender: Any){
         print("save")
-        coordinator?.saveEdit()
+        
+        
+        let units = Injection.DosageUnits(rawValue: Injection.DosageUnits.allCases.map({$0.rawValue})[unitsSelector.selectedSegmentIndex])!
+        
+        
+        coordinator?.saveEdit(name: nameTextField.text!, dosage: Double.init(dosageTextField.text!)!, units: units, frequency: viewModel.selectedFrequency, date: selectedDate)
     }
     
     init(viewModel: EditInjectionViewModel){
@@ -120,6 +131,9 @@ extension EditInjectionViewController{
                 if indexPath.item == 0{
                     cell.label.text = "Injection Name:"
                     cell.textField.placeholder = item
+                    
+                    self.nameTextField = cell.textField
+                    cell.textInputType = .text
                   //  cell.label.sizeToFit()
                   //  cell.label.adjustsFontSizeToFitWidth = true
                     
@@ -127,10 +141,15 @@ extension EditInjectionViewController{
                 else if indexPath.item == 1{
                     cell.label.text = "Dosage:"
                     cell.textField.placeholder = item
+                    
+                    self.dosageTextField = cell.textField
+                    cell.textInputType = .number
 
                     
                     let segmentedControl = UISegmentedControl(items: Injection.DosageUnits.allCases.map({$0.rawValue}))
                     segmentedControl.selectedSegmentIndex = 0
+                    
+                    self.unitsSelector = segmentedControl
                     
                     let segmentedAccessory = UICellAccessory.CustomViewConfiguration(customView: segmentedControl, placement: .trailing(displayed: .always), reservedLayoutWidth: .actual)
                     
@@ -148,6 +167,29 @@ extension EditInjectionViewController{
         }
         
         let timePickerRegistration = UICollectionView.CellRegistration<TimePickerCollectionViewCell, String> { cell, indexPath, itemIdentifier in
+            
+            cell.action = UIAction(handler: { [unowned self] (action) in
+                
+                // Make sure sender is a date picker
+                guard let picker = action.sender as? UIDatePicker else {
+                    return
+                }
+                
+                let formatter = DateFormatter()
+                formatter.dateStyle = .none
+                formatter.timeStyle = .short
+                
+               // selectedDate = formatter.string(from: picker.date)
+                
+                print(formatter.string(from: picker.date))
+                
+                
+                
+                selectedDate = picker.date
+                
+            
+            })
+            
             
         }
         
@@ -246,9 +288,6 @@ extension EditInjectionViewController: UICollectionViewDelegate{
         if section == Section.frequency.rawValue && item == 0{
             coordinator?.showFrequencyController()
         }
-        
-        
-        
         
         
     }

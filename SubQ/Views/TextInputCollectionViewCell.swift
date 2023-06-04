@@ -9,6 +9,16 @@ import UIKit
 
 class TextInputCollectionViewCell: UICollectionViewListCell {
     
+    enum TextType{
+        case text, number
+    }
+    
+    var textInputType: TextType = .text{
+        didSet{
+            textField.keyboardType = textInputType == .number ? .decimalPad : .default
+        }
+    }
+    
     let label: UILabel = {
         let label = UILabel()
         label.text = "Injection Name: "
@@ -28,6 +38,8 @@ class TextInputCollectionViewCell: UICollectionViewListCell {
         field.translatesAutoresizingMaskIntoConstraints = false
         
         field.adjustsFontSizeToFitWidth = true
+        
+        
         
         //field.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
         

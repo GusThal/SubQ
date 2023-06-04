@@ -76,5 +76,9 @@ private extension DatePickerContentView {
         
         // Replace current configuration with new configuration
         currentConfiguration = configuration
+        
+        if let action = currentConfiguration.action{
+            picker.addAction(action, for: .primaryActionTriggered)
+        }
     }
 }
