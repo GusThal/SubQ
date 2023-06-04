@@ -50,7 +50,7 @@ class InjectionCoordinator: Coordinator{
         navigationController.viewControllers.first!.present(nc, animated: true)*/
         
         
-        let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
+        let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionProvider: viewModel.injectionProvider)
         
         childCoordinators.append(child)
         child.start()

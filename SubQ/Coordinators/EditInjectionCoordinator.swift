@@ -31,7 +31,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         self.storageProvider = storageProvider
         self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         
-        viewModel = EditInjectionViewModel(storageProvider: storageProvider, injection: nil)
+        viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
         
     }
     
@@ -42,7 +42,19 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         self.storageProvider = storageProvider
         self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         
-        viewModel = EditInjectionViewModel(storageProvider: storageProvider, injection: nil)
+        viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
+    }
+    
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionProvider: InjectionProvider) {
+        self.navigationController = navigationController
+        self.parentNavigationController = parentNavigationController
+        self.parentCoordinator = parentCoordinator
+        self.storageProvider = storageProvider
+        self.injectionProvider = injectionProvider
+        
+        viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
+        
+        print("cawcaw")
     }
     
     func start() {
@@ -69,7 +81,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         
         print("\(name) + \(dosage) + \(units) + \(frequency) + \(date)")
         
-       injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: date)
+        viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: date)
         
         parentNavigationController!.dismiss(animated: true)
         

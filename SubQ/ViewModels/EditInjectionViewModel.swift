@@ -14,7 +14,6 @@ class EditInjectionViewModel{
     
     var cancellables = Set<AnyCancellable>()
     
-    let storageProvider: StorageProvider
     
     let days = Injection.Frequency.allCases.filter { ![Injection.Frequency.asNeeded, Injection.Frequency.daily].contains($0) }
     
@@ -34,28 +33,27 @@ class EditInjectionViewModel{
     
     //datasource
     
-    init(storageProvider: StorageProvider, injection: Injection?) {
-        self.storageProvider = storageProvider
+    init(injectionProvider: InjectionProvider, injection: Injection?) {
+        self.injectionProvider = injectionProvider
         self.injection = injection
-        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
+       
         
         if let injection{
             
             //init other properties
         }
         
-        
-        
 
     }
     
-    func saveInjection(isNewInjection: Bool){
+    
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date) {
         
-        if isNewInjection{
-            
-        }
+        injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+        
         
     }
+
     
     
     
