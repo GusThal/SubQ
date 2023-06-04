@@ -11,12 +11,12 @@ import CoreData
 
 class InjectionViewController: UIViewController {
     
-    weak var coordinator: InjectionTableCoordinator?
+    weak var coordinator: InjectionCoordinator?
     
     var dataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>! = nil
     var collectionView: UICollectionView! = nil
     
-    let injectionProvider: InjectionProvider
+    let viewModel: InjectionViewModel
     
     var cancellables = Set<AnyCancellable>()
     
@@ -47,7 +47,7 @@ class InjectionViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         
-        injectionProvider.$snapshot
+        viewModel.snapshot
           .sink(receiveValue: { [weak self] snapshot in
             if let snapshot = snapshot {
                 if snapshot.numberOfItems == 0{
@@ -101,8 +101,8 @@ class InjectionViewController: UIViewController {
         isInEditMode = false
     }
     
-    init(injectionProvider: InjectionProvider){
-        self.injectionProvider = injectionProvider
+    init(viewModel: InjectionViewModel){
+        self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -131,12 +131,12 @@ extension InjectionViewController{
         
         config.trailingSwipeActionsConfigurationProvider = { [unowned self] indexPath in
 
-            let injection = self.injectionProvider.object(at: indexPath)
+            let injection = self.viewModel.object(at: indexPath)
             
             let favoriteAction = UIContextualAction(style: .destructive, title: "Delete") { action, sourceView, completion in
                 
                 
-                self.injectionProvider.deleteInjection(injection)
+                self.viewModel.deleteInjection(injection)
                 completion(true)
             }
             return .init(actions: [favoriteAction])
@@ -159,7 +159,7 @@ extension InjectionViewController{
         
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, NSManagedObjectID> { [weak self] (cell, indexPath, injectionId) in
             
-            guard let injection = self?.injectionProvider.object(at: indexPath) else {
+            guard let injection = self?.viewModel.object(at: indexPath) else {
               return
             }
             
@@ -177,7 +177,7 @@ extension InjectionViewController{
             
             cell.contentConfiguration = content
             cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {
-                self?.injectionProvider.deleteInjection(injection)
+                self?.viewModel.deleteInjection(injection)
             })]
         }
         

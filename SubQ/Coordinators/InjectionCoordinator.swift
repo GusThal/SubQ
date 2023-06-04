@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InjectionTableCoordinator: Coordinator{
+class InjectionCoordinator: Coordinator{
     
     var parentCoordinator: Coordinator?
     
@@ -16,15 +16,20 @@ class InjectionTableCoordinator: Coordinator{
     weak var tabBarController: UITabBarController?
     var storageProvider: StorageProvider
     let injectionProvider: InjectionProvider
+    let viewModel: InjectionViewModel
+    
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
         self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
+        
+        viewModel = InjectionViewModel(storageProvider: storageProvider)
     }
     
     func start() {
-        let vc = InjectionViewController(injectionProvider: injectionProvider)
+        let vc = InjectionViewController(viewModel: viewModel)
+        
         vc.coordinator = self
         navigationController.navigationBar.prefersLargeTitles = true
         

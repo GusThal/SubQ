@@ -8,9 +8,6 @@
 import Foundation
 import Combine
 
-
-
-
 class EditInjectionViewModel{
     
     let injection: Injection?
@@ -22,6 +19,8 @@ class EditInjectionViewModel{
     let days = Injection.Frequency.allCases.filter { ![Injection.Frequency.asNeeded, Injection.Frequency.daily].contains($0) }
     
     @Published var selectedFrequency = [Injection.Frequency]()
+    
+    let injectionProvider: InjectionProvider
     
     
     lazy var frequencySubject: AnyPublisher<String?, Never> = {
@@ -38,6 +37,7 @@ class EditInjectionViewModel{
     init(storageProvider: StorageProvider, injection: Injection?) {
         self.storageProvider = storageProvider
         self.injection = injection
+        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         
         if let injection{
             

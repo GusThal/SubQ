@@ -9,7 +9,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    let injectionTableCoordinator: InjectionTableCoordinator
+    let injectionTableCoordinator: InjectionCoordinator
     let injectionSiteCoordinator: InjectionSiteCoordinator
     let injectionHistoryCoordinator: InjectionHistoryCoordinator
     let settingsCoordinator: SettingsCoordinator
@@ -19,7 +19,7 @@ class MainTabBarController: UITabBarController {
     init(storageProvider: StorageProvider){
         self.storageProvider = storageProvider
         
-        self.injectionTableCoordinator = InjectionTableCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
+        self.injectionTableCoordinator = InjectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
         self.injectionSiteCoordinator = InjectionSiteCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
         self.injectionHistoryCoordinator = InjectionHistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil,  storageProvider: storageProvider)
         self.settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
