@@ -64,6 +64,17 @@ extension Injection {
         
     }
     
+    var shortenedDayString: String{
+        get{
+            
+            let arr = days!.components(separatedBy: ", ")
+            
+            let shortened = arr.map({Injection.Frequency(rawValue: $0)!.shortened})
+            
+            return shortened.joined(separator: ", ")
+        }
+    }
+    
     var prettyTime: String?{
         get{
             

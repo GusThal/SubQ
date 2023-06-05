@@ -10,6 +10,7 @@ import UIKit
 struct DatePickerContentConfiguration: UIContentConfiguration, Hashable{
 
     var action: UIAction?
+    var date: Date?
     
     func makeContentView() -> UIView & UIContentView {
         // Initialize an instance of DatePickerContentView

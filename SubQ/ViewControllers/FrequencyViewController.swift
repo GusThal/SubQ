@@ -46,10 +46,37 @@ class FrequencyViewController: UIViewController {
     }
     
 
+    init(selectedFrequency: [Injection.Frequency]?){
+        
+        if let selectedFrequency{
+            if selectedFrequency == [.asNeeded]{
+                isAsNeededSelected = true
+            }
+            else if selectedFrequency == [.daily]{
+                isDailySelected = true
+            }
+            else{
+                for (index, day) in days.enumerated(){
+                    if selectedFrequency.contains(day){
+                        selectedDays[index] = true
+                    }
+                }
+            }
+        }
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     @objc func doneButtonPressed(_ sender: Any){
         print("done")
         coordinator?.done(isDailySelected: isDailySelected, isAsNeededSelected: isAsNeededSelected, selectedDays: selectedDays)
     }
+    
+    
 
 }
 
@@ -77,6 +104,19 @@ extension FrequencyViewController{
             
             var content = cell.defaultContentConfiguration()
             content.text = item.rawValue
+            
+            if indexPath.section == Section.asNeeded.rawValue && self.isAsNeededSelected{
+                cell.accessories = [.checkmark()]
+            }
+            else if indexPath.section == Section.daily.rawValue && self.isDailySelected{
+                cell.accessories = [.checkmark()]
+            }
+            else if indexPath.section == Section.days.rawValue && self.selectedDays[indexPath.item]{
+                cell.accessories = [.checkmark()]
+            }
+            
+            
+            
             cell.contentConfiguration = content
 
         }

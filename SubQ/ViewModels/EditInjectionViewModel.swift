@@ -40,6 +40,8 @@ class EditInjectionViewModel{
         
         if let injection{
             
+            selectedFrequency = injection.daysVal
+            
             //init other properties
         }
         

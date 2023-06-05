@@ -80,5 +80,11 @@ private extension DatePickerContentView {
         if let action = currentConfiguration.action{
             picker.addAction(action, for: .primaryActionTriggered)
         }
+        if let date = currentConfiguration.date{
+            picker.date = date
+        }
+        else{
+            picker.date = Date()
+        }
     }
 }

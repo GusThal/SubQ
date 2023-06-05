@@ -24,6 +24,8 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     
     let injectionProvider: InjectionProvider
     
+    var injection: Injection?
+    
     
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
@@ -45,16 +47,15 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
     }
     
-    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionProvider: InjectionProvider) {
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionProvider: InjectionProvider, injection: Injection?) {
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
         self.injectionProvider = injectionProvider
+        self.injection = injection
         
-        viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
-        
-        print("cawcaw")
+        viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: injection)
     }
     
     func start() {
@@ -62,6 +63,16 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         vc.coordinator = self
         
         //navigationController.present(vc, animated: true)
+        
+        navigationController.navigationBar.prefersLargeTitles = true
+        
+        if let injection = viewModel.injection, let name = injection.name{
+            vc.title = "\(name)"
+        }
+        else{
+            vc.title =  "New Injection"
+        }
+        
         
         navigationController.pushViewController(vc, animated: false)
         

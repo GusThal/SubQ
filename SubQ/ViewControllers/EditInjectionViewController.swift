@@ -37,6 +37,7 @@ class EditInjectionViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
          navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
         
+        
         view.backgroundColor = .brown
         
         
@@ -130,7 +131,8 @@ extension EditInjectionViewController{
                 
                 if indexPath.item == 0{
                     cell.label.text = "Injection Name:"
-                    cell.textField.placeholder = item
+                    cell.textField.placeholder = "Beep boop"
+                    cell.textField.text = item == "name" ? "" : item
                     
                     self.nameTextField = cell.textField
                     cell.textInputType = .text
@@ -140,14 +142,24 @@ extension EditInjectionViewController{
                 }
                 else if indexPath.item == 1{
                     cell.label.text = "Dosage:"
-                    cell.textField.placeholder = item
+                    cell.textField.placeholder = "0.0"
+                    cell.textField.text = item == "dosage" ? "" : item
                     
                     self.dosageTextField = cell.textField
                     cell.textInputType = .number
 
+                    let unitsArr = Injection.DosageUnits.allCases
                     
-                    let segmentedControl = UISegmentedControl(items: Injection.DosageUnits.allCases.map({$0.rawValue}))
+                    let segmentedControl = UISegmentedControl(items: unitsArr.map({ $0.rawValue }))
+                    
                     segmentedControl.selectedSegmentIndex = 0
+                    
+                    for (index, units) in unitsArr.enumerated(){
+                        if self.viewModel.injection?.unitsVal == units{
+                            segmentedControl.selectedSegmentIndex = index
+                        }
+                    }
+                
                     
                     self.unitsSelector = segmentedControl
                     
@@ -166,7 +178,17 @@ extension EditInjectionViewController{
             
         }
         
-        let timePickerRegistration = UICollectionView.CellRegistration<TimePickerCollectionViewCell, String> { cell, indexPath, itemIdentifier in
+        let timePickerRegistration = UICollectionView.CellRegistration<TimePickerCollectionViewCell, String> { cell, indexPath, item in
+            
+            print("item \(item)")
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .full
+            dateFormatter.timeStyle = .full
+            
+            let date = dateFormatter.date(from: item)
+            
+            cell.date = date
             
             cell.action = UIAction(handler: { [unowned self] (action) in
                 
@@ -261,14 +283,31 @@ extension EditInjectionViewController{
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
         
+        let injection = viewModel.injection
+        
         snapshot.appendSections([Section.info.rawValue])
-        snapshot.appendItems(["Hi"])
-        snapshot.appendItems(["0.0"])
+        
+        
+        snapshot.appendItems([injection?.name ?? "name"])
+        snapshot.appendItems([injection?.dosage?.stringValue ?? "dosage"])
         snapshot.appendSections([Section.frequency.rawValue])
-        snapshot.appendItems(["None Selected"])
-        snapshot.appendItems(["time"])
-        snapshot.appendSections([Section.delete.rawValue])
-        snapshot.appendItems(["Delete Injection"])
+        
+
+        snapshot.appendItems([injection?.shortenedDayString ?? "None Selected"])
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .full
+        
+        let timeString = dateFormatter.string(from: injection?.time ?? Date())
+        
+        
+        snapshot.appendItems([timeString])
+        
+        if injection != nil{
+            snapshot.appendSections([Section.delete.rawValue])
+            snapshot.appendItems(["Delete Injection"])
+        }
         
         dataSource.apply(snapshot, animatingDifferences: false)
         

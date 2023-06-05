@@ -200,5 +200,9 @@ extension InjectionViewController{
 extension InjectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
+        
+        let injection = self.viewModel.object(at: indexPath)
+        
+        coordinator?.editInjection(injection)
     }
 }

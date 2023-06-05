@@ -14,6 +14,7 @@ import UIKit
 class TimePickerCollectionViewCell: UICollectionViewListCell {
     
     var action: UIAction?
+    var date: Date?
     
     override func updateConfiguration(using state: UICellConfigurationState) {
         
@@ -22,6 +23,7 @@ class TimePickerCollectionViewCell: UICollectionViewListCell {
         
         // Update any configuration parameters related to data item
         newConfiguration.action = action
+        newConfiguration.date = date
         
         // Set content configuration in order to update custom content view
         contentConfiguration = newConfiguration
