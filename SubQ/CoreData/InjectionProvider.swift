@@ -53,13 +53,36 @@ class InjectionProvider: NSObject{
       return fetchedResultsController.object(at: indexPath)
     }
     
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date) {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
         
         #warning("TODO: check if injection name already exists")
         
+        
         let persistentContainer = storageProvider.persistentContainer
         
+        
+        
         let injection = Injection(context: persistentContainer.viewContext)
+        injection.name = name
+        injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
+        injection.units = units.rawValue
+        injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
+        injection.time = time
+        
+        do{
+            try persistentContainer.viewContext.save()
+            print("saved successfully")
+            
+        } catch{
+            print("failed with \(error)")
+            persistentContainer.viewContext.rollback()
+        }
+        
+    }
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
+        
+        let persistentContainer = storageProvider.persistentContainer
+        
         injection.name = name
         injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
         injection.units = units.rawValue

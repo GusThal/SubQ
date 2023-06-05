@@ -49,14 +49,20 @@ class EditInjectionViewModel{
     }
     
     
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date) {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
         
         injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
         
         
     }
-
     
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
+        
+        injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+        
+        
+    }
+
     
     
 }

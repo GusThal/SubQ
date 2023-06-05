@@ -90,10 +90,17 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     
     func saveEdit(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], date: Date){
         
-        print("\(name) + \(dosage) + \(units) + \(frequency) + \(date)")
+        //print("\(name) + \(dosage) + \(units) + \(frequency) + \(date)")
         
         viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: date)
         
+        parentNavigationController!.dismiss(animated: true)
+        
+
+        parentCoordinator?.childDidFinish(self)
+    }
+    
+    func savePressed(){
         parentNavigationController!.dismiss(animated: true)
         
 

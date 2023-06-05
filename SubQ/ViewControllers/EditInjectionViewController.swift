@@ -88,14 +88,33 @@ class EditInjectionViewController: UIViewController {
         
         let units = Injection.DosageUnits(rawValue: Injection.DosageUnits.allCases.map({$0.rawValue})[unitsSelector.selectedSegmentIndex])!
         
+        let name = nameTextField.text!
+        let dosage = Double.init(dosageTextField.text!)!
         
-        coordinator?.saveEdit(name: nameTextField.text!, dosage: Double.init(dosageTextField.text!)!, units: units, frequency: viewModel.selectedFrequency, date: selectedDate)
+        let time = viewModel.selectedFrequency != [.asNeeded] ? selectedDate : nil
+        
+        
+        if let injection = viewModel.injection{
+            viewModel.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: viewModel.selectedFrequency, time: time)
+        }
+        else{
+            viewModel.saveInjection(name: nameTextField.text!, dosage: Double.init(dosageTextField.text!)!, units: units, frequency: viewModel.selectedFrequency, time: time)
+        }
+        
+        coordinator?.savePressed()
+        
+        
     }
     
     init(viewModel: EditInjectionViewModel){
         self.viewModel = viewModel
+    
         
         super.init(nibName: nil, bundle: nil)
+        
+        if let time = viewModel.injection?.time{
+            selectedDate = time
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -192,21 +211,13 @@ extension EditInjectionViewController{
             
             cell.action = UIAction(handler: { [unowned self] (action) in
                 
+                print("picker action")
+                
                 // Make sure sender is a date picker
                 guard let picker = action.sender as? UIDatePicker else {
                     return
                 }
-                
-                let formatter = DateFormatter()
-                formatter.dateStyle = .none
-                formatter.timeStyle = .short
-                
-               // selectedDate = formatter.string(from: picker.date)
-                
-                print(formatter.string(from: picker.date))
-                
-                
-                
+        
                 selectedDate = picker.date
                 
             
