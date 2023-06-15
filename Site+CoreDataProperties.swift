@@ -17,24 +17,22 @@ extension Site {
     }
 
     @NSManaged public var lastInjected: Date?
-    @NSManaged public var section: String?
-    @NSManaged public var subSection: String?
+    @NSManaged public var subQuadrant: NSNumber?
     @NSManaged public var siteHistory: NSSet?
     @NSManaged public var bodyPart: BodyPart?
+    @NSManaged public var section: Section?
     
-    enum InjectionSection: String, CaseIterable{
-        case topLeft = "Top Left", bottomLeft = "Bottom Left", topRight = "Top Right", bottomRight = "Bottom Right"
-    }
+
     
-    var subSectionVal: InjectionSection{
+    var subQuadrantVal: Quadrant{
         get{
-            return InjectionSection(rawValue: subSection!)!
+            return Quadrant(rawValue: Int(truncating: subQuadrant!))!
         }
         set{
-            subSection = newValue.rawValue
+            subQuadrant = NSNumber(integerLiteral: newValue.rawValue)
         }
     }
-    
+  /*
     var sectionVal: InjectionSection{
         get{
             return InjectionSection(rawValue: section!)!
@@ -42,7 +40,7 @@ extension Site {
         set{
             section = newValue.rawValue
         }
-    }
+    }*/
 
 }
 

@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import Combine
+import CoreData
 
-class InjectionSiteViewController: UIViewController {
+class SectionViewController: UIViewController {
     
     struct ElementKind{
         static let sectionHeader = "section-header-element-kind"
@@ -16,10 +18,13 @@ class InjectionSiteViewController: UIViewController {
     
     let enabledBodyParts: [BodyPart.Location] = [.upperArm, .abdomen, .thigh, .buttocks]
     
-    var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>! = nil
     var collectionView: UICollectionView! = nil
     
-    weak var coordinator: InjectionSiteCoordinator?
+    let viewModel: SectionViewModel
+    var cancellables = Set<AnyCancellable>()
+    
+    weak var coordinator: SectionCoordinator?
     
     let footerText = "To customize which body parts are displayed, please head to the Settings tab on the bottom bar."
 
@@ -31,14 +36,35 @@ class InjectionSiteViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         
+        viewModel.snapshot
+          .sink(receiveValue: { [weak self] snapshot in
+            if let snapshot = snapshot {
+                print("Number of Snapshot sections in publisher \(snapshot.numberOfSections)")
+                
+              self?.dataSource.apply(snapshot, animatingDifferences: false)
+               // self?.collectionView.reloadData()
+            }
+          })
+          .store(in: &cancellables)
+        
         
 
         // Do any additional setup after loading the view.
     }
-
+    
+    init(viewModel: SectionViewModel){
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
-extension InjectionSiteViewController{
+extension SectionViewController{
     func createLayout() -> UICollectionViewLayout {
         
         let layoutFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
@@ -91,7 +117,7 @@ extension InjectionSiteViewController{
     }
 }
 
-extension InjectionSiteViewController {
+extension SectionViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -101,16 +127,21 @@ extension InjectionSiteViewController {
     }
     func configureDataSource() {
         
-        let cellRegistration = UICollectionView.CellRegistration<BodyPartCollectionViewCell, String> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<BodyPartCollectionViewCell, NSManagedObjectID> { (cell, indexPath, item) in
             
             // Populate the cell with our item description.
-            cell.bodyPart = self.enabledBodyParts[indexPath.section]
+            //cell.bodyPart = self.enabledBodyParts[indexPath.section]
             
-            if let match = item.prefixMatch(of: /\w+\s\w+/){
-                cell.section = Site.InjectionSection.init(rawValue: String(match.0))
-            }
+           /* if let match = item.prefixMatch(of: /\w+\s\w+/){
+                cell.section = Quadrant.init(rawValue: String(match.0))
+            }*/
             
-            cell.label.text = item
+            let sectionObject = self.viewModel.object(at: indexPath)
+            
+            cell.bodyPart = self.viewModel.bodyPart(for: indexPath).partVal
+            cell.section = sectionObject.quadrantVal
+            
+            cell.label.text = sectionObject.quadrantVal.description
             cell.contentView.backgroundColor = .systemGreen
            /* cell.contentView.layer.borderColor = UIColor.black.cgColor
             cell.contentView.layer.borderWidth = 1
@@ -121,7 +152,11 @@ extension InjectionSiteViewController {
         let headerRegistration = UICollectionView.SupplementaryRegistration
         <TextSupplementaryView>(elementKind: ElementKind.sectionHeader) {
             (supplementaryView, string, indexPath) in
-            supplementaryView.label.text = "\(self.enabledBodyParts[indexPath.section].rawValue)"
+            
+            let bodyPart = self.viewModel.bodyPart(for: indexPath)
+            
+            supplementaryView.label.text = "\(bodyPart.part!)"
+            
            /* supplementaryView.backgroundColor = .lightGray
             supplementaryView.layer.borderColor = UIColor.black.cgColor
             supplementaryView.layer.borderWidth = 1.0*/
@@ -132,8 +167,8 @@ extension InjectionSiteViewController {
             supplementaryView.label.text = self.footerText
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Int, String>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: String) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: NSManagedObjectID) -> UICollectionViewCell? in
             // Return the cell.
             
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
@@ -156,22 +191,22 @@ extension InjectionSiteViewController {
 
         // initial data
 
-        var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
         
-        for i in 0...3{
+     /*   for i in 0...3{
             snapshot.appendSections([i])
             
             #warning("without the i, diffable datasource thinks these are duplicates. may not be an issue with")
-            let items = Site.InjectionSection.allCases.map({"\($0.rawValue) + \(i)" })
+            let items = Quadrant.allCases.map({"\($0.rawValue) + \(i)" })
             
             snapshot.appendItems(items)
-        }
+        }*/
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 
-extension InjectionSiteViewController: UICollectionViewDelegate {
+extension SectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         

@@ -10,9 +10,17 @@ import UIKit
 class MainTabBarController: UITabBarController {
     
     let injectionTableCoordinator: InjectionCoordinator
-    let injectionSiteCoordinator: InjectionSiteCoordinator
+    let siteCoordinator: SectionCoordinator
     let injectionHistoryCoordinator: InjectionHistoryCoordinator
     let settingsCoordinator: SettingsCoordinator
+    
+    let dummyVCForInjectNow: UIViewController = {
+        
+        let vc = UIViewController()
+        vc.tabBarItem = UITabBarItem(title: "Inject Now", image: UIImage(systemName: "syringe"), selectedImage: UIImage(systemName: "syringe.fill"))
+        
+        return vc
+    }()
     
     let storageProvider: StorageProvider
     
@@ -20,10 +28,11 @@ class MainTabBarController: UITabBarController {
         self.storageProvider = storageProvider
         
         self.injectionTableCoordinator = InjectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
-        self.injectionSiteCoordinator = InjectionSiteCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
+        self.siteCoordinator = SectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
         self.injectionHistoryCoordinator = InjectionHistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil,  storageProvider: storageProvider)
         self.settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
         parentCoordinator: nil,  storageProvider: storageProvider)
+        
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,13 +47,13 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewControllers = [injectionTableCoordinator.navigationController, injectionSiteCoordinator.navigationController, injectionHistoryCoordinator.navigationController, settingsCoordinator.navigationController]
+        viewControllers = [injectionTableCoordinator.navigationController, siteCoordinator.navigationController, dummyVCForInjectNow, injectionHistoryCoordinator.navigationController, settingsCoordinator.navigationController]
         
         injectionTableCoordinator.tabBarController = self
         
         injectionTableCoordinator.start()
         
-        injectionSiteCoordinator.start()
+        siteCoordinator.start()
         
         injectionHistoryCoordinator.start()
         

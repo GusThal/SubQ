@@ -11,7 +11,7 @@ import SnapKit
 class BodyPartCollectionViewCell: UICollectionViewCell {
     let label = UILabel()
     var bodyPart: BodyPart.Location?
-    var section: Site.InjectionSection?
+    var section: Quadrant?
 
     override init(frame: CGRect) {
         super.init(frame: frame)

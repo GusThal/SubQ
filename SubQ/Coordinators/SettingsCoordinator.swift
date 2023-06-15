@@ -14,16 +14,18 @@ class SettingsCoordinator: Coordinator{
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var storageProvider: StorageProvider
+    let viewModel: BodyPartViewModel
     
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
+        self.viewModel = BodyPartViewModel(storageProvider: storageProvider)
     }
     
     
     func start() {
-        let vc = SettingsViewController()
+        let vc = SettingsViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
         
         vc.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), selectedImage: nil)

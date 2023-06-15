@@ -15,14 +15,12 @@ class InjectionCoordinator: Coordinator{
     var navigationController: UINavigationController
     weak var tabBarController: UITabBarController?
     var storageProvider: StorageProvider
-    let injectionProvider: InjectionProvider
     let viewModel: InjectionViewModel
     
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
-        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         
         viewModel = InjectionViewModel(storageProvider: storageProvider)
     }

@@ -7,21 +7,23 @@
 
 import UIKit
 
-class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
+class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
     
     var parentCoordinator: Coordinator?
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var storageProvider: StorageProvider
+    let viewModel: SectionViewModel
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
+        self.viewModel = SectionViewModel(storageProvider: storageProvider)
     }
     
     
     func start() {
-        let vc = InjectionSiteViewController()
+        let vc = SectionViewController(viewModel: viewModel)
         vc.coordinator = self
         navigationController.delegate = self
         navigationController.pushViewController(vc, animated: false)
@@ -35,14 +37,14 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         vc.navigationItem.backBarButtonItem = backButton
     }
     
-    func showInjectionBodyPart(bodyPart: BodyPart.Location, section: Site.InjectionSection){
-        let child  = InjectionSectionCoordinator(navigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider)
+    func showInjectionBodyPart(bodyPart: BodyPart.Location, section: Quadrant){
+        let child  = SiteCoordinator(navigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider)
         
         
         childCoordinators.append(child)
         child.start()
         
-        let vc = child.navigationController.viewControllers.last as! InjectionSectionViewController
+        let vc = child.navigationController.viewControllers.last as! SiteViewController
         vc.bodyPart = bodyPart
         vc.section = section
     }
@@ -60,7 +62,7 @@ class InjectionSiteCoordinator: NSObject, Coordinator, UINavigationControllerDel
         }
 
         // We’re still here – it means we’re popping the view controller, so we can check whether it’s an InjectionSectionViewController
-        if let sectionViewController = fromViewController as? InjectionSectionViewController {
+        if let sectionViewController = fromViewController as? SiteViewController {
             // We're popping a buy view controller; end its coordinator
             childDidFinish(sectionViewController.coordinator)
         }

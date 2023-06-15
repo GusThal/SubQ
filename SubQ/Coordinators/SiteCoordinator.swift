@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class InjectionSectionCoordinator: Coordinator{
+class SiteCoordinator: Coordinator{
     
 
     weak var parentCoordinator: Coordinator?
@@ -30,7 +30,7 @@ class InjectionSectionCoordinator: Coordinator{
 
     
     func start() {
-        let vc = InjectionSectionViewController()
+        let vc = SiteViewController()
         vc.coordinator = self
         
         

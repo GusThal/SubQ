@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+import CoreData
 
 class SettingsViewController: UIViewController {
     
@@ -14,6 +16,10 @@ class SettingsViewController: UIViewController {
     var collectionView: UICollectionView! = nil
     
     weak var coordinator: SettingsCoordinator?
+    
+    let viewModel: BodyPartViewModel
+    
+    var cancellables = Set<AnyCancellable>()
     
     enum Section: Int{
         case bodyParts, misc
@@ -48,8 +54,32 @@ class SettingsViewController: UIViewController {
         
         configureHierarchy()
         configureDataSource()
+        
+        viewModel.snapshot.receive(on: DispatchQueue.main)
+            .sink { sectionSnapshot in
+            
+            if let sectionSnapshot{
+                
+                
+                self.dataSource?.apply(sectionSnapshot, to: Section.bodyParts, animatingDifferences: false)
+                
+                //since the Diffable Datasource contains Strings, which we're populating with the object id for the BodyParts, the collection view isn't reloading when the enabled field is changed. So we need to reload.
+                self.collectionView.reloadData()
+
+            }
+        }.store(in: &cancellables)
 
         // Do any additional setup after loading the view.
+    }
+    
+    init(viewModel: BodyPartViewModel){
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 
@@ -66,7 +96,7 @@ class SettingsViewController: UIViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.10))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
                 
                 let section = NSCollectionLayoutSection(group: group)
                 
@@ -97,14 +127,20 @@ extension SettingsViewController{
         collectionView.delegate = self
     }
     func configureDataSource() {
-        let bodyPartCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { (cell, indexPath, bodyPart) in
+        
+        let bodyPartCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { [weak self] (cell, indexPath, bodyPart) in
             // Populate the cell with our item description.
             
+            guard let self = self else { return }
+            
+            
+            let obj = self.viewModel.object(at: indexPath)
+            
             var content = cell.defaultContentConfiguration()
-            content.text = bodyPart
+            content.text = obj.part
             cell.contentConfiguration = content
             
-            cell.accessories = self.enabledBodyParts.contains(BodyPart.Location.init(rawValue: bodyPart)!) ? [.checkmark()] : []
+            cell.accessories = obj.enabled ? [.checkmark()] : []
         
         }
         
@@ -137,16 +173,16 @@ extension SettingsViewController{
 
         
         
-        var bodyPartsSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+       // var bodyPartsSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
         //zonesSnapshot.append(Site.zones)
-        bodyPartsSnapshot.append(enabledBodyParts.map({ $0.rawValue }))
-        dataSource.apply(bodyPartsSnapshot, to: .bodyParts, animatingDifferences: false)
+        //bodyPartsSnapshot.append(enabledBodyParts.map({ $0.rawValue }))
+      //  dataSource.apply(bodyPartsSnapshot, to: Section.bodyParts, animatingDifferences: false)
         
         var sitesSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
         //sitesSnapshot.append(Site.sites)
         //sitesSnapshot.append(User.sites)
         sitesSnapshot.append(MiscCells.allCases.map({ $0.description }))
-        dataSource.apply(sitesSnapshot, to: .misc, animatingDifferences: false)
+        dataSource.apply(sitesSnapshot, to: Section.misc, animatingDifferences: false)
         
         
     }
@@ -162,7 +198,18 @@ extension SettingsViewController: UICollectionViewDelegate{
         collectionView.deselectItem(at: indexPath, animated: true)
         
         if section == Section.bodyParts.rawValue{
+            
+            let object = viewModel.object(at: indexPath)
+            
+            //toggle value
+            let enabled = object.enabled ? false : true
+            
+            viewModel.setEnabled(forBodyPart: object, to: enabled)
+            
+          /*
+            
             if cell.accessories.isEmpty{
+                
                 cell.accessories = [.checkmark()]
                 
                 if !enabledBodyParts.contains(bodyParts[index]){
@@ -174,15 +221,13 @@ extension SettingsViewController: UICollectionViewDelegate{
                 enabledBodyParts.removeAll { value in
                     return value == bodyParts[index]
                 }
-            }
+            }*/
             //applySnapshots()
             
         }
         else{
             
         }
-        
-        print(enabledBodyParts)
         
     }
     

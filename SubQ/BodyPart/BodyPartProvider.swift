@@ -1,26 +1,32 @@
 //
-//  InjectionProvider.swift
+//  BodyPartProvider.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 6/1/23.
+//  Created by Constantine Thalasinos on 6/6/23.
 //
 
+import Foundation
 import UIKit
 import CoreData
 
-class InjectionProvider: NSObject{
+
+class BodyPartProvider: NSObject{
+    
+    static let bodyPartToggledNotification =  Notification.Name("bodyPartToggledNotification")
+    
+    static let updatedNotificationKey = "updatedBodyPart"
     
     let storageProvider: StorageProvider
     
     @Published var snapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?
     
-    private let fetchedResultsController: NSFetchedResultsController<Injection>
+    private let fetchedResultsController: NSFetchedResultsController<BodyPart>
     
     init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
         
-        let request: NSFetchRequest<Injection> = Injection.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Injection.name, ascending: true)]
+        let request: NSFetchRequest<BodyPart> = BodyPart.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \BodyPart.part, ascending: true)]
 
         self.fetchedResultsController =
           NSFetchedResultsController(fetchRequest: request,
@@ -32,62 +38,60 @@ class InjectionProvider: NSObject{
         //delegate will be informed any time a managed object changes, a new one is inserted, or one is deleted
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
-    }
-    
-    func getInjections(){
         
-    }
-    
-    func deleteInjection(_ injection: Injection){
-        storageProvider.persistentContainer.viewContext.delete(injection)
+        if snapshot!.numberOfItems == 0{
+            print("zero body parts")
+            
+            insertInitialData()
+        }
+        else{
+            print("BodyPart Provider has \(snapshot!.numberOfItems)")
+            
+           /* for item in snapshot!.itemIdentifiers{
+                let partObj = storageProvider.persistentContainer.viewContext.object(with: item) as! BodyPart
+                
+                print(partObj.part)
+            }*/
+        }
 
-        do {
-            try storageProvider.persistentContainer.viewContext.save()
-        } catch {
-            storageProvider.persistentContainer.viewContext.rollback()
-            print("Failed to save context: \(error)")
-          }
     }
     
-    func object(at indexPath: IndexPath) -> Injection {
+    func object(at indexPath: IndexPath) -> BodyPart {
       return fetchedResultsController.object(at: indexPath)
     }
     
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
-        
-        #warning("TODO: check if injection name already exists")
-        
+    func setEnabled(forBodyPart bodyPart: BodyPart, to enabled: Bool){
         
         let persistentContainer = storageProvider.persistentContainer
         
-        
-        
-        let injection = Injection(context: persistentContainer.viewContext)
-        injection.name = name
-        injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
-        injection.units = units.rawValue
-        injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
-        injection.time = time
+        bodyPart.enabled = enabled
         
         do{
             try persistentContainer.viewContext.save()
-            print("saved successfully")
+            print("saved Body Part successfully")
             
         } catch{
             print("failed with \(error)")
             persistentContainer.viewContext.rollback()
         }
+    
+        
+        NotificationCenter.default.post(name: BodyPartProvider.bodyPartToggledNotification, object: self, userInfo: [BodyPartProvider.updatedNotificationKey: bodyPart])
+        
         
     }
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
-        
+    
+    func insertInitialData(){
+        let bodyParts = BodyPart.Location.allCases
         let persistentContainer = storageProvider.persistentContainer
         
-        injection.name = name
-        injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
-        injection.units = units.rawValue
-        injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
-        injection.time = time
+        for part in bodyParts{
+            
+            let obj = BodyPart(context: persistentContainer.viewContext)
+            obj.enabled = true
+            obj.part = part.rawValue
+            
+        }
         
         do{
             try persistentContainer.viewContext.save()
@@ -97,20 +101,19 @@ class InjectionProvider: NSObject{
             print("failed with \(error)")
             persistentContainer.viewContext.rollback()
         }
-        
-        
-        
     }
     
     
     
 }
 
-extension InjectionProvider: NSFetchedResultsControllerDelegate{
+extension BodyPartProvider: NSFetchedResultsControllerDelegate{
     
     //from chapter 4 of Donny Wals's book Practical Core Data
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+        
+        print("body part NSFetchedResultsControllerDelegate triggered")
         
         var newSnapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
 
@@ -131,6 +134,8 @@ extension InjectionProvider: NSFetchedResultsControllerDelegate{
           return true
         })
 
+        print(idsToReload)
+        
         newSnapshot.reloadItems(idsToReload)
 
         self.snapshot = newSnapshot

@@ -18,7 +18,7 @@ extension BodyPart {
 
     @NSManaged public var part: String?
     @NSManaged public var enabled: Bool
-    @NSManaged public var site: Site?
+    @NSManaged public var section: Section?
     
     enum Location: String, CaseIterable{
            case abdomen = "Abdomen", thigh = "Thigh", upperArm = "Upper Arm", buttocks = "Buttocks"

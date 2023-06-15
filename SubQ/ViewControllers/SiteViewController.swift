@@ -7,13 +7,13 @@
 
 import UIKit
 
-class InjectionSectionViewController: UIViewController {
+class SiteViewController: UIViewController {
     
     var bodyPart: BodyPart.Location?
     
-    var section: Site.InjectionSection?
+    var section: Quadrant?
     
-    weak var coordinator: InjectionSectionCoordinator?
+    weak var coordinator: SiteCoordinator?
     
     var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
     var collectionView: UICollectionView! = nil
@@ -33,7 +33,7 @@ class InjectionSectionViewController: UIViewController {
 
 }
 
-extension InjectionSectionViewController{
+extension SiteViewController{
     func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalHeight(0.5))
@@ -62,7 +62,7 @@ extension InjectionSectionViewController{
     }
 }
 
-extension InjectionSectionViewController{
+extension SiteViewController{
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -89,7 +89,7 @@ extension InjectionSectionViewController{
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
         snapshot.appendSections([0])
-        snapshot.appendItems(Site.InjectionSection.allCases.map({ $0.rawValue }))
+        snapshot.appendItems(Quadrant.allCases.map({ $0.description }))
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
