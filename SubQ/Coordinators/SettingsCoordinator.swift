@@ -28,6 +28,8 @@ class SettingsCoordinator: Coordinator{
         let vc = SettingsViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
         
+        navigationController.navigationBar.prefersLargeTitles = true
+        
         vc.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), selectedImage: nil)
         vc.navigationItem.title = "Settings"
     }

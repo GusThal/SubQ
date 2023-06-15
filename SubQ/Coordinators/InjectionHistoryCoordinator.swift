@@ -24,6 +24,8 @@ class InjectionHistoryCoordinator: Coordinator{
     func start() {
         let vc = InjectionHistoryViewController()
         navigationController.pushViewController(vc, animated: false)
+        navigationController.navigationBar.prefersLargeTitles = true
+       
         
         vc.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
         vc.navigationItem.title = "Injection History"
