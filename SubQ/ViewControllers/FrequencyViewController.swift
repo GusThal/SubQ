@@ -20,6 +20,15 @@ class FrequencyViewController: UIViewController {
     var isDailySelected = false
     var isAsNeededSelected = false
     
+    var isADaySelected: Bool{
+        for day in selectedDays{
+            if day{
+                return true
+            }
+        }
+        return false
+    }
+    
     var selectedDays = Array(repeating: false, count: 7)
     
     
@@ -43,6 +52,8 @@ class FrequencyViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         
+        setDoneButtonState()
+        
     }
     
 
@@ -65,6 +76,16 @@ class FrequencyViewController: UIViewController {
         }
         
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    func setDoneButtonState(){
+        if isDailySelected || isAsNeededSelected || isADaySelected{
+            navigationItem.rightBarButtonItem!.isEnabled = true
+        }
+        else{
+            navigationItem.rightBarButtonItem!.isEnabled = false
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -240,6 +261,8 @@ extension FrequencyViewController: UICollectionViewDelegate{
         }
         
         collectionView.deselectItem(at: indexPath, animated: false)
+        
+        setDoneButtonState()
         
         
     }
