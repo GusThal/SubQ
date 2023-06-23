@@ -147,7 +147,6 @@
 		CC31CD6F2A254A1100C20CAB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -178,6 +177,9 @@
 		CC5738A32A3B56DE000257E0 /* Injection */ = {
 			isa = PBXGroup;
 			children = (
+				CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */,
+				CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */,
+				CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */,
 				CC31CD612A23ECB700C20CAB /* Injection+CoreDataClass.swift */,
 				CC31CD622A23ECB700C20CAB /* Injection+CoreDataProperties.swift */,
 				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
@@ -252,7 +254,6 @@
 		CCC4B8612A0403FF008BFF81 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */,
 				CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */,
 				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
 				CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */,
@@ -267,7 +268,6 @@
 				CCE9437F2A01B23B00514710 /* Coordinator.swift */,
 				CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */,
 				CCE943832A01C87200514710 /* MainCoordinator.swift */,
-				CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */,
 				CCC4B8632A0413C0008BFF81 /* InjectionCoordinator.swift */,
 				CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */,
 				CCC4B8652A044738008BFF81 /* SectionCoordinator.swift */,

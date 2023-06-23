@@ -338,6 +338,18 @@ extension EditInjectionViewController: UICollectionViewDelegate{
         if section == Section.frequency.rawValue && item == 0{
             coordinator?.showFrequencyController()
         }
+        else if section == Section.delete.rawValue{
+            
+            let alert = UIAlertController(title: "Delete Injection", message: "Are you sure you want to delete this injection?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
+                coordinator?.deleteInjection(viewModel.injection!)
+            }))
+            
+            self.present(alert, animated: true)
+        }
         
         
     }

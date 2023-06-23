@@ -107,6 +107,14 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         parentCoordinator?.childDidFinish(self)
     }
     
+    func deleteInjection(_ injection: Injection){
+        parentNavigationController!.dismiss(animated: true)
+        
+        viewModel.deleteInjection(injection)
+        
+        parentCoordinator?.childDidFinish(self)
+    }
+    
     func showFrequencyController(){
         let child  = FrequencyCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
         

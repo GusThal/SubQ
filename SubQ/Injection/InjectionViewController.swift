@@ -101,6 +101,18 @@ class InjectionViewController: UIViewController {
         isInEditMode = false
     }
     
+    func presentDeleteAlertController(forInjection injection: Injection){
+        let alert = UIAlertController(title: "Delete Injection", message: "Are you sure you want to delete \(injection.name!)?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
+            viewModel.deleteInjection(injection)
+        }))
+        
+        self.present(alert, animated: true)
+    }
+    
     init(viewModel: InjectionViewModel){
         self.viewModel = viewModel
         
@@ -133,13 +145,15 @@ extension InjectionViewController{
 
             let injection = self.viewModel.object(at: indexPath)
             
-            let favoriteAction = UIContextualAction(style: .destructive, title: "Delete") { action, sourceView, completion in
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, sourceView, completion in
                 
                 
-                self.viewModel.deleteInjection(injection)
+                self.presentDeleteAlertController(forInjection: injection)
+                
+              //  self.viewModel.deleteInjection(injection)
                 completion(true)
             }
-            return .init(actions: [favoriteAction])
+            return .init(actions: [deleteAction])
         }
 
         
@@ -177,7 +191,9 @@ extension InjectionViewController{
             
             cell.contentConfiguration = content
             cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {
-                self?.viewModel.deleteInjection(injection)
+                self?.presentDeleteAlertController(forInjection: injection)
+                
+                //self?.viewModel.deleteInjection(injection)
             })]
         }
         

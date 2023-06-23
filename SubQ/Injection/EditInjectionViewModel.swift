@@ -62,6 +62,10 @@ class EditInjectionViewModel{
         
         
     }
+    
+    func deleteInjection(_ injection: Injection){
+        injectionProvider.deleteInjection(injection)
+    }
 
     
     
