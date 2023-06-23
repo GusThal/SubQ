@@ -58,17 +58,49 @@ class EditInjectionViewController: UIViewController {
             
             var freq = frequency
             
+            
+            
             if frequency == nil || frequency!.isEmpty{
                 freq = "None Selected"
             }
             
+            if  ["None Selected", Injection.Frequency.asNeeded.rawValue].contains(freq){
+                
+                if !snap.contains(freq!){
+                    snap.deleteAll()
+                    snap.append([freq!])
+                    
+                    dataSource.apply(snap, to: Section.frequency.rawValue, animatingDifferences: true)
+                }
+                
+            }
             
-            if !snap.contains(freq!){
+           else if !snap.contains(freq!){
+               
+               
+               //this means we're coming from "as needed" or "none selected and as such need to add a time to the snapshot
+               if snap.items.count == 1{
+                   
+                   snap.deleteAll()
+                   snap.append([freq!])
+                   
+                   let dateFormatter = DateFormatter()
+                   dateFormatter.dateStyle = .full
+                   dateFormatter.timeStyle = .full
+                   
+                   let timeString = dateFormatter.string(from: Date())
+                   
+                   snap.append([timeString])
+                   
+               }
+               
+               else{
+                   
+                   snap.insert([freq!], before: firstItem)
+                   snap.delete([firstItem])
+               }
                 
-                snap.insert([freq!], before: firstItem)
-                snap.delete([firstItem])
-                
-                dataSource.apply(snap, to: Section.frequency.rawValue, animatingDifferences: false)
+                dataSource.apply(snap, to: Section.frequency.rawValue, animatingDifferences: true)
               
             }
             
@@ -253,7 +285,7 @@ extension EditInjectionViewController{
             guard let self else { return }
             
             var content = UIListContentConfiguration.valueCell()
-            content.text = "Day(s)"
+            content.text = "Frequency"
             content.secondaryText = item
             cell.contentConfiguration = content
             cell.accessories = [.disclosureIndicator()]
@@ -306,21 +338,23 @@ extension EditInjectionViewController{
 
         snapshot.appendItems([injection?.shortenedDayString ?? "None Selected"])
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .full
-        
-        let timeString = dateFormatter.string(from: injection?.time ?? Date())
-        
-        
-        snapshot.appendItems([timeString])
+        if viewModel.selectedFrequency != [.asNeeded] && !viewModel.selectedFrequency.isEmpty{
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .full
+            dateFormatter.timeStyle = .full
+            
+            let timeString = dateFormatter.string(from: injection?.time ?? Date())
+            
+            snapshot.appendItems([timeString])
+        }
         
         if injection != nil{
             snapshot.appendSections([Section.delete.rawValue])
             snapshot.appendItems(["Delete Injection"])
         }
         
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
         
     }
 }

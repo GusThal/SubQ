@@ -43,9 +43,15 @@ class FrequencyCoordinator: ModalChildCoordinator{
         
         //navigationController.present(vc, animated: true)
         
+        vc.title = "Frequency"
+        
+        navigationController.navigationBar.prefersLargeTitles = true
+        
         navigationController.pushViewController(vc, animated: false)
         
         vc.modalPresentationStyle = .automatic
+        
+    
         
         parentNavigationController!.present(navigationController, animated: true)
     }
