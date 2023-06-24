@@ -186,6 +186,18 @@ extension EditInjectionViewController{
                     cell.textField.text = item == "name" ? "" : item
                     
                     self.nameTextField = cell.textField
+                    
+                    let action = UIAction { _ in
+                        
+                        //only update the title for existing injections.
+                        if let _ = self.viewModel.injection{
+                            self.navigationItem.title = self.nameTextField.text
+                        }
+                        
+                    }
+                    
+                    self.nameTextField.addAction(action, for: .editingChanged)
+                    
                     cell.textInputType = .text
                   //  cell.label.sizeToFit()
                   //  cell.label.adjustsFontSizeToFitWidth = true
