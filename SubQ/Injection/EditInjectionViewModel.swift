@@ -19,6 +19,10 @@ class EditInjectionViewModel{
     
     @Published var selectedFrequency = [Injection.Frequency]()
     
+    @Published var name = ""
+    
+    @Published var dosage = ""
+    
     let injectionProvider: InjectionProvider
     
     
@@ -29,6 +33,27 @@ class EditInjectionViewModel{
             
         }).eraseToAnyPublisher()
     }()
+    
+    var isValidNamePublisher: AnyPublisher<Bool, Never> {
+        $name.map { !$0.isEmpty }
+            .eraseToAnyPublisher()
+    }
+    
+    var isValidDosagePublisher: AnyPublisher<Bool, Never> {
+        $dosage.map { !$0.isEmpty }
+            .eraseToAnyPublisher()
+    }
+    
+    var isFrequencySelectedPublisher: AnyPublisher<Bool, Never> {
+        $selectedFrequency.map { $0 != [] }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    var isValidInjectionPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest3(isValidNamePublisher, isValidDosagePublisher, isFrequencySelectedPublisher).map { $0 && $1 && $2 }
+            .eraseToAnyPublisher()
+    }
     
     
     //datasource
@@ -41,6 +66,8 @@ class EditInjectionViewModel{
         if let injection{
             
             selectedFrequency = injection.daysVal
+            name = injection.name!
+            dosage = "\(injection.dosage!)"
             
             //init other properties
         }

@@ -106,6 +106,13 @@ class EditInjectionViewController: UIViewController {
             
         }.store(in: &cancellables)
         
+        
+
+        
+        viewModel.isValidInjectionPublisher
+            .assign(to: \.isEnabled, on: navigationItem.rightBarButtonItem!)
+            .store(in: &cancellables)
+        
     }
     
     @objc func cancelButtonPressed(_ sender: Any){
@@ -187,6 +194,10 @@ extension EditInjectionViewController{
                     
                     self.nameTextField = cell.textField
                     
+                    self.nameTextField.textPublisher()
+                        .assign(to: \.name, on: self.viewModel)
+                        .store(in: &self.cancellables)
+                    
                     //only update the title for existing injections.
                     if let _ = self.viewModel.injection{
                         let action = UIAction { _ in
@@ -206,6 +217,11 @@ extension EditInjectionViewController{
                     cell.textField.text = item == "dosage" ? "" : item
                     
                     self.dosageTextField = cell.textField
+                    
+                    self.dosageTextField.textPublisher()
+                        .assign(to: \.dosage, on: self.viewModel)
+                        .store(in: &self.cancellables)
+                    
                     cell.textInputType = .number
 
                     let unitsArr = Injection.DosageUnits.allCases

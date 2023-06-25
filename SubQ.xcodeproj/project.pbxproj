@@ -28,6 +28,7 @@
 		CC57389C2A34C50B000257E0 /* Section+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389A2A34C50B000257E0 /* Section+CoreDataProperties.swift */; };
 		CC57389E2A34CA38000257E0 /* SectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389D2A34CA38000257E0 /* SectionProvider.swift */; };
 		CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389F2A360ACA000257E0 /* SectionViewModel.swift */; };
+		CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */; };
 		CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */; };
 		CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517329FEBD1B00E6FAF6 /* SceneDelegate.swift */; };
 		CC9F517929FEBD1B00E6FAF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517729FEBD1B00E6FAF6 /* Main.storyboard */; };
@@ -85,6 +86,7 @@
 		CC57389A2A34C50B000257E0 /* Section+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CC57389D2A34CA38000257E0 /* SectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionProvider.swift; sourceTree = "<group>"; };
 		CC57389F2A360ACA000257E0 /* SectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewModel.swift; sourceTree = "<group>"; };
+		CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+textPublisher.swift"; sourceTree = "<group>"; };
 		CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC9F517329FEBD1B00E6FAF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,8 @@
 				CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */,
 				CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */,
 				CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */,
+				CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */,
+				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
 				CC31CD612A23ECB700C20CAB /* Injection+CoreDataClass.swift */,
 				CC31CD622A23ECB700C20CAB /* Injection+CoreDataProperties.swift */,
 				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
@@ -237,6 +241,7 @@
 				CC9F517A29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld */,
 				CCE943812A01B30B00514710 /* Storyboarded.swift */,
 				CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */,
+				CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */,
 			);
 			path = SubQ;
 			sourceTree = "<group>";
@@ -255,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */,
-				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
 				CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */,
 				CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */,
 			);
@@ -266,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				CCE9437F2A01B23B00514710 /* Coordinator.swift */,
-				CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */,
 				CCE943832A01C87200514710 /* MainCoordinator.swift */,
 				CCC4B8632A0413C0008BFF81 /* InjectionCoordinator.swift */,
 				CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */,
@@ -404,6 +407,7 @@
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
 				CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */,
 				CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */,
+				CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */,
 				CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */,
 				CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */,
 				CCC4B8662A044738008BFF81 /* SectionCoordinator.swift in Sources */,
