@@ -92,7 +92,9 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         
         //print("\(name) + \(dosage) + \(units) + \(frequency) + \(date)")
         
-        viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: date)
+        let frequencyString = frequency.map({ $0.rawValue }).joined(separator: ", ")
+        
+        viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequencyString, time: date)
         
         parentNavigationController!.dismiss(animated: true)
         

@@ -127,20 +127,36 @@ class EditInjectionViewController: UIViewController {
         
         let units = Injection.DosageUnits(rawValue: Injection.DosageUnits.allCases.map({$0.rawValue})[unitsSelector.selectedSegmentIndex])!
         
-        let name = nameTextField.text!
-        let dosage = Double.init(dosageTextField.text!)!
+        let name = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let dosage = Double.init(dosageTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))!
+        
+        print("Dosage: \(dosage)")
         
         let time = viewModel.selectedFrequency != [.asNeeded] ? selectedDate : nil
         
+        let frequency = viewModel.selectedFrequency.map({ $0.rawValue }).joined(separator: ", ")
         
-        if let injection = viewModel.injection{
-            viewModel.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: viewModel.selectedFrequency, time: time)
+        
+        if !viewModel.isDuplicateInjection(name: name, dosage: dosage, units: units, frequencyString: frequency, date: time){
+            
+            if let injection = viewModel.injection{
+                viewModel.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+            }
+            else{
+                viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+            }
+            
+            coordinator?.savePressed()
         }
+        
         else{
-            viewModel.saveInjection(name: nameTextField.text!, dosage: Double.init(dosageTextField.text!)!, units: units, frequency: viewModel.selectedFrequency, time: time)
+            let alert = UIAlertController(title: "Duplicate Injection", message: "An injection already exists with that name, dosage, units, and frequency (both day(s) and time)", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            
+            self.present(alert, animated: true)
         }
-        
-        coordinator?.savePressed()
         
         
     }

@@ -10,6 +10,14 @@ import CoreData
 
 class InjectionProvider: NSObject{
     
+    enum SaveResult{
+        case success, duplicate
+    }
+    
+    enum ValidationError: Error{
+        case duplicate(String)
+    }
+    
     let storageProvider: StorageProvider
     
     @Published var snapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?
@@ -34,9 +42,6 @@ class InjectionProvider: NSObject{
         try! fetchedResultsController.performFetch()
     }
     
-    func getInjections(){
-        
-    }
     
     func deleteInjection(_ injection: Injection){
         storageProvider.persistentContainer.viewContext.delete(injection)
@@ -53,7 +58,7 @@ class InjectionProvider: NSObject{
       return fetchedResultsController.object(at: indexPath)
     }
     
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
         
         #warning("TODO: check if injection name already exists")
         
@@ -66,7 +71,8 @@ class InjectionProvider: NSObject{
         injection.name = name
         injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
         injection.units = units.rawValue
-        injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
+        //injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
+        injection.days = frequency
         injection.time = time
         
         do{
@@ -79,14 +85,15 @@ class InjectionProvider: NSObject{
         }
         
     }
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
         
         let persistentContainer = storageProvider.persistentContainer
         
         injection.name = name
         injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
         injection.units = units.rawValue
-        injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
+       // injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
+        injection.days = frequency
         injection.time = time
         
         do{
@@ -98,9 +105,83 @@ class InjectionProvider: NSObject{
             persistentContainer.viewContext.rollback()
         }
         
-        
-        
     }
+    
+    //we need to accesss storage to validate whether the injection is unique, so it made sense to do it here rather than in the NSManagedObject class, where StorageProvider isn't available.
+    //fetch all dates with same name, dosage, units, and frequency. And then check the prettyDate to see if it's a dupe
+    
+    func isDuplicateInjection(existingInjection: Injection?, name: String, dosage: Double, units: Injection.DosageUnits, frequencyString: String, date: Date?) -> Bool{
+        
+        let request: NSFetchRequest<Injection> = Injection.fetchRequest()
+        
+        let namePredicate = NSPredicate(format: "%K ==[c] %@", #keyPath(Injection.name), name)
+        
+        let dosagePredicate = NSPredicate(format: "%K == %f", #keyPath(Injection.dosage), dosage)
+        
+        let unitsPredicate = NSPredicate(format: "%K == %@", #keyPath(Injection.units), units.rawValue)
+        
+        let daysPredicate = NSPredicate(format: "%K == %@", #keyPath(Injection.days), frequencyString)
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [namePredicate, dosagePredicate, unitsPredicate, daysPredicate])
+        
+        
+        request.predicate = compoundPredicate
+        
+        do{
+            let injections = try storageProvider.persistentContainer.viewContext.fetch(request)
+            
+            print(compoundPredicate)
+            
+            print(injections.count)
+            
+            for injection in injections{
+                
+                
+                if let date = date{
+                    if injection.prettyTime == date.prettyTime{
+                        
+                        
+                        if let objectID = existingInjection?.objectID{
+                            //make sure this isn't the same injection
+                            if injection.objectID != objectID{
+                                return true
+                            }
+                            
+                        }
+                        //if we're not updating an existing injection, this is a duplicate.
+                        else{
+                            return true
+                        }
+                        
+                        
+                    }
+                }
+                //if there's no date then it's an As Needed injection
+                else{
+                    
+                    if let objectID = existingInjection?.objectID{
+                        //make sure this isn't the same injection
+                        if injection.objectID != objectID{
+                            return true
+                        }
+                        
+                    }
+                    //if we're not updating an existing injection, this is a duplicate.
+                    else{
+                        return true
+                    }
+                }
+                
+            }
+        }
+        catch{
+            print("failed to fetch injections")
+            return true
+        }
+        
+        return false
+    }
+
     
     
     

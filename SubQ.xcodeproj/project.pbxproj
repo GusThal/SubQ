@@ -29,6 +29,7 @@
 		CC57389E2A34CA38000257E0 /* SectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389D2A34CA38000257E0 /* SectionProvider.swift */; };
 		CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389F2A360ACA000257E0 /* SectionViewModel.swift */; };
 		CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */; };
+		CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */; };
 		CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */; };
 		CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517329FEBD1B00E6FAF6 /* SceneDelegate.swift */; };
 		CC9F517929FEBD1B00E6FAF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517729FEBD1B00E6FAF6 /* Main.storyboard */; };
@@ -87,6 +88,7 @@
 		CC57389D2A34CA38000257E0 /* SectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionProvider.swift; sourceTree = "<group>"; };
 		CC57389F2A360ACA000257E0 /* SectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewModel.swift; sourceTree = "<group>"; };
 		CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+textPublisher.swift"; sourceTree = "<group>"; };
+		CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+prettyTime.swift"; sourceTree = "<group>"; };
 		CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC9F517329FEBD1B00E6FAF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,9 +188,9 @@
 				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
 				CC31CD612A23ECB700C20CAB /* Injection+CoreDataClass.swift */,
 				CC31CD622A23ECB700C20CAB /* Injection+CoreDataProperties.swift */,
-				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
 				CC1356DC2A294AE50073431B /* InjectionProvider.swift */,
 				CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */,
+				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
 			);
 			path = Injection;
 			sourceTree = "<group>";
@@ -242,6 +244,7 @@
 				CCE943812A01B30B00514710 /* Storyboarded.swift */,
 				CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */,
 				CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */,
+				CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */,
 			);
 			path = SubQ;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */,
 				CCC4B8662A044738008BFF81 /* SectionCoordinator.swift in Sources */,
 				CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */,
+				CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */,
 				CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */,
 				CC31CD6B2A23ECB700C20CAB /* History+CoreDataClass.swift in Sources */,
 				CCC4B8702A045901008BFF81 /* SectionViewController.swift in Sources */,

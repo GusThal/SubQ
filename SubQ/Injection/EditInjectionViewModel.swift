@@ -35,12 +35,12 @@ class EditInjectionViewModel{
     }()
     
     var isValidNamePublisher: AnyPublisher<Bool, Never> {
-        $name.map { !$0.isEmpty }
+        $name.map { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             .eraseToAnyPublisher()
     }
     
     var isValidDosagePublisher: AnyPublisher<Bool, Never> {
-        $dosage.map { !$0.isEmpty }
+        $dosage.map { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             .eraseToAnyPublisher()
     }
     
@@ -76,14 +76,14 @@ class EditInjectionViewModel{
     }
     
     
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
         
         injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
         
         
     }
     
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], time: Date?) {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
         
         injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
         
@@ -92,6 +92,12 @@ class EditInjectionViewModel{
     
     func deleteInjection(_ injection: Injection){
         injectionProvider.deleteInjection(injection)
+    }
+    
+    func isDuplicateInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencyString: String, date: Date?) -> Bool{
+        
+        return injectionProvider.isDuplicateInjection(existingInjection: injection, name: name, dosage: dosage, units: units, frequencyString: frequencyString, date: date)
+        
     }
 
     

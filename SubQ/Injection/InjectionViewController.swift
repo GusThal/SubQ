@@ -58,6 +58,7 @@ class InjectionViewController: UIViewController {
                 }
                 
               self?.dataSource.apply(snapshot, animatingDifferences: true)
+                self?.collectionView.reloadData()
             }
           })
           .store(in: &cancellables)
