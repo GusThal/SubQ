@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import CoreData
 
 class EditInjectionViewController: UIViewController {
 
@@ -139,11 +140,39 @@ class EditInjectionViewController: UIViewController {
         
         if !viewModel.isDuplicateInjection(name: name, dosage: dosage, units: units, frequencyString: frequency, date: time){
             
+            var objectID: NSManagedObjectID!
+            
+            
             if let injection = viewModel.injection{
+                
+                objectID = injection.objectID
+                
+               
+                
+                if injection.daysVal != [.asNeeded]{
+                    
+                    //remove existing notifications only if the day or time has changed.
+                    if injection.daysVal != viewModel.selectedFrequency || injection.prettyTime != time?.prettyTime{
+                        
+                        InjectionNotifications.removeExistingNotifications(forInjection: injection)
+                    }
+                    
+                }
+                
                 viewModel.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+                
+                
             }
             else{
-                viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+                objectID = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+                
+            }
+            
+            if viewModel.selectedFrequency != [.asNeeded]{
+                
+                
+                InjectionNotifications.scheduleNotificationForInjectionWith(objectID: objectID, name: name, dosage: dosage, units: units, frequency: viewModel.selectedFrequency, frequencyString: frequency, time: time!)
+                
             }
             
             coordinator?.savePressed()
@@ -175,6 +204,7 @@ class EditInjectionViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
 
 }
@@ -420,6 +450,11 @@ extension EditInjectionViewController: UICollectionViewDelegate{
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
+                
+                if viewModel.injection?.daysVal != [.asNeeded]{
+                    InjectionNotifications.removeExistingNotifications(forInjection: viewModel.injection!)
+                }
+                
                 coordinator?.deleteInjection(viewModel.injection!)
             }))
             

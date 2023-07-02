@@ -42,7 +42,7 @@ class SectionProvider: NSObject{
         if snapshot!.numberOfItems == 0{
             print("zero sections")
             
-            insertInitialData()
+            //insertInitialData()
         }
         else{
             print("Number of Section objects \(snapshot!.numberOfItems)")

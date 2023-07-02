@@ -60,6 +60,7 @@
 		CCC4B8992A0D9FD1008BFF81 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC4B8982A0D9FD1008BFF81 /* SnapKit */; };
 		CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */; };
 		CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */; };
+		CCC8F3802A51D72600BAAED1 /* InjectionNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F37F2A51D72600BAAED1 /* InjectionNotifications.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -120,6 +121,7 @@
 		CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyViewController.swift; sourceTree = "<group>"; };
 		CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyCoordinator.swift; sourceTree = "<group>"; };
+		CCC8F37F2A51D72600BAAED1 /* InjectionNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionNotifications.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */,
 				CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */,
 				CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */,
+				CCC8F37F2A51D72600BAAED1 /* InjectionNotifications.swift */,
 			);
 			path = SubQ;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */,
 				CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */,
 				CC31CD692A23ECB700C20CAB /* Injection+CoreDataClass.swift in Sources */,
+				CCC8F3802A51D72600BAAED1 /* InjectionNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        print("launched")
+        
+        registerForNotifications()
+        
+      /* let storageProvider = StorageProvider()
+        
+        let bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
+        
+        bodyPartProvider.insertInitialData()
+        
+        let sectionProvider = SectionProvider(storageProvider: storageProvider)
+        
+        sectionProvider.insertInitialData()*/
+        
         return true
+    }
+    
+    func registerForNotifications(){
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound, .provisional] ) { success, error in
+            if success {
+                print("Registered for notifications")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     // MARK: UISceneSession Lifecycle

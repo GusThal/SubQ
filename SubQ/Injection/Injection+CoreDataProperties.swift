@@ -33,6 +33,20 @@ extension Injection {
             }
             
         }
+        
+        var weekday: Int? {
+            switch self{
+            case .sun: return 1
+            case .mon: return 2
+            case .tues: return 3
+            case .wed: return 4
+            case .thurs: return 5
+            case .fri: return 6
+            case .sat: return 7
+            default:
+                return nil
+            }
+        }
     }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Injection> {

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreData
 
 class EditInjectionViewModel{
     
@@ -76,9 +77,10 @@ class EditInjectionViewModel{
     }
     
     
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
+    @discardableResult
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> NSManagedObjectID {
         
-        injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+        return injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
         
         
     }

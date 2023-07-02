@@ -108,6 +108,11 @@ class InjectionViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
+            
+            if injection.daysVal != [.asNeeded]{
+                InjectionNotifications.removeExistingNotifications(forInjection: injection)
+            }
+                
             viewModel.deleteInjection(injection)
         }))
         

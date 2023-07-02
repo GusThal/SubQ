@@ -58,10 +58,8 @@ class InjectionProvider: NSObject{
       return fetchedResultsController.object(at: indexPath)
     }
     
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
-        
-        #warning("TODO: check if injection name already exists")
-        
+    @discardableResult
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> NSManagedObjectID {
         
         let persistentContainer = storageProvider.persistentContainer
         
@@ -83,6 +81,8 @@ class InjectionProvider: NSObject{
             print("failed with \(error)")
             persistentContainer.viewContext.rollback()
         }
+        
+        return injection.objectID
         
     }
     func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {

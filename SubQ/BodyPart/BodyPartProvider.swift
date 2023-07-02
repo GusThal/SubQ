@@ -42,7 +42,7 @@ class BodyPartProvider: NSObject{
         if snapshot!.numberOfItems == 0{
             print("zero body parts")
             
-            insertInitialData()
+           // insertInitialData()
         }
         else{
             print("BodyPart Provider has \(snapshot!.numberOfItems)")
