@@ -32,6 +32,7 @@ class SiteCoordinator: Coordinator{
     func start() {
         let vc = SiteViewController()
         vc.coordinator = self
+        vc.siteCoordinator = self
         
         
         navigationController.pushViewController(vc, animated: true)

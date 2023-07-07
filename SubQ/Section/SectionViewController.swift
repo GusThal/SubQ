@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import CoreData
 
-class SectionViewController: UIViewController {
+class SectionViewController: UIViewController, Coordinated {
     
     struct ElementKind{
         static let sectionHeader = "section-header-element-kind"
@@ -24,7 +24,8 @@ class SectionViewController: UIViewController {
     let viewModel: SectionViewModel
     var cancellables = Set<AnyCancellable>()
     
-    weak var coordinator: SectionCoordinator?
+    weak var coordinator: Coordinator?
+    weak var sectionCoordinator: SectionCoordinator?
     
     let footerText = "To customize which body parts are displayed, please head to the Settings tab on the bottom bar."
 
@@ -212,7 +213,7 @@ extension SectionViewController: UICollectionViewDelegate {
         
         let cell = collectionView.cellForItem(at: indexPath) as! BodyPartCollectionViewCell
         
-        coordinator?.showInjectionBodyPart(bodyPart: cell.bodyPart!, section: cell.section!)
+        sectionCoordinator?.showInjectionBodyPart(bodyPart: cell.bodyPart!, section: cell.section!)
     }
 }
 

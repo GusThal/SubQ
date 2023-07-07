@@ -40,6 +40,7 @@ class FrequencyCoordinator: ModalChildCoordinator{
     func start() {
         let vc = FrequencyViewController(selectedFrequency: viewModel!.selectedFrequency)
         vc.coordinator = self
+        vc.frequencyCoordinator = self
         
         //navigationController.present(vc, animated: true)
         

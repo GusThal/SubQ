@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     //I think it makes the most sense to keep a MainCoordinator that launches the TabBarController. This Coordinator can instantiate the Login/account creation flow.
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
+        UNUserNotificationCenter.current().delegate = self
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
@@ -74,7 +76,78 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         #warning("I commented this out, not sure if this will be needed")
        // (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
+    
 
 
+}
+
+extension SceneDelegate: UNUserNotificationCenterDelegate{
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        
+        print(userInfo["injectionObjectID"])
+        
+        
+        let tabBarController = window?.rootViewController as! MainTabBarController
+        
+        
+        let selectedVC = tabBarController.selectedViewController
+        
+        var vcToPresentFrom: UIViewController!
+        
+
+        //check if the currently selected tab is displaying a modal view controller
+        if let presented = selectedVC?.presentedViewController{
+            
+            var presentedVC = presented.presentedViewController
+            
+            while presentedVC != nil{
+                vcToPresentFrom = presentedVC
+                presentedVC = presentedVC!.presentedViewController
+            }
+            
+            if vcToPresentFrom == nil{
+                vcToPresentFrom = presented
+            }
+            
+            if let navController = vcToPresentFrom as? UINavigationController{
+                vcToPresentFrom = navController.topViewController
+            }
+            
+        }
+        
+        else{
+            
+            //check if the currently selected VC is a UINavController. if so, get the top ViewController
+            if let nav = selectedVC as? UINavigationController{
+                vcToPresentFrom = nav.topViewController
+            }
+            else{
+                vcToPresentFrom = selectedVC
+            }
+            
+        }
+        
+        //check if the VC conforms to Coordinated--basically a protocol to indicate whether there's a coordinator object.
+        if let vc = vcToPresentFrom as? Coordinated{
+            
+            vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String)
+        }
+        
+        
+        //vcToPresentFrom.present(navigationController, animated: true)
+        
+        
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("foreground notification?")
+        
+        completionHandler(.banner)
+        
+        
+    }
 }
 

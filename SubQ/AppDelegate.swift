@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerForNotifications()
         
+        
       /* let storageProvider = StorageProvider()
         
         let bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
@@ -33,8 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+   
+    
+    
     func registerForNotifications(){
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound, .provisional] ) { success, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound, .criticalAlert, .provisional] ) { success, error in
             if success {
                 print("Registered for notifications")
             } else if let error = error {
@@ -103,4 +107,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }*/
 
 }
+
 

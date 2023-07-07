@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InjectionHistoryCoordinator: Coordinator{
+class HistoryCoordinator: Coordinator{
     var parentCoordinator: Coordinator?
     
     
@@ -22,7 +22,10 @@ class InjectionHistoryCoordinator: Coordinator{
 
     
     func start() {
-        let vc = InjectionHistoryViewController()
+        let vc = HistoryViewController()
+        vc.coordinator = self
+        vc.historyCoordinator = self
+        
         navigationController.pushViewController(vc, animated: false)
         navigationController.navigationBar.prefersLargeTitles = true
        

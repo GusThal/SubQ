@@ -25,6 +25,8 @@ class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
     func start() {
         let vc = SectionViewController(viewModel: viewModel)
         vc.coordinator = self
+        vc.sectionCoordinator = self
+        
         navigationController.delegate = self
         navigationController.pushViewController(vc, animated: false)
         

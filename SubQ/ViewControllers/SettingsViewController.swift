@@ -9,13 +9,14 @@ import UIKit
 import Combine
 import CoreData
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, Coordinated {
     
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
     var collectionView: UICollectionView! = nil
     
-    weak var coordinator: SettingsCoordinator?
+    weak var coordinator: Coordinator?
+    weak var settingsCoordinator: SettingsCoordinator?
     
     let viewModel: BodyPartViewModel
     

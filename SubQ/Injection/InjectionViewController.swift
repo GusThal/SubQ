@@ -9,9 +9,11 @@ import UIKit
 import Combine
 import CoreData
 
-class InjectionViewController: UIViewController {
+class InjectionViewController: UIViewController, Coordinated {
     
-    weak var coordinator: InjectionCoordinator?
+    weak var coordinator: Coordinator?
+    
+    weak var injectionCoordinator: InjectionCoordinator?
     
     var dataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>! = nil
     var collectionView: UICollectionView! = nil
@@ -94,7 +96,7 @@ class InjectionViewController: UIViewController {
     
     @objc func addButtonPressed(_ sender: Any){
         print("add")
-        coordinator!.addInjection()
+        injectionCoordinator!.addInjection()
     }
     
     @objc func doneButtonPressed(_ sender: Any){
@@ -225,6 +227,6 @@ extension InjectionViewController: UICollectionViewDelegate {
         
         let injection = self.viewModel.object(at: indexPath)
         
-        coordinator?.editInjection(injection)
+        injectionCoordinator?.editInjection(injection)
     }
 }

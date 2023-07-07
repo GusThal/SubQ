@@ -11,7 +11,7 @@ class MainTabBarController: UITabBarController {
     
     let injectionTableCoordinator: InjectionCoordinator
     let siteCoordinator: SectionCoordinator
-    let injectionHistoryCoordinator: InjectionHistoryCoordinator
+    let injectionHistoryCoordinator: HistoryCoordinator
     let settingsCoordinator: SettingsCoordinator
     
     let dummyVCForInjectNow: UIViewController = {
@@ -29,7 +29,7 @@ class MainTabBarController: UITabBarController {
         
         self.injectionTableCoordinator = InjectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
         self.siteCoordinator = SectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
-        self.injectionHistoryCoordinator = InjectionHistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil,  storageProvider: storageProvider)
+        self.injectionHistoryCoordinator = HistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil,  storageProvider: storageProvider)
         self.settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
         parentCoordinator: nil,  storageProvider: storageProvider)
         

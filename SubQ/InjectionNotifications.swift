@@ -50,6 +50,13 @@ class InjectionNotifications{
         let content = UNMutableNotificationContent()
         content.title = "It's Injection O'Clock!"
         content.body = "It's time for your injection \(name) of \(dosage) \(units), scheduled \(frequencyString) at \(time.prettyTime)"
+       
+       content.sound = .defaultCritical
+       content.interruptionLevel = .critical
+       
+       print(objectID)
+       
+       content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
         
         
         // Configure the recurring date.

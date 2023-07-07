@@ -29,6 +29,8 @@ class InjectionCoordinator: Coordinator{
         let vc = InjectionViewController(viewModel: viewModel)
         
         vc.coordinator = self
+        vc.injectionCoordinator = self
+        
         navigationController.navigationBar.prefersLargeTitles = true
         
         navigationController.pushViewController(vc, animated: false)

@@ -31,6 +31,18 @@ extension Coordinator{
             }
         }
     }
+    
+    func startInjectNowCoordinator(forInjectionObjectIDAsString idString: String){
+        
+        print("starting coordinator")
+        
+        let injectNowCoordinator = InjectNowCoordinator(navigationController: UINavigationController(), parentNavigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider)
+        
+        childCoordinators.append(injectNowCoordinator)
+        
+        injectNowCoordinator.start()
+    }
+    
 }
 
 protocol ModalChildCoordinator: Coordinator{

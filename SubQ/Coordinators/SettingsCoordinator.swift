@@ -26,6 +26,9 @@ class SettingsCoordinator: Coordinator{
     
     func start() {
         let vc = SettingsViewController(viewModel: viewModel)
+        vc.coordinator = self
+        vc.settingsCoordinator = self
+        
         navigationController.pushViewController(vc, animated: false)
         
         navigationController.navigationBar.prefersLargeTitles = true

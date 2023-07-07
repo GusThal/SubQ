@@ -7,13 +7,15 @@
 
 import UIKit
 
-class SiteViewController: UIViewController {
+class SiteViewController: UIViewController, Coordinated {
     
     var bodyPart: BodyPart.Location?
     
     var section: Quadrant?
     
-    weak var coordinator: SiteCoordinator?
+    weak var coordinator: Coordinator?
+    
+    weak var siteCoordinator: SiteCoordinator?
     
     var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
     var collectionView: UICollectionView! = nil

@@ -1,22 +1,20 @@
 //
-//  InjectionHistoryViewController.swift
+//  InjectNowViewController.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 5/4/23.
+//  Created by Constantine Thalasinos on 7/3/23.
 //
 
 import UIKit
 
-class HistoryViewController: UIViewController, Coordinated {
-    
-    weak var coordinator: Coordinator?
-    
-    weak var historyCoordinator: HistoryCoordinator?
+class InjectNowViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .blue
+        navigationItem.title = "Inject Now"
+        view.backgroundColor = .brown
+
         // Do any additional setup after loading the view.
     }
     

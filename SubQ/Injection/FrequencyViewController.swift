@@ -7,9 +7,10 @@
 
 import UIKit
 
-class FrequencyViewController: UIViewController {
+class FrequencyViewController: UIViewController, Coordinated {
     
-    weak var coordinator: FrequencyCoordinator?
+    weak var coordinator: Coordinator?
+    weak var frequencyCoordinator: FrequencyCoordinator?
     
     private var dataSource: UICollectionViewDiffableDataSource<Int, Injection.Frequency>! = nil
     private var collectionView: UICollectionView! = nil
@@ -94,7 +95,7 @@ class FrequencyViewController: UIViewController {
     
     @objc func doneButtonPressed(_ sender: Any){
         print("done")
-        coordinator?.done(isDailySelected: isDailySelected, isAsNeededSelected: isAsNeededSelected, selectedDays: selectedDays)
+        frequencyCoordinator?.done(isDailySelected: isDailySelected, isAsNeededSelected: isAsNeededSelected, selectedDays: selectedDays)
     }
     
     

@@ -9,9 +9,12 @@ import UIKit
 import Combine
 import CoreData
 
-class EditInjectionViewController: UIViewController {
+class EditInjectionViewController: UIViewController, Coordinated {
+    
 
-    weak var coordinator: EditInjectionCoordinator?
+    
+    weak var coordinator: Coordinator?
+    weak var editCoordinator: EditInjectionCoordinator?
     
     private var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
     private var collectionView: UICollectionView! = nil
@@ -118,7 +121,7 @@ class EditInjectionViewController: UIViewController {
     
     @objc func cancelButtonPressed(_ sender: Any){
         print("cancel")
-        coordinator?.cancelEdit()
+        editCoordinator?.cancelEdit()
         
     }
     
@@ -175,7 +178,7 @@ class EditInjectionViewController: UIViewController {
                 
             }
             
-            coordinator?.savePressed()
+            editCoordinator?.savePressed()
         }
         
         else{
@@ -441,7 +444,7 @@ extension EditInjectionViewController: UICollectionViewDelegate{
         collectionView.deselectItem(at: indexPath, animated: false)
         
         if section == Section.frequency.rawValue && item == 0{
-            coordinator?.showFrequencyController()
+            editCoordinator?.showFrequencyController()
         }
         else if section == Section.delete.rawValue{
             
@@ -455,7 +458,7 @@ extension EditInjectionViewController: UICollectionViewDelegate{
                     InjectionNotifications.removeExistingNotifications(forInjection: viewModel.injection!)
                 }
                 
-                coordinator?.deleteInjection(viewModel.injection!)
+                editCoordinator?.deleteInjection(viewModel.injection!)
             }))
             
             self.present(alert, animated: true)
