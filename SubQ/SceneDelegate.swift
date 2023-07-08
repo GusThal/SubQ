@@ -36,11 +36,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // tell the coordinator to take over control
         //coordinator?.start()
         
-        let tabBarController = MainTabBarController(storageProvider: storageProvider)
+       // let tabBarController = MainTabBarController(storageProvider: storageProvider)
+        
+        let navigationController = UINavigationController()
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
+        let mainCoordinator = MainCoordinator(navigationController: navigationController, parentCoordinator: nil, storageProvider: storageProvider)
+        
+        coordinator = mainCoordinator
+        
+        mainCoordinator.start()
 
         // create a basic UIWindow and activate it
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = tabBarController
+        window?.rootViewController = mainCoordinator.navigationController
         window?.makeKeyAndVisible()
     }
 

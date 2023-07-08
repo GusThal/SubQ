@@ -14,6 +14,8 @@ class MainTabBarController: UITabBarController {
     let injectionHistoryCoordinator: HistoryCoordinator
     let settingsCoordinator: SettingsCoordinator
     
+    weak var mainCoordinator: MainCoordinator?
+    
     let dummyVCForInjectNow: UIViewController = {
         
         let vc = UIViewController()
@@ -24,7 +26,10 @@ class MainTabBarController: UITabBarController {
     
     let storageProvider: StorageProvider
     
-    init(storageProvider: StorageProvider){
+    init(coordinator: MainCoordinator, storageProvider: StorageProvider){
+        
+        self.mainCoordinator = coordinator
+        
         self.storageProvider = storageProvider
         
         self.injectionTableCoordinator = InjectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
@@ -46,6 +51,10 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
+        
+        
         
         viewControllers = [injectionTableCoordinator.navigationController, siteCoordinator.navigationController, dummyVCForInjectNow, injectionHistoryCoordinator.navigationController, settingsCoordinator.navigationController]
         
@@ -76,4 +85,22 @@ class MainTabBarController: UITabBarController {
     }
     */
 
+}
+
+extension MainTabBarController: UITabBarControllerDelegate{
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        print(settingsCoordinator)
+        if !(viewController is UINavigationController){
+            mainCoordinator!.startInjectNowCoordinator(forInjectionObjectIDAsString: nil)
+            return false
+        }
+        else{
+            return true
+        }
+        
+
+    }
+    
 }

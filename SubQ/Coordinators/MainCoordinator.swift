@@ -22,7 +22,11 @@ class MainCoordinator: Coordinator {
 
 
     func start() {
-        let vc = MainTabBarController(storageProvider: storageProvider)
+        let vc = MainTabBarController(coordinator: self, storageProvider: storageProvider)
+        
+        
         navigationController.pushViewController(vc, animated: false)
+        
+    
     }
 }
