@@ -38,6 +38,7 @@ class SectionViewModel{
         sectionProvider.bodyPart(for: indexPath)
     }
     
+    #warning("i believe this is unused")
     @objc func dataDidUpdate(_ notification: Notification){
         
         let updatedKey = NSManagedObjectContext.NotificationKey.updatedObjects.rawValue

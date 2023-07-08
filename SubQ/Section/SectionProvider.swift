@@ -21,19 +21,19 @@ class SectionProvider: NSObject{
         let request: NSFetchRequest<Section> = Section.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Section.bodyPart!.part, ascending: true), NSSortDescriptor(keyPath: \Section.quadrant, ascending: true)]
         
-        request.predicate = NSPredicate(format: "%K==%d", #keyPath(Section.bodyPart.enabled), true)
-        
         return request
     }()
     
+    let bodyPredicate = NSPredicate(format: "%K==%d", #keyPath(Section.bodyPart.enabled), true)
     
     
-    init(storageProvider: StorageProvider){
+    
+    init(storageProvider: StorageProvider, applyingBodyPredicate: Bool = true){
         self.storageProvider = storageProvider
         
         super.init()
         
-        setUpFetchedResultsController()
+        setUpFetchedResultsController(applyingBodyPredicate: applyingBodyPredicate)
 
       
 
@@ -58,11 +58,22 @@ class SectionProvider: NSObject{
 
     }
     
-    func setUpFetchedResultsController(){
+    func setUpFetchedResultsController(applyingBodyPredicate: Bool){
+        
+        var req = request
+        var sectionNameKeyPath: String?
+        
+        if applyingBodyPredicate{
+            
+            req.predicate = bodyPredicate
+            sectionNameKeyPath = "bodyPart"
+            
+        }
+        
         self.fetchedResultsController =
-          NSFetchedResultsController(fetchRequest: request,
+          NSFetchedResultsController(fetchRequest: req,
                                      managedObjectContext: storageProvider.persistentContainer.viewContext,
-                                     sectionNameKeyPath: "bodyPart", cacheName: nil)
+                                     sectionNameKeyPath: sectionNameKeyPath, cacheName: nil)
         
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
@@ -159,7 +170,7 @@ class SectionProvider: NSObject{
         
         //fetchedResultsController.managedObjectContext.refreshAllObjects()
         
-        setUpFetchedResultsController()
+        setUpFetchedResultsController(applyingBodyPredicate: true)
         
         
         //fetchedResultsController.managedObjectContext.refresh(part, mergeChanges: true)

@@ -128,7 +128,7 @@ extension SectionViewController {
     }
     func configureDataSource() {
         
-        let cellRegistration = UICollectionView.CellRegistration<BodyPartCollectionViewCell, NSManagedObjectID> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<SectionCollectionViewCell, NSManagedObjectID> { (cell, indexPath, item) in
             
             // Populate the cell with our item description.
             //cell.bodyPart = self.enabledBodyParts[indexPath.section]
@@ -139,10 +139,9 @@ extension SectionViewController {
             
             let sectionObject = self.viewModel.object(at: indexPath)
             
-            cell.bodyPart = self.viewModel.bodyPart(for: indexPath).partVal
-            cell.section = sectionObject.quadrantVal
+            cell.section = sectionObject
             
-            cell.label.text = sectionObject.quadrantVal.description
+            cell.label.text = "\(sectionObject.bodyPart!.part) + \(sectionObject.quadrantVal.description)"
             cell.contentView.backgroundColor = .systemGreen
            /* cell.contentView.layer.borderColor = UIColor.black.cgColor
             cell.contentView.layer.borderWidth = 1
@@ -211,9 +210,9 @@ extension SectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let cell = collectionView.cellForItem(at: indexPath) as! BodyPartCollectionViewCell
+        let cell = collectionView.cellForItem(at: indexPath) as! SectionCollectionViewCell
         
-        sectionCoordinator?.showInjectionBodyPart(bodyPart: cell.bodyPart!, section: cell.section!)
+        sectionCoordinator?.showSites(forSection: cell.section!)
     }
 }
 

@@ -38,7 +38,7 @@
 		CC9F518129FEBD1E00E6FAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517F29FEBD1E00E6FAF6 /* LaunchScreen.storyboard */; };
 		CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */; };
 		CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980322A281B7D00BF518C /* DatePickerContentView.swift */; };
-		CCBCE2192A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2182A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift */; };
+		CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2182A13C8BA001B73D6 /* SectionCollectionViewCell.swift */; };
 		CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */; };
 		CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */; };
 		CCBCE21F2A1524D7001B73D6 /* SiteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */; };
@@ -64,6 +64,8 @@
 		CCC8F3822A53776F00BAAED1 /* InjectNowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */; };
 		CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */; };
 		CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */; };
+		CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */; };
+		CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -103,7 +105,7 @@
 		CC9F518229FEBD1E00E6FAF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentConfiguration.swift; sourceTree = "<group>"; };
 		CCA980322A281B7D00BF518C /* DatePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentView.swift; sourceTree = "<group>"; };
-		CCBCE2182A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCBCE2182A13C8BA001B73D6 /* SectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSupplementaryView.swift; sourceTree = "<group>"; };
 		CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteViewController.swift; sourceTree = "<group>"; };
 		CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCoordinator.swift; sourceTree = "<group>"; };
@@ -128,6 +130,8 @@
 		CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowViewController.swift; sourceTree = "<group>"; };
 		CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowCoordinator.swift; sourceTree = "<group>"; };
 		CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinated.swift; sourceTree = "<group>"; };
+		CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteViewModel.swift; sourceTree = "<group>"; };
+		CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				CCC4B8652A044738008BFF81 /* SectionCoordinator.swift */,
+				CCBCE2182A13C8BA001B73D6 /* SectionCollectionViewCell.swift */,
 				CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */,
 				CC57389A2A34C50B000257E0 /* Section+CoreDataProperties.swift */,
 				CC57389D2A34CA38000257E0 /* SectionProvider.swift */,
@@ -224,6 +229,8 @@
 				CC31CD662A23ECB700C20CAB /* Site+CoreDataProperties.swift */,
 				CC5738952A3153B7000257E0 /* SiteProvider.swift */,
 				CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */,
+				CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */,
+				CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */,
 			);
 			path = Site;
 			sourceTree = "<group>";
@@ -317,7 +324,6 @@
 			isa = PBXGroup;
 			children = (
 				CCA9802D2A281A5A00BF518C /* TimePickerCell */,
-				CCBCE2182A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift */,
 				CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */,
 				CCBCE2232A16F10E001B73D6 /* TimePickerTableViewCell.swift */,
 				CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */,
@@ -445,11 +451,12 @@
 				CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
 				CC1356E32A2F8F1A0073431B /* BodyPartViewModel.swift in Sources */,
-				CCBCE2192A13C8BA001B73D6 /* BodyPartCollectionViewCell.swift in Sources */,
+				CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */,
 				CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */,
 				CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */,
 				CC57389C2A34C50B000257E0 /* Section+CoreDataProperties.swift in Sources */,
 				CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */,
+				CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */,
 				CC1356DF2A2CE1120073431B /* InjectionViewModel.swift in Sources */,
 				CCBCE22A2A17CD62001B73D6 /* TimePickerCollectionViewCell.swift in Sources */,
 				CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */,
@@ -457,6 +464,7 @@
 				CC31CD682A23ECB700C20CAB /* BodyPart+CoreDataProperties.swift in Sources */,
 				CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */,
 				CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */,
+				CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */,
 				CC31CD692A23ECB700C20CAB /* Injection+CoreDataClass.swift in Sources */,
 				CCC8F3802A51D72600BAAED1 /* InjectionNotifications.swift in Sources */,
 			);

@@ -39,16 +39,15 @@ class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
         vc.navigationItem.backBarButtonItem = backButton
     }
     
-    func showInjectionBodyPart(bodyPart: BodyPart.Location, section: Quadrant){
-        let child  = SiteCoordinator(navigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider)
+    func showSites(forSection section: Section){
+        let child  = SiteCoordinator(navigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider, section: section)
         
         
         childCoordinators.append(child)
         child.start()
         
         let vc = child.navigationController.viewControllers.last as! SiteViewController
-        vc.bodyPart = bodyPart
-        vc.section = section
+        
     }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {

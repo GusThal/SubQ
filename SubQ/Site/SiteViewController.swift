@@ -6,29 +6,53 @@
 //
 
 import UIKit
+import CoreData
+import Combine
 
 class SiteViewController: UIViewController, Coordinated {
     
-    var bodyPart: BodyPart.Location?
-    
-    var section: Quadrant?
     
     weak var coordinator: Coordinator?
     
     weak var siteCoordinator: SiteCoordinator?
     
-    var dataSource: UICollectionViewDiffableDataSource<Int, String>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>! = nil
     var collectionView: UICollectionView! = nil
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    let viewModel: SiteViewModel
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBrown
         
-        navigationItem.title = "\(bodyPart!.rawValue) + \(section!.rawValue)"
+        navigationItem.title = "\(viewModel.section.bodyPart!.part) + \(viewModel.section.quadrantVal)"
     
         configureHierarchy()
         configureDataSource()
+        
+        viewModel.snapshot
+          .sink(receiveValue: { [weak self] snapshot in
+            if let snapshot = snapshot {
+                print("Number of Snapshot sections in publisher \(snapshot.numberOfItems)")
+                
+              self?.dataSource.apply(snapshot, animatingDifferences: false)
+               // self?.collectionView.reloadData()
+            }
+          })
+          .store(in: &cancellables)
+    }
+    
+    init(viewModel: SiteViewModel){
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 
@@ -72,26 +96,31 @@ extension SiteViewController{
         view.addSubview(collectionView)
     }
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<BodyPartCollectionViewCell, String> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<SiteCollectionViewCell, NSManagedObjectID> { (cell, indexPath, item) in
+            
+            let site = self.viewModel.object(at: indexPath)
             // Populate the cell with our item description.
-            cell.label.text = "\(item)"
+            cell.site = site
+            cell.label.text = "\(site.subQuadrantVal) + \(site.lastInjected)"
            /* cell.contentView.backgroundColor = .cornflowerBlue
             cell.layer.borderColor = UIColor.black.cgColor
             cell.layer.borderWidth = 1*/
             cell.label.textAlignment = .center
-            cell.label.font = UIFont.preferredFont(forTextStyle: .title1)
+            cell.label.font = UIFont.preferredFont(forTextStyle: .body)
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Int, String>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: String) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: NSManagedObjectID) -> UICollectionViewCell? in
             // Return the cell.
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
         }
 
         // initial data
-        var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(Quadrant.allCases.map({ $0.description }))
+        var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
+        //snapshot.appendSections([0])
+        //snapshot.appendItems(Quadrant.allCases.map({ $0.description }))
+        
+        
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }

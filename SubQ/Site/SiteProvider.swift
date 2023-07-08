@@ -17,16 +17,27 @@ class SiteProvider: NSObject{
     
     private let fetchedResultsController: NSFetchedResultsController<Site>
     
-    init(storageProvider: StorageProvider){
+    init(storageProvider: StorageProvider, section: Section? = nil){
+        
         self.storageProvider = storageProvider
         
         let request: NSFetchRequest<Site> = Site.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Site.bodyPart?.part, ascending: true)]
-
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Site.subQuadrant, ascending: true)]
+        
+        //pull all sites for that section
+        if let section{
+            request.predicate = NSPredicate(format: "%K==%@", #keyPath(Site.section), section)
+        }
+        //only pull sites with an enabled bodypart. this will be in the InjectNow controller.
+        else{
+            request.predicate = NSPredicate(format: "%K==%d", #keyPath(Site.section.bodyPart.enabled), true)
+        }
+        
+        
         self.fetchedResultsController =
           NSFetchedResultsController(fetchRequest: request,
                                      managedObjectContext: storageProvider.persistentContainer.viewContext,
-                                     sectionNameKeyPath: "bodyPart.part", cacheName: nil)
+                                     sectionNameKeyPath: nil, cacheName: nil)
 
         super.init()
 
@@ -34,35 +45,101 @@ class SiteProvider: NSObject{
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
         
+        
         if snapshot!.numberOfItems == 0{
+             print("zerooooo Sites")
+            // insertInitialData()
+             
+         }
+         else{
+             
+             print("number of sites \(snapshot!.numberOfItems)")
+             
+         }
+        
+        
+    }
+    
+    func object(at indexPath: IndexPath) -> Site {
+      return fetchedResultsController.object(at: indexPath)
+    }
+    
+ /*   init(section: Section, storageProvider: StorageProvider){
+        self.storageProvider = storageProvider
+        
+        let request: NSFetchRequest<Site> = Site.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Site.subQuadrant, ascending: true)]
+        
+        request.predicate = NSPredicate(format: "%K==%d", #keyPath(Site.section), section)
+
+        self.fetchedResultsController =
+          NSFetchedResultsController(fetchRequest: request,
+                                     managedObjectContext: storageProvider.persistentContainer.viewContext,
+                                     sectionNameKeyPath: nil, cacheName: nil)
+
+        super.init()
+
+        //delegate will be informed any time a managed object changes, a new one is inserted, or one is deleted
+        fetchedResultsController.delegate = self
+        try! fetchedResultsController.performFetch()
+        
+       if snapshot!.numberOfItems == 0{
             print("zerooooo Sites")
            // insertInitialData()
             
         }
         else{
             
-            print("number of sections \(snapshot!.numberOfSections)")
+            print("number of sites \(snapshot!.numberOfItems)")
             
-            for id in snapshot!.itemIdentifiers{
+        }
+    }*/
+    
+    func insertInitialData(){
+        
+        
+        let sectionProvider = SectionProvider(storageProvider: storageProvider, applyingBodyPredicate: false)
+        
+        let persistentContainer = storageProvider.persistentContainer
+        
+        let subQuadrants = Quadrant.allCases.map { $0.rawValue }
+        
+        
+        print("# of items \(sectionProvider.snapshot!.numberOfItems)")
+        
+        print("# of sections \(sectionProvider.snapshot!.numberOfSections)")
+        
+        for section in sectionProvider.snapshot!.itemIdentifiers{
+            
+            let sectionObj = persistentContainer.viewContext.object(with: section) as! Section
+            
+            print("-----------FOR: \(sectionObj.bodyPart?.part) + \(sectionObj.quadrantVal)----------")
+            
+            
+            for subQuadrant in subQuadrants{
                 
+                let site = Site(context: persistentContainer.viewContext)
+                site.lastInjected = nil
+                site.subQuadrant = NSNumber(integerLiteral: subQuadrant)
+                site.section = sectionObj
                 
-                let siteObj = storageProvider.persistentContainer.viewContext.object(with: id) as! Site
+                print("Created \(Quadrant(rawValue: subQuadrant))")
                 
-                if siteObj.bodyPart == nil{
-                    
-                }
-                else{
-                    print(siteObj)
-                }
-                
-               
             }
             
         }
-    }
-    
-  /*  func insertInitialData(){
-        let bodyParts = BodyPart.Location.allCases
+        
+        do{
+            try persistentContainer.viewContext.save()
+            print("saved successfully")
+            
+        } catch{
+            print("failed with \(error)")
+            persistentContainer.viewContext.rollback()
+        }
+        
+        
+/*        let bodyParts = BodyPart.Location.allCases
         
         let sections = Quadrant.allCases.map { $0.rawValue }
         
@@ -106,9 +183,9 @@ class SiteProvider: NSObject{
         } catch{
             print("failed with \(error)")
             persistentContainer.viewContext.rollback()
-        }
+        }*/
         
-    }*/
+    }
     
     
 }

@@ -19,7 +19,6 @@ extension Site {
     @NSManaged public var lastInjected: Date?
     @NSManaged public var subQuadrant: NSNumber?
     @NSManaged public var siteHistory: NSSet?
-    @NSManaged public var bodyPart: BodyPart?
     @NSManaged public var section: Section?
     
 

@@ -21,15 +21,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForNotifications()
         
         
-      /* let storageProvider = StorageProvider()
+       let storageProvider = StorageProvider()
         
         let bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
         
-        bodyPartProvider.insertInitialData()
+       // bodyPartProvider.insertInitialData()
         
         let sectionProvider = SectionProvider(storageProvider: storageProvider)
         
-        sectionProvider.insertInitialData()*/
+      //  sectionProvider.insertInitialData()
+        
+       // let storageProvider = StorageProvider()
+        
+        let siteProvider = SiteProvider(storageProvider: storageProvider)
+        
+       // siteProvider.insertInitialData()
         
         return true
     }

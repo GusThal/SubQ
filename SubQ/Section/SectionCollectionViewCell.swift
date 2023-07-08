@@ -8,10 +8,10 @@
 import UIKit
 import SnapKit
 
-class BodyPartCollectionViewCell: UICollectionViewCell {
+class SectionCollectionViewCell: UICollectionViewCell {
     let label = UILabel()
-    var bodyPart: BodyPart.Location?
-    var section: Quadrant?
+    
+    var section: Section?
 
     override init(frame: CGRect) {
         super.init(frame: frame)

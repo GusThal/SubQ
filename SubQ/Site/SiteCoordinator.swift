@@ -19,6 +19,19 @@ class SiteCoordinator: Coordinator{
     
     var storageProvider: StorageProvider
     
+    var viewModel: SiteViewModel?
+    
+    
+    init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider, section: Section) {
+        self.navigationController = navigationController
+        self.parentCoordinator = parentCoordinator
+        self.storageProvider = storageProvider
+        self.viewModel = SiteViewModel(storageProvider: storageProvider, section: section)
+       
+   }
+    
+    
+    
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.parentCoordinator = parentCoordinator
@@ -30,7 +43,7 @@ class SiteCoordinator: Coordinator{
 
     
     func start() {
-        let vc = SiteViewController()
+        let vc = SiteViewController(viewModel: viewModel!)
         vc.coordinator = self
         vc.siteCoordinator = self
         
