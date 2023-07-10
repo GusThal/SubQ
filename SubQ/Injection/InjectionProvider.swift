@@ -54,6 +54,18 @@ class InjectionProvider: NSObject{
           }
     }
     
+    func object(fromIDString id: String) -> Injection{
+        
+        let url = URL(string: id)!
+        
+        let managedObjectID = storageProvider.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url)!
+        
+        let injection = storageProvider.persistentContainer.viewContext.object(with: managedObjectID) as! Injection
+        
+        return injection
+        
+    }
+    
     func object(at indexPath: IndexPath) -> Injection {
       return fetchedResultsController.object(at: indexPath)
     }

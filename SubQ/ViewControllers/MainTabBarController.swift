@@ -91,7 +91,7 @@ extension MainTabBarController: UITabBarControllerDelegate{
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
-        print(settingsCoordinator)
+        //the InjectNow dummy ViewController is the only one in the TabBar that isn't embedded in a Nav Controller
         if !(viewController is UINavigationController){
             mainCoordinator!.startInjectNowCoordinator(forInjectionObjectIDAsString: nil)
             return false

@@ -66,6 +66,7 @@
 		CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */; };
 		CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */; };
 		CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */; };
+		CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -132,6 +133,7 @@
 		CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinated.swift; sourceTree = "<group>"; };
 		CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteViewModel.swift; sourceTree = "<group>"; };
 		CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowViewModel.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
 				CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */,
 				CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */,
+				CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */,
 			);
 			path = Injection;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */,
 				CCBCE2242A16F10E001B73D6 /* TimePickerTableViewCell.swift in Sources */,
+				CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */,
 				CCC4B8682A0447C9008BFF81 /* HistoryCoordinator.swift in Sources */,
 				CCBCE21F2A1524D7001B73D6 /* SiteCoordinator.swift in Sources */,
 				CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */,

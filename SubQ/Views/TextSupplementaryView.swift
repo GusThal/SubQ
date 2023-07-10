@@ -8,7 +8,18 @@
 import UIKit
 
 class TextSupplementaryView: UICollectionReusableView {
+    
+    var supplementaryViewKind: InjectNowViewController.SupplementaryViewKind = .header{
+        didSet{
+            if supplementaryViewKind == .footer{
+                addSupplementaryLabel()
+            }
+        }
+    }
+    
     let label = UILabel()
+    let secondaryLabel = UILabel()
+    
     static let reuseIdentifier = "title-supplementary-reuse-identifier"
 
     override init(frame: CGRect) {
@@ -19,13 +30,26 @@ class TextSupplementaryView: UICollectionReusableView {
         label.adjustsFontForContentSizeCategory = true
         
         label.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.leadingMargin.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
         label.font = UIFont.preferredFont(forTextStyle: .title3)
     }
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    private func addSupplementaryLabel(){
+        
+        secondaryLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(secondaryLabel)
+        
+        secondaryLabel.snp.makeConstraints { make in
+            make.trailingMargin.centerY.equalToSuperview()
+            make.leadingMargin.equalTo(label.snp.trailingMargin)
+        }
+        
     }
     
 }

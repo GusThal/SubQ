@@ -36,7 +36,7 @@ extension Coordinator{
         
         print("starting coordinator")
         
-        let injectNowCoordinator = InjectNowCoordinator(navigationController: UINavigationController(), parentNavigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider)
+        let injectNowCoordinator = InjectNowCoordinator(navigationController: UINavigationController(), parentNavigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionIDString: idString)
         
         childCoordinators.append(injectNowCoordinator)
         

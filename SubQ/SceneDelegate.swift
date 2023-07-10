@@ -95,10 +95,9 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
         
         let userInfo = response.notification.request.content.userInfo
         
-        print(userInfo["injectionObjectID"])
+        let navController = window?.rootViewController as! UINavigationController
         
-        
-        let tabBarController = window?.rootViewController as! MainTabBarController
+        let tabBarController = navController.topViewController as! MainTabBarController
         
         
         let selectedVC = tabBarController.selectedViewController
