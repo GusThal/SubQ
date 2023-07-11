@@ -15,6 +15,9 @@ class InjectNowViewModel{
     let injectionProvider: InjectionProvider
     let siteProvider: SiteProvider
     var injection: Injection?
+    let historyProvider: HistoryProvider
+    
+    let isFromNotification: Bool
     
     
     lazy var siteSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
@@ -24,10 +27,15 @@ class InjectNowViewModel{
     init(storageProvider: StorageProvider, injectionIDString: String?) {
         self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         self.siteProvider = SiteProvider(storageProvider: storageProvider)
+        self.historyProvider = HistoryProvider(storageProvider: storageProvider, fetch: false)
         
         
         if let injectionIDString{
+            isFromNotification = true
             injection = getInjection(withIDString: injectionIDString)
+        }
+        else{
+            isFromNotification = false
         }
         
     }
@@ -38,6 +46,16 @@ class InjectNowViewModel{
     
     func getSite(forIndexPath indexPath: IndexPath) -> Site{
         return siteProvider.object(at: indexPath)
+    }
+    
+    func injectionPerformed(site: Site){
+        
+        let date = Date()
+        
+        historyProvider.saveHistory(injection: injection!, site: site, date: date)
+        siteProvider.update(site: site, withDate: date)
+        
+        
     }
     
 }

@@ -25,10 +25,7 @@ class InjectNowViewController: UIViewController {
         
         return stack
     }()
-    
-
-    private let isFromNotification: Bool
-    
+        
     let injectionNameLabel = UILabel()
     
     let scheduledLabel = UILabel()
@@ -44,6 +41,9 @@ class InjectNowViewController: UIViewController {
     lazy var selectedSiteLabel = UILabel()
     
     var selectedSite: Site?
+    
+    #warning("probably will have to be conformed to Coordinated protocol")
+    weak var coordinator: InjectNowCoordinator?
     
 
     
@@ -94,12 +94,6 @@ class InjectNowViewController: UIViewController {
     init(viewModel: InjectNowViewModel) {
         self.viewModel = viewModel
         
-        if let _ = viewModel.injection{
-            isFromNotification = true
-        }
-        else{
-            isFromNotification = false
-        }
                 
         print(viewModel.injection?.objectID)
         
@@ -112,7 +106,7 @@ class InjectNowViewController: UIViewController {
     }
     
     func setUpNavBar(){
-        if let _ = viewModel.injection{
+        if viewModel.isFromNotification{
             let button = UIBarButtonItem(title: "Skip", style: .done, target: self, action: nil)
             button.tintColor = .systemRed
             navigationItem.leftBarButtonItem = button
@@ -129,7 +123,13 @@ class InjectNowViewController: UIViewController {
         injectButtonConfig.title = "Inject"
         injectButtonConfig.baseBackgroundColor = .blue
         
-        let injectButton = UIButton(configuration: injectButtonConfig)
+        let injectAction = UIAction { _ in
+            self.viewModel.injectionPerformed(site: self.selectedSite!)
+            self.coordinator!.injectPressed()
+            
+        }
+        
+        let injectButton = UIButton(configuration: injectButtonConfig, primaryAction: injectAction)
         
         //let injectButton = UIBarButtonItem(customView: button)
         

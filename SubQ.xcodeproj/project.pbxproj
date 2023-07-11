@@ -54,7 +54,7 @@
 		CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */; };
 		CCC4B86C2A0453B3008BFF81 /* InjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */; };
 		CCC4B8702A045901008BFF81 /* SectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B86F2A045901008BFF81 /* SectionViewController.swift */; };
-		CCC4B8722A04591B008BFF81 /* InjectionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */; };
+		CCC4B8722A04591B008BFF81 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8712A04591B008BFF81 /* HistoryViewController.swift */; };
 		CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */; };
 		CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */; };
 		CCC4B8992A0D9FD1008BFF81 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC4B8982A0D9FD1008BFF81 /* SnapKit */; };
@@ -67,6 +67,8 @@
 		CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */; };
 		CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */; };
 		CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */; };
+		CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */; };
+		CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -122,7 +124,7 @@
 		CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionViewController.swift; sourceTree = "<group>"; };
 		CCC4B86F2A045901008BFF81 /* SectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewController.swift; sourceTree = "<group>"; };
-		CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionHistoryViewController.swift; sourceTree = "<group>"; };
+		CCC4B8712A04591B008BFF81 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,8 @@
 		CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteViewModel.swift; sourceTree = "<group>"; };
 		CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowViewModel.swift; sourceTree = "<group>"; };
+		CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProvider.swift; sourceTree = "<group>"; };
+		CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -218,8 +222,10 @@
 			children = (
 				CC31CD632A23ECB700C20CAB /* History+CoreDataClass.swift */,
 				CC31CD642A23ECB700C20CAB /* History+CoreDataProperties.swift */,
-				CCC4B8712A04591B008BFF81 /* InjectionHistoryViewController.swift */,
+				CCC4B8712A04591B008BFF81 /* HistoryViewController.swift */,
+				CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */,
 				CCC4B8672A0447C9008BFF81 /* HistoryCoordinator.swift */,
+				CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -413,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */,
+				CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */,
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
 				CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
@@ -423,6 +430,7 @@
 				CCC8F3822A53776F00BAAED1 /* InjectNowViewController.swift in Sources */,
 				CCC4B8642A0413C0008BFF81 /* InjectionCoordinator.swift in Sources */,
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
+				CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */,
 				CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */,
 				CCBCE2242A16F10E001B73D6 /* TimePickerTableViewCell.swift in Sources */,
 				CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */,
@@ -430,7 +438,7 @@
 				CCBCE21F2A1524D7001B73D6 /* SiteCoordinator.swift in Sources */,
 				CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */,
 				CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */,
-				CCC4B8722A04591B008BFF81 /* InjectionHistoryViewController.swift in Sources */,
+				CCC4B8722A04591B008BFF81 /* HistoryViewController.swift in Sources */,
 				CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */,
 				CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */,
 				CCE943802A01B23B00514710 /* Coordinator.swift in Sources */,

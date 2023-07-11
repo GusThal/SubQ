@@ -53,6 +53,8 @@ class InjectNowCoordinator: ModalChildCoordinator{
     func start() {
         let vc = InjectNowViewController(viewModel: viewModel)
         
+        vc.coordinator = self
+        
         //navigationController.present(vc, animated: true)
         
         navigationController.navigationBar.prefersLargeTitles = true
@@ -63,6 +65,13 @@ class InjectNowCoordinator: ModalChildCoordinator{
         
         parentNavigationController!.present(navigationController, animated: true)
         
+    }
+    
+    func injectPressed(){
+        parentNavigationController!.dismiss(animated: true)
+        
+
+        parentCoordinator?.childDidFinish(self)
     }
     
     

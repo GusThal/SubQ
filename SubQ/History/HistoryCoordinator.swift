@@ -14,15 +14,17 @@ class HistoryCoordinator: Coordinator{
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     var storageProvider: StorageProvider
+    let viewModel: HistoryViewModel
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
+        self.viewModel = HistoryViewModel(storageProvider: storageProvider)
     }
 
     
     func start() {
-        let vc = HistoryViewController()
+        let vc = HistoryViewController(viewModel: viewModel)
         vc.coordinator = self
         vc.historyCoordinator = self
         

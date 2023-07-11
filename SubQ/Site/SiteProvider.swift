@@ -64,6 +64,21 @@ class SiteProvider: NSObject{
       return fetchedResultsController.object(at: indexPath)
     }
     
+    func update(site: Site, withDate date: Date){
+        let persistentContainer = storageProvider.persistentContainer
+        
+        site.lastInjected = date
+        
+        do{
+            try persistentContainer.viewContext.save()
+            print("saved successfully")
+            
+        } catch{
+            print("failed with \(error)")
+            persistentContainer.viewContext.rollback()
+        }
+    }
+    
  /*   init(section: Section, storageProvider: StorageProvider){
         self.storageProvider = storageProvider
         
