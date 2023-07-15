@@ -59,6 +59,7 @@ extension Injection {
     @NSManaged public var time: Date?
     @NSManaged public var units: String?
     @NSManaged public var injectionHistory: NSSet?
+    @NSManaged public var queue: NSSet?
     
     var unitsVal: DosageUnits{
         get{

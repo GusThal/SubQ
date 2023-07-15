@@ -112,7 +112,10 @@ class InjectNowViewController: UIViewController {
             navigationItem.leftBarButtonItem = button
         }
         else{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close)
+            let action = UIAction { _ in
+                self.coordinator!.dismissViewController()
+            }
+            navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: action)
             
         }
         
@@ -133,22 +136,32 @@ class InjectNowViewController: UIViewController {
         
         //let injectButton = UIBarButtonItem(customView: button)
         
+        var rightButtonArray = [UIBarButtonItem(customView: injectButton)]
         
-        var snoozeButtonConfig = UIButton.Configuration.filled()
-        snoozeButtonConfig.buttonSize = .medium
-        snoozeButtonConfig.cornerStyle = .capsule
-        snoozeButtonConfig.title = "Snooze"
-        snoozeButtonConfig.baseBackgroundColor = .orange
+        if viewModel.isFromNotification{
+            
+            var snoozeButtonConfig = UIButton.Configuration.filled()
+            snoozeButtonConfig.buttonSize = .medium
+            snoozeButtonConfig.cornerStyle = .capsule
+            snoozeButtonConfig.title = "Snooze"
+            snoozeButtonConfig.baseBackgroundColor = .orange
+            
+            let snoozeButton = UIButton(configuration: snoozeButtonConfig)
+            
+            rightButtonArray.append(UIBarButtonItem(customView: snoozeButton))
+            
+        }
         
-        let snoozeButton = UIButton(configuration: snoozeButtonConfig)
+        navigationItem.rightBarButtonItems = rightButtonArray
         
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: injectButton), UIBarButtonItem(customView: snoozeButton)]
-        
+           // navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: injectButton), UIBarButtonItem(customView: snoozeButton)]
+            
+    
     
         
         //navigationItem.rightBarButtonItem = injectButton
         
-        navigationItem.title = viewModel.injection == nil ? "Inject Now" : "Injection Time!"
+        navigationItem.title = viewModel.isFromNotification ?"Injection Time!" : "Inject Now"
     }
     
     @objc func injectPressed(_ sender: Any){

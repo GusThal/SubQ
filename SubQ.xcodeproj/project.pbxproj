@@ -60,7 +60,7 @@
 		CCC4B8992A0D9FD1008BFF81 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC4B8982A0D9FD1008BFF81 /* SnapKit */; };
 		CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */; };
 		CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */; };
-		CCC8F3802A51D72600BAAED1 /* InjectionNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F37F2A51D72600BAAED1 /* InjectionNotifications.swift */; };
+		CCC8F3802A51D72600BAAED1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */; };
 		CCC8F3822A53776F00BAAED1 /* InjectNowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */; };
 		CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */; };
 		CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */; };
@@ -69,6 +69,9 @@
 		CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */; };
 		CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */; };
 		CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */; };
+		CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B42A5F436200BAAED1 /* Queue+CoreDataClass.swift */; };
+		CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B52A5F436200BAAED1 /* Queue+CoreDataProperties.swift */; };
+		CCC8F3B92A62DFCF00BAAED1 /* QueueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -129,7 +132,7 @@
 		CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyViewController.swift; sourceTree = "<group>"; };
 		CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyCoordinator.swift; sourceTree = "<group>"; };
-		CCC8F37F2A51D72600BAAED1 /* InjectionNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionNotifications.swift; sourceTree = "<group>"; };
+		CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowViewController.swift; sourceTree = "<group>"; };
 		CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowCoordinator.swift; sourceTree = "<group>"; };
 		CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinated.swift; sourceTree = "<group>"; };
@@ -138,6 +141,9 @@
 		CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowViewModel.swift; sourceTree = "<group>"; };
 		CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProvider.swift; sourceTree = "<group>"; };
 		CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		CCC8F3B42A5F436200BAAED1 /* Queue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		CCC8F3B52A5F436200BAAED1 /* Queue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueProvider.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -263,6 +269,7 @@
 		CC9F517029FEBD1B00E6FAF6 /* SubQ */ = {
 			isa = PBXGroup;
 			children = (
+				CCC8F3B32A5F433900BAAED1 /* Queue */,
 				CC864EEF2A4E37FC00869A8C /* Site */,
 				CC5738A42A3B5733000257E0 /* History */,
 				CC5738A32A3B56DE000257E0 /* Injection */,
@@ -285,7 +292,7 @@
 				CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */,
 				CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */,
 				CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */,
-				CCC8F37F2A51D72600BAAED1 /* InjectionNotifications.swift */,
+				CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */,
 				CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */,
 			);
 			path = SubQ;
@@ -339,6 +346,16 @@
 				CCBCE2332A1A7077001B73D6 /* CenteredTextLabelCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CCC8F3B32A5F433900BAAED1 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				CCC8F3B42A5F436200BAAED1 /* Queue+CoreDataClass.swift */,
+				CCC8F3B52A5F436200BAAED1 /* Queue+CoreDataProperties.swift */,
+				CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */,
+			);
+			path = Queue;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,6 +440,7 @@
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
 				CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
+				CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */,
 				CC1356E12A2F7CC10073431B /* BodyPartProvider.swift in Sources */,
 				CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */,
 				CCC4B86C2A0453B3008BFF81 /* InjectionViewController.swift in Sources */,
@@ -449,6 +467,7 @@
 				CC31CD6A2A23ECB700C20CAB /* Injection+CoreDataProperties.swift in Sources */,
 				CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
+				CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */,
 				CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */,
 				CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */,
 				CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */,
@@ -478,7 +497,8 @@
 				CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */,
 				CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */,
 				CC31CD692A23ECB700C20CAB /* Injection+CoreDataClass.swift in Sources */,
-				CCC8F3802A51D72600BAAED1 /* InjectionNotifications.swift in Sources */,
+				CCC8F3B92A62DFCF00BAAED1 /* QueueProvider.swift in Sources */,
+				CCC8F3802A51D72600BAAED1 /* NotificationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

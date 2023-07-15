@@ -10,7 +10,44 @@ import NotificationCenter
 import CoreData
 
 
-class InjectionNotifications{
+class NotificationManager{
+    
+    enum UserInfoKeys: String{
+        case injectioManagednObjectID = "injectionObjectID"
+    }
+    
+    
+    
+    static func populateInjectionQueueForExistingNotifications(){
+        
+        UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
+            print("found \(notifications.count) notifications")
+            
+            if notifications.count > 0{
+                
+                let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetch: false)
+
+                
+                for noti in notifications{
+                    
+                    let idString = noti.request.content.userInfo[UserInfoKeys.injectioManagednObjectID.rawValue] as! String
+                    
+                    let url = URL(string: idString)!
+                    
+                    let managedObjectID = queueProvider.storageProvider.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url)!
+                    
+                    
+                    let injection = StorageProvider.shared.persistentContainer.viewContext.object(with: managedObjectID) as! Injection
+                   
+                    
+                    queueProvider.saveObject(injection: injection, dateDue: noti.date, snoozedUntil: nil)
+
+                }
+            }
+            
+           
+        }
+    }
     
     static func removeExistingNotifications(forInjection injection: Injection){
         

@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var coordinator: MainCoordinator?
     
-    let storageProvider = StorageProvider()
+    //let storageProvider = StorageProvider()
     
     
 
@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         navigationController.setNavigationBarHidden(true, animated: false)
         
-        let mainCoordinator = MainCoordinator(navigationController: navigationController, parentCoordinator: nil, storageProvider: storageProvider)
+        let mainCoordinator = MainCoordinator(navigationController: navigationController, parentCoordinator: nil, storageProvider: StorageProvider.shared)
         
         coordinator = mainCoordinator
         
@@ -71,6 +71,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        print("foreground")
+        
+        NotificationManager.populateInjectionQueueForExistingNotifications()
+        
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }
@@ -93,6 +97,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate: UNUserNotificationCenterDelegate{
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        print("did receive")
+        
         let userInfo = response.notification.request.content.userInfo
         
         let navController = window?.rootViewController as! UINavigationController
@@ -103,6 +109,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
         let selectedVC = tabBarController.selectedViewController
         
         var vcToPresentFrom: UIViewController!
+        
         
 
         //check if the currently selected tab is displaying a modal view controller

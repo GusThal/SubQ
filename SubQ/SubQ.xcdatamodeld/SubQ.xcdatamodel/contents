@@ -17,6 +17,12 @@
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="units" attributeType="String" defaultValueString="cc"/>
         <relationship name="injectionHistory" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="History" inverseName="injection" inverseEntity="History"/>
+        <relationship name="queue" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Queue" inverseName="injection" inverseEntity="Queue"/>
+    </entity>
+    <entity name="Queue" representedClassName="Queue" syncable="YES">
+        <attribute name="dateDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="snoozedUntil" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="injection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Injection" inverseName="queue" inverseEntity="Injection"/>
     </entity>
     <entity name="Section" representedClassName="Section" syncable="YES">
         <attribute name="quadrant" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

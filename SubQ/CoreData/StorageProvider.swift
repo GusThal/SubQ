@@ -11,11 +11,13 @@ import CoreData
 // I'm using a subclass so the persistent container will look for the data model in the framework bundle rather than the app bundle
 public class PersistentContainer: NSPersistentCloudKitContainer {}
 
-public class StorageProvider{
+final class StorageProvider{
     
-   public let persistentContainer: PersistentContainer
+    public let persistentContainer: PersistentContainer
     
-    public init(){
+    static let shared = StorageProvider()
+    
+    private init(){
         let id = "group.com.gusthal.subq"
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: id)!
         let url = container.appendingPathComponent("SubQ.sqlite")

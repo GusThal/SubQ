@@ -68,6 +68,10 @@ class InjectNowCoordinator: ModalChildCoordinator{
     }
     
     func injectPressed(){
+        dismissViewController()
+    }
+    
+    func dismissViewController(){
         parentNavigationController!.dismiss(animated: true)
         
 

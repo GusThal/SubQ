@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerForNotifications()
         
+        NotificationManager.populateInjectionQueueForExistingNotifications()
+        
      /*
         let storageProvider = StorageProvider()
         
@@ -38,6 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        print("plz")
+        
+        completionHandler(.newData)
+    }
    
     
     
