@@ -1,17 +1,18 @@
 //
-//  InjectNowCoordinator.swift
+//  SelectInjectionCoordinator.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 7/5/23.
+//  Created by Constantine Thalasinos on 7/20/23.
 //
 
 import Foundation
 import UIKit
 
-class InjectNowCoordinator: ModalChildCoordinator{
+class SelectInjectionCoordinator: ModalChildCoordinator{
     var parentNavigationController: UINavigationController?
+    let viewModel: InjectNowViewModel?
     
-    var childCoordinators =  [Coordinator]()
+    var childCoordinators = [Coordinator]()
     
     var navigationController: UINavigationController
     
@@ -19,62 +20,64 @@ class InjectNowCoordinator: ModalChildCoordinator{
     
     var storageProvider: StorageProvider
     
-    var injection: Injection?
     
-    let viewModel: InjectNowViewModel
-    
-    
-    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionIDString: String?) {
+    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, viewModel: InjectNowViewModel) {
+        
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: injectionIDString)
+        self.viewModel = viewModel
+        
     }
-    
     
     required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
+        
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil)
+        self.viewModel = nil
+    
     }
     
-  
     
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil)
+        self.viewModel = nil
     }
     
     func start() {
-        let vc = InjectNowViewController(viewModel: viewModel)
+        let vc = SelectInjectionViewController(viewModel: viewModel!)
+        
         
         vc.coordinator = self
+        vc.selectInjectionCoordinator = self
         
-        //navigationController.present(vc, animated: true)
+        navigationController.modalPresentationStyle = .pageSheet
         
-        navigationController.navigationBar.prefersLargeTitles = true
+       
+        vc.title = "Select Injection"
+        
+        if let presentationController = navigationController.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium(), .large()]
+            presentationController.prefersGrabberVisible = true
+            presentationController.prefersScrollingExpandsWhenScrolledToEdge = false
+            presentationController.preferredCornerRadius = 20
+        }
         
         navigationController.pushViewController(vc, animated: false)
         
-        vc.modalPresentationStyle = .automatic
+        
         
         parentNavigationController!.present(navigationController, animated: true)
-        
     }
     
-    func injectPressed(){
-        dismissViewController()
-    }
-    
-    func dismissViewController(){
+    func dismiss(){
         parentNavigationController!.dismiss(animated: true)
         
-
         parentCoordinator?.childDidFinish(self)
     }
     

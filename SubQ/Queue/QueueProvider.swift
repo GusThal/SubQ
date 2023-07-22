@@ -48,8 +48,6 @@ class QueueProvider: NSObject{
         
         let persistentContainer = storageProvider.persistentContainer
         
-        
-        
         let obj = Queue(context: persistentContainer.viewContext)
         obj.injection = injection
         obj.dateDue = dateDue
@@ -64,6 +62,21 @@ class QueueProvider: NSObject{
             persistentContainer.viewContext.rollback()
         }
         
+    }
+    
+    func object(at indexPath: IndexPath) -> Queue{
+        return fetchedResultsController!.object(at: indexPath)
+    }
+    
+    func deleteObject(_ obj: Queue){
+        storageProvider.persistentContainer.viewContext.delete(obj)
+
+        do {
+            try storageProvider.persistentContainer.viewContext.save()
+        } catch {
+            storageProvider.persistentContainer.viewContext.rollback()
+            print("Failed to save context: \(error)")
+          }
     }
 }
 

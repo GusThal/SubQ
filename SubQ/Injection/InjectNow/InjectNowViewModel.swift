@@ -1,0 +1,116 @@
+//
+//  InjectNowViewModel.swift
+//  SubQ
+//
+//  Created by Constantine Thalasinos on 7/9/23.
+//
+
+import Foundation
+import CoreData
+import Combine
+import UIKit
+
+class InjectNowViewModel{
+    
+    let injectionProvider: InjectionProvider
+    let siteProvider: SiteProvider
+    var injection: Injection?
+    let historyProvider: HistoryProvider
+    let queueProvider: QueueProvider?
+    
+    let isFromNotification: Bool
+    
+    @Published var selectedInjection: Injection?
+    
+    @Published var selectedQueueObject: Queue?
+    
+    
+    
+    
+    lazy var siteSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
+        return siteProvider.$snapshot.eraseToAnyPublisher()
+    }()
+    
+    lazy var queueSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
+        return queueProvider!.$snapshot.eraseToAnyPublisher()
+    }()
+    
+    lazy var injectionSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
+        return injectionProvider.$snapshot.eraseToAnyPublisher()
+    }()
+    
+    
+    var typeSafeInjectionSnapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?{
+        var newSnapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
+        
+        newSnapshot.appendSections([1])
+        
+        if let snapshot = injectionProvider.snapshot{
+            
+            for injection in snapshot.itemIdentifiers{
+                newSnapshot.appendItems([injection])
+            }
+        }
+        
+        return newSnapshot
+        
+    }
+    
+    
+    init(storageProvider: StorageProvider, injectionIDString: String?) {
+        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
+        self.siteProvider = SiteProvider(storageProvider: storageProvider)
+        self.historyProvider = HistoryProvider(storageProvider: storageProvider, fetch: false)
+        
+        
+        if let injectionIDString{
+            isFromNotification = true
+            queueProvider = nil
+            injection = getInjection(withIDString: injectionIDString)
+            
+        }
+        else{
+            isFromNotification = false
+            queueProvider = QueueProvider(storageProvider: storageProvider)
+            print("QUEUE ITEMS \(queueProvider?.snapshot?.numberOfItems)")
+        }
+        
+    }
+    
+    func getQueueObject(forIndexPath indexPath: IndexPath)-> Queue{
+        return queueProvider!.object(at: indexPath)
+    }
+    
+    func getInjection(forIndexPath indexPath: IndexPath)-> Injection{
+        return injectionProvider.object(at: indexPath)
+    }
+    
+    func getInjection(withObjectID id: NSManagedObjectID) -> Injection{
+        return injectionProvider.object(withObjectID: id)
+    }
+    
+    func getInjection(withIDString id: String) -> Injection{
+        return injectionProvider.object(fromIDString: id)
+    }
+    
+    func getSite(forIndexPath indexPath: IndexPath) -> Site{
+        return siteProvider.object(at: indexPath)
+    }
+    
+    func injectionPerformed(site: Site){
+        
+        let date = Date()
+        
+        historyProvider.saveHistory(injection: injection!, site: site, date: date)
+        siteProvider.update(site: site, withDate: date)
+        
+        
+    }
+    
+    func delete(queueObject obj: Queue){
+        
+        queueProvider!.deleteObject(obj)
+        
+    }
+    
+}

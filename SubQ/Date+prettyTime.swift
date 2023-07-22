@@ -18,4 +18,12 @@ extension Date{
             return formatter.string(from: self)
         }
     }
+    
+    var fullDateTime: String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .full
+        
+        return dateFormatter.string(from: self)
+    }
 }

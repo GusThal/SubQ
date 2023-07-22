@@ -30,6 +30,7 @@ class NotificationManager{
                 
                 for noti in notifications{
                     
+                    
                     let idString = noti.request.content.userInfo[UserInfoKeys.injectioManagednObjectID.rawValue] as! String
                     
                     let url = URL(string: idString)!

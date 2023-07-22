@@ -22,6 +22,7 @@ class InjectNowViewController: UIViewController {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.alignment = .leading
         
         return stack
     }()
@@ -45,13 +46,22 @@ class InjectNowViewController: UIViewController {
     #warning("probably will have to be conformed to Coordinated protocol")
     weak var coordinator: InjectNowCoordinator?
     
+    var selectInjectionButton: UIButton?
+    
+    lazy var selectionInjectionViewController = SelectInjectionViewController(viewModel: viewModel)
+    
 
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setUpNavBar()
+        
+        if !viewModel.isFromNotification{
+            setUpSelectionButton()
+        }
         
         view.backgroundColor = .brown
         //view.translatesAutoresizingMaskIntoConstraints = false
@@ -85,6 +95,19 @@ class InjectNowViewController: UIViewController {
           })
           .store(in: &cancellables)
         
+        if !viewModel.isFromNotification{
+            Publishers.Zip(viewModel.$selectedInjection, viewModel.$selectedQueueObject).sink { injection, queue in
+               
+                if let injection{
+                    self.injectionNameLabel.text = injection.name
+                }
+                else if let queue{
+                    self.injectionNameLabel.text = queue.injection!.name
+                }
+                
+            }.store(in: &cancellables)
+            
+        }
         
         //view.addSubview(siteCollectionView)
 
@@ -164,11 +187,37 @@ class InjectNowViewController: UIViewController {
         navigationItem.title = viewModel.isFromNotification ?"Injection Time!" : "Inject Now"
     }
     
+    #warning("might be unused")
     @objc func injectPressed(_ sender: Any){
         
     }
     
-    
+    func setUpSelectionButton(){
+        
+        let action = UIAction { _ in
+            
+            self.coordinator!.showSelectInjectionViewController()
+        }
+        
+        var config = UIButton.Configuration.bordered()
+        config.imagePlacement = .trailing
+        config.image = UIImage(systemName: "chevron.down")
+        
+        config.title = "Select Injection"
+        config.baseForegroundColor = .white
+        config.background.strokeColor = .white
+        
+        let button = UIButton(primaryAction: action)
+        
+        button.configuration = config
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        selectInjectionButton = button
+        
+        injectionDataStackView.addArrangedSubview(selectInjectionButton!)
+        
+    }
 
     /*
     // MARK: - Navigation

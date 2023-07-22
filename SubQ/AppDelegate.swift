@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerForNotifications()
         
-        NotificationManager.populateInjectionQueueForExistingNotifications()
+       // NotificationManager.populateInjectionQueueForExistingNotifications()
         
      /*
         let storageProvider = StorageProvider()
