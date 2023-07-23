@@ -71,6 +71,31 @@ class HistoryProvider: NSObject{
       return fetchedResultsController!.object(at: indexPath)
     }
     
+    
+    func getLastInjectedDate(forInjection injection: Injection) -> Date?{
+        
+        let request: NSFetchRequest<History> = History.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: false)]
+        request.predicate = NSPredicate(format: "%K==%@", #keyPath(History.injection), injection)
+        request.fetchLimit = 1
+
+        let context = storageProvider.persistentContainer.viewContext
+        
+        do{
+            let history = try context.fetch(request).first
+            
+            return history?.date
+        }
+        catch{
+            print("failed with \(error)")
+            storageProvider.persistentContainer.viewContext.rollback()
+        }
+        
+        return nil
+        
+        
+    }
+    
 }
 
 extension HistoryProvider: NSFetchedResultsControllerDelegate{

@@ -27,11 +27,35 @@ class InjectNowViewController: UIViewController {
         return stack
     }()
         
-    let injectionNameLabel = UILabel()
+    let injectionNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        return label
+    }()
     
-    let scheduledLabel = UILabel()
+    let scheduledLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        return label
+    }()
     
-    let lastInjectedLabel = UILabel()
+    let lastInjectedLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        return label
+    }()
+    
+    let dueDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        return label
+    }()
+    
+    let snoozedUntilLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        return label
+    }()
     
     var siteDataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>!
     
@@ -51,8 +75,6 @@ class InjectNowViewController: UIViewController {
     lazy var selectionInjectionViewController = SelectInjectionViewController(viewModel: viewModel)
     
 
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,13 +88,19 @@ class InjectNowViewController: UIViewController {
         view.backgroundColor = .brown
         //view.translatesAutoresizingMaskIntoConstraints = false
         
-        injectionNameLabel.text = "injection Name \(viewModel.injection?.name)"
+       /* injectionNameLabel.text = "injection Name \(viewModel.injection?.name)"
         scheduledLabel.text = "Scheduled"
-        lastInjectedLabel.text = "Last Injected"
+        lastInjectedLabel.text = "Last Injected"*/
         
-        injectionDataStackView.addArrangedSubview(injectionNameLabel)
+        configureInjectionDataStackView(injectionObj: nil, queueObj: nil)
+        
+        if viewModel.isFromNotification{
+            injectionDataStackView.addArrangedSubview(injectionNameLabel)
+        }
         injectionDataStackView.addArrangedSubview(scheduledLabel)
         injectionDataStackView.addArrangedSubview(lastInjectedLabel)
+        injectionDataStackView.addArrangedSubview(dueDateLabel)
+        injectionDataStackView.addArrangedSubview(snoozedUntilLabel)
         
         view.addSubview(injectionDataStackView)
         
@@ -98,12 +126,7 @@ class InjectNowViewController: UIViewController {
         if !viewModel.isFromNotification{
             Publishers.Zip(viewModel.$selectedInjection, viewModel.$selectedQueueObject).sink { injection, queue in
                
-                if let injection{
-                    self.injectionNameLabel.text = injection.name
-                }
-                else if let queue{
-                    self.injectionNameLabel.text = queue.injection!.name
-                }
+                self.configureInjectionDataStackView(injectionObj: injection, queueObj: queue)
                 
             }.store(in: &cancellables)
             
@@ -185,6 +208,43 @@ class InjectNowViewController: UIViewController {
         //navigationItem.rightBarButtonItem = injectButton
         
         navigationItem.title = viewModel.isFromNotification ?"Injection Time!" : "Inject Now"
+    }
+    
+    func configureInjectionDataStackView(injectionObj: Injection?, queueObj: Queue?){
+        
+        var injection: Injection?
+        
+        if !viewModel.isFromNotification{
+            if let injectionObj{
+                injection = injectionObj
+                
+                dueDateLabel.text = ""
+                snoozedUntilLabel.text = ""
+            }
+            else if let queueObj{
+                injection = queueObj.injection!
+                
+                dueDateLabel.text = "Due: \(queueObj.dateDue!.fullDateTime)"
+                snoozedUntilLabel.text = "Snoozed Until: \(queueObj.snoozedUntil?.fullDateTime ?? "-")"
+            }
+            injectionNameLabel.text = ""
+            selectInjectionButton?.configuration?.title = injection?.descriptionString ?? "Select Injection"
+            
+        }
+        else{
+            injection = viewModel.injection!
+            injectionNameLabel.text = injection?.descriptionString
+            dueDateLabel.text = ""
+            snoozedUntilLabel.text = ""
+        }
+        
+        if let injection{
+            scheduledLabel.text = "Scheduled \(injection.scheduledString )"
+            lastInjectedLabel.text = "Last Injected: \(viewModel.getLastInjectedDate(forInjection: injection)?.fullDateTime ?? "-")"
+        }
+        
+        
+        
     }
     
     #warning("might be unused")

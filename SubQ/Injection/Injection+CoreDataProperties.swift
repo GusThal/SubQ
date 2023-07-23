@@ -104,6 +104,26 @@ extension Injection {
         }
     }
     
+    var descriptionString: String{
+        get{
+            return "\(self.name!) \(self.dosage!) \(self.units!)"
+        }
+    }
+    
+    var scheduledString: String{
+       
+        var str = "\(self.daysVal.map({ $0.shortened}).joined(separator: ", "))"
+        
+        if self.daysVal != [Injection.Frequency.asNeeded] {
+            if let time = self.prettyTime{
+                str.append(" | \(time)")
+            }
+        }
+        
+        return str
+        
+    }
+    
     
 
 }

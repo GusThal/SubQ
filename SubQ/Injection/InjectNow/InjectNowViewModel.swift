@@ -113,4 +113,10 @@ class InjectNowViewModel{
         
     }
     
+    func getLastInjectedDate(forInjection injection: Injection) -> Date?{
+        
+        return historyProvider.getLastInjectedDate(forInjection: injection)
+        
+    }
+    
 }

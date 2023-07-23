@@ -91,7 +91,7 @@ extension HistoryViewController{
             guard let site = history.site else { return }
             
             var content = cell.defaultContentConfiguration()
-            content.text = "\(history.date!): \(site.subQuadrantVal) of \(site.section!.quadrantVal) of \(site.section!.bodyPart!.part!)"
+            content.text = "\(history.date!.fullDateTime): \(site.subQuadrantVal) of \(site.section!.quadrantVal) of \(site.section!.bodyPart!.part!)"
             content.secondaryText = "\(injection.name!) \(injection.dosage!) \(injection.units!) | \(injection.daysVal.map({ $0.shortened}).joined(separator: ", "))"
             
             
