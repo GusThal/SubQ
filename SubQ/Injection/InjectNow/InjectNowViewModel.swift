@@ -24,8 +24,7 @@ class InjectNowViewModel{
     
     @Published var selectedQueueObject: Queue?
     
-    
-    
+    @Published var selectedSite: Site?
     
     lazy var siteSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
         return siteProvider.$snapshot.eraseToAnyPublisher()
@@ -54,6 +53,18 @@ class InjectNowViewModel{
         
         return newSnapshot
         
+    }
+    
+    var isInjectionSelectedPublisher: AnyPublisher<Bool, Never> {
+        Publishers.Zip($selectedInjection, $selectedQueueObject).map({ self.isFromNotification || $0 != nil || $1 != nil}).eraseToAnyPublisher()
+    }
+    
+    var isSiteSelectedPublisher: AnyPublisher<Bool, Never> {
+        $selectedSite.map { $0 != nil }.eraseToAnyPublisher()
+    }
+    
+    var fieldsSelectedPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest(isInjectionSelectedPublisher, isSiteSelectedPublisher).map { $0 && $1 }.eraseToAnyPublisher()
     }
     
     

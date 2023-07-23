@@ -57,6 +57,23 @@ class InjectNowViewController: UIViewController {
         return label
     }()
     
+    
+    lazy var injectButton: UIButton = {
+        
+        var injectButtonConfig = UIButton.Configuration.filled()
+        injectButtonConfig.buttonSize = .medium
+        injectButtonConfig.cornerStyle = .capsule
+        injectButtonConfig.title = "Inject"
+        injectButtonConfig.baseBackgroundColor = .blue
+        
+        let injectAction = UIAction { _ in
+            self.viewModel.injectionPerformed(site: self.viewModel.selectedSite!)
+            self.coordinator!.injectPressed()
+            
+        }
+        return UIButton(configuration: injectButtonConfig, primaryAction: injectAction)
+    }()
+    
     var siteDataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>!
     
     var siteCollectionView: UICollectionView! = nil
@@ -64,8 +81,6 @@ class InjectNowViewController: UIViewController {
     var cancellables = Set<AnyCancellable>()
     
     lazy var selectedSiteLabel = UILabel()
-    
-    var selectedSite: Site?
     
     #warning("probably will have to be conformed to Coordinated protocol")
     weak var coordinator: InjectNowCoordinator?
@@ -132,6 +147,9 @@ class InjectNowViewController: UIViewController {
             
         }
         
+        viewModel.fieldsSelectedPublisher.assign(to: \.isEnabled, on: injectButton)
+            .store(in: &cancellables)
+        
         //view.addSubview(siteCollectionView)
 
         // Do any additional setup after loading the view.
@@ -165,20 +183,6 @@ class InjectNowViewController: UIViewController {
             
         }
         
-        
-        var injectButtonConfig = UIButton.Configuration.filled()
-        injectButtonConfig.buttonSize = .medium
-        injectButtonConfig.cornerStyle = .capsule
-        injectButtonConfig.title = "Inject"
-        injectButtonConfig.baseBackgroundColor = .blue
-        
-        let injectAction = UIAction { _ in
-            self.viewModel.injectionPerformed(site: self.selectedSite!)
-            self.coordinator!.injectPressed()
-            
-        }
-        
-        let injectButton = UIButton(configuration: injectButtonConfig, primaryAction: injectAction)
         
         //let injectButton = UIBarButtonItem(customView: button)
         
@@ -408,7 +412,7 @@ extension InjectNowViewController: UICollectionViewDelegate{
         
         selectedSiteLabel.text = "\(site.section!.bodyPart!.part) + \(site.section) + \(site.subQuadrant)"
         
-        selectedSite = site
+        viewModel.selectedSite = site
         
         
     }
