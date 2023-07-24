@@ -304,6 +304,26 @@ extension SelectInjectionViewController: UICollectionViewDelegate{
             viewModel.selectedInjection = nil
             viewModel.selectedQueueObject = viewModel.getQueueObject(forIndexPath: path)
             
+            let injection = viewModel.selectedQueueObject!.injection!
+            
+            
+            //it's possible a person could have had a scheduled injection, missed a dose, and changed it to "As needed"
+            //so there'd still be a queued injection for that.
+            if !injection.daysVal.contains(.asNeeded){
+                
+                let alert = UIAlertController(title: "Queued Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!). This injection is scheduled for \(injection.timeUntilNextInjection!). You will still receive a notification.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                    self.dismiss(animated: true)
+                }))
+                
+                self.present(alert, animated: true)
+            }
+            else{
+                selectInjectionCoordinator?.dismiss()
+            }
+            
+            
         }
         else{
             
@@ -316,14 +336,32 @@ extension SelectInjectionViewController: UICollectionViewDelegate{
                 viewModel.selectedInjection = injection
                 viewModel.selectedQueueObject = nil
                 
+                if !injection.daysVal.contains(.asNeeded){
+                    let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString). You will still receive a notification the next time this injection is due.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                        self.dismiss(animated: true)
+                    }))
+                    
+                    self.present(alert, animated: true)
+                }
+                else{
+                    selectInjectionCoordinator?.dismiss()
+                }
+                
             }
         }
         
         cell.accessories = [.checkmark()]
+        collectionView.reloadData()
         
         
         
-        selectInjectionCoordinator?.dismiss()
+       
+    }
+    
+    func presentAlertControllerForSelection(){
+        
     }
     
 }

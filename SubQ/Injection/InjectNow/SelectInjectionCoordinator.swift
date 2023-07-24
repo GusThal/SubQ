@@ -65,7 +65,7 @@ class SelectInjectionCoordinator: ModalChildCoordinator{
             presentationController.detents = [.medium(), .large()]
             presentationController.prefersGrabberVisible = true
             presentationController.prefersScrollingExpandsWhenScrolledToEdge = false
-            presentationController.preferredCornerRadius = 20
+            //presentationController.preferredCornerRadius = 10
         }
         
         navigationController.pushViewController(vc, animated: false)
