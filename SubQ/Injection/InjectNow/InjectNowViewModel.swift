@@ -14,9 +14,10 @@ class InjectNowViewModel{
     
     let injectionProvider: InjectionProvider
     let siteProvider: SiteProvider
-    var injection: Injection?
+    var injectionFromNotification: Injection?
     let historyProvider: HistoryProvider
-    let queueProvider: QueueProvider?
+    let queueProvider: QueueProvider
+    let dateDue: Date?
     
     let isFromNotification: Bool
     
@@ -31,7 +32,7 @@ class InjectNowViewModel{
     }()
     
     lazy var queueSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
-        return queueProvider!.$snapshot.eraseToAnyPublisher()
+        return queueProvider.$snapshot.eraseToAnyPublisher()
     }()
     
     lazy var injectionSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
@@ -68,28 +69,29 @@ class InjectNowViewModel{
     }
     
     
-    init(storageProvider: StorageProvider, injectionIDString: String?) {
+    init(storageProvider: StorageProvider, injectionIDString: String?, dateDue: Date?) {
         self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         self.siteProvider = SiteProvider(storageProvider: storageProvider)
         self.historyProvider = HistoryProvider(storageProvider: storageProvider, fetch: false)
+        self.dateDue = dateDue
         
         
         if let injectionIDString{
             isFromNotification = true
-            queueProvider = nil
-            injection = getInjection(withIDString: injectionIDString)
+            queueProvider = QueueProvider(storageProvider: storageProvider, fetch: false)
+            injectionFromNotification = getInjection(withIDString: injectionIDString)
             
         }
         else{
             isFromNotification = false
             queueProvider = QueueProvider(storageProvider: storageProvider)
-            print("QUEUE ITEMS \(queueProvider?.snapshot?.numberOfItems)")
+            print("QUEUE ITEMS \(queueProvider.snapshot?.numberOfItems)")
         }
         
     }
     
     func getQueueObject(forIndexPath indexPath: IndexPath)-> Queue{
-        return queueProvider!.object(at: indexPath)
+        return queueProvider.object(at: indexPath)
     }
     
     func getInjection(forIndexPath indexPath: IndexPath)-> Injection{
@@ -112,7 +114,7 @@ class InjectNowViewModel{
         
         let date = Date()
         
-        historyProvider.saveHistory(injection: injection!, site: site, date: date)
+        historyProvider.saveHistory(injection: injectionFromNotification!, site: site, date: date)
         siteProvider.update(site: site, withDate: date)
         
         
@@ -120,13 +122,27 @@ class InjectNowViewModel{
     
     func delete(queueObject obj: Queue){
         
-        queueProvider!.deleteObject(obj)
+        queueProvider.deleteObject(obj)
         
     }
     
     func getLastInjectedDate(forInjection injection: Injection) -> Date?{
         
         return historyProvider.getLastInjectedDate(forInjection: injection)
+        
+    }
+    
+    func snoozeInjection(forMinutes minutes: String){
+        
+        guard isFromNotification else { return }
+        
+        let snoozedDate = Calendar.current.date(byAdding: .minute, value: Int(minutes)!, to: Date())
+        
+        let injection = injectionFromNotification!
+    
+        queueProvider.saveObject(injection: injection, dateDue: dateDue!, snoozedUntil: snoozedDate)
+        
+        NotificationManager.scheduleNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, time: snoozedDate!, snoozed: true)
         
     }
     

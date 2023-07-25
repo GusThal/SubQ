@@ -231,6 +231,12 @@ extension SelectInjectionViewController{
                 
                 content.secondaryText?.append(" | Missed: \(queueObject!.dateDue!.fullDateTime)")
                 
+                if let snoozedUntil = queueObject?.snoozedUntil{
+                    content.secondaryText?.append("| Snoozed until: \(snoozedUntil)")
+                }
+                
+                
+                
                 cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {
                     
                     self.presentDeleteAlertController(forQueueObject: queueObject!)

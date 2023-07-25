@@ -174,7 +174,7 @@ class EditInjectionViewController: UIViewController, Coordinated {
             if viewModel.selectedFrequency != [.asNeeded]{
                 
                 
-                NotificationManager.scheduleNotificationForInjectionWith(objectID: objectID, name: name, dosage: dosage, units: units, frequency: viewModel.selectedFrequency, frequencyString: frequency, time: time!)
+                NotificationManager.scheduleNotificationForInjectionWith(objectID: objectID, name: name, dosage: dosage, units: units, frequency: viewModel.selectedFrequency, frequencyString: frequency, time: time!, snoozed: false)
                 
             }
             

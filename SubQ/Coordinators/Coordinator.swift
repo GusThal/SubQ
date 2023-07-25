@@ -32,11 +32,11 @@ extension Coordinator{
         }
     }
     
-    func startInjectNowCoordinator(forInjectionObjectIDAsString idString: String?){
+    func startInjectNowCoordinator(forInjectionObjectIDAsString idString: String?, dateDue: Date?){
         
         print("starting coordinator")
         
-        let injectNowCoordinator = InjectNowCoordinator(navigationController: UINavigationController(), parentNavigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionIDString: idString)
+        let injectNowCoordinator = InjectNowCoordinator(navigationController: UINavigationController(), parentNavigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionIDString: idString, dateDue: dateDue)
         
         childCoordinators.append(injectNowCoordinator)
         

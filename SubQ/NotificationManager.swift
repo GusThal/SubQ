@@ -83,11 +83,20 @@ class NotificationManager{
         
     }
     
-   static func scheduleNotificationForInjectionWith(objectID: NSManagedObjectID, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], frequencyString: String, time: Date){
+    static func scheduleNotificationForInjectionWith(objectID: NSManagedObjectID, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], frequencyString: String, time: Date, snoozed: Bool){
         
         let content = UNMutableNotificationContent()
         content.title = "It's Injection O'Clock!"
-        content.body = "It's time for your injection \(name) of \(dosage) \(units), scheduled \(frequencyString) at \(time.prettyTime)"
+        content.body = "It's time for your injection \(name) of \(dosage) \(units),"
+        
+        if snoozed{
+            content.body.append(" that was snoozed until \(time.prettyTime)")
+        }
+        else{
+            content.body.append(" scheduled \(frequencyString) at \(time.prettyTime)")
+        }
+        
+       
        
        content.sound = .defaultCritical
        content.interruptionLevel = .critical

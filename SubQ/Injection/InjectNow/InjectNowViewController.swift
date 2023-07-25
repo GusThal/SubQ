@@ -60,19 +60,46 @@ class InjectNowViewController: UIViewController {
     
     lazy var injectButton: UIButton = {
         
-        var injectButtonConfig = UIButton.Configuration.filled()
-        injectButtonConfig.buttonSize = .medium
-        injectButtonConfig.cornerStyle = .capsule
-        injectButtonConfig.title = "Inject"
-        injectButtonConfig.baseBackgroundColor = .blue
+        var buttonConfig = UIButton.Configuration.filled()
+        buttonConfig.buttonSize = .medium
+        buttonConfig.cornerStyle = .capsule
+        buttonConfig.title = "Inject"
+        buttonConfig.baseBackgroundColor = .blue
         
-        let injectAction = UIAction { _ in
+        let action = UIAction { _ in
             self.viewModel.injectionPerformed(site: self.viewModel.selectedSite!)
             self.coordinator!.injectPressed()
             
         }
-        return UIButton(configuration: injectButtonConfig, primaryAction: injectAction)
+        return UIButton(configuration: buttonConfig, primaryAction: action)
     }()
+    
+    lazy var skipButton: UIButton = {
+        var buttonConfig = UIButton.Configuration.plain()
+        buttonConfig.title = "Skip"
+        buttonConfig.baseForegroundColor = .red
+        
+        let action = UIAction { _ in
+            self.coordinator?.dismissViewController()
+        }
+        
+        return UIButton(configuration: buttonConfig, primaryAction: action)
+        
+    }()
+    
+    lazy var snoozeButton: UIButton = {
+        var buttonConfig = UIButton.Configuration.plain()
+        buttonConfig.title = "Snooze"
+        buttonConfig.baseForegroundColor = .orange
+        
+        let action = UIAction { _ in
+            self.snoozeButtonPressed()
+        }
+        
+        return UIButton(configuration: buttonConfig, primaryAction: action)
+        
+    }()
+    
     
     var siteDataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>!
     
@@ -92,7 +119,6 @@ class InjectNowViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         setUpNavBar()
         
@@ -159,7 +185,7 @@ class InjectNowViewController: UIViewController {
         self.viewModel = viewModel
         
                 
-        print(viewModel.injection?.objectID)
+        print(viewModel.injectionFromNotification?.objectID)
         
         
         super.init(nibName: nil, bundle: nil)
@@ -171,9 +197,12 @@ class InjectNowViewController: UIViewController {
     
     func setUpNavBar(){
         if viewModel.isFromNotification{
-            let button = UIBarButtonItem(title: "Skip", style: .done, target: self, action: nil)
+            /*let button = UIBarButtonItem(title: "Skip", style: .done, target: self, action: nil)
+            
             button.tintColor = .systemRed
-            navigationItem.leftBarButtonItem = button
+            navigationItem.leftBarButtonItem = button*/
+            
+            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: skipButton)
         }
         else{
             let action = UIAction { _ in
@@ -189,15 +218,7 @@ class InjectNowViewController: UIViewController {
         var rightButtonArray = [UIBarButtonItem(customView: injectButton)]
         
         if viewModel.isFromNotification{
-            
-            var snoozeButtonConfig = UIButton.Configuration.filled()
-            snoozeButtonConfig.buttonSize = .medium
-            snoozeButtonConfig.cornerStyle = .capsule
-            snoozeButtonConfig.title = "Snooze"
-            snoozeButtonConfig.baseBackgroundColor = .orange
-            
-            let snoozeButton = UIButton(configuration: snoozeButtonConfig)
-            
+        
             rightButtonArray.append(UIBarButtonItem(customView: snoozeButton))
             
         }
@@ -205,9 +226,6 @@ class InjectNowViewController: UIViewController {
         navigationItem.rightBarButtonItems = rightButtonArray
         
            // navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: injectButton), UIBarButtonItem(customView: snoozeButton)]
-            
-    
-    
         
         //navigationItem.rightBarButtonItem = injectButton
         
@@ -236,7 +254,7 @@ class InjectNowViewController: UIViewController {
             
         }
         else{
-            injection = viewModel.injection!
+            injection = viewModel.injectionFromNotification!
             injectionNameLabel.text = injection?.descriptionString
             dueDateLabel.text = ""
             snoozedUntilLabel.text = ""
@@ -251,10 +269,41 @@ class InjectNowViewController: UIViewController {
         
     }
     
-    #warning("might be unused")
-    @objc func injectPressed(_ sender: Any){
+    func snoozeButtonPressed(){
+        
+        let alert = UIAlertController(title: "Snooze", message: "For How Many Minutes? (you will receive a notification)", preferredStyle: .alert)
+        
+        alert.addTextField { [unowned alert] textField in
+            textField.keyboardType = .numberPad
+            textField.placeholder = "Minutes"
+            
+            textField.textPublisher().sink { text in
+                alert.actions[1].isEnabled = text.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? false : true
+            }.store(in: &self.cancellables)
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Snooze", style: .default, handler: { [unowned alert] _ in
+            
+            let text = alert.textFields![0].text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            
+            self.viewModel.snoozeInjection(forMinutes: text)
+            
+            self.dismiss(animated: true)
+        
+        }))
+        
+        alert.actions[1].isEnabled = false
+        
+        present(alert, animated: true)
+        
         
     }
+    
     
     func setUpSelectionButton(){
         

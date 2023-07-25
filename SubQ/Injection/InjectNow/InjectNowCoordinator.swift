@@ -23,13 +23,15 @@ class InjectNowCoordinator: ModalChildCoordinator{
     
     let viewModel: InjectNowViewModel
     
+    let dateDue: Date?
     
-    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionIDString: String?) {
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionIDString: String?, dateDue: Date?) {
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: injectionIDString)
+        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: injectionIDString, dateDue: dateDue)
+        self.dateDue = dateDue
     }
     
     
@@ -38,7 +40,9 @@ class InjectNowCoordinator: ModalChildCoordinator{
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil)
+        dateDue = nil
+        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue)
+       
     }
     
   
@@ -47,7 +51,9 @@ class InjectNowCoordinator: ModalChildCoordinator{
         self.navigationController = navigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil)
+        dateDue = nil
+        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue)
+       
     }
     
     func start() {

@@ -93,7 +93,7 @@ extension MainTabBarController: UITabBarControllerDelegate{
         
         //the InjectNow dummy ViewController is the only one in the TabBar that isn't embedded in a Nav Controller
         if !(viewController is UINavigationController){
-            mainCoordinator!.startInjectNowCoordinator(forInjectionObjectIDAsString: nil)
+            mainCoordinator!.startInjectNowCoordinator(forInjectionObjectIDAsString: nil, dateDue: nil)
             return false
         }
         else{
