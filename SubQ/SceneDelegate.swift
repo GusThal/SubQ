@@ -147,7 +147,12 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
         //check if the VC conforms to Coordinated--basically a protocol to indicate whether there's a coordinator object.
         if let vc = vcToPresentFrom as? Coordinated{
             
-            vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String, dateDue: response.notification.date)
+            
+            let dateDue: Date = userInfo[NotificationManager.UserInfoKeys.originalDateDue.rawValue] as! Date? ?? response.notification.date
+            
+            print("due date \(dateDue)")
+            
+            vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String, dateDue: dateDue)
         }
         
         

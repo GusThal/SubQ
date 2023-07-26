@@ -139,10 +139,13 @@ class InjectNowViewModel{
         let snoozedDate = Calendar.current.date(byAdding: .minute, value: Int(minutes)!, to: Date())
         
         let injection = injectionFromNotification!
+        
     
         queueProvider.saveObject(injection: injection, dateDue: dateDue!, snoozedUntil: snoozedDate)
         
-        NotificationManager.scheduleNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, time: snoozedDate!, snoozed: true)
+       /*NotificationManager.scheduleNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(truncating: injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, time: snoozedDate!, snoozed: true, originalDateDue: dateDue)*/
+        
+        NotificationManager.scheduleSnoozedNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(truncating: injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, snoozedUntil: snoozedDate!, originalDateDue: dateDue!)
         
     }
     

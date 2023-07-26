@@ -71,7 +71,6 @@ class SelectInjectionViewController: UIViewController {
         viewModel.queueSnapshot
           .sink(receiveValue: { [weak self] snapshot in
             if let snapshot = snapshot {
-               
                 
                 self?.applySnapshot(snapshot, toSection: Section.queue)
                 //only needs to be called when this snapshot updates, not when the injections do.

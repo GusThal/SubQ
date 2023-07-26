@@ -44,14 +44,60 @@ class QueueProvider: NSObject{
         }
     }
     
+   
+    
+    func object(forInjection injection: Injection, withDateDue date: Date) -> Queue?{
+        
+        let request: NSFetchRequest<Queue> = Queue.fetchRequest()
+        let injectionPredicate = NSPredicate(format: "%K==%@", #keyPath(Queue.injection), injection)
+        let datePredicate = NSPredicate(format: "%K==%@", #keyPath(Queue.dateDue), date as CVarArg)
+        
+        let compounded = NSCompoundPredicate(andPredicateWithSubpredicates: [injectionPredicate, datePredicate])
+        
+        request.predicate = compounded
+        
+        
+        request.fetchLimit = 1
+
+        let context = storageProvider.persistentContainer.viewContext
+        
+        do{
+            let obj = try context.fetch(request).first
+            
+            return obj
+        }
+        catch{
+            print("failed with \(error)")
+            storageProvider.persistentContainer.viewContext.rollback()
+        }
+        
+        return nil
+        
+    }
+    
+    
+    
     func saveObject(injection: Injection, dateDue: Date, snoozedUntil: Date?) {
+    
         
         let persistentContainer = storageProvider.persistentContainer
         
-        let obj = Queue(context: persistentContainer.viewContext)
-        obj.injection = injection
-        obj.dateDue = dateDue
-        obj.snoozedUntil = snoozedUntil
+        if let object = object(forInjection: injection, withDateDue: dateDue){
+            
+            object.snoozedUntil = snoozedUntil
+            
+            print("found \(object)")
+            
+        }
+        
+        else{
+            
+            let obj = Queue(context: persistentContainer.viewContext)
+            obj.injection = injection
+            obj.dateDue = dateDue
+            obj.snoozedUntil = snoozedUntil
+            
+        }
         
         do{
             try persistentContainer.viewContext.save()

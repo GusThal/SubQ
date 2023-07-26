@@ -13,10 +13,9 @@ import CoreData
 class NotificationManager{
     
     enum UserInfoKeys: String{
-        case injectioManagednObjectID = "injectionObjectID"
+        case injectionManagednObjectID = "injectionObjectID"
+        case originalDateDue = "originalDateDue"
     }
-    
-    
     
     static func populateInjectionQueueForExistingNotifications(){
         
@@ -31,7 +30,7 @@ class NotificationManager{
                 for noti in notifications{
                     
                     
-                    let idString = noti.request.content.userInfo[UserInfoKeys.injectioManagednObjectID.rawValue] as! String
+                    let idString = noti.request.content.userInfo[UserInfoKeys.injectionManagednObjectID.rawValue] as! String
                     
                     let url = URL(string: idString)!
                     
@@ -83,28 +82,18 @@ class NotificationManager{
         
     }
     
-    static func scheduleNotificationForInjectionWith(objectID: NSManagedObjectID, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], frequencyString: String, time: Date, snoozed: Bool){
+    static func scheduleNotificationForInjectionWith(objectID: NSManagedObjectID, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], frequencyString: String, time: Date){
         
         let content = UNMutableNotificationContent()
         content.title = "It's Injection O'Clock!"
-        content.body = "It's time for your injection \(name) of \(dosage) \(units),"
+        content.body = "It's time for your injection \(name) of \(dosage) \(units), scheduled \(frequencyString) at \(time.prettyTime)."
         
-        if snoozed{
-            content.body.append(" that was snoozed until \(time.prettyTime)")
-        }
-        else{
-            content.body.append(" scheduled \(frequencyString) at \(time.prettyTime)")
-        }
-        
-       
-       
        content.sound = .defaultCritical
        content.interruptionLevel = .critical
        
        print(objectID)
        
        content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
-        
         
         // Configure the recurring date.
         var dateComponents = [DateComponents]()
@@ -168,6 +157,54 @@ class NotificationManager{
             }
             
         }
+        
+        
+        
+    }
+    
+    static func scheduleSnoozedNotificationForInjectionWith(objectID: NSManagedObjectID, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], frequencyString: String, snoozedUntil: Date, originalDateDue: Date){
+        
+        let content = UNMutableNotificationContent()
+        content.title = "It's Injection O'Clock!"
+        content.body = "It's time for your injection \(name) of \(dosage) \(units), that was originally due \(originalDateDue) and snoozed until \(snoozedUntil.prettyTime)."
+       
+       content.sound = .defaultCritical
+       content.interruptionLevel = .critical
+    
+        content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
+        content.userInfo[UserInfoKeys.originalDateDue.rawValue] =  originalDateDue
+        
+        // Configure the recurring date.
+        
+        let calendar = Calendar.current
+        
+        var components = DateComponents()
+        
+        components.hour = calendar.component(.hour, from: snoozedUntil)
+        components.minute = calendar.component(.minute, from: snoozedUntil)
+        components.weekday = calendar.component(.weekday, from: snoozedUntil)
+        
+        let identifier = "\(objectID)--snoozed"
+        
+            
+        // Create the trigger as a repeating event.
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                   
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+
+            // Schedule the request with the system.
+        let notificationCenter = UNUserNotificationCenter.current()
+            
+        notificationCenter.add(request) { (error) in
+                
+            print("notification added")
+                
+            if error != nil {
+                        // Handle any errors.
+                }
+            }
+            
         
         
         
