@@ -34,7 +34,8 @@ class InjectionCoordinator: Coordinator{
         navigationController.navigationBar.prefersLargeTitles = true
         
         navigationController.pushViewController(vc, animated: false)
-        vc.tabBarItem = UITabBarItem(title: "Injections", image: UIImage(systemName: "cross.vial"), selectedImage: UIImage(systemName: "cross.vial.fill"))
+        
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "cross.vial"), selectedImage: UIImage(systemName: "cross.vial.fill"))
 
         vc.navigationItem.title = "Injections"
     }

@@ -34,6 +34,9 @@ class HistoryCoordinator: Coordinator{
         
         vc.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
         vc.navigationItem.title = "Injection History"
+        
+        
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "clock"), selectedImage: UIImage(systemName: "clock.fill"))
     }
     
     

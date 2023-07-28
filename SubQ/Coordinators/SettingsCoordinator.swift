@@ -33,7 +33,7 @@ class SettingsCoordinator: Coordinator{
         
         navigationController.navigationBar.prefersLargeTitles = true
         
-        vc.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), selectedImage: nil)
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "gear"), selectedImage: nil)
         vc.navigationItem.title = "Settings"
     }
     

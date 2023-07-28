@@ -19,7 +19,7 @@ class MainTabBarController: UITabBarController {
     let dummyVCForInjectNow: UIViewController = {
         
         let vc = UIViewController()
-        vc.tabBarItem = UITabBarItem(title: "Inject Now", image: UIImage(systemName: "syringe"), selectedImage: UIImage(systemName: "syringe.fill"))
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "syringe"), selectedImage: UIImage(systemName: "syringe.fill"))
         
         return vc
     }()

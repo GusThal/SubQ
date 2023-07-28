@@ -31,7 +31,7 @@ class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
         navigationController.pushViewController(vc, animated: false)
         
         
-        vc.tabBarItem = UITabBarItem(title: "Injection Sites", image: UIImage(systemName: "figure.arms.open"), selectedImage: nil)
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "figure.arms.open"), selectedImage: nil)
         vc.navigationItem.title = "Injection Sites"
         
         let backButton = UIBarButtonItem()

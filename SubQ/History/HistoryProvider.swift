@@ -45,7 +45,8 @@ class HistoryProvider: NSObject{
         
     }
     
-    func saveHistory(injection: Injection, site: Site, date: Date){
+    @discardableResult
+    func saveHistory(injection: Injection, site: Site, date: Date) -> Bool{
         
         let persistentContainer = storageProvider.persistentContainer
         
@@ -59,11 +60,14 @@ class HistoryProvider: NSObject{
         do{
             try persistentContainer.viewContext.save()
             print("saved successfully")
+            return true
             
         } catch{
             print("failed with \(error)")
             persistentContainer.viewContext.rollback()
         }
+        
+        return false
         
     }
     

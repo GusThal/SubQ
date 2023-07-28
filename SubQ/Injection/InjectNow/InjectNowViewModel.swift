@@ -114,8 +114,34 @@ class InjectNowViewModel{
         
         let date = Date()
         
-        historyProvider.saveHistory(injection: injectionFromNotification!, site: site, date: date)
-        siteProvider.update(site: site, withDate: date)
+        var injection: Injection!
+        
+        if !isFromNotification{
+            if let selectedInjection{
+                injection = selectedInjection
+            }
+            else if let selectedQueueObject{
+                injection = selectedQueueObject.injection!
+            }
+        }
+        else{
+            injection = injectionFromNotification!
+        }
+        
+        
+        if historyProvider.saveHistory(injection: injection, site: site, date: date){
+            
+            if !isFromNotification{
+                
+                if let selectedQueueObject{
+                    queueProvider.deleteObject(selectedQueueObject)
+                }
+                
+            }
+            
+            siteProvider.update(site: site, withDate: date)
+        }
+    
         
         
     }
