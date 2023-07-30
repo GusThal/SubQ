@@ -143,38 +143,33 @@ class EditInjectionViewController: UIViewController, Coordinated {
         
         if !viewModel.isDuplicateInjection(name: name, dosage: dosage, units: units, frequencyString: frequency, date: time){
             
-            var objectID: NSManagedObjectID!
+            var savedInjection: Injection!
             
             
-            if let injection = viewModel.injection{
+            if let existingInjection = viewModel.injection{
                 
-                objectID = injection.objectID
-                
-               
-                
-                if injection.daysVal != [.asNeeded]{
+                if existingInjection.daysVal != [.asNeeded]{
                     
                     //remove existing notifications only if the day or time has changed.
-                    if injection.daysVal != viewModel.selectedFrequency || injection.prettyTime != time?.prettyTime{
+                    if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.prettyTime != time?.prettyTime{
                         
-                        NotificationManager.removeExistingNotifications(forInjection: injection)
+                        NotificationManager.removeExistingNotifications(forInjection: existingInjection)
                     }
                     
                 }
                 
-                viewModel.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+                savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
                 
                 
             }
             else{
-                objectID = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+                savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
                 
             }
             
             if viewModel.selectedFrequency != [.asNeeded]{
                 
-                
-                NotificationManager.scheduleNotificationForInjectionWith(objectID: objectID, name: name, dosage: dosage, units: units, frequency: viewModel.selectedFrequency, frequencyString: frequency, time: time!)
+                NotificationManager.scheduleNotification(forInjection: savedInjection)
                 
             }
             

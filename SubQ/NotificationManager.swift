@@ -17,6 +17,37 @@ class NotificationManager{
         case originalDateDue = "originalDateDue"
     }
     
+    //name-dosage-units-frequency-time
+    //name-dosage-units-frequency-time-due-originalDateDue-snoozed-snoozedUntil
+    static func getNotificationIDs(forInjection injection: Injection, snoozedUntil: Date?, originalDateDue: Date?) -> [String]{
+        
+        var identifiers = [String]()
+        
+        if let snoozedUntil, let originalDateDue{
+           
+            let weekday = Calendar.current.component(.weekday, from: originalDateDue)
+            
+            
+            identifiers.append("\(injection.name!)-\(injection.dosage!)-\(injection.unitsVal.rawValue)-\(weekday)-\(injection.time!.prettyTime)-due-\(originalDateDue)-snoozed-\(snoozedUntil)")
+            
+        }
+        
+        else{
+            if injection.daysVal == [.daily]{
+                identifiers.append("\(injection.name!)-\(injection.dosage!)-\(injection.unitsVal.rawValue)-\(Injection.Frequency.daily.rawValue)-\(injection.time!.prettyTime)")
+            }
+            else{
+                for day in injection.daysVal{
+                    identifiers.append("\(injection.name!)-\(injection.dosage!)-\(injection.unitsVal.rawValue)-\(day.weekday!)-\(injection.time!.prettyTime)")
+                }
+            }
+        }
+        
+           
+        return identifiers
+           
+    }
+    
     static func populateInjectionQueueForExistingNotifications(){
         
         UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
@@ -25,10 +56,8 @@ class NotificationManager{
             if notifications.count > 0{
                 
                 let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetch: false)
-
                 
                 for noti in notifications{
-                    
                     
                     let idString = noti.request.content.userInfo[UserInfoKeys.injectionManagednObjectID.rawValue] as! String
                     
@@ -51,30 +80,11 @@ class NotificationManager{
     
     static func removeExistingNotifications(forInjection injection: Injection){
         
-        let objectID = injection.objectID
+        let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
         
-        let oldFrequency = injection.daysVal
-        
-        if oldFrequency == [.daily]{
+        print("removing notifications with id's \(identifiers)")
             
-            let notificationID = "\(objectID)"
-            
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationID])
-            
-        }
-        else{
-            
-            var identifiers = [String]()
-            
-            for day in oldFrequency{
-                let identifier = "\(objectID)-\(day.weekday!)"
-                
-                identifiers.append(identifier)
-            }
-            
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-            
-        }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
         
         print(UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { notifications in
             print("Notification Count: \(notifications.count)")
@@ -82,18 +92,19 @@ class NotificationManager{
         
     }
     
-    static func scheduleNotificationForInjectionWith(objectID: NSManagedObjectID, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], frequencyString: String, time: Date){
+    static func scheduleNotification(forInjection injection: Injection){
         
         let content = UNMutableNotificationContent()
         content.title = "It's Injection O'Clock!"
-        content.body = "It's time for your injection \(name) of \(dosage) \(units), scheduled \(frequencyString) at \(time.prettyTime)."
+        content.body = "It's time for your injection \(injection.name!) of \(injection.dosage!) \(injection.units!), scheduled \(injection.shortenedDayString) at \(injection.time!.prettyTime)."
         
-       content.sound = .defaultCritical
-       content.interruptionLevel = .critical
+        content.sound = .defaultCritical
+        content.interruptionLevel = .critical
+        
+        let objectID = injection.objectID
+        print(objectID)
        
-       print(objectID)
-       
-       content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
+        content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
         
         // Configure the recurring date.
         var dateComponents = [DateComponents]()
@@ -101,42 +112,40 @@ class NotificationManager{
         
         let calendar = Calendar.current
         
-        if frequency == [.daily]{
+        if injection.daysVal == [.daily]{
             var components = DateComponents()
             
-            components.hour = calendar.component(.hour, from: time)
-            components.minute = calendar.component(.minute, from: time)
+            components.hour = calendar.component(.hour, from: injection.time!)
+            components.minute = calendar.component(.minute, from: injection.time!)
             
             dateComponents.append(components)
             
-            let identifier = "\(objectID)"
+            let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
             
-            notificationIdentifiers.append(identifier)
+            notificationIdentifiers.append(contentsOf: identifiers)
             
             
         }
         else{
             
-            for day in frequency{
+            let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
+            notificationIdentifiers.append(contentsOf: identifiers)
+            
+            for day in injection.daysVal{
                 
                 var components = DateComponents()
                 
-                components.hour = calendar.component(.hour, from: time)
-                components.minute = calendar.component(.minute, from: time)
+                components.hour = calendar.component(.hour, from: injection.time!)
+                components.minute = calendar.component(.minute, from: injection.time!)
                 components.weekday = day.weekday
                 
                 dateComponents.append(components)
-                
-                let identifier = "\(objectID)-\(day.weekday!)"
-                
-                notificationIdentifiers.append(identifier)
                 
             }
             
         }
         
         for i in 0...dateComponents.count-1{
-            
             
             // Create the trigger as a repeating event.
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents[i], repeats: true)
@@ -149,7 +158,7 @@ class NotificationManager{
             
             notificationCenter.add(request) { (error) in
                 
-                print("notification added")
+                print("notification added \(notificationIdentifiers[i])")
                 
                 if error != nil {
                         // Handle any errors.
@@ -162,19 +171,19 @@ class NotificationManager{
         
     }
     
-    static func scheduleSnoozedNotificationForInjectionWith(objectID: NSManagedObjectID, name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], frequencyString: String, snoozedUntil: Date, originalDateDue: Date){
+    static func scheduleSnoozedNotification(forInjection injection: Injection, snoozedUntil: Date, originalDateDue: Date){
         
         let content = UNMutableNotificationContent()
         content.title = "It's Injection O'Clock!"
-        content.body = "It's time for your injection \(name) of \(dosage) \(units), that was originally due \(originalDateDue) and snoozed until \(snoozedUntil.prettyTime)."
+        content.body = "It's time for your injection \(injection.name) of \(injection.dosage) \(injection.units), that was originally due \(originalDateDue) and snoozed until \(snoozedUntil.prettyTime)."
        
        content.sound = .defaultCritical
        content.interruptionLevel = .critical
+        
+        let objectID = injection.objectID
     
         content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
         content.userInfo[UserInfoKeys.originalDateDue.rawValue] =  originalDateDue
-        
-        // Configure the recurring date.
         
         let calendar = Calendar.current
         
@@ -184,13 +193,12 @@ class NotificationManager{
         components.minute = calendar.component(.minute, from: snoozedUntil)
         components.weekday = calendar.component(.weekday, from: snoozedUntil)
         
-        let identifier = "\(objectID)--snoozed"
+        let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: snoozedUntil, originalDateDue: originalDateDue)
         
             
-        // Create the trigger as a repeating event.
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                    
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: identifiers[0], content: content, trigger: trigger)
 
 
             // Schedule the request with the system.
@@ -198,12 +206,12 @@ class NotificationManager{
             
         notificationCenter.add(request) { (error) in
                 
-            print("notification added")
+            print("notification added \(identifiers[0])")
                 
             if error != nil {
                         // Handle any errors.
-                }
             }
+        }
             
         
         

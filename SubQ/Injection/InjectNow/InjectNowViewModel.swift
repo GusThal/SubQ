@@ -171,7 +171,7 @@ class InjectNowViewModel{
         
        /*NotificationManager.scheduleNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(truncating: injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, time: snoozedDate!, snoozed: true, originalDateDue: dateDue)*/
         
-        NotificationManager.scheduleSnoozedNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(truncating: injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, snoozedUntil: snoozedDate!, originalDateDue: dateDue!)
+        NotificationManager.scheduleSnoozedNotification(forInjection: injection, snoozedUntil: snoozedDate!, originalDateDue: dateDue!)
         
     }
     

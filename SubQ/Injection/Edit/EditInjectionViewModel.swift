@@ -78,17 +78,16 @@ class EditInjectionViewModel{
     
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> NSManagedObjectID {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
         
         return injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
         
         
     }
-    
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
+    @discardableResult
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
         
-        injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
-        
+        return injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
         
     }
     

@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        // NotificationManager.populateInjectionQueueForExistingNotifications()
         
-     /*
-        let storageProvider = StorageProvider()
+     
+      /*  let storageProvider = StorageProvider.shared
         
         let bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
         

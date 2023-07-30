@@ -78,12 +78,11 @@ class InjectionProvider: NSObject{
     }
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> NSManagedObjectID {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
         
-        
-        
+    
         let injection = Injection(context: persistentContainer.viewContext)
         injection.name = name
         injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
@@ -101,10 +100,11 @@ class InjectionProvider: NSObject{
             persistentContainer.viewContext.rollback()
         }
         
-        return injection.objectID
+        return injection
         
     }
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) {
+    @discardableResult
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
         
@@ -123,6 +123,8 @@ class InjectionProvider: NSObject{
             print("failed with \(error)")
             persistentContainer.viewContext.rollback()
         }
+        
+        return injection
         
     }
     
