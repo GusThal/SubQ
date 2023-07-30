@@ -78,9 +78,9 @@ class NotificationManager{
         }
     }
     
-    static func removeExistingNotifications(forInjection injection: Injection){
+    static func removeExistingNotifications(forInjection injection: Injection, snoozedUntil: Date?, originalDateDue: Date?){
         
-        let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
+        let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: snoozedUntil, originalDateDue: originalDateDue)
         
         print("removing notifications with id's \(identifiers)")
             
@@ -91,6 +91,7 @@ class NotificationManager{
         }))
         
     }
+    
     
     static func scheduleNotification(forInjection injection: Injection){
         

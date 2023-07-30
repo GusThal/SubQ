@@ -97,7 +97,15 @@ class SelectInjectionViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
             
+            
+            if let snoozedUntil = object.snoozedUntil{
+                
+                NotificationManager.removeExistingNotifications(forInjection: object.injection!, snoozedUntil: snoozedUntil, originalDateDue: object.dateDue)
+                
+            }
+            
             viewModel.delete(queueObject: object)
+            
             
         
         }))

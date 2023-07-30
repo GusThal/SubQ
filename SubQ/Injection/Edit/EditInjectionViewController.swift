@@ -153,7 +153,7 @@ class EditInjectionViewController: UIViewController, Coordinated {
                     //remove existing notifications only if the day or time has changed.
                     if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.prettyTime != time?.prettyTime{
                         
-                        NotificationManager.removeExistingNotifications(forInjection: existingInjection)
+                        NotificationManager.removeExistingNotifications(forInjection: existingInjection, snoozedUntil: nil, originalDateDue: nil)
                     }
                     
                 }
@@ -450,7 +450,7 @@ extension EditInjectionViewController: UICollectionViewDelegate{
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
                 
                 if viewModel.injection?.daysVal != [.asNeeded]{
-                    NotificationManager.removeExistingNotifications(forInjection: viewModel.injection!)
+                    NotificationManager.removeExistingNotifications(forInjection: viewModel.injection!, snoozedUntil: nil, originalDateDue: nil)
                 }
                 
                 editCoordinator?.deleteInjection(viewModel.injection!)

@@ -112,7 +112,7 @@ class InjectionViewController: UIViewController, Coordinated {
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
             
             if injection.daysVal != [.asNeeded]{
-                NotificationManager.removeExistingNotifications(forInjection: injection)
+                NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
             }
                 
             viewModel.deleteInjection(injection)
