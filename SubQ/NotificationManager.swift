@@ -15,6 +15,7 @@ class NotificationManager{
     enum UserInfoKeys: String{
         case injectionManagednObjectID = "injectionObjectID"
         case originalDateDue = "originalDateDue"
+        case queueManagedObjectID = "queueObjectID"
     }
     
     //name-dosage-units-frequency-time
@@ -105,7 +106,7 @@ class NotificationManager{
         let objectID = injection.objectID
         print(objectID)
        
-        content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
+        content.userInfo = [UserInfoKeys.injectionManagednObjectID.rawValue: objectID.uriRepresentation().absoluteString]
         
         // Configure the recurring date.
         var dateComponents = [DateComponents]()
@@ -172,7 +173,7 @@ class NotificationManager{
         
     }
     
-    static func scheduleSnoozedNotification(forInjection injection: Injection, snoozedUntil: Date, originalDateDue: Date){
+    static func scheduleSnoozedNotification(forInjection injection: Injection, snoozedUntil: Date, originalDateDue: Date, queueObject: Queue){
         
         let content = UNMutableNotificationContent()
         content.title = "It's Injection O'Clock!"
@@ -181,10 +182,13 @@ class NotificationManager{
        content.sound = .defaultCritical
        content.interruptionLevel = .critical
         
-        let objectID = injection.objectID
+        let injectionObjectID = injection.objectID
+        
+        let queueObjectID = queueObject.objectID
     
-        content.userInfo = ["injectionObjectID": objectID.uriRepresentation().absoluteString]
+        content.userInfo[UserInfoKeys.injectionManagednObjectID.rawValue] = injectionObjectID.uriRepresentation().absoluteString
         content.userInfo[UserInfoKeys.originalDateDue.rawValue] =  originalDateDue
+        content.userInfo[UserInfoKeys.queueManagedObjectID.rawValue] = queueObjectID.uriRepresentation().absoluteString
         
         let calendar = Calendar.current
         

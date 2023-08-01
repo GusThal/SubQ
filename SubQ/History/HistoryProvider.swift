@@ -45,8 +45,11 @@ class HistoryProvider: NSObject{
         
     }
     
+    /*
+     for both injected and skipped injections
+     */
     @discardableResult
-    func saveHistory(injection: Injection, site: Site, date: Date) -> Bool{
+    func saveHistory(injection: Injection, site: Site?, date: Date, dateDue: Date?, status: History.InjectStatus) -> Bool{
         
         let persistentContainer = storageProvider.persistentContainer
         
@@ -56,6 +59,8 @@ class HistoryProvider: NSObject{
         history.injection = injection
         history.site = site
         history.date = date
+        history.dueDate = date
+        history.status = status.rawValue
 
         do{
             try persistentContainer.viewContext.save()

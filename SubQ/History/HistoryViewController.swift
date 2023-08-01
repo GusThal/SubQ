@@ -88,19 +88,9 @@ extension HistoryViewController{
             
             guard let injection = history.injection else { return }
             
-            guard let site = history.site else { return }
-            
             var content = cell.defaultContentConfiguration()
-            content.text = "\(history.date!.fullDateTime): \(site.subQuadrantVal) of \(site.section!.quadrantVal) of \(site.section!.bodyPart!.part!)"
-            content.secondaryText = "\(injection.name!) \(injection.dosage!) \(injection.units!) | \(injection.daysVal.map({ $0.shortened}).joined(separator: ", "))"
-            
-            
-            if injection.daysVal != [Injection.Frequency.asNeeded] {
-                if let time = injection.prettyTime{
-                    content.secondaryText!.append(" | \(time)")
-                }
-            }
-            
+            content.text = "\(history.date!.fullDateTime): \(injection.descriptionString) | \(history.status!)"
+            content.secondaryText = "Due: \(history.dueDate!) | Scheduled: \(injection.scheduledString)"
             
             cell.contentConfiguration = content
             
@@ -124,5 +114,7 @@ extension HistoryViewController{
 extension HistoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
+        
+        print(viewModel.object(at: indexPath))
     }
 }

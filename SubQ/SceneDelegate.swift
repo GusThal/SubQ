@@ -152,7 +152,12 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
             
             print("due date \(dateDue)")
             
-            vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String, dateDue: dateDue)
+            let queueObjectID = userInfo[NotificationManager.UserInfoKeys.queueManagedObjectID.rawValue] as! String? ?? nil
+            
+            print("Queue Obj ID? \(queueObjectID)")
+            
+            
+            vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String, dateDue: dateDue, queueObjectIDAsString: queueObjectID)
         }
         
         

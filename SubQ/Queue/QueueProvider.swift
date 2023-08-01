@@ -75,16 +75,38 @@ class QueueProvider: NSObject{
         
     }
     
+    func object(fromIDString id: String) -> Queue{
+        
+        let url = URL(string: id)!
+        
+        let managedObjectID = storageProvider.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url)!
+        
+        return object(withObjectID: managedObjectID)
+        
+    }
+    
+    func object(withObjectID id: NSManagedObjectID) -> Queue{
+        
+        let obj = storageProvider.persistentContainer.viewContext.object(with: id) as! Queue
+        
+        return obj
+        
+    }
     
     
-    func saveObject(injection: Injection, dateDue: Date, snoozedUntil: Date?) {
+    
+    func saveObject(injection: Injection, dateDue: Date, snoozedUntil: Date?) -> Queue {
     
         
         let persistentContainer = storageProvider.persistentContainer
         
+        var obj: Queue!
+        
         if let object = object(forInjection: injection, withDateDue: dateDue){
             
-            object.snoozedUntil = snoozedUntil
+            obj = object
+            
+            obj.snoozedUntil = snoozedUntil
             
             print("found \(object)")
             
@@ -92,10 +114,11 @@ class QueueProvider: NSObject{
         
         else{
             
-            let obj = Queue(context: persistentContainer.viewContext)
+            obj = Queue(context: persistentContainer.viewContext)
             obj.injection = injection
             obj.dateDue = dateDue
             obj.snoozedUntil = snoozedUntil
+        
             
         }
         
@@ -107,6 +130,8 @@ class QueueProvider: NSObject{
             print("failed with \(error)")
             persistentContainer.viewContext.rollback()
         }
+        
+        return obj
         
     }
     

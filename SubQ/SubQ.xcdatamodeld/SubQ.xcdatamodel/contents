@@ -7,6 +7,8 @@
     </entity>
     <entity name="History" representedClassName="History" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="705074820" usesScalarValueType="NO"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" optional="YES" attributeType="String" defaultValueString="injected"/>
         <relationship name="injection" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Injection" inverseName="injectionHistory" inverseEntity="Injection"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="siteHistory" inverseEntity="Site"/>
     </entity>

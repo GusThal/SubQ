@@ -25,13 +25,14 @@ class InjectNowCoordinator: ModalChildCoordinator{
     
     let dateDue: Date?
     
-    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionIDString: String?, dateDue: Date?) {
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionIDString: String?, dateDue: Date?, queueObjectIDString: String?) {
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: injectionIDString, dateDue: dateDue)
+        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: injectionIDString, dateDue: dateDue, queueObjectIDString: queueObjectIDString)
         self.dateDue = dateDue
+        
     }
     
     
@@ -41,7 +42,7 @@ class InjectNowCoordinator: ModalChildCoordinator{
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
         dateDue = nil
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue)
+        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue, queueObjectIDString: nil)
        
     }
     
@@ -52,7 +53,7 @@ class InjectNowCoordinator: ModalChildCoordinator{
         self.parentCoordinator = parentCoordinator
         self.storageProvider = storageProvider
         dateDue = nil
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue)
+        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue, queueObjectIDString: nil)
        
     }
     

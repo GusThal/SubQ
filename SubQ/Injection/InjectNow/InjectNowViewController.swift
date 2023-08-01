@@ -80,6 +80,7 @@ class InjectNowViewController: UIViewController {
         buttonConfig.baseForegroundColor = .red
         
         let action = UIAction { _ in
+            self.viewModel.skipInjection()
             self.coordinator?.dismissViewController()
         }
         

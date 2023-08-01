@@ -14,10 +14,12 @@ class InjectNowViewModel{
     
     let injectionProvider: InjectionProvider
     let siteProvider: SiteProvider
-    var injectionFromNotification: Injection?
     let historyProvider: HistoryProvider
     let queueProvider: QueueProvider
     let dateDue: Date?
+    
+    var injectionFromNotification: Injection?
+    var queueObjectFromNotification: Queue?
     
     let isFromNotification: Bool
     
@@ -69,7 +71,7 @@ class InjectNowViewModel{
     }
     
     
-    init(storageProvider: StorageProvider, injectionIDString: String?, dateDue: Date?) {
+    init(storageProvider: StorageProvider, injectionIDString: String?, dateDue: Date?, queueObjectIDString: String?) {
         self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         self.siteProvider = SiteProvider(storageProvider: storageProvider)
         self.historyProvider = HistoryProvider(storageProvider: storageProvider, fetch: false)
@@ -81,6 +83,12 @@ class InjectNowViewModel{
             queueProvider = QueueProvider(storageProvider: storageProvider, fetch: false)
             injectionFromNotification = getInjection(withIDString: injectionIDString)
             
+            if let id = queueObjectIDString{
+                queueObjectFromNotification = getQueueObject(withIDString: id)
+            }
+            
+            
+            
         }
         else{
             isFromNotification = false
@@ -88,6 +96,10 @@ class InjectNowViewModel{
             print("QUEUE ITEMS \(queueProvider.snapshot?.numberOfItems)")
         }
         
+    }
+    
+    func getQueueObject(withIDString id: String) -> Queue{
+        return queueProvider.object(fromIDString: id)
     }
     
     func getQueueObject(forIndexPath indexPath: IndexPath)-> Queue{
@@ -133,14 +145,20 @@ class InjectNowViewModel{
         }
         
         
-        if historyProvider.saveHistory(injection: injection, site: site, date: date){
+        if historyProvider.saveHistory(injection: injection, site: site, date: date, dateDue: dateDue, status: .injected){
             
             if !isFromNotification{
                 
                 if let selectedQueueObject{
-                    queueProvider.deleteObject(selectedQueueObject)
+                    delete(queueObject: selectedQueueObject)
                 }
                 
+            }
+            
+            else{
+                if let queueObjectFromNotification{
+                    delete(queueObject: queueObjectFromNotification)
+                }
             }
             
             siteProvider.update(site: site, withDate: date)
@@ -171,11 +189,30 @@ class InjectNowViewModel{
         let injection = injectionFromNotification!
         
     
-        queueProvider.saveObject(injection: injection, dateDue: dateDue!, snoozedUntil: snoozedDate)
+        let queueObject = queueProvider.saveObject(injection: injection, dateDue: dateDue!, snoozedUntil: snoozedDate)
         
        /*NotificationManager.scheduleNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(truncating: injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, time: snoozedDate!, snoozed: true, originalDateDue: dateDue)*/
         
-        NotificationManager.scheduleSnoozedNotification(forInjection: injection, snoozedUntil: snoozedDate!, originalDateDue: dateDue!)
+        NotificationManager.scheduleSnoozedNotification(forInjection: injection, snoozedUntil: snoozedDate!, originalDateDue: dateDue!, queueObject: queueObject)
+        
+    }
+    
+    /*
+     only Injections from notifiations can be skipped
+     */
+    func skipInjection(){
+        
+        
+        historyProvider.saveHistory(injection: injectionFromNotification!, site: nil, date: Date(), dateDue: dateDue, status: .skipped)
+        
+        //only snoozed injections will have a dateDue
+        if let queueObjectFromNotification{
+            
+            print("deleting queue obj \(queueObjectFromNotification)")
+            
+            delete(queueObject: queueObjectFromNotification)
+            
+        }
         
     }
     
