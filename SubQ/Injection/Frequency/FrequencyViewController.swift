@@ -107,6 +107,8 @@ extension FrequencyViewController{
     private func createLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { [unowned self] section, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.footerMode = .supplementary
+            
             return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
         }
     }
@@ -143,10 +145,29 @@ extension FrequencyViewController{
 
         }
         
+        let footerRegistration = UICollectionView.SupplementaryRegistration
+        <UICollectionViewListCell>(elementKind: UICollectionView.elementKindSectionFooter) {
+            [unowned self] (footerView, elementKind, indexPath) in
+            
+            if indexPath.section == Section.asNeeded.rawValue{
+                
+                // Configure footer view content
+                var configuration = footerView.defaultContentConfiguration()
+                configuration.text = "As needed injections will not generate notifications."
+                footerView.contentConfiguration = configuration
+            }
+        }
+        
         dataSource = UICollectionViewDiffableDataSource<Int, Injection.Frequency>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: Injection.Frequency) -> UICollectionViewCell? in
           
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+        }
+        
+        dataSource.supplementaryViewProvider = { (view, kind, index) in
+            
+            return self.collectionView.dequeueConfiguredReusableSupplementary(
+                using:  footerRegistration, for: index)
         }
         
         // initial data
