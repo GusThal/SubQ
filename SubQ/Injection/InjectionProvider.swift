@@ -159,7 +159,7 @@ class InjectionProvider: NSObject{
                 
                 
                 if let date = date{
-                    if injection.prettyTime == date.prettyTime{
+                    if injection.time!.prettyTime == date.prettyTime{
                         
                         
                         if let objectID = existingInjection?.objectID{

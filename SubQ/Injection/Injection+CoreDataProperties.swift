@@ -90,19 +90,6 @@ extension Injection {
         }
     }
     
-    var prettyTime: String?{
-        get{
-            
-            guard let time else { return nil}
-            
-            let formatter = DateFormatter()
-            formatter.dateStyle = .none
-            formatter.timeStyle = .short
-            
-            
-            return formatter.string(from: time)
-        }
-    }
     
     var descriptionString: String{
         get{
@@ -115,8 +102,8 @@ extension Injection {
         var str = "\(self.daysVal.map({ $0.shortened}).joined(separator: ", "))"
         
         if self.daysVal != [Injection.Frequency.asNeeded] {
-            if let time = self.prettyTime{
-                str.append(" | \(time)")
+            if let time = self.time{
+                str.append(" | \(time.prettyTime)")
             }
         }
         

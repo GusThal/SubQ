@@ -21,10 +21,13 @@ class HistoryViewController: UIViewController, Coordinated {
     var collectionView: UICollectionView! = nil
     
     var cancellables = Set<AnyCancellable>()
+    
+    private let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureSearchController()
         configureHierarchy()
         configureDataSource()
         
@@ -71,6 +74,16 @@ extension HistoryViewController{
 }
 
 extension HistoryViewController{
+    
+    private func configureSearchController(){
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search by injection name"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+    }
+    
     private func configureHierarchy(){
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -117,4 +130,17 @@ extension HistoryViewController: UICollectionViewDelegate {
         
         print(viewModel.object(at: indexPath))
     }
+}
+
+extension HistoryViewController: UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        if let text = searchController.searchBar.text{
+            viewModel.performSearch(forText: text)
+        }
+        
+        
+    }
+    
+    
 }

@@ -151,7 +151,7 @@ class EditInjectionViewController: UIViewController, Coordinated {
                 if existingInjection.daysVal != [.asNeeded]{
                     
                     //remove existing notifications only if the day or time has changed.
-                    if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.prettyTime != time?.prettyTime{
+                    if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
                         
                         NotificationManager.removeExistingNotifications(forInjection: existingInjection, snoozedUntil: nil, originalDateDue: nil)
                     }

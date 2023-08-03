@@ -186,16 +186,9 @@ extension InjectionViewController{
             }
             
             var content = cell.defaultContentConfiguration()
-            content.text = "\(injection.name!) \(injection.dosage!) \(injection.units!)"
-            content.secondaryText = "\(injection.daysVal.map({ $0.shortened}).joined(separator: ", "))"
+            content.text = injection.descriptionString
             
-            
-            if injection.daysVal != [Injection.Frequency.asNeeded] {
-                if let time = injection.prettyTime{
-                    content.secondaryText!.append(" | \(time)")
-                }
-            }
-            
+            content.secondaryText = injection.scheduledString
             
             cell.contentConfiguration = content
             cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {

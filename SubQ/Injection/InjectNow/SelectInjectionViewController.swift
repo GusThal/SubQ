@@ -149,6 +149,7 @@ extension SelectInjectionViewController{
     func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         config.headerMode = .firstItemInSection
+        config.footerMode = .supplementary
         return UICollectionViewCompositionalLayout.list(using: config)
     }
 }
@@ -199,6 +200,25 @@ extension SelectInjectionViewController{
             cell.accessories = [.outlineDisclosure()]
         }
         
+        let footerRegistration = UICollectionView.SupplementaryRegistration
+        <UICollectionViewListCell>(elementKind: UICollectionView.elementKindSectionFooter) {
+            [unowned self] (footerView, elementKind, indexPath) in
+            
+            // Configure footer view content
+            var configuration = footerView.defaultContentConfiguration()
+            
+            if indexPath.section == Section.queue.rawValue{
+
+                configuration.text = "Queued injections are ones that were missed or snoozed."
+                
+            }
+            else{
+                configuration.text = "Scheduled Injections that are currently in queue cannot be selected."
+            }
+            
+            footerView.contentConfiguration = configuration
+        }
+        
         
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { (cell, indexPath, item) in
             
@@ -224,15 +244,8 @@ extension SelectInjectionViewController{
             
             
             var content = cell.defaultContentConfiguration()
-            content.text = "\(injection.name!) \(injection.dosage!) \(injection.units!)"
-            content.secondaryText = "\(injection.daysVal.map({ $0.shortened}).joined(separator: ", "))"
-            
-            
-            if injection.daysVal != [Injection.Frequency.asNeeded] {
-                if let time = injection.prettyTime{
-                    content.secondaryText!.append(" | \(time)")
-                }
-            }
+            content.text = injection.descriptionString
+            content.secondaryText = injection.scheduledString
             
             if indexPath.section == Section.queue.rawValue{
                 
@@ -290,6 +303,12 @@ extension SelectInjectionViewController{
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             }
         
+        }
+        
+        dataSource.supplementaryViewProvider = { (view, kind, index) in
+            
+            return self.collectionView.dequeueConfiguredReusableSupplementary(
+                using:  footerRegistration, for: index)
         }
         
 

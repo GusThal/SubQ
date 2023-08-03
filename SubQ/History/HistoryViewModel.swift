@@ -28,6 +28,10 @@ class HistoryViewModel{
         historyProvider.object(at: indexPath)
     }
     
+    func performSearch(forText text: String){
+        historyProvider.performSearch(forText: text)
+    }
+    
     
     
 }

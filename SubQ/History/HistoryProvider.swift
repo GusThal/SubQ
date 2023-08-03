@@ -17,15 +17,22 @@ class HistoryProvider: NSObject{
     
     private var fetchedResultsController: NSFetchedResultsController<History>?
     
+    private let fetchAllRequest: NSFetchRequest = {
+        
+        let request: NSFetchRequest<History> = History.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: false)]
+
+        return request
+    }()
+    
     init(storageProvider: StorageProvider, fetch: Bool = true) {
         self.storageProvider = storageProvider
         
         if fetch{
-            let request: NSFetchRequest<History> = History.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: true)]
+            
 
             self.fetchedResultsController =
-              NSFetchedResultsController(fetchRequest: request,
+              NSFetchedResultsController(fetchRequest: fetchAllRequest,
                                          managedObjectContext: storageProvider.persistentContainer.viewContext,
                                          sectionNameKeyPath: nil, cacheName: nil)
 
@@ -36,6 +43,8 @@ class HistoryProvider: NSObject{
             
             fetchedResultsController!.delegate = self
             try! fetchedResultsController!.performFetch()
+            
+            
             
         }
         else{
@@ -105,6 +114,23 @@ class HistoryProvider: NSObject{
         
     }
     
+    func performSearch(forText text: String){
+        
+        print(text)
+        
+        if text == ""{
+          
+            fetchedResultsController!.fetchRequest.predicate = nil
+        } else{
+            
+            fetchedResultsController!.fetchRequest.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", #keyPath(History.injection.name), text)
+        }
+        
+        
+        try! fetchedResultsController!.performFetch()
+        
+    }
+    
 }
 
 extension HistoryProvider: NSFetchedResultsControllerDelegate{
@@ -137,5 +163,6 @@ extension HistoryProvider: NSFetchedResultsControllerDelegate{
         self.snapshot = newSnapshot
         
     }
+    
     
 }
