@@ -39,5 +39,15 @@ class HistoryCoordinator: Coordinator{
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "clock"), selectedImage: UIImage(systemName: "clock.fill"))
     }
     
+    func showFilterController(){
+        
+        let child = FilterCoordinator(navigationController: UINavigationController(), parentNavigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider, viewModel: viewModel)
+        
+        childCoordinators.append(child)
+        
+        child.start()
+        
+    }
+    
     
 }

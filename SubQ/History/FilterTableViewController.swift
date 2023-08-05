@@ -1,0 +1,220 @@
+//
+//  FilterTableViewController.swift
+//  SubQ
+//
+//  Created by Constantine Thalasinos on 8/3/23.
+//
+
+import UIKit
+
+class FilterTableViewController: UITableViewController {
+    
+    let viewModel: HistoryViewModel
+    
+    weak var coordinator: Coordinator?
+    
+    weak var filterCoordinator: FilterCoordinator?
+    
+    var footer: FilterTableFooterView?
+    
+    lazy var cancelAction = UIAction { _ in
+        self.filterCoordinator?.dismiss()
+    }
+    
+    enum Section: Int{
+        case sort, status, date
+    }
+    
+    let dateCellIdentifier = "dateCellReuseIdentifier"
+    let segmentedCellIdentifier = "segmentedCellReuseIdentifier"
+    let footerIdentifier = "footerReuseIdentifier"
+    
+    lazy var dateSegmentedControl = UISegmentedControl()
+    lazy var statusSegmentedControl = UISegmentedControl()
+    lazy var startDatePicker = UIDatePicker()
+    lazy var endDatePicker = UIDatePicker()
+    
+    
+    lazy var dateAction = UIAction { _ in
+        
+        self.dismiss(animated: false, completion: nil)
+        
+        if self.startDatePicker.date > self.endDatePicker.date{
+            
+            let alert = UIAlertController(title: "Invalid Date Range", message: "The start date cannot be greater than the end date.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                //self.dismiss(animated: true)
+                self.endDatePicker.date = Date()
+            }))
+            
+            self.present(alert, animated: true)
+            
+        }
+       
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: cancelAction)
+        
+        tableView.register(DateRangeTableViewCell.self, forCellReuseIdentifier: dateCellIdentifier)
+        
+        tableView.register(SegmentedTableViewCell.self, forCellReuseIdentifier: segmentedCellIdentifier)
+        
+        tableView.register(FilterTableFooterView.self, forHeaderFooterViewReuseIdentifier: footerIdentifier)
+        
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    init(viewModel: HistoryViewModel){
+        self.viewModel = viewModel
+        
+        super.init(style: .insetGrouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 3
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        
+        let sectionVal = Section(rawValue: section)
+        
+        if sectionVal == .sort{
+            return 1
+        } else if sectionVal == .status{
+            return 1
+        } else{
+           return 1
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let sectionVal = Section(rawValue: section)
+        
+        if sectionVal == .sort{
+            return("Sort By")
+        } else if sectionVal == .status{
+            return("Status")
+        } else{
+            return("Dates Between")
+        }
+        
+    }
+    
+
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+
+        let sectionVal = Section(rawValue: indexPath.section)
+        
+        if sectionVal == .sort{
+            let cell = tableView.dequeueReusableCell(withIdentifier: segmentedCellIdentifier, for: indexPath) as! SegmentedTableViewCell
+            
+            let allCases = HistoryViewModel.DateSorting.allCases
+            
+            cell.createSegmentedControl(withItems: allCases.map({ $0.rawValue }))
+            
+            cell.segmentedControl.selectedSegmentIndex = allCases.firstIndex(of: viewModel.selectedDateSorting)!
+            
+            dateSegmentedControl = cell.segmentedControl
+            
+            return cell
+            
+        } else if sectionVal == .status{
+            let cell = tableView.dequeueReusableCell(withIdentifier: segmentedCellIdentifier, for: indexPath) as! SegmentedTableViewCell
+            
+            let allCases = History.InjectStatus.allCases
+            
+            cell.createSegmentedControl(withItems: allCases.map({ $0.rawValue }))
+            
+            cell.segmentedControl.selectedSegmentIndex = allCases.firstIndex(of: viewModel.selectedStatus)!
+            
+            statusSegmentedControl = cell.segmentedControl
+            
+            return cell
+            
+        } else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as! DateRangeTableViewCell
+            
+            startDatePicker = cell.startDatePicker
+            endDatePicker = cell.endDatePicker
+            
+            startDatePicker.date = viewModel.selectedStartDate ?? viewModel.oldestDate
+            endDatePicker.date = viewModel.selectedEndDate ?? Date()
+            
+            cell.startDatePicker.addAction(dateAction, for: .primaryActionTriggered)
+            cell.endDatePicker.addAction(dateAction, for: .primaryActionTriggered)
+            
+            return cell
+        }
+
+      
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        cell?.setSelected(false, animated: false)
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        if Section(rawValue: section) == .date{
+            footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: footerIdentifier) as! FilterTableFooterView
+            
+            let resetAction = UIAction { _ in
+                self.filterCoordinator?.resetToDefaults()
+            }
+            
+            footer!.resetButton.addAction(resetAction, for: .primaryActionTriggered)
+            
+            
+            let applyAction = UIAction { _ in
+                let dateSortString = self.dateSegmentedControl.titleForSegment(at: self.dateSegmentedControl.selectedSegmentIndex)
+                
+                let dateSorting = HistoryViewModel.DateSorting(rawValue: dateSortString!)!
+                
+                let statusString = self.statusSegmentedControl.titleForSegment(at: self.statusSegmentedControl.selectedSegmentIndex)
+                
+                let status = History.InjectStatus(rawValue: statusString!)!
+                
+                
+                self.filterCoordinator?.applyFilters(sortDateBy: dateSorting, status: status, startDate: self.startDatePicker.date, endDate: self.endDatePicker.date)
+                
+                
+            }
+            footer!.applyButton.addAction(applyAction, for: .primaryActionTriggered)
+            
+            return footer
+        }
+        
+        return nil
+    }
+    
+ /*   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return
+    }*/
+    
+    
+
+}

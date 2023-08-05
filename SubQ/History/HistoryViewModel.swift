@@ -12,15 +12,31 @@ import UIKit
 
 class HistoryViewModel{
     
+    enum DateSorting: String, CaseIterable{
+        case newest = "Newest", oldest = "Oldest"
+    }
+    
     let historyProvider: HistoryProvider
+    let oldestDate: Date
+    
+    var selectedStartDate: Date?
+    var selectedEndDate: Date?
+    var selectedStatus = History.InjectStatus.all
+    var selectedDateSorting = DateSorting.newest
     
     lazy var snapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
         return historyProvider.$snapshot.eraseToAnyPublisher()
     }()
     
+    lazy var currentSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
+        return historyProvider.currentValueSnapshot.eraseToAnyPublisher()
+    }()
+    
     
     init(storageProvider: StorageProvider) {
         self.historyProvider = HistoryProvider(storageProvider: storageProvider)
+        
+       oldestDate = historyProvider.getOldestHistory() ?? Date()
     }
     
     
@@ -32,6 +48,28 @@ class HistoryViewModel{
         historyProvider.performSearch(forText: text)
     }
     
+    func applyFilters(sortDateBy: HistoryViewModel.DateSorting, status: History.InjectStatus, startDate: Date, endDate: Date){
+        
+        selectedDateSorting = sortDateBy
+        selectedStatus = status
+        selectedStartDate = startDate
+        selectedEndDate = endDate
+        
+        historyProvider.applyFilters(dateSorting: sortDateBy, status: status, startDate: startDate, endDate: endDate)
+        
+    }
     
-    
+    func applyDefaultFilters(){
+        
+        selectedDateSorting = .newest
+        selectedStatus = .all
+        selectedStartDate = nil
+        selectedEndDate = nil
+        
+        historyProvider.applyFilters(dateSorting: .newest, status: .all, startDate: oldestDate, endDate: Date())
+        
+        
+        
+        
+    }
 }

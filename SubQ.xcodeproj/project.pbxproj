@@ -29,6 +29,12 @@
 		CC57389E2A34CA38000257E0 /* SectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389D2A34CA38000257E0 /* SectionProvider.swift */; };
 		CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389F2A360ACA000257E0 /* SectionViewModel.swift */; };
 		CC7762EE2A69EFB400AEC489 /* SelectInjectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */; };
+		CC7762F02A7BEE5000AEC489 /* ResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */; };
+		CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */; };
+		CC7762F42A7C10A600AEC489 /* FilterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F32A7C10A600AEC489 /* FilterCoordinator.swift */; };
+		CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */; };
+		CC7762F82A7C5FFC00AEC489 /* SegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */; };
+		CC7762FA2A7D35E800AEC489 /* FilterTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */; };
 		CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */; };
 		CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */; };
 		CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */; };
@@ -102,6 +108,12 @@
 		CC57389D2A34CA38000257E0 /* SectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionProvider.swift; sourceTree = "<group>"; };
 		CC57389F2A360ACA000257E0 /* SectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewModel.swift; sourceTree = "<group>"; };
 		CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionCoordinator.swift; sourceTree = "<group>"; };
+		CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsHeaderView.swift; sourceTree = "<group>"; };
+		CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		CC7762F32A7C10A600AEC489 /* FilterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCoordinator.swift; sourceTree = "<group>"; };
+		CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeTableViewCell.swift; sourceTree = "<group>"; };
+		CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedTableViewCell.swift; sourceTree = "<group>"; };
+		CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableFooterView.swift; sourceTree = "<group>"; };
 		CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+textPublisher.swift"; sourceTree = "<group>"; };
 		CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+prettyTime.swift"; sourceTree = "<group>"; };
 		CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,6 +243,8 @@
 				CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */,
 				CCC4B8672A0447C9008BFF81 /* HistoryCoordinator.swift */,
 				CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */,
+				CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */,
+				CC7762F32A7C10A600AEC489 /* FilterCoordinator.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -374,6 +388,10 @@
 				CCBCE2232A16F10E001B73D6 /* TimePickerTableViewCell.swift */,
 				CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */,
 				CCBCE2332A1A7077001B73D6 /* CenteredTextLabelCell.swift */,
+				CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */,
+				CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */,
+				CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */,
+				CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -465,10 +483,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC7762F42A7C10A600AEC489 /* FilterCoordinator.swift in Sources */,
 				CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */,
 				CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */,
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
 				CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */,
+				CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
 				CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */,
 				CC1356E12A2F7CC10073431B /* BodyPartProvider.swift in Sources */,
@@ -488,6 +508,7 @@
 				CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */,
 				CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */,
 				CCC4B8722A04591B008BFF81 /* HistoryViewController.swift in Sources */,
+				CC7762F82A7C5FFC00AEC489 /* SegmentedTableViewCell.swift in Sources */,
 				CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */,
 				CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */,
 				CCE943802A01B23B00514710 /* Coordinator.swift in Sources */,
@@ -508,10 +529,12 @@
 				CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */,
 				CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */,
 				CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */,
+				CC7762FA2A7D35E800AEC489 /* FilterTableFooterView.swift in Sources */,
 				CCC8F3BB2A634B1600BAAED1 /* SelectInjectionViewController.swift in Sources */,
 				CC31CD6B2A23ECB700C20CAB /* History+CoreDataClass.swift in Sources */,
 				CCC4B8702A045901008BFF81 /* SectionViewController.swift in Sources */,
 				CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */,
+				CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
 				CC1356E32A2F8F1A0073431B /* BodyPartViewModel.swift in Sources */,
 				CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */,
@@ -522,6 +545,7 @@
 				CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */,
 				CC1356DF2A2CE1120073431B /* InjectionViewModel.swift in Sources */,
 				CCBCE22A2A17CD62001B73D6 /* TimePickerCollectionViewCell.swift in Sources */,
+				CC7762F02A7BEE5000AEC489 /* ResultsHeaderView.swift in Sources */,
 				CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */,
 				CCBCE2342A1A7077001B73D6 /* CenteredTextLabelCell.swift in Sources */,
 				CC31CD682A23ECB700C20CAB /* BodyPart+CoreDataProperties.swift in Sources */,

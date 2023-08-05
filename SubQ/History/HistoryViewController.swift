@@ -22,7 +22,13 @@ class HistoryViewController: UIViewController, Coordinated {
     
     var cancellables = Set<AnyCancellable>()
     
+    var headerView: ResultsHeaderView?
+    
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    lazy var filterAction = UIAction { _ in
+        self.historyCoordinator?.showFilterController()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +37,26 @@ class HistoryViewController: UIViewController, Coordinated {
         configureHierarchy()
         configureDataSource()
         
+        viewModel.currentSnapshot.sink { [weak self] snapshot in
+            
+            if let snapshot = snapshot{
+                self?.headerView?.label.text = "\(snapshot.numberOfItems) results"
+            }
+            
+        }.store(in: &cancellables)
+        
         viewModel.snapshot
           .sink(receiveValue: { [weak self] snapshot in
             if let snapshot = snapshot {
-                if snapshot.numberOfItems == 0{
+                
+              /*  if snapshot.numberOfItems == 0{
                     self?.navigationItem.leftBarButtonItem?.isEnabled = false
                 }
                 else{
                     self?.navigationItem.leftBarButtonItem?.isEnabled = true
-                }
+                }*/
                 
-              self?.dataSource.apply(snapshot, animatingDifferences: true)
+                self?.dataSource.apply(snapshot, animatingDifferences: true)
                 self?.collectionView.reloadData()
             }
           })
@@ -68,6 +83,7 @@ class HistoryViewController: UIViewController, Coordinated {
 extension HistoryViewController{
     private func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        config.headerMode = .supplementary
         
         return UICollectionViewCompositionalLayout.list(using: config)
     }
@@ -81,6 +97,7 @@ extension HistoryViewController{
         searchController.searchBar.placeholder = "Search by injection name"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.preferredSearchBarPlacement = .stacked
         definesPresentationContext = true
     }
     
@@ -109,10 +126,25 @@ extension HistoryViewController{
             
         }
         
+        let headerRegistration = UICollectionView.SupplementaryRegistration
+        <ResultsHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) {
+            [unowned self] (headerView, elementKind, indexPath) in
+            headerView.filterButton.addAction(filterAction, for: .primaryActionTriggered)
+            
+            self.headerView = headerView
+            
+        }
+        
         dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, injectionId: NSManagedObjectID) -> UICollectionViewCell? in
             
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: injectionId)
+        }
+        
+        dataSource.supplementaryViewProvider = { (view, kind, index) in
+            
+            return self.collectionView.dequeueConfiguredReusableSupplementary(
+                using:  headerRegistration, for: index)
         }
 
         // initial data

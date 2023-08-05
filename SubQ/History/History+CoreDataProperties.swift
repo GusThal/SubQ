@@ -12,8 +12,8 @@ import CoreData
 
 extension History {
     
-    enum InjectStatus: String{
-        case injected = "injected", skipped = "skipped"
+    enum InjectStatus: String, CaseIterable{
+        case all = "All", injected = "injected", skipped = "skipped"
     }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<History> {

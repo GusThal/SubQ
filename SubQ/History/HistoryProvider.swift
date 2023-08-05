@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import UIKit
+import Combine
 
 class HistoryProvider: NSObject{
     
@@ -15,7 +16,11 @@ class HistoryProvider: NSObject{
     
     @Published var snapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?
     
+    var currentValueSnapshot = CurrentValueSubject<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never>(NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>())
+    
     private var fetchedResultsController: NSFetchedResultsController<History>?
+    
+    private var searchPredicate: NSPredicate?
     
     private let fetchAllRequest: NSFetchRequest = {
         
@@ -43,7 +48,6 @@ class HistoryProvider: NSObject{
             
             fetchedResultsController!.delegate = self
             try! fetchedResultsController!.performFetch()
-            
             
             
         }
@@ -89,6 +93,26 @@ class HistoryProvider: NSObject{
       return fetchedResultsController!.object(at: indexPath)
     }
     
+    func getOldestHistory() -> Date?{
+        let request: NSFetchRequest<History> = History.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: true)]
+        request.fetchLimit = 1
+
+        let context = storageProvider.persistentContainer.viewContext
+        
+        do{
+            let history = try context.fetch(request).first
+            
+            return history?.date
+        }
+        catch{
+            print("failed with \(error)")
+            storageProvider.persistentContainer.viewContext.rollback()
+        }
+        
+        return nil
+    }
+    
     
     func getLastInjectedDate(forInjection injection: Injection) -> Date?{
         
@@ -116,16 +140,50 @@ class HistoryProvider: NSObject{
     
     func performSearch(forText text: String){
         
-        print(text)
-        
         if text == ""{
           
             fetchedResultsController!.fetchRequest.predicate = nil
+            searchPredicate = nil
         } else{
-            
-            fetchedResultsController!.fetchRequest.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", #keyPath(History.injection.name), text)
+            searchPredicate = NSPredicate(format: "%K CONTAINS[cd] %@", #keyPath(History.injection.name), text)
+            fetchedResultsController!.fetchRequest.predicate = searchPredicate
         }
         
+        
+        try! fetchedResultsController!.performFetch()
+        
+    }
+    
+    func applyFilters(dateSorting: HistoryViewModel.DateSorting, status: History.InjectStatus, startDate: Date, endDate: Date){
+        
+        var predicates = [NSPredicate]()
+        
+        if dateSorting == .newest{
+            fetchedResultsController?.fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: false)]
+        }
+        else{
+            fetchedResultsController?.fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: true)]
+        }
+        
+        if status == .injected || status == .skipped{
+            let predicate = NSPredicate(format: "%K == %@", #keyPath(History.status), status.rawValue)
+            predicates.append(predicate)
+        }
+        
+        
+        let datePredicate = NSPredicate(format: "(%K <= %@ AND %K >= %@)",
+                                        #keyPath(History.date), endDate as NSDate,
+                                        #keyPath(History.date), startDate as NSDate)
+        
+        predicates.append(datePredicate)
+        
+        if let searchPredicate{
+            predicates.append(searchPredicate)
+        }
+        
+        print(predicates)
+        
+        fetchedResultsController!.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         try! fetchedResultsController!.performFetch()
         
@@ -161,6 +219,8 @@ extension HistoryProvider: NSFetchedResultsControllerDelegate{
         newSnapshot.reloadItems(idsToReload)
 
         self.snapshot = newSnapshot
+        
+        self.currentValueSnapshot.value = newSnapshot
         
     }
     
