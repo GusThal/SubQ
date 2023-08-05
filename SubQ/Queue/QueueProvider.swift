@@ -94,7 +94,7 @@ class QueueProvider: NSObject{
     }
     
     
-    
+    @discardableResult
     func saveObject(injection: Injection, dateDue: Date, snoozedUntil: Date?) -> Queue {
     
         

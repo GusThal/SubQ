@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerForNotifications()
         
+        registerNotificationCategories()
+        
        // NotificationManager.populateInjectionQueueForExistingNotifications()
         
      
@@ -47,6 +49,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         completionHandler(.newData)
     }
    
+    func registerNotificationCategories(){
+        
+        
+        let center = UNUserNotificationCenter.current()
+        
+        
+        let category = UNNotificationCategory(identifier: NotificationManager.NotificationCategoryIdentifier.scheduledInjection.rawValue, actions: [], intentIdentifiers: [], options: [.customDismissAction, .hiddenPreviewsShowTitle, .hiddenPreviewsShowSubtitle, .allowInCarPlay])
+        
+        center.setNotificationCategories([category])
+        
+    }
     
     
     func registerForNotifications(){

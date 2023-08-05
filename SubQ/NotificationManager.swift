@@ -18,6 +18,10 @@ class NotificationManager{
         case queueManagedObjectID = "queueObjectID"
     }
     
+    enum NotificationCategoryIdentifier: String{
+        case scheduledInjection = "ScheduledInjectionNotification", snoozedInjection = "SnoozedInjectionNotification"
+    }
+    
     //name-dosage-units-frequency-time
     //name-dosage-units-frequency-time-due-originalDateDue-snoozed-snoozedUntil
     static func getNotificationIDs(forInjection injection: Injection, snoozedUntil: Date?, originalDateDue: Date?) -> [String]{
@@ -56,6 +60,13 @@ class NotificationManager{
             
             if notifications.count > 0{
                 
+                populateInjectionQueueFor(injectionNotifications: notifications)
+                
+            }
+            
+            
+           /*if notifications.count > 0{
+                
                 let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetch: false)
                 
                 for noti in notifications{
@@ -73,10 +84,37 @@ class NotificationManager{
                     queueProvider.saveObject(injection: injection, dateDue: noti.date, snoozedUntil: nil)
 
                 }
-            }
+            }*/
             
            
         }
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
+    
+    static func populateInjectionQueueFor(injectionNotifications notifications: [UNNotification]){
+        
+        let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetch: false)
+
+        for noti in notifications{
+            
+            //only populate for scheduled injections, not snoozed
+            if noti.request.content.categoryIdentifier == NotificationCategoryIdentifier.scheduledInjection.rawValue{
+                
+                let idString = noti.request.content.userInfo[UserInfoKeys.injectionManagednObjectID.rawValue] as! String
+                
+                let url = URL(string: idString)!
+                
+                let managedObjectID = queueProvider.storageProvider.persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url)!
+                
+                
+                let injection = StorageProvider.shared.persistentContainer.viewContext.object(with: managedObjectID) as! Injection
+                
+                
+                queueProvider.saveObject(injection: injection, dateDue: noti.date, snoozedUntil: nil)
+            }
+
+        }
+        
     }
     
     static func removeExistingNotifications(forInjection injection: Injection, snoozedUntil: Date?, originalDateDue: Date?){
@@ -102,6 +140,7 @@ class NotificationManager{
         
         content.sound = .defaultCritical
         content.interruptionLevel = .critical
+        content.categoryIdentifier = NotificationManager.NotificationCategoryIdentifier.scheduledInjection.rawValue
         
         let objectID = injection.objectID
         print(objectID)
@@ -179,8 +218,9 @@ class NotificationManager{
         content.title = "It's Injection O'Clock!"
         content.body = "It's time for your injection \(injection.name) of \(injection.dosage) \(injection.units), that was originally due \(originalDateDue) and snoozed until \(snoozedUntil.prettyTime)."
        
-       content.sound = .defaultCritical
-       content.interruptionLevel = .critical
+        content.sound = .defaultCritical
+        content.interruptionLevel = .critical
+        content.categoryIdentifier = NotificationManager.NotificationCategoryIdentifier.snoozedInjection.rawValue
         
         let injectionObjectID = injection.objectID
         

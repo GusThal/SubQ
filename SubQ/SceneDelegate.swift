@@ -73,7 +73,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         print("foreground")
         
-        //NotificationManager.populateInjectionQueueForExistingNotifications()
+        NotificationManager.populateInjectionQueueForExistingNotifications()
         
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
@@ -101,63 +101,75 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
         
         let userInfo = response.notification.request.content.userInfo
         
-        let navController = window?.rootViewController as! UINavigationController
-        
-        let tabBarController = navController.topViewController as! MainTabBarController
-        
-        
-        let selectedVC = tabBarController.selectedViewController
-        
-        var vcToPresentFrom: UIViewController!
-        
-        
-
-        //check if the currently selected tab is displaying a modal view controller
-        if let presented = selectedVC?.presentedViewController{
+        //snoozed injections are already in the queue
+        if response.actionIdentifier == UNNotificationDismissActionIdentifier && response.notification.request.content.categoryIdentifier == NotificationManager.NotificationCategoryIdentifier.scheduledInjection.rawValue{
             
-            var presentedVC = presented.presentedViewController
+            print("dismiss")
             
-            while presentedVC != nil{
-                vcToPresentFrom = presentedVC
-                presentedVC = presentedVC!.presentedViewController
-            }
-            
-            if vcToPresentFrom == nil{
-                vcToPresentFrom = presented
-            }
-            
-            if let navController = vcToPresentFrom as? UINavigationController{
-                vcToPresentFrom = navController.topViewController
-            }
-            
+            NotificationManager.populateInjectionQueueFor(injectionNotifications: [response.notification])
         }
+        
         
         else{
             
-            //check if the currently selected VC is a UINavController. if so, get the top ViewController
-            if let nav = selectedVC as? UINavigationController{
-                vcToPresentFrom = nav.topViewController
+            let navController = window?.rootViewController as! UINavigationController
+            
+            let tabBarController = navController.topViewController as! MainTabBarController
+            
+            
+            let selectedVC = tabBarController.selectedViewController
+            
+            var vcToPresentFrom: UIViewController!
+            
+            
+            
+            //check if the currently selected tab is displaying a modal view controller
+            if let presented = selectedVC?.presentedViewController{
+                
+                var presentedVC = presented.presentedViewController
+                
+                while presentedVC != nil{
+                    vcToPresentFrom = presentedVC
+                    presentedVC = presentedVC!.presentedViewController
+                }
+                
+                if vcToPresentFrom == nil{
+                    vcToPresentFrom = presented
+                }
+                
+                if let navController = vcToPresentFrom as? UINavigationController{
+                    vcToPresentFrom = navController.topViewController
+                }
+                
             }
+            
             else{
-                vcToPresentFrom = selectedVC
+                
+                //check if the currently selected VC is a UINavController. if so, get the top ViewController
+                if let nav = selectedVC as? UINavigationController{
+                    vcToPresentFrom = nav.topViewController
+                }
+                else{
+                    vcToPresentFrom = selectedVC
+                }
+                
             }
             
-        }
-        
-        //check if the VC conforms to Coordinated--basically a protocol to indicate whether there's a coordinator object.
-        if let vc = vcToPresentFrom as? Coordinated{
-            
-            
-            let dateDue: Date = userInfo[NotificationManager.UserInfoKeys.originalDateDue.rawValue] as! Date? ?? response.notification.date
-            
-            print("due date \(dateDue)")
-            
-            let queueObjectID = userInfo[NotificationManager.UserInfoKeys.queueManagedObjectID.rawValue] as! String? ?? nil
-            
-            print("Queue Obj ID? \(queueObjectID)")
-            
-            
-            vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String, dateDue: dateDue, queueObjectIDAsString: queueObjectID)
+            //check if the VC conforms to Coordinated--basically a protocol to indicate whether there's a coordinator object.
+            if let vc = vcToPresentFrom as? Coordinated{
+                
+                
+                let dateDue: Date = userInfo[NotificationManager.UserInfoKeys.originalDateDue.rawValue] as! Date? ?? response.notification.date
+                
+                print("due date \(dateDue)")
+                
+                let queueObjectID = userInfo[NotificationManager.UserInfoKeys.queueManagedObjectID.rawValue] as! String? ?? nil
+                
+                print("Queue Obj ID? \(queueObjectID)")
+                
+                
+                vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String, dateDue: dateDue, queueObjectIDAsString: queueObjectID)
+            }
         }
         
         
