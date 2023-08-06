@@ -21,7 +21,7 @@ class SelectInjectionCoordinator: ModalChildCoordinator{
     var storageProvider: StorageProvider
     
     
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, viewModel: InjectNowViewModel) {
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, viewModel: InjectNowViewModel) {
         
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
@@ -31,23 +31,7 @@ class SelectInjectionCoordinator: ModalChildCoordinator{
         
     }
     
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
-        
-        self.navigationController = navigationController
-        self.parentNavigationController = parentNavigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        self.viewModel = nil
-    
-    }
-    
-    
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
-        self.navigationController = navigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        self.viewModel = nil
-    }
+
     
     func start() {
         let vc = SelectInjectionViewController(viewModel: viewModel!)

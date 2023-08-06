@@ -29,17 +29,6 @@ class SiteCoordinator: Coordinator{
         self.viewModel = SiteViewModel(storageProvider: storageProvider, section: section)
        
    }
-    
-    
-    
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
-        self.navigationController = navigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        
-    }
-    
-    
 
     
     func start() {

@@ -17,7 +17,7 @@ class SettingsCoordinator: Coordinator{
     let viewModel: BodyPartViewModel
     
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
+    init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
         self.viewModel = BodyPartViewModel(storageProvider: storageProvider)

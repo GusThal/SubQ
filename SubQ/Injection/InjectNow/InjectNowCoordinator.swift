@@ -36,27 +36,6 @@ class InjectNowCoordinator: ModalChildCoordinator{
     }
     
     
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
-        self.navigationController = navigationController
-        self.parentNavigationController = parentNavigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        dateDue = nil
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue, queueObjectIDString: nil)
-       
-    }
-    
-  
-    
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
-        self.navigationController = navigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        dateDue = nil
-        self.viewModel = InjectNowViewModel(storageProvider: storageProvider, injectionIDString: nil, dateDue: dateDue, queueObjectIDString: nil)
-       
-    }
-    
     func start() {
         let vc = InjectNowViewController(viewModel: viewModel)
         

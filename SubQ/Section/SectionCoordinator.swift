@@ -15,7 +15,7 @@ class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
     var storageProvider: StorageProvider
     let viewModel: SectionViewModel
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
+    init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
         self.viewModel = SectionViewModel(storageProvider: storageProvider)

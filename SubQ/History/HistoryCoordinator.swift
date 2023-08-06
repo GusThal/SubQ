@@ -16,7 +16,7 @@ class HistoryCoordinator: Coordinator{
     var storageProvider: StorageProvider
     let viewModel: HistoryViewModel
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
+    init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
         self.viewModel = HistoryViewModel(storageProvider: storageProvider)

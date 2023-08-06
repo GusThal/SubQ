@@ -10,10 +10,6 @@ import UIKit
 
 class FrequencyCoordinator: ModalChildCoordinator{
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
-        self.navigationController = navigationController
-        self.storageProvider = storageProvider
-    }
     
     weak var parentNavigationController: UINavigationController?
     
@@ -23,7 +19,7 @@ class FrequencyCoordinator: ModalChildCoordinator{
     
     var viewModel: EditInjectionViewModel?
     
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
+    init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.parentNavigationController = parentNavigationController
         self.parentCoordinator = parentCoordinator

@@ -17,6 +17,8 @@ class QueueProvider: NSObject{
     
     private var fetchedResultsController: NSFetchedResultsController<Queue>?
     
+    @Published var queueCount: String?
+    
     
     init(storageProvider: StorageProvider, fetch: Bool = true){
         self.storageProvider = storageProvider
@@ -182,6 +184,8 @@ extension QueueProvider: NSFetchedResultsControllerDelegate{
         newSnapshot.reloadItems(idsToReload)
 
         self.snapshot = newSnapshot
+        
+        self.queueCount = self.snapshot!.numberOfItems > 0 ? "\(self.snapshot!.numberOfItems)" : nil
         
     }
     

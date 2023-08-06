@@ -18,7 +18,7 @@ class InjectionCoordinator: Coordinator{
     let viewModel: InjectionViewModel
     
     
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
+    init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
         

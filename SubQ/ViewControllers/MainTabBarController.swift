@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class MainTabBarController: UITabBarController {
     
@@ -13,6 +14,10 @@ class MainTabBarController: UITabBarController {
     let siteCoordinator: SectionCoordinator
     let injectionHistoryCoordinator: HistoryCoordinator
     let settingsCoordinator: SettingsCoordinator
+    
+    let queueProvider: QueueProvider
+    
+    var cancellables = Set<AnyCancellable>()
     
     weak var mainCoordinator: MainCoordinator?
     
@@ -37,6 +42,14 @@ class MainTabBarController: UITabBarController {
         self.injectionHistoryCoordinator = HistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil,  storageProvider: storageProvider)
         self.settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
         parentCoordinator: nil,  storageProvider: storageProvider)
+        
+        self.queueProvider = QueueProvider(storageProvider: storageProvider)
+        
+        let tabBarItem = dummyVCForInjectNow.tabBarItem!
+        
+        
+        queueProvider.$queueCount.assign(to: \.badgeValue, on: tabBarItem)
+            .store(in: &cancellables)
         
         
         super.init(nibName: nil, bundle: nil)

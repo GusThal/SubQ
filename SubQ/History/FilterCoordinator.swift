@@ -32,24 +32,6 @@ class FilterCoordinator: ModalChildCoordinator{
     }
     
     
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
-        
-        self.navigationController = navigationController
-        self.parentNavigationController = parentNavigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        self.viewModel = HistoryViewModel(storageProvider: storageProvider)
-    }
-    
-
-    
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
-        
-        self.navigationController = navigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        self.viewModel = HistoryViewModel(storageProvider: storageProvider)
-    }
     
     func start() {
         let vc = FilterTableViewController(viewModel: viewModel)
