@@ -294,7 +294,9 @@ class InjectNowViewController: UIViewController {
             
             self.viewModel.snoozeInjection(forMinutes: text)
             
-            self.dismiss(animated: true)
+            //self.dismiss(animated: true)
+            
+            self.coordinator?.dismissViewController()
         
         }))
         
