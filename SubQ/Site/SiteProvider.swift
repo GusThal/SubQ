@@ -22,14 +22,15 @@ class SiteProvider: NSObject{
         self.storageProvider = storageProvider
         
         let request: NSFetchRequest<Site> = Site.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Site.subQuadrant, ascending: true)]
         
         //pull all sites for that section
         if let section{
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \Site.subQuadrant, ascending: true)]
             request.predicate = NSPredicate(format: "%K==%@", #keyPath(Site.section), section)
         }
         //only pull sites with an enabled bodypart. this will be in the InjectNow controller.
         else{
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \Site.lastInjected, ascending: true)]
             request.predicate = NSPredicate(format: "%K==%d", #keyPath(Site.section.bodyPart.enabled), true)
         }
         
