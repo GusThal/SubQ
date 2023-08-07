@@ -29,6 +29,10 @@ class InjectNowViewModel{
     
     @Published var selectedSite: Site?
     
+    var cancellables = Set<AnyCancellable>()
+    
+    var queuedInjectionIDs = [NSManagedObjectID]()
+    
     lazy var siteSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
         return siteProvider.$snapshot.eraseToAnyPublisher()
     }()
@@ -41,7 +45,11 @@ class InjectNowViewModel{
         return injectionProvider.$snapshot.eraseToAnyPublisher()
     }()
     
+    lazy var currentSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
+        return queueProvider.currentValueSnapshot.eraseToAnyPublisher()
+    }()
     
+
     var typeSafeInjectionSnapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?{
         var newSnapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
         
@@ -94,8 +102,19 @@ class InjectNowViewModel{
             isFromNotification = false
             queueProvider = QueueProvider(storageProvider: storageProvider)
             print("QUEUE ITEMS \(queueProvider.snapshot?.numberOfItems)")
+            
+            
+            queueProvider.$snapshot.sink { snapshot in
+                
+                self.queuedInjectionIDs = snapshot?.itemIdentifiers.map({ self.getQueueObject(withIDString: $0.uriRepresentation().absoluteString).injection?.objectID }) as! [NSManagedObjectID]
+                
+            }.store(in: &cancellables)
         }
         
+    }
+    
+    func isInjectionInQueue(injectionManagedID id: NSManagedObjectID) -> Bool{
+        return queuedInjectionIDs.contains(id)
     }
     
     func getQueueObject(withIDString id: String) -> Queue{

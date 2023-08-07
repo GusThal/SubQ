@@ -42,7 +42,7 @@ class SelectInjectionViewController: UIViewController {
     var isInEditMode: Bool = false{
         didSet{
             
-            setBarButtons()
+           // setBarButtons()
             
             if isInEditMode{
                 collectionView.isEditing = true
@@ -68,16 +68,31 @@ class SelectInjectionViewController: UIViewController {
             })
             .store(in: &cancellables)
 
-        viewModel.queueSnapshot
+ /*       viewModel.queueSnapshot
           .sink(receiveValue: { [weak self] snapshot in
             if let snapshot = snapshot {
+                
+                print("Number of queue \(snapshot.numberOfItems)")
                 
                 self?.applySnapshot(snapshot, toSection: Section.queue)
                 //only needs to be called when this snapshot updates, not when the injections do.
                 self?.setBarButtons()
+                
+                self?.collectionView.reloadData()
             }
           })
-          .store(in: &cancellables)
+          .store(in: &cancellables)*/
+        
+        viewModel.currentSnapshot.sink { [weak self] snapshot in
+            
+            if let snapshot = snapshot{
+                self?.applySnapshot(snapshot, toSection: Section.queue)
+                //only needs to be called when this snapshot updates, not when the injections do.
+                self?.setBarButtons()
+                
+                self?.collectionView.reloadData()
+            }
+        }.store(in: &cancellables)
     }
     
     init(viewModel: InjectNowViewModel){
@@ -124,6 +139,7 @@ class SelectInjectionViewController: UIViewController {
                     
                     let editAction = UIAction { _ in
                         self.isInEditMode = true
+                        self.setBarButtons()
                     }
                     
                     navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .edit, primaryAction: editAction)
@@ -135,10 +151,17 @@ class SelectInjectionViewController: UIViewController {
                     
                     let doneAction = UIAction { _ in
                         self.isInEditMode = false
+                        self.setBarButtons()
                     }
                     
                     navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)
                 }
+            }
+            else{
+                navigationItem.leftBarButtonItem = nil
+                navigationItem.rightBarButtonItem = nil
+                               
+                isInEditMode = false
             }
         }
     }
@@ -274,6 +297,11 @@ extension SelectInjectionViewController{
             else{
                 cell.accessories = []
                 
+                if self.viewModel.isInjectionInQueue(injectionManagedID: injection.objectID){
+                    content.textProperties.color = .gray
+                    content.secondaryTextProperties.color = .gray
+                }
+                
                 if let selectedInjection = self.viewModel.selectedInjection{
                     if selectedInjection == injection{
                         cell.accessories.append(.checkmark(displayed: .always))
@@ -325,6 +353,39 @@ extension SelectInjectionViewController{
 
 extension SelectInjectionViewController: UICollectionViewDelegate{
     
+    func isCellDisabled(indexPath: IndexPath) -> Bool {
+        if Section(rawValue: indexPath.section) == .injection{
+            //-1 on the index because the first row is always a header.
+            
+            if let snapshot = viewModel.typeSafeInjectionSnapshot{
+                let id =  snapshot.itemIdentifiers[indexPath.row-1]
+                
+                if viewModel.isInjectionInQueue(injectionManagedID: id){
+                    return false
+                }
+                else{
+                    return true
+                }
+            }
+            else{
+                return true
+            }
+            
+        }
+        else{
+            return true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        isCellDisabled(indexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        isCellDisabled(indexPath: indexPath)
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath) as! UICollectionViewListCell
@@ -365,22 +426,22 @@ extension SelectInjectionViewController: UICollectionViewDelegate{
                 
                 let injection = viewModel.getInjection(withObjectID: id)
                 
-                viewModel.selectedInjection = injection
-                viewModel.selectedQueueObject = nil
-                
-                if !injection.daysVal.contains(.asNeeded){
-                    let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString). You will still receive a notification the next time this injection is due.", preferredStyle: .alert)
                     
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                        self.dismiss(animated: true)
-                    }))
+                    viewModel.selectedInjection = injection
+                    viewModel.selectedQueueObject = nil
                     
-                    self.present(alert, animated: true)
-                }
-                else{
-                    selectInjectionCoordinator?.dismiss()
-                }
-                
+                    if !injection.daysVal.contains(.asNeeded){
+                        let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString). You will still receive a notification the next time this injection is due.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                            self.dismiss(animated: true)
+                        }))
+                        
+                        self.present(alert, animated: true)
+                    }
+                    else{
+                        selectInjectionCoordinator?.dismiss()
+                    }
             }
         }
         

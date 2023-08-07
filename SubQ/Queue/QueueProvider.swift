@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import UIKit
+import Combine
 
 class QueueProvider: NSObject{
     
@@ -18,6 +19,8 @@ class QueueProvider: NSObject{
     private var fetchedResultsController: NSFetchedResultsController<Queue>?
     
     @Published var queueCount: String?
+    
+    var currentValueSnapshot = CurrentValueSubject<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never>(NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>())
     
     
     init(storageProvider: StorageProvider, fetch: Bool = true){
@@ -184,6 +187,8 @@ extension QueueProvider: NSFetchedResultsControllerDelegate{
         newSnapshot.reloadItems(idsToReload)
 
         self.snapshot = newSnapshot
+        
+        self.currentValueSnapshot.value = newSnapshot
         
         self.queueCount = self.snapshot!.numberOfItems > 0 ? "\(self.snapshot!.numberOfItems)" : nil
         
