@@ -20,16 +20,21 @@ class EditInjectionViewModel{
     
     @Published var selectedFrequency = [Injection.Frequency]()
     
+    var currentValueFrequency = CurrentValueSubject<[Injection.Frequency], Never>([Injection.Frequency]())
+    
     @Published var name = ""
     
     @Published var dosage = ""
     
     let injectionProvider: InjectionProvider
     
+    var areNotificationsEnabled: Bool
+    
     
     lazy var frequencySubject: AnyPublisher<String?, Never> = {
 
-        return $selectedFrequency.map({ frequency in
+        return currentValueFrequency.map({ frequency in
+            print(frequency)
             return frequency.count == 1 ? frequency[0].shortened : frequency.map { $0.shortened }.joined(separator: ", ")
             
         }).eraseToAnyPublisher()
@@ -62,32 +67,33 @@ class EditInjectionViewModel{
     init(injectionProvider: InjectionProvider, injection: Injection?) {
         self.injectionProvider = injectionProvider
         self.injection = injection
-       
+        self.areNotificationsEnabled = false
         
         if let injection{
             
             selectedFrequency = injection.daysVal
+            currentValueFrequency.value = injection.daysVal
             name = injection.name!
             dosage = "\(injection.dosage!)"
             
-            //init other properties
+           
+            areNotificationsEnabled = injection.areNotificationsEnabled
+            
         }
-        
-
     }
     
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
         
-        return injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+        return injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: areNotificationsEnabled)
         
         
     }
     @discardableResult
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
         
-        return injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+        return injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: areNotificationsEnabled)
         
     }
     

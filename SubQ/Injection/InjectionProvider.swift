@@ -78,7 +78,7 @@ class InjectionProvider: NSObject{
     }
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
         
@@ -90,6 +90,7 @@ class InjectionProvider: NSObject{
         //injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
         injection.days = frequency
         injection.time = time
+        injection.areNotificationsEnabled = areNotificationsEnabled
         
         do{
             try persistentContainer.viewContext.save()
@@ -103,8 +104,25 @@ class InjectionProvider: NSObject{
         return injection
         
     }
+    
+    
+    func updateAreNotificationsEnabled(forInjection injection: Injection, withValue value: Bool){
+        let persistentContainer = storageProvider.persistentContainer
+
+        injection.areNotificationsEnabled = value
+        
+        do{
+            try persistentContainer.viewContext.save()
+            print("saved successfully")
+            
+        } catch{
+            print("failed with \(error)")
+            persistentContainer.viewContext.rollback()
+        }
+    }
+    
     @discardableResult
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?) -> Injection {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
         
@@ -114,6 +132,7 @@ class InjectionProvider: NSObject{
        // injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
         injection.days = frequency
         injection.time = time
+        injection.areNotificationsEnabled = areNotificationsEnabled
         
         do{
             try persistentContainer.viewContext.save()

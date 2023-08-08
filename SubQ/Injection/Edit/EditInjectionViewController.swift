@@ -30,7 +30,7 @@ class EditInjectionViewController: UIViewController, Coordinated {
     
     
     enum Section: Int{
-        case info = 0, frequency = 1, delete = 2
+        case info = 0, frequency = 1, notifications = 2, delete = 3
     }
     
 
@@ -61,8 +61,6 @@ class EditInjectionViewController: UIViewController, Coordinated {
             let firstItem = snap.items[0]
             
             var freq = frequency
-            
-            
             
             if frequency == nil || frequency!.isEmpty{
                 freq = "None Selected"
@@ -108,6 +106,9 @@ class EditInjectionViewController: UIViewController, Coordinated {
               
             }
             
+            handleNotificationSection(frequency: freq!)
+            
+            
         }.store(in: &cancellables)
         
         
@@ -117,6 +118,55 @@ class EditInjectionViewController: UIViewController, Coordinated {
             .assign(to: \.isEnabled, on: navigationItem.rightBarButtonItem!)
             .store(in: &cancellables)
         
+    }
+    
+    func handleNotificationSection(frequency: String){
+        
+        var snapshot = dataSource.snapshot()
+        
+        
+        //this means there's a delete injection section
+        if let injection = self.viewModel.injection{
+            
+            if frequency == Injection.Frequency.asNeeded.rawValue || frequency == "None Selected"{
+
+                if snapshot.numberOfSections == 4{
+                    //delete the third section.
+                    snapshot.deleteSections([Section.notifications.rawValue])
+                }
+                
+            }
+            else{
+                
+                if snapshot.numberOfSections == 3{
+                    //since we have a delete section, insert the notification section after section 2
+                    snapshot.insertSections([Section.notifications.rawValue], afterSection: Section.frequency.rawValue)
+                    snapshot.appendItems(["Notification"], toSection: Section.notifications.rawValue)
+                }
+                
+            }
+            
+        }
+        //new injection, therefore there's no delete section/button
+        else{
+            if frequency == Injection.Frequency.asNeeded.rawValue || frequency == "None Selected"{
+                if dataSource.snapshot().numberOfSections == 3{
+                   //delete the notification section
+                    snapshot.deleteSections([Section.notifications.rawValue])
+                    
+                }
+            }
+            else{
+                if dataSource.snapshot().numberOfSections == 2{
+                    //append the notification section
+                    snapshot.appendSections([Section.notifications.rawValue])
+                   // snapshot.insertSections([Section.notifications.rawValue], afterSection: Section.frequency.rawValue)
+                    snapshot.appendItems(["Notifications"], toSection: Section.notifications.rawValue)
+                }
+            }
+        }
+        
+        dataSource.apply(snapshot)
     }
     
     @objc func cancelButtonPressed(_ sender: Any){
@@ -150,26 +200,40 @@ class EditInjectionViewController: UIViewController, Coordinated {
                 
                 if existingInjection.daysVal != [.asNeeded]{
                     
-                    //remove existing notifications only if the day or time has changed.
-                    if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
-                        
-                        NotificationManager.removeExistingNotifications(forInjection: existingInjection, snoozedUntil: nil, originalDateDue: nil)
+                    //check if notifications were previously enabled
+                    if existingInjection.areNotificationsEnabled{
+                        //check if they're not currently enabled
+                        if !viewModel.areNotificationsEnabled{
+                            
+                            //remove the notifications.
+                            NotificationManager.removeExistingNotifications(forInjection: existingInjection, snoozedUntil: nil, originalDateDue: nil)
+                        }
+                        else{
+                            //remove existing notifications only if the day or time has changed.
+                            //this will actually handle cases where we switch from A scheduled injection to As Needed
+                            if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
+                                
+                                NotificationManager.removeExistingNotifications(forInjection: existingInjection, snoozedUntil: nil, originalDateDue: nil)
+                            }
+                        }
                     }
                     
                 }
                 
-                savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+                savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: viewModel.areNotificationsEnabled)
                 
                 
             }
             else{
-                savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time)
+                savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: viewModel.areNotificationsEnabled)
                 
             }
             
             if viewModel.selectedFrequency != [.asNeeded]{
                 
-                NotificationManager.scheduleNotification(forInjection: savedInjection)
+                if viewModel.areNotificationsEnabled{
+                    NotificationManager.scheduleNotification(forInjection: savedInjection)
+                }
                 
             }
             
@@ -339,14 +403,32 @@ extension EditInjectionViewController{
             var content = cell.defaultContentConfiguration()
             content.text = item
             
-            if indexPath.section == Section.delete.rawValue && indexPath.item == 0{
-                content.textProperties.color = .red
-
+            if indexPath.section == Section.notifications.rawValue{
+                
+                let notificationSwitch = UISwitch()
+                
+               // notificationSwitch.isOn = self.viewModel.areNotificationsEnabled
+                
+                let action = UIAction { _ in
+                    self.viewModel.areNotificationsEnabled = notificationSwitch.isOn
+                }
+                
+                notificationSwitch.addAction(action, for: .primaryActionTriggered)
+                
+                if let injection = viewModel.injection{
+                    notificationSwitch.isOn = viewModel.areNotificationsEnabled
+                }
+                else{
+                    notificationSwitch.isOn = true
+                }
+                
+                let accessory = UICellAccessory.CustomViewConfiguration(customView: notificationSwitch, placement: .trailing(displayed: .whenNotEditing), reservedLayoutWidth: .actual)
+                
+                cell.accessories = [.customView(configuration: accessory)]
+                
             }
-        
+            
             cell.contentConfiguration = content
-            
-            
 
         }
         
@@ -385,6 +467,17 @@ extension EditInjectionViewController{
                 }
             }
             
+            else if indexPath.section == Section.notifications.rawValue{
+                print(self.viewModel.selectedFrequency)
+                if self.viewModel.currentValueFrequency.value != [.asNeeded]{
+                    return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+                }
+                else{
+                    print("uh")
+                    return collectionView.dequeueConfiguredReusableCell(using: deleteRegistration, for: indexPath, item: item)
+                }
+            }
+            
             else{
                 return collectionView.dequeueConfiguredReusableCell(using: deleteRegistration, for: indexPath, item: item)
             }
@@ -416,6 +509,10 @@ extension EditInjectionViewController{
             let timeString = dateFormatter.string(from: injection?.time ?? Date())
             
             snapshot.appendItems([timeString])
+        }
+        if viewModel.selectedFrequency != [.asNeeded] && !viewModel.selectedFrequency.isEmpty{
+            snapshot.appendSections([Section.notifications.rawValue])
+            snapshot.appendItems(["Notifications"])
         }
         
         if injection != nil{

@@ -33,4 +33,8 @@ class InjectionViewModel{
         injectionProvider.object(at: indexPath)
     }
     
+    func updateAreNotificationsEnabled(forInjection injection: Injection, withValue value: Bool){
+        injectionProvider.updateAreNotificationsEnabled(forInjection: injection, withValue: value)
+    }
+    
 }

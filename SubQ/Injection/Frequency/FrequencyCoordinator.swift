@@ -63,18 +63,22 @@ class FrequencyCoordinator: ModalChildCoordinator{
         
         
         if isDailySelected{
+            viewModel.currentValueFrequency.value = [.daily]
             viewModel.selectedFrequency = [.daily]
         }
         else if isAsNeededSelected{
+            viewModel.currentValueFrequency.value = [.asNeeded]
             viewModel.selectedFrequency = [.asNeeded]
         }
         else{
             
+            viewModel.currentValueFrequency.value = []
             viewModel.selectedFrequency = []
             
             for (i, day) in viewModel.days.enumerated(){
                 
                 if selectedDays[i]{
+                    viewModel.currentValueFrequency.value.append(day)
                     viewModel.selectedFrequency.append(day)
                 }
                 

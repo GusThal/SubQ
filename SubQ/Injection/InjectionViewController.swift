@@ -190,12 +190,26 @@ extension InjectionViewController{
             
             content.secondaryText = injection.scheduledString
             
+            if !injection.areNotificationsEnabled && injection.daysVal != [.asNeeded]{
+                content.textProperties.color = .gray
+                content.secondaryTextProperties.color = .gray
+            }
+            else{
+                content.textProperties.color = .label
+                content.secondaryTextProperties.color = .label
+            }
+            
             cell.contentConfiguration = content
             cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {
                 self?.presentDeleteAlertController(forInjection: injection)
                 
                 //self?.viewModel.deleteInjection(injection)
             })]
+            
+            if injection.daysVal != [.asNeeded]{
+                let switchAccessory = self!.createNotificationSwitchAccessoryView(forInjection: injection)
+                cell.accessories.append(.customView(configuration: switchAccessory))
+            }
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {
@@ -209,6 +223,48 @@ extension InjectionViewController{
         snapshot.appendSections([0])
         
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    func createNotificationSwitchAccessoryView(forInjection injection: Injection) -> UICellAccessory.CustomViewConfiguration{
+        let notificationSwitch = UISwitch()
+        
+        notificationSwitch.isOn = injection.areNotificationsEnabled
+        
+        let action = UIAction { _ in
+            
+            let updatedStatusString = injection.areNotificationsEnabled ? "disable" : "enable"
+            
+            let alert = UIAlertController(title: "Disable Notifications", message: "Are you sure you want to \(updatedStatusString) notifications for \(injection.descriptionString) | \(injection.scheduledString)?", preferredStyle: .actionSheet)
+            
+            if injection.areNotificationsEnabled{
+                alert.message?.append("\n (note, You will still be able to select this injection via the Inject Now tab & you will still receive a notification for any snoozed instances)")
+            }
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] _ in
+                notificationSwitch.setOn(injection.areNotificationsEnabled, animated: true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { [self] _ in
+                    
+                self.viewModel.updateAreNotificationsEnabled(forInjection: injection, withValue: !injection.areNotificationsEnabled)
+                
+                if injection.areNotificationsEnabled{
+                    NotificationManager.scheduleNotification(forInjection: injection)
+                }
+                else{
+                    NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
+                }
+            }))
+            
+            self.present(alert, animated: true)
+            
+        
+            
+        }
+        
+        notificationSwitch.addAction(action, for: .primaryActionTriggered)
+        
+        return UICellAccessory.CustomViewConfiguration(customView: notificationSwitch, placement: .trailing(displayed: .whenNotEditing), reservedLayoutWidth: .actual)
     }
     
     

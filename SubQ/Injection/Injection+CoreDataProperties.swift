@@ -60,6 +60,7 @@ extension Injection {
     @NSManaged public var units: String?
     @NSManaged public var injectionHistory: NSSet?
     @NSManaged public var queue: NSSet?
+    @NSManaged public var areNotificationsEnabled: Bool
     
     var unitsVal: DosageUnits{
         get{

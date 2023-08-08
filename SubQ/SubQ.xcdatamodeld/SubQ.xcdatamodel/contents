@@ -13,6 +13,7 @@
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="siteHistory" inverseEntity="Site"/>
     </entity>
     <entity name="Injection" representedClassName="Injection" syncable="YES">
+        <attribute name="areNotificationsEnabled" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="days" attributeType="String" defaultValueString=""/>
         <attribute name="dosage" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
