@@ -110,10 +110,8 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         parentCoordinator?.childDidFinish(self)
     }
     
-    func deleteInjection(_ injection: Injection){
+    func deleteInjection(){
         parentNavigationController!.dismiss(animated: true)
-        
-        viewModel.deleteInjection(injection)
         
         parentCoordinator?.childDidFinish(self)
     }

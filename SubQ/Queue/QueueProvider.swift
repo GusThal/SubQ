@@ -49,6 +49,31 @@ class QueueProvider: NSObject{
         }
     }
     
+    init(storageProvider: StorageProvider, fetchForInjection injection: Injection) {
+        
+        self.storageProvider = storageProvider
+        
+        let request: NSFetchRequest<Queue> = Queue.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Queue.dateDue, ascending: true)]
+        
+        request.predicate = NSPredicate(format: "%K==%@", #keyPath(Queue.injection), injection)
+
+        self.fetchedResultsController =
+          NSFetchedResultsController(fetchRequest: request,
+                                     managedObjectContext: storageProvider.persistentContainer.viewContext,
+                                     sectionNameKeyPath: nil, cacheName: nil)
+
+
+
+        //delegate will be informed any time a managed object changes, a new one is inserted, or one is deleted
+        super.init()
+        
+        fetchedResultsController!.delegate = self
+        try! fetchedResultsController!.performFetch()
+        
+        
+    }
+    
    
     
     func object(forInjection injection: Injection, withDateDue date: Date) -> Queue?{

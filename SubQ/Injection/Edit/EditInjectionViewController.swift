@@ -546,11 +546,10 @@ extension EditInjectionViewController: UICollectionViewDelegate{
             
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
                 
-                if viewModel.injection?.daysVal != [.asNeeded]{
-                    NotificationManager.removeExistingNotifications(forInjection: viewModel.injection!, snoozedUntil: nil, originalDateDue: nil)
-                }
                 
-                editCoordinator?.deleteInjection(viewModel.injection!)
+                viewModel.deleteInjection(viewModel.injection!)
+                
+                editCoordinator?.deleteInjection()
             }))
             
             self.present(alert, animated: true)
