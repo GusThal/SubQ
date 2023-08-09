@@ -67,7 +67,7 @@ class EditInjectionViewModel{
     init(injectionProvider: InjectionProvider, injection: Injection?) {
         self.injectionProvider = injectionProvider
         self.injection = injection
-        self.areNotificationsEnabled = false
+        self.areNotificationsEnabled = true
         
         if let injection{
             
@@ -76,8 +76,15 @@ class EditInjectionViewModel{
             name = injection.name!
             dosage = "\(injection.dosage!)"
             
+            if selectedFrequency != [.asNeeded]{
+                areNotificationsEnabled = injection.areNotificationsEnabled
+            }
+            //always default to false for as needed.
+            else{
+                areNotificationsEnabled = false
+            }
            
-            areNotificationsEnabled = injection.areNotificationsEnabled
+            
             
         }
     }
