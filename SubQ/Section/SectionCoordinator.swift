@@ -33,6 +33,7 @@ class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
         
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "figure.arms.open"), selectedImage: nil)
         vc.navigationItem.title = "Injection Sites"
+        navigationController.navigationBar.prefersLargeTitles = true
         
         let backButton = UIBarButtonItem()
         backButton.tintColor = .label

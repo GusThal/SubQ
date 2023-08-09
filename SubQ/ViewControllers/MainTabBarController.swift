@@ -48,8 +48,14 @@ class MainTabBarController: UITabBarController {
         let tabBarItem = dummyVCForInjectNow.tabBarItem!
         
         
+        queueProvider.$queueCount.sink { count in
+            tabBarItem.badgeValue = count > 0 ? "\(count)" : nil
+            UIApplication.shared.applicationIconBadgeNumber = count
+        }.store(in: &cancellables)
+        
+        /*
         queueProvider.$queueCount.assign(to: \.badgeValue, on: tabBarItem)
-            .store(in: &cancellables)
+            .store(in: &cancellables)*/
         
         
         super.init(nibName: nil, bundle: nil)

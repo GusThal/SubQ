@@ -18,7 +18,7 @@ class QueueProvider: NSObject{
     
     private var fetchedResultsController: NSFetchedResultsController<Queue>?
     
-    @Published var queueCount: String?
+    @Published var queueCount: Int = 0
     
     var currentValueSnapshot = CurrentValueSubject<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never>(NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>())
     
@@ -190,7 +190,7 @@ extension QueueProvider: NSFetchedResultsControllerDelegate{
         
         self.currentValueSnapshot.value = newSnapshot
         
-        self.queueCount = self.snapshot!.numberOfItems > 0 ? "\(self.snapshot!.numberOfItems)" : nil
+        self.queueCount = self.snapshot!.numberOfItems
         
     }
     

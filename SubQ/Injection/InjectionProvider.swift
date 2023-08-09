@@ -29,6 +29,9 @@ class InjectionProvider: NSObject{
         
         let request: NSFetchRequest<Injection> = Injection.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Injection.name, ascending: true)]
+        let predicate = NSPredicate(format: "%K==%d", #keyPath(Injection.isInjectionDeleted), false)
+        request.predicate = predicate
+        
 
         self.fetchedResultsController =
           NSFetchedResultsController(fetchRequest: request,
@@ -44,12 +47,15 @@ class InjectionProvider: NSObject{
     
     
     func deleteInjection(_ injection: Injection){
-        storageProvider.persistentContainer.viewContext.delete(injection)
+        //storageProvider.persistentContainer.viewContext.delete(injection)
+        
+        let persistentContainer = storageProvider.persistentContainer
+        injection.isInjectionDeleted = true
 
         do {
-            try storageProvider.persistentContainer.viewContext.save()
+            try persistentContainer.viewContext.save()
         } catch {
-            storageProvider.persistentContainer.viewContext.rollback()
+            persistentContainer.viewContext.rollback()
             print("Failed to save context: \(error)")
           }
     }

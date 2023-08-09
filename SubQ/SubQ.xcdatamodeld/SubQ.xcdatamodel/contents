@@ -16,6 +16,7 @@
         <attribute name="areNotificationsEnabled" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="days" attributeType="String" defaultValueString=""/>
         <attribute name="dosage" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="isInjectionDeleted" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="units" attributeType="String" defaultValueString="cc"/>
