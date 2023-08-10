@@ -110,6 +110,9 @@ class EditInjectionViewModel{
             NotificationManager.removeExistingNotifications(forInjection: injection)
         }
 
+        let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchAllForInjection: injection)
+        queueProvider.deleteAllInSnapshot()
+        
         injectionProvider.deleteInjection(injection)
     }
     
