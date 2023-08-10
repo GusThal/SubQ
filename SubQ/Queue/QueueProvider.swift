@@ -49,14 +49,20 @@ class QueueProvider: NSObject{
         }
     }
     
-    init(storageProvider: StorageProvider, fetchForInjection injection: Injection) {
+    init(storageProvider: StorageProvider, fetchSnoozedForInjection injection: Injection) {
         
         self.storageProvider = storageProvider
         
         let request: NSFetchRequest<Queue> = Queue.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Queue.dateDue, ascending: true)]
         
-        request.predicate = NSPredicate(format: "%K==%@", #keyPath(Queue.injection), injection)
+        let injPredicate = NSPredicate(format: "%K==%@", #keyPath(Queue.injection), injection)
+        
+        let snoozedPredicate = NSPredicate(format: "%K!=nil", #keyPath(Queue.snoozedUntil))
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [injPredicate, snoozedPredicate])
+        
+        request.predicate = compoundPredicate
 
         self.fetchedResultsController =
           NSFetchedResultsController(fetchRequest: request,

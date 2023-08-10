@@ -198,6 +198,7 @@ class EditInjectionViewController: UIViewController, Coordinated {
             
             if let existingInjection = viewModel.injection{
                 
+                //check the frequency of the injection before the edit controller was opened.
                 if existingInjection.daysVal != [.asNeeded]{
                     
                     //check if notifications were previously enabled
@@ -206,14 +207,14 @@ class EditInjectionViewController: UIViewController, Coordinated {
                         if !viewModel.areNotificationsEnabled{
                             
                             //remove the notifications.
-                            NotificationManager.removeExistingNotifications(forInjection: existingInjection, snoozedUntil: nil, originalDateDue: nil)
+                            NotificationManager.removeExistingNotifications(forInjection: existingInjection)
                         }
                         else{
                             //remove existing notifications only if the day or time has changed.
                             //this will actually handle cases where we switch from A scheduled injection to As Needed
                             if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
                                 
-                                NotificationManager.removeExistingNotifications(forInjection: existingInjection, snoozedUntil: nil, originalDateDue: nil)
+                                NotificationManager.removeExistingNotifications(forInjection: existingInjection)
                             }
                         }
                     }
@@ -382,9 +383,33 @@ extension EditInjectionViewController{
                 guard let picker = action.sender as? UIDatePicker else {
                     return
                 }
-        
-                selectedDate = picker.date
                 
+                if let injection = viewModel.injection {
+                    
+                    let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchSnoozedForInjection: injection)
+                    
+                    if queueProvider.snapshot!.numberOfItems > 0 {
+                        
+                        let alert = UIAlertController(title: "Snoozed Notifications", message: "You have \(queueProvider.snapshot!.numberOfItems) snoozed notifications for this injection in your queue. Changing the day(s) will remove these from queue and delete any pending notifications.", preferredStyle: .actionSheet)
+                        
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] _ in
+                            picker.date = selectedDate
+                        }))
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] _ in
+                            selectedDate = picker.date
+                        }))
+                        
+                        self.present(alert, animated: true)
+                    }
+                    else{
+                        selectedDate = picker.date
+                    }
+                }
+                
+                else{
+                    selectedDate = picker.date
+                }
             
             })
             
@@ -536,7 +561,35 @@ extension EditInjectionViewController: UICollectionViewDelegate{
         collectionView.deselectItem(at: indexPath, animated: false)
         
         if section == Section.frequency.rawValue && item == 0{
-            editCoordinator?.showFrequencyController()
+            
+            if let injection = viewModel.injection {
+                
+                let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchSnoozedForInjection: injection)
+                
+                if queueProvider.snapshot!.numberOfItems > 0 {
+                    
+                    let alert = UIAlertController(title: "Snoozed Notifications", message: "You have \(queueProvider.snapshot!.numberOfItems) snoozed notifications for this injection in your queue. Changing the day(s) will remove these from queue and delete any pending notifications.", preferredStyle: .actionSheet)
+                    
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] _ in
+                        
+                        editCoordinator?.showFrequencyController()
+                    }))
+                    
+                    self.present(alert, animated: true)
+                    
+                    
+                }
+                else{
+                    editCoordinator?.showFrequencyController()
+                }
+                
+                
+            }
+            else{
+                editCoordinator?.showFrequencyController()
+            }
         }
         else if section == Section.delete.rawValue{
             

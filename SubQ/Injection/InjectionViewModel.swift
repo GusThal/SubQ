@@ -25,31 +25,12 @@ class InjectionViewModel{
     }
     
     
+    
     func deleteInjection(_ injection: Injection){
         
         if injection.daysVal != [.asNeeded]{
-            NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
-            
-            
-            let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchForInjection: injection)
-            
-            for id in queueProvider.snapshot!.itemIdentifiers{
-                
-                let queue = queueProvider.object(withObjectID: id)
-                
-                let queuedInjection = queue.injection!
-                
-                //remove snoozed / queue notifications for this injection
-                NotificationManager.removeExistingNotifications(forInjection: queuedInjection, snoozedUntil: queue.snoozedUntil, originalDateDue: queue.dateDue)
-                
-                //delete queue object
-                queueProvider.deleteObject(queue)
-                
-            }
-            
-            
+            NotificationManager.removeExistingNotifications(forInjection: injection)
         }
-        
         
         injectionProvider.deleteInjection(injection)
     }

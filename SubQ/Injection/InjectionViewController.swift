@@ -233,7 +233,7 @@ extension InjectionViewController{
             let alert = UIAlertController(title: "Disable Notifications", message: "Are you sure you want to \(updatedStatusString) notifications for \(injection.descriptionString) | \(injection.scheduledString)?", preferredStyle: .actionSheet)
             
             if injection.areNotificationsEnabled{
-                alert.message?.append("\n (note, You will still be able to select this injection via the Inject Now tab & you will still receive a notification for any snoozed instances)")
+                alert.message?.append("\n\n (note, You will still be able to select this injection via the Inject Now tab & and any notifications currently snoozed will be disabled.)")
             }
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] _ in
@@ -248,7 +248,7 @@ extension InjectionViewController{
                     NotificationManager.scheduleNotification(forInjection: injection)
                 }
                 else{
-                    NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
+                    NotificationManager.removeExistingNotifications(forInjection: injection)
                 }
             }))
             

@@ -117,6 +117,29 @@ class NotificationManager{
         
     }
     
+   static func removeExistingNotifications(forInjection injection: Injection){
+        
+        NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: nil, originalDateDue: nil)
+            
+            
+        let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchSnoozedForInjection: injection)
+            
+        for id in queueProvider.snapshot!.itemIdentifiers{
+                
+            let queue = queueProvider.object(withObjectID: id)
+                
+            let queuedInjection = queue.injection!
+                
+            //remove snoozed / queue notifications for this injection
+            NotificationManager.removeExistingNotifications(forInjection: queuedInjection, snoozedUntil: queue.snoozedUntil, originalDateDue: queue.dateDue)
+                
+            //delete queue object
+            queueProvider.deleteObject(queue)
+                
+        }
+        
+    }
+    
     static func removeExistingNotifications(forInjection injection: Injection, snoozedUntil: Date?, originalDateDue: Date?){
         
         let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: snoozedUntil, originalDateDue: originalDateDue)
