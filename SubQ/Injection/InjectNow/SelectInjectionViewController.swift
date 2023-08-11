@@ -58,15 +58,35 @@ class SelectInjectionViewController: UIViewController {
         
         configureHierarchy()
         configureDataSource()
+
         
-       viewModel.injectionSnapshot
+        Publishers.Zip(viewModel.injectionSnapshot, viewModel.currentSnapshot)
+            .sink { [weak self] injectionSnapshot, queueSnapshot in
+                if let queueSnapshot{
+                    self?.applySnapshot(queueSnapshot, toSection: Section.queue)
+                    //only needs to be called when this snapshot updates, not when the injections do.
+                    self?.setBarButtons()
+                }
+                
+                if let injectionSnapshot{
+                    self?.applySnapshot(injectionSnapshot, toSection: Section.injection)
+                }
+                
+                self?.collectionView.reloadData()
+            
+        }.store(in: &cancellables)
+        
+  /*     viewModel.injectionSnapshot
             .sink(receiveValue: { [weak self] snapshot in
               if let snapshot = snapshot {
                  
                   self?.applySnapshot(snapshot, toSection: Section.injection)
+                  
+                  self?.collectionView.reloadData()
+
               }
             })
-            .store(in: &cancellables)
+            .store(in: &cancellables)*/
 
  /*       viewModel.queueSnapshot
           .sink(receiveValue: { [weak self] snapshot in
@@ -83,16 +103,20 @@ class SelectInjectionViewController: UIViewController {
           })
           .store(in: &cancellables)*/
         
-        viewModel.currentSnapshot.sink { [weak self] snapshot in
+   /*     viewModel.currentSnapshot
+            .sink { [weak self] snapshot in
+            
+            print("updated \(Date()) + \(snapshot?.itemIdentifiers)")
             
             if let snapshot = snapshot{
                 self?.applySnapshot(snapshot, toSection: Section.queue)
                 //only needs to be called when this snapshot updates, not when the injections do.
                 self?.setBarButtons()
-                
+    
                 self?.collectionView.reloadData()
+                
             }
-        }.store(in: &cancellables)
+        }.store(in: &cancellables)*/
     }
     
     init(viewModel: InjectNowViewModel){
@@ -208,7 +232,7 @@ extension SelectInjectionViewController{
         
         sectionSnapshot.append(items, to: headerItem)
         sectionSnapshot.expand([headerItem])
-        dataSource.apply(sectionSnapshot, to: section.rawValue)
+        dataSource.apply(sectionSnapshot, to: section.rawValue, animatingDifferences: true)
         
     }
     
