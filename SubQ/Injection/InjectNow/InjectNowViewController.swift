@@ -10,7 +10,7 @@ import SnapKit
 import CoreData
 import Combine
 
-class InjectNowViewController: UIViewController {
+class InjectNowViewController: UIViewController, Coordinated {
     
     enum SupplementaryViewKind: String{
         case header = "header", footer = "footer"
@@ -68,7 +68,7 @@ class InjectNowViewController: UIViewController {
         
         let action = UIAction { _ in
             self.viewModel.injectionPerformed(site: self.viewModel.selectedSite!)
-            self.coordinator!.injectPressed()
+            self.injectNowCoordinator!.injectPressed()
             
         }
         return UIButton(configuration: buttonConfig, primaryAction: action)
@@ -81,7 +81,7 @@ class InjectNowViewController: UIViewController {
         
         let action = UIAction { _ in
             self.viewModel.skipInjection()
-            self.coordinator?.dismissViewController()
+            self.injectNowCoordinator?.dismissViewController()
         }
         
         return UIButton(configuration: buttonConfig, primaryAction: action)
@@ -110,8 +110,10 @@ class InjectNowViewController: UIViewController {
     
     lazy var selectedSiteLabel = UILabel()
     
-    #warning("probably will have to be conformed to Coordinated protocol")
-    weak var coordinator: InjectNowCoordinator?
+    
+    weak var injectNowCoordinator: InjectNowCoordinator?
+    
+    weak var coordinator: Coordinator?
     
     var selectInjectionButton: UIButton?
     
@@ -207,7 +209,7 @@ class InjectNowViewController: UIViewController {
         }
         else{
             let action = UIAction { _ in
-                self.coordinator!.dismissViewController()
+                self.injectNowCoordinator!.dismissViewController()
             }
             navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: action)
             
@@ -296,7 +298,7 @@ class InjectNowViewController: UIViewController {
             
             //self.dismiss(animated: true)
             
-            self.coordinator?.dismissViewController()
+            self.injectNowCoordinator?.dismissViewController()
         
         }))
         
@@ -312,7 +314,7 @@ class InjectNowViewController: UIViewController {
         
         let action = UIAction { _ in
             
-            self.coordinator!.showSelectInjectionViewController()
+            self.injectNowCoordinator!.showSelectInjectionViewController()
         }
         
         var config = UIButton.Configuration.bordered()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FilterTableViewController: UITableViewController {
+class FilterTableViewController: UITableViewController, Coordinated {
     
     let viewModel: HistoryViewModel
     

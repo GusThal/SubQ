@@ -49,6 +49,10 @@ class InjectNowViewModel{
         return queueProvider.currentValueSnapshot.eraseToAnyPublisher()
     }()
     
+    lazy var queueCount: AnyPublisher<Int, Never> = {
+        return queueProvider.$queueCount.eraseToAnyPublisher()
+    }()
+    
 
     var typeSafeInjectionSnapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?{
         var newSnapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()

@@ -40,6 +40,7 @@ class InjectNowCoordinator: ModalChildCoordinator{
         let vc = InjectNowViewController(viewModel: viewModel)
         
         vc.coordinator = self
+        vc.injectNowCoordinator = self
         
         //navigationController.present(vc, animated: true)
         

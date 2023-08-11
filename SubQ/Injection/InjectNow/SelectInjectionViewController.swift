@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import Combine
 
-class SelectInjectionViewController: UIViewController {
+class SelectInjectionViewController: UIViewController, Coordinated {
     
     private struct Item: Hashable{
         let title: String?
