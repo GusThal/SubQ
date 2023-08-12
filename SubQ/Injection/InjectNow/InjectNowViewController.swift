@@ -170,11 +170,8 @@ class InjectNowViewController: UIViewController, Coordinated {
             
             viewModel.queueCount
                 .sink { count in
-                   
                     self.queueCount = count
                     self.selectInjectionButton.setNeedsUpdateConfiguration()
-                   
-                
             }.store(in: &cancellables)
         }
         
@@ -300,6 +297,14 @@ class InjectNowViewController: UIViewController, Coordinated {
                 
                 dueDateLabel.text = "Due: \(queueObj.dateDue!.fullDateTime)"
                 snoozedUntilLabel.text = "Snoozed Until: \(queueObj.snoozedUntil?.fullDateTime ?? "-")"
+            }
+            else{
+                print("both nil")
+                dueDateLabel.text = ""
+                snoozedUntilLabel.text = ""
+                scheduledLabel.text = ""
+                lastInjectedLabel.text = ""
+                
             }
             injectionNameLabel.text = ""
             //selectInjectionButton.configuration?.title = injection?.descriptionString ?? "Select Injection"

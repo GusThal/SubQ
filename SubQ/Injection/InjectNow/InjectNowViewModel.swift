@@ -193,6 +193,14 @@ class InjectNowViewModel{
     
     func delete(queueObject obj: Queue){
         
+        if selectedQueueObject == obj{
+            print("equal")
+            selectedQueueObject = nil
+            
+            //so the zipped publisher in InjectNowViewController will trigger
+            selectedInjection = nil
+        }
+        
         queueProvider.deleteObject(obj)
         
     }
