@@ -101,6 +101,47 @@ class InjectNowViewController: UIViewController, Coordinated {
         
     }()
     
+    lazy var selectInjectionButton: UIButton = {
+        let action = UIAction { _ in
+            
+            self.injectNowCoordinator!.showSelectInjectionViewController()
+        }
+        
+        
+        let button = UIButton(primaryAction: action)
+        
+        button.configurationUpdateHandler = { [unowned self] button in
+            
+            var config: UIButton.Configuration!
+            
+            if self.viewModel.selectedInjection == nil && self.viewModel.selectedQueueObject == nil{
+                config = UIButton.Configuration.bordered()
+                
+                config.title = "Select Injection"
+                
+                if queueCount > 0{
+                    config.title?.append(" (\(queueCount))")
+                }
+                config.baseForegroundColor = .white
+                config.background.strokeColor = .white
+            }
+            else{
+                
+                config = UIButton.Configuration.filled()
+                config.baseBackgroundColor = .blue
+                config.baseForegroundColor = .white
+                config.title = viewModel.selectedInjection == nil ? viewModel.selectedQueueObject!.injection!.name : viewModel.selectedInjection!.name
+            }
+            
+            config.imagePlacement = .trailing
+            config.image = UIImage(systemName: "chevron.down")
+            button.configuration = config
+        }
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     
     var siteDataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>!
     
@@ -115,10 +156,9 @@ class InjectNowViewController: UIViewController, Coordinated {
     
     weak var coordinator: Coordinator?
     
-    var selectInjectionButton: UIButton?
-    
     lazy var selectionInjectionViewController = SelectInjectionViewController(viewModel: viewModel)
     
+    var queueCount: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +166,16 @@ class InjectNowViewController: UIViewController, Coordinated {
         setUpNavBar()
         
         if !viewModel.isFromNotification{
-            setUpSelectionButton()
+            injectionDataStackView.addArrangedSubview(selectInjectionButton)
+            
+            viewModel.queueCount
+                .sink { count in
+                   
+                    self.queueCount = count
+                    self.selectInjectionButton.setNeedsUpdateConfiguration()
+                   
+                
+            }.store(in: &cancellables)
         }
         
         view.backgroundColor = .brown
@@ -253,7 +302,8 @@ class InjectNowViewController: UIViewController, Coordinated {
                 snoozedUntilLabel.text = "Snoozed Until: \(queueObj.snoozedUntil?.fullDateTime ?? "-")"
             }
             injectionNameLabel.text = ""
-            selectInjectionButton?.configuration?.title = injection?.descriptionString ?? "Select Injection"
+            //selectInjectionButton.configuration?.title = injection?.descriptionString ?? "Select Injection"
+            selectInjectionButton.setNeedsUpdateConfiguration()
             
         }
         else{
@@ -309,43 +359,7 @@ class InjectNowViewController: UIViewController, Coordinated {
         
     }
     
-    
-    func setUpSelectionButton(){
-        
-        let action = UIAction { _ in
-            
-            self.injectNowCoordinator!.showSelectInjectionViewController()
-        }
-        
-        var config = UIButton.Configuration.bordered()
-        config.imagePlacement = .trailing
-        config.image = UIImage(systemName: "chevron.down")
-        
-        config.title = "Select Injection"
-        config.baseForegroundColor = .white
-        config.background.strokeColor = .white
-        
-        let button = UIButton(primaryAction: action)
-        
-        button.configuration = config
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        selectInjectionButton = button
-        
-        injectionDataStackView.addArrangedSubview(selectInjectionButton!)
-        
-    }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
