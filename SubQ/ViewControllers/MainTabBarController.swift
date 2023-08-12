@@ -11,7 +11,7 @@ import Combine
 class MainTabBarController: UITabBarController {
     
     let injectionTableCoordinator: InjectionCoordinator
-    let siteCoordinator: SectionCoordinator
+    let sectionCoordinator: SectionCoordinator
     let injectionHistoryCoordinator: HistoryCoordinator
     let settingsCoordinator: SettingsCoordinator
     
@@ -38,7 +38,7 @@ class MainTabBarController: UITabBarController {
         self.storageProvider = storageProvider
         
         self.injectionTableCoordinator = InjectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
-        self.siteCoordinator = SectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
+        self.sectionCoordinator = SectionCoordinator(navigationController: UINavigationController(), parentCoordinator: nil, storageProvider: storageProvider)
         self.injectionHistoryCoordinator = HistoryCoordinator(navigationController: UINavigationController(), parentCoordinator: nil,  storageProvider: storageProvider)
         self.settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController(),
         parentCoordinator: nil,  storageProvider: storageProvider)
@@ -75,13 +75,13 @@ class MainTabBarController: UITabBarController {
         
         
         
-        viewControllers = [injectionTableCoordinator.navigationController, siteCoordinator.navigationController, dummyVCForInjectNow, injectionHistoryCoordinator.navigationController, settingsCoordinator.navigationController]
+        viewControllers = [injectionTableCoordinator.navigationController, sectionCoordinator.navigationController, dummyVCForInjectNow, injectionHistoryCoordinator.navigationController, settingsCoordinator.navigationController]
         
         injectionTableCoordinator.tabBarController = self
         
         injectionTableCoordinator.start()
         
-        siteCoordinator.start()
+        sectionCoordinator.start()
         
         injectionHistoryCoordinator.start()
         

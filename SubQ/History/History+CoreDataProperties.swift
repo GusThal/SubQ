@@ -25,6 +25,15 @@ extension History {
     @NSManaged public var site: Site?
     @NSManaged public var dueDate: Date?
     @NSManaged public var status: String?
+    
+    var statusVal: InjectStatus{
+        get{
+            InjectStatus(rawValue: status!)!
+        }
+        set{
+            status = newValue.rawValue
+        }
+    }
 
 }
 

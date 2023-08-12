@@ -455,7 +455,7 @@ extension SelectInjectionViewController: UICollectionViewDelegate{
                     viewModel.selectedQueueObject = nil
                     
                     if !injection.daysVal.contains(.asNeeded){
-                        let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString). You will still receive a notification the next time this injection is due.", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString), and due in \(injection.timeUntilNextInjection!). You will still receive a notification.", preferredStyle: .alert)
                         
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
                             self.dismiss(animated: true)

@@ -24,7 +24,7 @@ class HistoryCoordinator: Coordinator{
 
     
     func start() {
-        let vc = HistoryViewController(viewModel: viewModel)
+        let vc = HistoryCollectionViewController(viewModel: viewModel)
         vc.coordinator = self
         vc.historyCoordinator = self
         
@@ -37,6 +37,10 @@ class HistoryCoordinator: Coordinator{
         
         
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "clock"), selectedImage: UIImage(systemName: "clock.fill"))
+        
+        let backButton = UIBarButtonItem()
+        backButton.tintColor = .label
+        vc.navigationItem.backBarButtonItem = backButton
     }
     
     func showFilterController(){
@@ -46,6 +50,16 @@ class HistoryCoordinator: Coordinator{
         childCoordinators.append(child)
         
         child.start()
+        
+    }
+    
+    func showHistoryController(forObject history: History){
+        
+        let vc = HistoryViewController(history: history)
+        
+        vc.title = "Hello"
+        
+        navigationController.pushViewController(vc, animated: true)
         
     }
     
