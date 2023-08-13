@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class HistoryViewController: UIViewController, Coordinated {
     
@@ -15,8 +16,9 @@ class HistoryViewController: UIViewController, Coordinated {
     let history: History
     
     lazy var stackView: UIStackView = {
-        let stack = UIStackView()
+        let stack = UIStackView(arrangedSubviews: [injectionDescriptionLabel, injectedDateLabel, siteLabel, dueDateLabel])
         stack.axis = .vertical
+        stack.translatesAutoresizingMaskIntoConstraints = false
         
         return stack
         
@@ -48,13 +50,25 @@ class HistoryViewController: UIViewController, Coordinated {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .red
+        
+        view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.leadingMargin.equalToSuperview()
+            make.trailingMargin.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
 
-        // Do any additional setup after loading the view.
     }
     
     init(history: History){
         self.history = history
+        
+        injectionDescriptionLabel.text = history.injection?.descriptionString
+        injectedDateLabel.text = history.date!.fullDateTime
+        siteLabel.text = "\(history.site!.section!.bodyPart!.part!) | \(history.site!.section!.quadrant!) | \(history.site!.subQuadrant!)"
+        dueDateLabel.text = history.dueDate!.fullDateTime
         
         
         super.init(nibName: nil, bundle: nil)
