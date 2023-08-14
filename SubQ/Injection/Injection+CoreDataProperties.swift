@@ -12,6 +12,8 @@ import CoreData
 
 extension Injection {
     
+    public typealias NextInjection = (date: Date, timeUntil : String)
+    
     enum DosageUnits: String, CaseIterable{
         case cc = "cc", ml = "mL"
     }
@@ -113,7 +115,7 @@ extension Injection {
         
     }
     
-    var timeUntilNextInjection: String?{
+    var nextInjection: NextInjection?{
         
         let currentDate = Date()
         
@@ -140,15 +142,15 @@ extension Injection {
                 let injectionDate = calendar.date(from: injectionDateComponents)!
                 
                 if injectionDate > currentDate{
-                    let components = calendar.dateComponents([.hour, .minute], from: currentDate, to: injectionDate)
-                    return "\(components.hour!) hours, and \(components.minute!) minutes"
+                    let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: injectionDate)
+                    return NextInjection(date: injectionDate, timeUntil: "\(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
                 }
                 //we already injected today, so calculate the time until tomorrow's injection
                 else{
-                    let tomorrow = calendar.date(byAdding: .day, value: 1, to: injectionDate)
-                    let components = calendar.dateComponents([.hour, .minute], from: currentDate, to: tomorrow!)
+                    let tomorrow = calendar.date(byAdding: .day, value: 1, to: injectionDate)!
+                    let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: tomorrow)
                     
-                    return "\(components.hour!) hours, and \(components.minute!) minutes"
+                    return NextInjection(date: tomorrow, timeUntil: "\(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
                 }
                 
             }
@@ -173,8 +175,8 @@ extension Injection {
                         let injectionDate = calendar.date(from: injectionDateComponents)!
                         
                         if currentDate < injectionDate{
-                            let components = calendar.dateComponents([.hour, .minute], from: currentDate, to: injectionDate)
-                            return "\(components.day!) days, \(components.hour!) hours, and \(components.minute!) minutes"
+                            let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: injectionDate)
+                            return NextInjection(date: injectionDate, timeUntil: "\(components.day!) days, \(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
                         }
                         
                     }
@@ -206,8 +208,8 @@ extension Injection {
                 }
                 
                 
-                let components = calendar.dateComponents([.day, .hour, .minute], from: currentDate, to: nextDate)
-                return "\(components.day!) days, \(components.hour!) hours, and \(components.minute!) minutes"
+                let components = calendar.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: nextDate)
+                return NextInjection(date: nextDate, timeUntil: "\(components.day!) days, \(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
                 
                 
             }

@@ -26,6 +26,13 @@ class InjectNowViewController: UIViewController, Coordinated {
         
         return stack
     }()
+    
+    let nextInjectionTimerLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        
+        return label
+    }()
         
     let injectionNameLabel: UILabel = {
         let label = UILabel()
@@ -191,6 +198,7 @@ class InjectNowViewController: UIViewController, Coordinated {
         injectionDataStackView.addArrangedSubview(lastInjectedLabel)
         injectionDataStackView.addArrangedSubview(dueDateLabel)
         injectionDataStackView.addArrangedSubview(snoozedUntilLabel)
+        injectionDataStackView.addArrangedSubview(nextInjectionTimerLabel)
         
         view.addSubview(injectionDataStackView)
         
@@ -232,10 +240,6 @@ class InjectNowViewController: UIViewController, Coordinated {
     
     init(viewModel: InjectNowViewModel) {
         self.viewModel = viewModel
-        
-                
-        print(viewModel.injectionFromNotification?.objectID)
-        
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -304,6 +308,7 @@ class InjectNowViewController: UIViewController, Coordinated {
                 snoozedUntilLabel.text = ""
                 scheduledLabel.text = ""
                 lastInjectedLabel.text = ""
+                nextInjectionTimerLabel.text = ""
                 
             }
             injectionNameLabel.text = ""
@@ -321,6 +326,12 @@ class InjectNowViewController: UIViewController, Coordinated {
         if let injection{
             scheduledLabel.text = "Scheduled \(injection.scheduledString )"
             lastInjectedLabel.text = "Last Injected: \(viewModel.getLastInjectedDate(forInjection: injection)?.fullDateTime ?? "-")"
+            
+            
+            
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                self.nextInjectionTimerLabel.text = "Next injection: \(injection.nextInjection!.timeUntil)"
+            }
         }
         
         
