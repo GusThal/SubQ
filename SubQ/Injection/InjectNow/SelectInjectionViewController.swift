@@ -39,6 +39,66 @@ class SelectInjectionViewController: UIViewController, Coordinated {
     
     weak var selectInjectionCoordinator: SelectInjectionCoordinator?
     
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+        
+    }()
+    
+    lazy var noInjectionStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [noInjectionsLabel, scheduleInjectionnButton])
+        stack.axis = .vertical
+        stack.backgroundColor = .white
+        stack.distribution = .equalSpacing
+        stack.spacing = CGFloat(10)
+    
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
+    let noInjectionsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "You currently have no scheduled injections."
+        label.textAlignment = .center
+        
+        label.backgroundColor = .green
+        
+        return label
+    }()
+    
+    lazy var scheduleInjectionnButton: UIButton = {
+        let action = UIAction { _ in
+            self.selectInjectionCoordinator?.scheduleInjectionPressed()
+        }
+        
+        
+        let button = UIButton(primaryAction: action)
+        
+        button.configurationUpdateHandler = { [unowned self] button in
+            
+            var config: UIButton.Configuration!
+            
+            if self.viewModel.selectedInjection == nil && self.viewModel.selectedQueueObject == nil{
+                config = UIButton.Configuration.plain()
+                
+                config.title = "Schedule"
+                config.baseForegroundColor = .blue
+            }
+            
+            button.configuration = config
+        }
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+   
+    
     var isInEditMode: Bool = false{
         didSet{
             
@@ -62,17 +122,37 @@ class SelectInjectionViewController: UIViewController, Coordinated {
         
         Publishers.Zip(viewModel.injectionSnapshot, viewModel.currentSnapshot)
             .sink { [weak self] injectionSnapshot, queueSnapshot in
+                
+                var isQueueEmpty = false
+                var isInjectionEmpty = false
+                
                 if let queueSnapshot{
                     self?.applySnapshot(queueSnapshot, toSection: Section.queue)
                     //only needs to be called when this snapshot updates, not when the injections do.
                     self?.setBarButtons()
+                    
+                    if queueSnapshot.numberOfItems == 0{
+                        isQueueEmpty = true
+                    }
                 }
                 
                 if let injectionSnapshot{
                     self?.applySnapshot(injectionSnapshot, toSection: Section.injection)
+                    
+                    if injectionSnapshot.numberOfItems == 0{
+                        isInjectionEmpty = true
+                    }
                 }
                 
+                
                 self?.collectionView.reloadData()
+                
+                if isQueueEmpty && isInjectionEmpty{
+                    self?.displayNoInjectionView()
+                }
+                else{
+                    self?.containerView.removeFromSuperview()
+                }
             
         }.store(in: &cancellables)
         
@@ -117,6 +197,26 @@ class SelectInjectionViewController: UIViewController, Coordinated {
                 
             }
         }.store(in: &cancellables)*/
+    }
+    
+    func displayNoInjectionView(){
+        
+        containerView.addSubview(noInjectionStackView)
+        
+        noInjectionStackView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
+        view.insertSubview(containerView, aboveSubview: collectionView)
+        
+        containerView.snp.makeConstraints { make in
+            make.topMargin.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+       
+        print(noInjectionStackView.frame)
+        
     }
     
     init(viewModel: InjectNowViewModel){

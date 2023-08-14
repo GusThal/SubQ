@@ -65,5 +65,20 @@ class SelectInjectionCoordinator: ModalChildCoordinator{
         parentCoordinator?.childDidFinish(self)
     }
     
+    func scheduleInjectionPressed(){
+        
+        dismiss()
+        
+        let parent = parentCoordinator as! InjectNowCoordinator
+        
+    
+        let tabBarController = parent.parentCoordinator!.navigationController.viewControllers.first as! MainTabBarController
+        
+        tabBarController.selectedIndex = 0
+        
+        parent.dismissViewController()
+        
+    }
+    
     
 }
