@@ -50,6 +50,8 @@ class InjectNowCoordinator: ModalChildCoordinator{
         
         vc.modalPresentationStyle = .automatic
         
+        vc.isModalInPresentation = true
+        
         parentNavigationController!.present(navigationController, animated: true)
         
     }
