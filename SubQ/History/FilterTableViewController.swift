@@ -39,13 +39,28 @@ class FilterTableViewController: UITableViewController, Coordinated {
         
         self.dismiss(animated: false, completion: nil)
         
-        if self.startDatePicker.date > self.endDatePicker.date{
+        let start = Calendar.current.startOfDay(for: self.startDatePicker.date)
+        
+        
+        let endDateStart = Calendar.current.startOfDay(for: self.endDatePicker.date)
+        
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        let end = Calendar.current.date(byAdding: components, to: endDateStart)!
+        
+        if start > end{
             
             let alert = UIAlertController(title: "Invalid Date Range", message: "The start date cannot be greater than the end date.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
                 //self.dismiss(animated: true)
-                self.endDatePicker.date = Date()
+                var components = DateComponents()
+                components.day = 1
+                components.second = -1
+                let end = Calendar.current.date(byAdding: components, to: Date())!
+                
+                self.endDatePicker.date = end
             }))
             
             self.present(alert, animated: true)
@@ -160,6 +175,11 @@ class FilterTableViewController: UITableViewController, Coordinated {
             
             startDatePicker.date = viewModel.selectedStartDate ?? viewModel.oldestDate
             endDatePicker.date = viewModel.selectedEndDate ?? Date()
+            
+            for picker in [startDatePicker, endDatePicker]{
+                picker.maximumDate = Date()
+                picker.minimumDate = viewModel.oldestDate
+            }
             
             cell.startDatePicker.addAction(dateAction, for: .primaryActionTriggered)
             cell.endDatePicker.addAction(dateAction, for: .primaryActionTriggered)

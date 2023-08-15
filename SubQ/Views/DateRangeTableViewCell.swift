@@ -41,6 +41,7 @@ class DateRangeTableViewCell: UITableViewCell {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .compact
+        picker.timeZone = .current
         
         picker.translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,6 +53,7 @@ class DateRangeTableViewCell: UITableViewCell {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .compact
+        picker.timeZone = .current
         
         picker.translatesAutoresizingMaskIntoConstraints = false
         

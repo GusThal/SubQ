@@ -171,9 +171,19 @@ class HistoryProvider: NSObject{
         }
         
         
+        let start = Calendar.current.startOfDay(for: startDate)
+        
+        
+        let endDateStart = Calendar.current.startOfDay(for: endDate)
+        
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        let end = Calendar.current.date(byAdding: components, to: endDateStart)!
+
         let datePredicate = NSPredicate(format: "(%K <= %@ AND %K >= %@)",
-                                        #keyPath(History.date), endDate as NSDate,
-                                        #keyPath(History.date), startDate as NSDate)
+                                        #keyPath(History.date), end as NSDate,
+                                        #keyPath(History.date), start as NSDate)
         
         predicates.append(datePredicate)
         
@@ -181,7 +191,7 @@ class HistoryProvider: NSObject{
             predicates.append(searchPredicate)
         }
         
-        print(predicates)
+        //print(predicates)
         
         fetchedResultsController!.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
