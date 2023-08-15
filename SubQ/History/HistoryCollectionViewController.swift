@@ -29,9 +29,39 @@ class HistoryCollectionViewController: UIViewController, Coordinated {
     lazy var filterAction = UIAction { _ in
         self.historyCoordinator?.showFilterController()
     }
+    
+    lazy var editAction = UIAction { _ in
+        self.isInEditMode = true
+    }
+    
+    lazy var doneAction = UIAction { _ in
+        self.isInEditMode = false
+    }
+    
+    lazy var editButton = UIBarButtonItem(systemItem: .edit, primaryAction: editAction)
+    
+    lazy var doneButton = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)
+    
+    var isInEditMode: Bool = false{
+        didSet{
+            
+            setBarButtons()
+            
+            if isInEditMode{
+                collectionView.isEditing = true
+            }
+            else{
+                collectionView.isEditing = false
+            }
+        }
+    }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setBarButtons()
         
         configureSearchController()
         configureHierarchy()
@@ -41,6 +71,13 @@ class HistoryCollectionViewController: UIViewController, Coordinated {
             
             if let snapshot = snapshot{
                 self?.headerView?.label.text = "\(snapshot.numberOfItems) results"
+                
+                if snapshot.numberOfItems == 0{
+                    self?.navigationItem.leftBarButtonItem?.isEnabled = false
+                }
+                else{
+                    self?.navigationItem.leftBarButtonItem?.isEnabled = true
+                }
             }
             
         }.store(in: &cancellables)
@@ -76,6 +113,39 @@ class HistoryCollectionViewController: UIViewController, Coordinated {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setBarButtons(){
+        
+        if !isInEditMode{
+            
+            navigationItem.leftBarButtonItem = editButton
+            navigationItem.rightBarButtonItem = nil
+            
+            if let dataSource{
+                if dataSource.snapshot().numberOfItems == 0{
+                    navigationItem.leftBarButtonItem!.isEnabled = false
+                }
+            }
+            
+        }
+        else{
+            navigationItem.leftBarButtonItem = nil
+            navigationItem.rightBarButtonItem = doneButton
+        }
+    }
+    
+    func presentDeleteAlertController(forHistory history: History){
+        let alert = UIAlertController(title: "Delete History", message: "Are you sure you want to delete history entry for \(history.injection!.name!) from \(history.date!)?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
+                
+            viewModel.deleteObject(history)
+        }))
+        
+        self.present(alert, animated: true)
+    }
+    
 
 
 }
@@ -84,6 +154,19 @@ extension HistoryCollectionViewController{
     private func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         config.headerMode = .supplementary
+        
+        config.trailingSwipeActionsConfigurationProvider = { [unowned self] indexPath in
+
+            let history = self.viewModel.object(at: indexPath)
+            
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, sourceView, completion in
+                
+                presentDeleteAlertController(forHistory: history)
+             
+                completion(true)
+            }
+            return .init(actions: [deleteAction])
+        }
         
         return UICollectionViewCompositionalLayout.list(using: config)
     }
@@ -123,6 +206,12 @@ extension HistoryCollectionViewController{
             content.secondaryText = "Due: \(history.dueDate!) | Scheduled: \(injection.scheduledString)"
             
             cell.contentConfiguration = content
+            
+            cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {
+                
+                self?.presentDeleteAlertController(forHistory: history)
+                
+            })]
             
         }
         

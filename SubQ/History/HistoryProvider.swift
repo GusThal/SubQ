@@ -199,6 +199,20 @@ class HistoryProvider: NSObject{
         
     }
     
+    func deleteObject(_ object: History){
+        
+        let persistentContainer = storageProvider.persistentContainer
+        
+        persistentContainer.viewContext.delete(object)
+
+        do {
+            try persistentContainer.viewContext.save()
+        } catch {
+            persistentContainer.viewContext.rollback()
+            print("Failed to save context: \(error)")
+        }
+    }
+    
 }
 
 extension HistoryProvider: NSFetchedResultsControllerDelegate{

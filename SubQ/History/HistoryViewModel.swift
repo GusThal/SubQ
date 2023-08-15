@@ -48,6 +48,10 @@ class HistoryViewModel{
         historyProvider.performSearch(forText: text)
     }
     
+    func deleteObject(_ object: History){
+        historyProvider.deleteObject(object)
+    }
+    
     func applyFilters(sortDateBy: HistoryViewModel.DateSorting, status: History.InjectStatus, startDate: Date, endDate: Date){
         
         selectedDateSorting = sortDateBy
