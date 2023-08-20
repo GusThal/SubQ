@@ -84,19 +84,40 @@ class InjectionProvider: NSObject{
     }
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
+        var savedFrequencies = [Frequency]()
         
+        if !isAsNeeded{
+           
+            for frequency in frequencies {
+                
+                let obj = Frequency(context: persistentContainer.viewContext)
+                obj.days = frequency.days!.map({ $0.rawValue }).joined(separator: ", ")
+                obj.time = frequency.time
+                savedFrequencies.append(obj)
+            }
+        }
     
         let injection = Injection(context: persistentContainer.viewContext)
         injection.name = name
         injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
         injection.units = units.rawValue
-        //injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
-        injection.days = frequency
-        injection.time = time
-        injection.areNotificationsEnabled = areNotificationsEnabled
+        
+        if isAsNeeded{
+            injection.type = Injection.InjectionType.asNeeded.rawValue
+        }
+        else{
+            injection.type = Injection.InjectionType.scheduled.rawValue
+            
+            for frequency in savedFrequencies {
+                frequency.injection = injection
+            }
+        }
+       
+        
+        injection.areNotificationsEnabled = isAsNeeded ? false : areNotificationsEnabled
         
         do{
             try persistentContainer.viewContext.save()
@@ -128,17 +149,57 @@ class InjectionProvider: NSObject{
     }
     
     @discardableResult
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
+        
+        var savedFrequencies = [Frequency]()
+        
+        if let frequency = injection.frequency{
+            
+            for freq in frequency as! Set<Frequency> {
+                persistentContainer.viewContext.delete(freq)
+            }
+            
+            injection.frequency = NSSet()
+            
+        }
+        
+        if !isAsNeeded{
+            
+            for frequency in frequencies {
+                
+                let obj = Frequency(context: persistentContainer.viewContext)
+                obj.days = frequency.days!.map({ $0.rawValue }).joined(separator: ", ")
+                obj.time = frequency.time
+                savedFrequencies.append(obj)
+            }
+        }
+        
         
         injection.name = name
         injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
         injection.units = units.rawValue
+        
+        
+        
        // injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
-        injection.days = frequency
-        injection.time = time
-        injection.areNotificationsEnabled = areNotificationsEnabled
+       // injection.days = frequency
+       // injection.time = time
+        
+        if isAsNeeded{
+            injection.type = Injection.InjectionType.asNeeded.rawValue
+        }
+        else{
+            injection.type = Injection.InjectionType.scheduled.rawValue
+            
+            for frequency in savedFrequencies {
+                frequency.injection = injection
+            }
+        }
+        
+        
+        injection.areNotificationsEnabled = isAsNeeded ? false : areNotificationsEnabled
         
         do{
             try persistentContainer.viewContext.save()

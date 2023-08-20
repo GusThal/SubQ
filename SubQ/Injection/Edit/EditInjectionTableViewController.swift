@@ -1,0 +1,555 @@
+//
+//  EditInjectionTableViewController.swift
+//  SubQ
+//
+//  Created by Constantine Thalasinos on 8/17/23.
+//
+
+import UIKit
+import Combine
+import CoreData
+
+class EditInjectionTableViewController: UITableViewController {
+    
+    let viewModel: EditInjectionViewModel
+    
+    weak var coordinator: Coordinator?
+    weak var editCoordinator: EditInjectionCoordinator?
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    lazy var nameTextField = UITextField()
+    lazy var dosageTextField = UITextField()
+    lazy var unitsSegmentedControl = UISegmentedControl()
+    lazy var timePicker = UIDatePicker()
+    lazy var selectedDate = Date()
+    lazy var asNeededSwitch = UISwitch()
+    lazy var notificationSwitch = UISwitch()
+    
+    let textInputReuseIdentifier = "textInputReuseIdentifier"
+    
+    let defaultReuseIdentifier = "defaultReuseIdentifier"
+    let frequencyReuseIdentifier = "frequencyReuseIdentifier"
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
+        
+        self.tableView.isEditing = true
+        self.tableView.allowsSelectionDuringEditing = true
+        
+        
+        
+        tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: textInputReuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: defaultReuseIdentifier)
+        tableView.register(FrequencyTableViewCell.self, forCellReuseIdentifier: frequencyReuseIdentifier)
+        
+        bindVariables()
+        
+    }
+    
+    init(viewModel: EditInjectionViewModel){
+        self.viewModel = viewModel
+        
+        if let injection = viewModel.injection {
+            self.viewModel.isAsNeeded = injection.typeVal == .asNeeded ? true : false
+            self.viewModel.areNotificationsEnabled = injection.areNotificationsEnabled
+            
+            for frequency in injection.frequency! as! Set<Frequency>{
+                viewModel.frequencies.append(FrequencyStruct(days: frequency.daysVal, time: frequency.time))
+                
+            }
+            
+            print(viewModel.frequencies)
+            
+            
+        }
+        else{
+            self.viewModel.isAsNeeded = true
+            self.viewModel.areNotificationsEnabled = true
+        }
+        
+        super.init(style: .insetGrouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bindVariables(){
+    
+        
+            viewModel.frequenciesSubject.sink { frequency in
+                
+                print(frequency)
+                
+                if !self.viewModel.isAsNeeded{
+                    
+                    let indexPath = IndexPath(row: self.viewModel.selectedFrequencyCell, section: 2)
+                    
+                    if let frequencyCell = self.tableView.cellForRow(at: indexPath) as? FrequencyTableViewCell{
+                        frequencyCell.daysButtonTitle = frequency
+                    }
+                    
+                    
+                }
+                    
+            }
+            .store(in: &cancellables)
+        
+        viewModel.isValidInjectionPublisher
+            .assign(to: \.isEnabled, on: navigationItem.rightBarButtonItem!)
+            .store(in: &cancellables)
+    }
+    
+    
+    @objc func cancelButtonPressed(_ sender: Any){
+        print("cancel")
+        editCoordinator?.cancelEdit()
+        
+    }
+    
+    @objc func saveButtonPressed(_ sender: Any){
+        
+        
+        let units = Injection.DosageUnits(rawValue: Injection.DosageUnits.allCases.map({$0.rawValue})[unitsSegmentedControl.selectedSegmentIndex])!
+        
+        let name = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let dosage = Double.init(dosageTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))!
+        
+        //let time = viewModel.selectedFrequency != [.asNeeded] ? selectedDate : nil
+        
+        //let frequency = viewModel.selectedFrequency.map({ $0.rawValue }).joined(separator: ", ")
+        
+        let frequencies = viewModel.frequencies
+        
+        var savedInjection: Injection!
+        
+        if let existingInjection = viewModel.injection{
+            
+            savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
+            
+            
+        } else {
+            savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
+            
+            print(savedInjection)
+            print(savedInjection.frequency)
+            
+        }
+        
+        editCoordinator?.savePressed()
+        
+      /*  if !viewModel.isDuplicateInjection(name: name, dosage: dosage, units: units, frequencyString: frequency, date: time){
+            
+            var savedInjection: Injection!
+            
+            
+            if let existingInjection = viewModel.injection{
+                
+                //check the frequency of the injection before the edit controller was opened.
+                if existingInjection.daysVal != [.asNeeded]{
+                    
+                    //check if notifications were previously enabled
+                    if existingInjection.areNotificationsEnabled{
+                        //check if they're not currently enabled
+                        if !viewModel.areNotificationsEnabled{
+                            
+                            //remove the notifications.
+                            NotificationManager.removeExistingNotifications(forInjection: existingInjection)
+                        }
+                        else{
+                            //remove existing notifications only if the day or time has changed.
+                            //this will actually handle cases where we switch from A scheduled injection to As Needed
+                            if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
+                                
+                                NotificationManager.removeExistingNotifications(forInjection: existingInjection)
+                            }
+                        }
+                    }
+                    
+                }
+                
+                savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: viewModel.areNotificationsEnabled)
+                
+                
+            }
+            else{
+                savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: viewModel.areNotificationsEnabled)
+                
+            }
+            
+            if viewModel.selectedFrequency != [.asNeeded]{
+                
+                if viewModel.areNotificationsEnabled{
+                    NotificationManager.scheduleNotification(forInjection: savedInjection)
+                }
+                
+            }
+            
+            editCoordinator?.savePressed()
+        }
+        
+        else{
+            let alert = UIAlertController(title: "Duplicate Injection", message: "An injection already exists with that name, dosage, units, and frequency (both day(s) and time)", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            
+            self.present(alert, animated: true)
+        }*/
+        
+        
+    }
+    
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if !viewModel.isAsNeeded{
+            
+            if let _ = viewModel.injection{
+                return 5
+            }
+            //no delete button
+            else{
+                return 4
+            }
+        }
+        else{
+            
+            if let _ = viewModel.injection{
+                return 3
+            }
+            // no delete button
+            else{
+                return 2
+            }
+            
+        }
+        
+        
+       
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      
+        //injection name, dosage,
+        if section == 0{
+            return 2
+        }
+        //as needed switch
+        else if section == 1{
+            return 1
+        }
+        
+        if !viewModel.isAsNeeded{
+            //the frequency section
+            if section == 2{
+                return viewModel.frequencies.count + 1
+            }
+            //the notification switch
+            else if section == 3{
+                return 1
+            }
+            //delete button
+            else if section == 4{
+                return 1
+            }
+        }
+        else{
+            //this would be the delete section in an as needed injection
+            if section == 2{
+                return 1
+            }
+        }
+        
+        return 0
+    }
+
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        if section == 0{
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: textInputReuseIdentifier, for: indexPath) as! TextInputTableViewCell
+            
+            if row == 0{
+                cell.label.text = "Injection Name:"
+                cell.textField.placeholder = "Beep Boop"
+                cell.textInputType = .text
+                
+                if let injection = viewModel.injection {
+                    cell.textField.text = injection.name!
+                }
+                
+                nameTextField = cell.textField
+                
+                nameTextField.textPublisher()
+                    .assign(to: \.name, on: self.viewModel)
+                    .store(in: &self.cancellables)
+                
+                //only update the title for existing injections.
+                if let _ = viewModel.injection{
+                    let action = UIAction { _ in
+                        self.navigationItem.title = self.nameTextField.text
+                    }
+                    nameTextField.addAction(action, for: .editingChanged)
+                }
+            }
+            else{
+                cell.label.text = "Dosage:"
+                cell.textField.placeholder = "0.0"
+                cell.textInputType = .number
+                
+               
+                
+                let unitsArr = Injection.DosageUnits.allCases
+                
+                let segmentedControl = UISegmentedControl(items: unitsArr.map({ $0.rawValue }))
+                
+                segmentedControl.selectedSegmentIndex = 0
+                
+                if let injection = viewModel.injection {
+                    cell.textField.text = "\(injection.dosage!)"
+                    
+                    for (index, units) in unitsArr.enumerated(){
+                        if self.viewModel.injection?.unitsVal == units{
+                            segmentedControl.selectedSegmentIndex = index
+                        }
+                    }
+                }
+                
+                
+                
+                cell.accessoryView = segmentedControl
+                
+                
+                dosageTextField = cell.textField
+                unitsSegmentedControl = segmentedControl
+                
+                self.dosageTextField.textPublisher()
+                    .assign(to: \.dosage, on: self.viewModel)
+                    .store(in: &self.cancellables)
+                
+            }
+            
+            return cell
+            
+        }
+        
+       else if section == 1{
+           let cell = tableView.dequeueReusableCell(withIdentifier: defaultReuseIdentifier, for: indexPath)
+            
+           var content = cell.defaultContentConfiguration()
+           content.text = "As Needed"
+           cell.contentConfiguration = content
+           
+           
+           let switchView = UISwitch()
+           //isAsNeeded is set in the constructor
+           switchView.isOn = viewModel.isAsNeeded
+           
+           let action = UIAction { _ in
+               self.viewModel.isAsNeeded = switchView.isOn
+               print("is as needed \(self.viewModel.isAsNeeded)")
+               self.viewModel.frequencies = [FrequencyStruct]()
+               
+               self.tableView.reloadData()
+           }
+           
+           switchView.addAction(action, for: .primaryActionTriggered)
+           asNeededSwitch = switchView
+           cell.accessoryView = switchView
+           
+           return cell
+            
+        }
+        
+        else if section == 2{
+            //frequency
+            if !viewModel.isAsNeeded {
+                
+                if row == tableView.numberOfRows(inSection: section) - 1 {
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: defaultReuseIdentifier, for: indexPath)
+                    
+                    var content = cell.defaultContentConfiguration()
+                    content.text = "add frequency"
+                    
+                    cell.contentConfiguration = content
+                    
+                    
+                    return cell
+                }
+                else{
+                    let cell = tableView.dequeueReusableCell(withIdentifier: frequencyReuseIdentifier, for: indexPath) as! FrequencyTableViewCell
+                    
+                    if let injection = viewModel.injection, !viewModel.isAsNeeded{
+                        
+                        cell.daysButtonTitle =  viewModel.frequencies[row].days!.count == 1 ? viewModel.frequencies[row].days![0].shortened : viewModel.frequencies[row].days?.map({ $0.shortened }).joined(separator: ", ")
+                        
+                        cell.timePicker.date = viewModel.frequencies[row].time!
+                        
+                    }
+                    
+                    let dayButtonAction = UIAction { _ in
+                        self.viewModel.selectedFrequencyCell = indexPath.item
+                        self.editCoordinator?.showFrequencyController()
+                        
+                    }
+                    
+                    cell.daysButton.addAction(dayButtonAction, for: .primaryActionTriggered)
+                    
+                    let timePickerAction = UIAction { _ in
+                        self.viewModel.frequencies[row].time = cell.timePicker.date
+                        print(self.viewModel.frequencies)
+                        //print(cell.timePicker.date)
+                    }
+                    
+                    cell.timePicker.addAction(timePickerAction, for: .primaryActionTriggered)
+                    
+                    return cell
+                }
+                
+            }
+            //will only ever be a delete cell
+            else {
+                
+            }
+        }
+        
+        //this will only ever be the notification switch
+        else if section == 3{
+            let cell = tableView.dequeueReusableCell(withIdentifier: defaultReuseIdentifier, for: indexPath)
+             
+            var content = cell.defaultContentConfiguration()
+            content.text = "Notifications"
+            cell.contentConfiguration = content
+            
+            let switchView = UISwitch()
+            //this is set in the initializer
+            switchView.isOn = self.viewModel.areNotificationsEnabled
+            
+            let action = UIAction { _ in
+                self.viewModel.areNotificationsEnabled = switchView.isOn
+                print("notifications enabled: \(self.viewModel.areNotificationsEnabled)")
+            }
+            
+            switchView.addAction(action, for: .primaryActionTriggered)
+            notificationSwitch = switchView
+            cell.accessoryView = switchView
+            
+            return cell
+        }
+        
+        //will only ever be the delete button
+        else if section == 4{
+            
+        }
+    
+
+        // Configure the cell...
+        
+        
+        
+
+        return UITableViewCell()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        if !self.viewModel.isAsNeeded{
+            if section == 2{
+                if row == tableView.numberOfRows(inSection: section) - 1{
+                    insertFrequencyRow(section: section)
+                }
+            }
+        }
+    
+        
+        cell?.setSelected(false, animated: false)
+    }
+    
+
+    
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        if !viewModel.isAsNeeded && indexPath.section == 2{
+            //frequency section
+            return true
+        }
+        else{
+            return false
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        
+        if !viewModel.isAsNeeded && indexPath.section == 2{
+            if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1{
+                return .insert
+            }
+        }
+        
+        return .delete
+        
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        let section = indexPath.section
+        
+        if !viewModel.isAsNeeded && section == 2{
+            
+            if row == tableView.numberOfRows(inSection: section) - 1 {
+                insertFrequencyRow(section: section)
+                
+            } else {
+                viewModel.frequencies.remove(at: row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            
+        }
+        print(viewModel.frequencies)
+        
+        
+    }
+    
+    func insertFrequencyRow(section: Int){
+        viewModel.frequencies.append(FrequencyStruct(time: Date()))
+        tableView.insertRows(at: [IndexPath(row: viewModel.frequencies.count-1, section: section)], with: .automatic)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 1{
+            return "Notifications will not be generated for As Needed injections."
+        }
+        return nil
+    }
+
+
+
+}
+
+extension EditInjectionTableViewController{
+    
+    struct FrequencyStruct{
+        var days: [Frequency.InjectionDay]?
+        var time: Date?
+    }
+    
+}

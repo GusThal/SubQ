@@ -18,38 +18,10 @@ extension Injection {
         case cc = "cc", ml = "mL"
     }
     
-    enum Frequency: String, CaseIterable{
-        case sun = "Sunday", mon = "Monday", tues = "Tuesday", wed = "Wednesday", thurs = "Thursday", fri = "Friday", sat = "Saturday", daily = "Daily", asNeeded = "As Needed"
-        
-        var shortened: String {
-            switch self{
-            case .sun: return "Sun"
-            case .mon: return "Mon"
-            case .tues:  return "Tue"
-            case .wed: return "Wed"
-            case .thurs: return "Thu"
-            case .fri: return "Fri"
-            case .sat: return "Sat"
-            default:
-                return self.rawValue
-            }
-            
-        }
-        
-        var weekday: Int? {
-            switch self{
-            case .sun: return 1
-            case .mon: return 2
-            case .tues: return 3
-            case .wed: return 4
-            case .thurs: return 5
-            case .fri: return 6
-            case .sat: return 7
-            default:
-                return nil
-            }
-        }
+    enum InjectionType: String, CaseIterable{
+        case asNeeded = "As Needed", scheduled = "Scheduled"
     }
+    
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Injection> {
         return NSFetchRequest<Injection>(entityName: "Injection")
@@ -64,6 +36,8 @@ extension Injection {
     @NSManaged public var queue: NSSet?
     @NSManaged public var areNotificationsEnabled: Bool
     @NSManaged public var isInjectionDeleted: Bool
+    @NSManaged public var type: String?
+    @NSManaged public var frequency: NSSet?
     
     var unitsVal: DosageUnits{
         get{
@@ -74,7 +48,15 @@ extension Injection {
         }
     }
     
-    var daysVal: [Injection.Frequency]{
+    var typeVal: InjectionType{
+        get{
+            return InjectionType(rawValue: type!)!
+        } set {
+            type = newValue.rawValue
+        }
+    }
+    
+/*    var daysVal: [Injection.Frequency]{
         get{
             
             days!.components(separatedBy: ", ").map({ Injection.Frequency(rawValue: $0)!})
@@ -92,7 +74,7 @@ extension Injection {
             
             return shortened.joined(separator: ", ")
         }
-    }
+    }*/
     
     
     var descriptionString: String{
@@ -102,22 +84,26 @@ extension Injection {
     }
     
     var scheduledString: String{
-       
-        var str = "\(self.daysVal.map({ $0.shortened}).joined(separator: ", "))"
         
-        if self.daysVal != [Injection.Frequency.asNeeded] {
-            if let time = self.time{
-                str.append(" | \(time.prettyTime)")
-            }
+        if self.typeVal == .asNeeded{
+            return InjectionType.asNeeded.rawValue
         }
-        
-        return str
+        else{
+            var str = "Scheduled "
+            for frequency in self.frequency! as! Set<Frequency>{
+                
+                str.append(frequency.shortenedDayString)
+                str.append(" | \(frequency.time!.prettyTime)")
+            }
+            
+            return str
+        }
         
     }
     
     var nextInjection: NextInjection?{
         
-        let currentDate = Date()
+       /* let currentDate = Date()
         
         let calendar = Calendar.current
         
@@ -198,7 +184,7 @@ extension Injection {
                     let nextDayComponents = DateComponents(calendar: calendar, hour: injectionHour, minute: injectionMinute, weekday: closestDay)
 
                     //get the date of the next day
-                    nextDate = calendar.nextDate(after: currentDate, matching: nextDayComponents, matchingPolicy: .nextTimePreservingSmallerComponents)! // "Jan 14, 2018 at 12:00 AM"*/
+                    nextDate = calendar.nextDate(after: currentDate, matching: nextDayComponents, matchingPolicy: .nextTimePreservingSmallerComponents)! // Jan 14, 2018 at 12:00 AM"/
                 }
                 else{
                     
@@ -213,8 +199,8 @@ extension Injection {
                 
                 
             }
-        }
-        
+        }*/
+        return nil
         
     }
     

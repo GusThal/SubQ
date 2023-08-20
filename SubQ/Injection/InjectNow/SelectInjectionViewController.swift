@@ -514,7 +514,7 @@ extension SelectInjectionViewController: UICollectionViewDelegate{
         
         let cell = collectionView.cellForItem(at: indexPath) as! UICollectionViewListCell
         
-        if indexPath.section == Section.queue.rawValue{
+    /*    if indexPath.section == Section.queue.rawValue{
             
             let path = IndexPath(item: indexPath.item-1, section: indexPath.section)
             
@@ -572,7 +572,7 @@ extension SelectInjectionViewController: UICollectionViewDelegate{
         cell.accessories = [.checkmark()]
         collectionView.reloadData()
         
-        
+        */
         
        
     }

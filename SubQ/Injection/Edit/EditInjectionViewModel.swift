@@ -16,11 +16,19 @@ class EditInjectionViewModel{
     var cancellables = Set<AnyCancellable>()
     
     
-    let days = Injection.Frequency.allCases.filter { ![Injection.Frequency.asNeeded, Injection.Frequency.daily].contains($0) }
+    let days = Frequency.InjectionDay.allCases.filter { Frequency.InjectionDay.daily != $0 }
     
-    @Published var selectedFrequency = [Injection.Frequency]()
+    @Published var frequencies = [EditInjectionTableViewController.FrequencyStruct]()
     
-    var currentValueFrequency = CurrentValueSubject<[Injection.Frequency], Never>([Injection.Frequency]())
+    var selectedFrequencyCell = 0
+    
+   // @Published var selectedFrequency = [Injection.Frequency]()
+    
+   // @Published var selectedFrequencies = [Frequency.InjectionDay]()
+    
+   // var currentValueFrequency = CurrentValueSubject<[Injection.Frequency], Never>([Injection.Frequency]())
+    
+    var currentValueSelectedDay = CurrentValueSubject<[Frequency.InjectionDay], Never>([Frequency.InjectionDay]())
     
     @Published var name = ""
     
@@ -30,15 +38,26 @@ class EditInjectionViewModel{
     
     var areNotificationsEnabled: Bool
     
+    var isAsNeeded: Bool
     
-    lazy var frequencySubject: AnyPublisher<String?, Never> = {
+    lazy var frequenciesSubject: AnyPublisher<String?, Never> = {
+
+          return currentValueSelectedDay.map({ frequency in
+              print(frequency)
+              return frequency.count == 1 ? frequency[0].shortened : frequency.map { $0.shortened }.joined(separator: ", ")
+              
+          }).eraseToAnyPublisher()
+      }()
+    
+    
+  /*  lazy var frequencySubject: AnyPublisher<String?, Never> = {
 
         return currentValueFrequency.map({ frequency in
             print(frequency)
             return frequency.count == 1 ? frequency[0].shortened : frequency.map { $0.shortened }.joined(separator: ", ")
             
         }).eraseToAnyPublisher()
-    }()
+    }() */
     
     var isValidNamePublisher: AnyPublisher<Bool, Never> {
         $name.map { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
@@ -49,71 +68,107 @@ class EditInjectionViewModel{
         $dosage.map { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             .eraseToAnyPublisher()
     }
+    /*
     
     var isFrequencySelectedPublisher: AnyPublisher<Bool, Never> {
         $selectedFrequency.map { $0 != [] }
             .eraseToAnyPublisher()
     }
+     */
     
-    
-    var isValidInjectionPublisher: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest3(isValidNamePublisher, isValidDosagePublisher, isFrequencySelectedPublisher).map { $0 && $1 && $2 }
+    var areFrequenciesValidPublisher: AnyPublisher<Bool, Never> {
+        
+        $frequencies.map { self.areFrequenciesValid(frequencies: $0) }
             .eraseToAnyPublisher()
     }
     
+    var isValidInjectionPublisher: AnyPublisher<Bool, Never> {
+           
+        Publishers.CombineLatest3(isValidNamePublisher, isValidDosagePublisher, areFrequenciesValidPublisher).map { $0 && $1 && $2 }
+            .eraseToAnyPublisher()
+    }
     
-    //datasource
     
     init(injectionProvider: InjectionProvider, injection: Injection?) {
         self.injectionProvider = injectionProvider
         self.injection = injection
         self.areNotificationsEnabled = true
+        self.isAsNeeded = true
         
         if let injection{
             
-            selectedFrequency = injection.daysVal
-            currentValueFrequency.value = injection.daysVal
+           // selectedFrequency = injection.daysVal
+           // currentValueFrequency.value = injection.daysVal
             name = injection.name!
             dosage = "\(injection.dosage!)"
             
-            if selectedFrequency != [.asNeeded]{
+            if injection.typeVal != .asNeeded{
+                self.isAsNeeded = false
+            }
+            
+         /*   if selectedFrequency != [.asNeeded]{
                 areNotificationsEnabled = injection.areNotificationsEnabled
             }
             //always default to false for as needed.
             else{
                 areNotificationsEnabled = false
-            }
+            }*/
            
             
             
         }
     }
     
+    func areFrequenciesValid(frequencies: [EditInjectionTableViewController.FrequencyStruct]) -> Bool{
+        
+        print(frequencies)
+        
+        if isAsNeeded{
+            return true
+        }
+        else{
+            if frequencies.count == 0{
+                return false
+            }
+            
+            else{
+                
+                for frequency in frequencies {
+                    if frequency.days != nil && frequency.time != nil {
+                        return true
+                    }
+                }
+                return false
+            }
+           
+        }
+    }
+    
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
-        return injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: areNotificationsEnabled)
+        return injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: areNotificationsEnabled, isAsNeeded: isAsNeeded)
         
         
     }
     @discardableResult
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequency: String, time: Date?, areNotificationsEnabled: Bool) -> Injection {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
-        return injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: areNotificationsEnabled)
+        return injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: areNotificationsEnabled, isAsNeeded: isAsNeeded)
         
     }
     
     func deleteInjection(_ injection: Injection){
         
-        if injection.daysVal != [.asNeeded]{
+       /* if injection.daysVal != [.asNeeded]{
             NotificationManager.removeExistingNotifications(forInjection: injection)
         }
 
         let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchAllForInjection: injection)
         queueProvider.deleteAllInSnapshot()
         
-        injectionProvider.deleteInjection(injection)
+        injectionProvider.deleteInjection(injection)*/
     }
     
     func isDuplicateInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencyString: String, date: Date?) -> Bool{

@@ -5,6 +5,11 @@
         <attribute name="part" attributeType="String" defaultValueString="&quot;&quot;"/>
         <relationship name="section" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Section" inverseName="bodyPart" inverseEntity="Section"/>
     </entity>
+    <entity name="Frequency" representedClassName="Frequency" syncable="YES">
+        <attribute name="days" optional="YES" attributeType="String"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="injection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Injection" inverseName="frequency" inverseEntity="Injection"/>
+    </entity>
     <entity name="History" representedClassName="History" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="705074820" usesScalarValueType="NO"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -19,7 +24,9 @@
         <attribute name="isInjectionDeleted" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="units" attributeType="String" defaultValueString="cc"/>
+        <relationship name="frequency" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Frequency" inverseName="injection" inverseEntity="Frequency"/>
         <relationship name="injectionHistory" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="History" inverseName="injection" inverseEntity="History"/>
         <relationship name="queue" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Queue" inverseName="injection" inverseEntity="Queue"/>
     </entity>

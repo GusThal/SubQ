@@ -186,14 +186,14 @@ extension InjectionViewController{
             
             content.secondaryText = injection.scheduledString
             
-            if !injection.areNotificationsEnabled && injection.daysVal != [.asNeeded]{
+           /* if !injection.areNotificationsEnabled && injection.daysVal != [.asNeeded]{
                 content.textProperties.color = .gray
                 content.secondaryTextProperties.color = .gray
             }
             else{
                 content.textProperties.color = .label
                 content.secondaryTextProperties.color = .label
-            }
+            }*/
             
             cell.contentConfiguration = content
             cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {
@@ -202,10 +202,10 @@ extension InjectionViewController{
                 //self?.viewModel.deleteInjection(injection)
             })]
             
-            if injection.daysVal != [.asNeeded]{
+            /*if injection.daysVal != [.asNeeded]{
                 let switchAccessory = self!.createNotificationSwitchAccessoryView(forInjection: injection)
                 cell.accessories.append(.customView(configuration: switchAccessory))
-            }
+            }*/
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {

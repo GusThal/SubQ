@@ -27,7 +27,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     var injection: Injection?
     
     
-    
+    /*
     required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
         self.navigationController = navigationController
         self.storageProvider = storageProvider
@@ -45,7 +45,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
         
         viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
-    }
+    }*/
     
     init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionProvider: InjectionProvider, injection: Injection?) {
         self.navigationController = navigationController
@@ -59,7 +59,10 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     }
     
     func start() {
-        let vc = EditInjectionViewController(viewModel: viewModel)
+       // let vc = EditInjectionViewController(viewModel: viewModel)
+        
+        let vc = EditInjectionTableViewController(viewModel: viewModel)
+        
         vc.coordinator = self
         vc.editCoordinator = self
         

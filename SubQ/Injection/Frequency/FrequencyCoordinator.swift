@@ -34,7 +34,11 @@ class FrequencyCoordinator: ModalChildCoordinator{
     
     
     func start() {
-        let vc = FrequencyViewController(selectedFrequency: viewModel!.selectedFrequency)
+        
+        let selectedDays = viewModel!.frequencies[viewModel!.selectedFrequencyCell].days
+        
+        let vc = FrequencyViewController(selectedFrequency: selectedDays)
+        //let vc = FrequencyViewController(selectedFrequency: viewModel!.selectedFrequency)
         vc.coordinator = self
         vc.frequencyCoordinator = self
         
@@ -53,7 +57,7 @@ class FrequencyCoordinator: ModalChildCoordinator{
         parentNavigationController!.present(navigationController, animated: true)
     }
     
-    func done(isDailySelected: Bool, isAsNeededSelected: Bool, selectedDays: [Bool]){
+    func done(isDailySelected: Bool, selectedDays: [Bool]){
         parentNavigationController!.dismiss(animated: true)
 
         parentCoordinator?.childDidFinish(self)
@@ -63,23 +67,29 @@ class FrequencyCoordinator: ModalChildCoordinator{
         
         
         if isDailySelected{
-            viewModel.currentValueFrequency.value = [.daily]
-            viewModel.selectedFrequency = [.daily]
+           // viewModel.currentValueFrequency.value = [.daily]
+           // viewModel.selectedFrequency = [.daily]
+            
+            viewModel.frequencies[viewModel.selectedFrequencyCell].days = [.daily]
+            viewModel.currentValueSelectedDay.value = [.daily]
         }
-        else if isAsNeededSelected{
+      /*  else if isAsNeededSelected{
             viewModel.currentValueFrequency.value = [.asNeeded]
             viewModel.selectedFrequency = [.asNeeded]
-        }
+        }*/
         else{
-            
-            viewModel.currentValueFrequency.value = []
-            viewModel.selectedFrequency = []
+            viewModel.frequencies[viewModel.selectedFrequencyCell].days = []
+            viewModel.currentValueSelectedDay.value = []
+            //viewModel.currentValueFrequency.value = []
+            //viewModel.selectedFrequency = []
             
             for (i, day) in viewModel.days.enumerated(){
                 
                 if selectedDays[i]{
-                    viewModel.currentValueFrequency.value.append(day)
-                    viewModel.selectedFrequency.append(day)
+                    viewModel.frequencies[viewModel.selectedFrequencyCell].days?.append(day)
+                    viewModel.currentValueSelectedDay.value.append(day)
+                    //viewModel.currentValueFrequency.value.append(day)
+                    //viewModel.selectedFrequency.append(day)
                 }
                 
             }

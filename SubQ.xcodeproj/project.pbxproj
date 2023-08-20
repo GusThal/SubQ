@@ -22,6 +22,11 @@
 		CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD652A23ECB700C20CAB /* Site+CoreDataClass.swift */; };
 		CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD662A23ECB700C20CAB /* Site+CoreDataProperties.swift */; };
 		CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */; };
+		CC4AF1C12A8E8A67000FC22A /* Frequency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1BF2A8E8A67000FC22A /* Frequency+CoreDataClass.swift */; };
+		CC4AF1C22A8E8A67000FC22A /* Frequency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C02A8E8A67000FC22A /* Frequency+CoreDataProperties.swift */; };
+		CC4AF1C42A8EB5A7000FC22A /* EditInjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */; };
+		CC4AF1C62A8EBC6B000FC22A /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */; };
+		CC4AF1CA2A900291000FC22A /* FrequencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -102,6 +107,11 @@
 		CC31CD652A23ECB700C20CAB /* Site+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Site+CoreDataClass.swift"; path = "SubQ/Site/Site+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		CC31CD662A23ECB700C20CAB /* Site+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Site+CoreDataProperties.swift"; path = "SubQ/Site/Site+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionViewModel.swift; sourceTree = "<group>"; };
+		CC4AF1BF2A8E8A67000FC22A /* Frequency+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Frequency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CC4AF1C02A8E8A67000FC22A /* Frequency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Frequency+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionTableViewController.swift; sourceTree = "<group>"; };
+		CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
+		CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyTableViewCell.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -258,6 +268,9 @@
 				CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */,
 				CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */,
 				CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */,
+				CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */,
+				CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */,
+				CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -265,6 +278,8 @@
 		CC7762EB2A69EF4200AEC489 /* Frequency */ = {
 			isa = PBXGroup;
 			children = (
+				CC4AF1BF2A8E8A67000FC22A /* Frequency+CoreDataClass.swift */,
+				CC4AF1C02A8E8A67000FC22A /* Frequency+CoreDataProperties.swift */,
 				CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */,
 				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
 			);
@@ -490,13 +505,17 @@
 				CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */,
 				CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */,
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
+				CC4AF1C12A8E8A67000FC22A /* Frequency+CoreDataClass.swift in Sources */,
 				CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */,
 				CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
 				CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */,
+				CC4AF1C22A8E8A67000FC22A /* Frequency+CoreDataProperties.swift in Sources */,
 				CC1356E12A2F7CC10073431B /* BodyPartProvider.swift in Sources */,
 				CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */,
+				CC4AF1CA2A900291000FC22A /* FrequencyTableViewCell.swift in Sources */,
 				CCC4B86C2A0453B3008BFF81 /* InjectionViewController.swift in Sources */,
+				CC4AF1C42A8EB5A7000FC22A /* EditInjectionTableViewController.swift in Sources */,
 				CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */,
 				CCC8F3822A53776F00BAAED1 /* InjectNowViewController.swift in Sources */,
 				CCC4B8642A0413C0008BFF81 /* InjectionCoordinator.swift in Sources */,
@@ -521,6 +540,7 @@
 				CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */,
 				CC31CD6A2A23ECB700C20CAB /* Injection+CoreDataProperties.swift in Sources */,
 				CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */,
+				CC4AF1C62A8EBC6B000FC22A /* TextInputTableViewCell.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
 				CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */,
 				CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */,

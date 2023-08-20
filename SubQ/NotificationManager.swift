@@ -25,9 +25,9 @@ class NotificationManager{
     //name-dosage-units-frequency-time
     //name-dosage-units-frequency-time-due-originalDateDue-snoozed-snoozedUntil
     static func getNotificationIDs(forInjection injection: Injection, snoozedUntil: Date?, originalDateDue: Date?) -> [String]{
-        
+  
         var identifiers = [String]()
-        
+   /*
         if let snoozedUntil, let originalDateDue{
            
             let weekday = Calendar.current.component(.weekday, from: originalDateDue)
@@ -47,7 +47,7 @@ class NotificationManager{
                 }
             }
         }
-        
+        */
            
         return identifiers
            
@@ -157,7 +157,7 @@ class NotificationManager{
     
     static func scheduleNotification(forInjection injection: Injection){
         
-        let content = UNMutableNotificationContent()
+ /*       let content = UNMutableNotificationContent()
         content.title = "It's Injection O'Clock!"
         content.body = "It's time for your injection \(injection.name!) of \(injection.dosage!) \(injection.units!), scheduled \(injection.shortenedDayString) at \(injection.time!.prettyTime)."
         
@@ -230,7 +230,7 @@ class NotificationManager{
             }
             
         }
-        
+        */
         
         
     }
