@@ -31,6 +31,8 @@ class EditInjectionTableViewController: UITableViewController {
     let defaultReuseIdentifier = "defaultReuseIdentifier"
     let frequencyReuseIdentifier = "frequencyReuseIdentifier"
     
+    let centeredTextReuseIdentifier = "centeredTextReuseIdentifier"
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +48,13 @@ class EditInjectionTableViewController: UITableViewController {
         tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: textInputReuseIdentifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: defaultReuseIdentifier)
         tableView.register(FrequencyTableViewCell.self, forCellReuseIdentifier: frequencyReuseIdentifier)
+        tableView.register(CenteredTextTableViewCell.self, forCellReuseIdentifier: centeredTextReuseIdentifier)
         
         bindVariables()
+        
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
         
     }
     
@@ -128,20 +135,32 @@ class EditInjectionTableViewController: UITableViewController {
         
         var savedInjection: Injection!
         
-        if let existingInjection = viewModel.injection{
+        if !viewModel.isDuplicateInjection(name: name, dosage: dosage, units: units){
             
-            savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
+            if let existingInjection = viewModel.injection{
+                
+                savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
+                
+                
+            } else {
+                savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
+                
+                print(savedInjection)
+                print(savedInjection.frequency)
+                
+            }
             
-            
-        } else {
-            savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
-            
-            print(savedInjection)
-            print(savedInjection.frequency)
-            
+            editCoordinator?.savePressed()
         }
         
-        editCoordinator?.savePressed()
+        else {
+            let alert = UIAlertController(title: "Duplicate Injection", message: "An injection already exists with that name, dosage, and units.", preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            
+            self.present(alert, animated: true)
+        }
         
       /*  if !viewModel.isDuplicateInjection(name: name, dosage: dosage, units: units, frequencyString: frequency, date: time){
             
@@ -391,7 +410,7 @@ class EditInjectionTableViewController: UITableViewController {
                 else{
                     let cell = tableView.dequeueReusableCell(withIdentifier: frequencyReuseIdentifier, for: indexPath) as! FrequencyTableViewCell
                     
-                    if let injection = viewModel.injection, !viewModel.isAsNeeded{
+                    if let injection = viewModel.injection, injection.typeVal == .scheduled{
                         
                         cell.daysButtonTitle =  viewModel.frequencies[row].days!.count == 1 ? viewModel.frequencies[row].days![0].shortened : viewModel.frequencies[row].days?.map({ $0.shortened }).joined(separator: ", ")
                         
@@ -421,7 +440,9 @@ class EditInjectionTableViewController: UITableViewController {
             }
             //will only ever be a delete cell
             else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: centeredTextReuseIdentifier, for: indexPath) as! CenteredTextTableViewCell
                 
+                return cell
             }
         }
         
@@ -451,7 +472,9 @@ class EditInjectionTableViewController: UITableViewController {
         
         //will only ever be the delete button
         else if section == 4{
+            let cell = tableView.dequeueReusableCell(withIdentifier: centeredTextReuseIdentifier, for: indexPath) as! CenteredTextTableViewCell
             
+            return cell
         }
     
 
@@ -469,13 +492,24 @@ class EditInjectionTableViewController: UITableViewController {
         let section = indexPath.section
         let row = indexPath.row
         
-        if !self.viewModel.isAsNeeded{
-            if section == 2{
+        if section == 2{
+            
+            if !self.viewModel.isAsNeeded{
+               
                 if row == tableView.numberOfRows(inSection: section) - 1{
                     insertFrequencyRow(section: section)
                 }
+                
+            }
+            else{
+                presentDeleteAlertController()
             }
         }
+        else if section == 4{
+            presentDeleteAlertController()
+        }
+        
+       
     
         
         cell?.setSelected(false, animated: false)
@@ -536,9 +570,25 @@ class EditInjectionTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 1{
-            return "Notifications will not be generated for As Needed injections."
+            return "Notifications will not be generated for As Needed injections. Injections that are Scheduled rather than As Needed can still be injectd as needed by selecting them in the Inject Now tab."
         }
         return nil
+    }
+    
+    func presentDeleteAlertController() {
+        let alert = UIAlertController(title: "Delete Injection", message: "Are you sure you want to delete this injection?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
+            
+            
+            viewModel.deleteInjection(viewModel.injection!)
+            
+            editCoordinator?.deleteInjection()
+        }))
+        
+        self.present(alert, animated: true)
     }
 
 

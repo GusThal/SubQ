@@ -27,6 +27,7 @@
 		CC4AF1C42A8EB5A7000FC22A /* EditInjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */; };
 		CC4AF1C62A8EBC6B000FC22A /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */; };
 		CC4AF1CA2A900291000FC22A /* FrequencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */; };
+		CC4AF1CE2A926BE4000FC22A /* CenteredTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -112,6 +113,7 @@
 		CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionTableViewController.swift; sourceTree = "<group>"; };
 		CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyTableViewCell.swift; sourceTree = "<group>"; };
+		CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextTableViewCell.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */,
 				CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */,
 				CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */,
+				CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */,
 				CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
+				CC4AF1CE2A926BE4000FC22A /* CenteredTextTableViewCell.swift in Sources */,
 				CC1356E32A2F8F1A0073431B /* BodyPartViewModel.swift in Sources */,
 				CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */,
 				CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */,

@@ -51,6 +51,8 @@ class InjectionProvider: NSObject{
         
         let persistentContainer = storageProvider.persistentContainer
         injection.isInjectionDeleted = true
+        
+        //because we're using this deleted flag & saving injections for the history vc, leave the frequency
 
         do {
             try persistentContainer.viewContext.save()
@@ -215,9 +217,9 @@ class InjectionProvider: NSObject{
     }
     
     //we need to accesss storage to validate whether the injection is unique, so it made sense to do it here rather than in the NSManagedObject class, where StorageProvider isn't available.
-    //fetch all dates with same name, dosage, units, and frequency. And then check the prettyDate to see if it's a dupe
+    //fetch all dates with same name, dosage, and units. And then check the prettyDate to see if it's a dupe
     
-    func isDuplicateInjection(existingInjection: Injection?, name: String, dosage: Double, units: Injection.DosageUnits, frequencyString: String, date: Date?) -> Bool{
+    func isDuplicateInjection(existingInjection: Injection?, name: String, dosage: Double, units: Injection.DosageUnits) -> Bool{
         
         let request: NSFetchRequest<Injection> = Injection.fetchRequest()
         
@@ -227,9 +229,9 @@ class InjectionProvider: NSObject{
         
         let unitsPredicate = NSPredicate(format: "%K == %@", #keyPath(Injection.units), units.rawValue)
         
-        let daysPredicate = NSPredicate(format: "%K == %@", #keyPath(Injection.days), frequencyString)
+        let deletedPredicate = NSPredicate(format: "%K==%d", #keyPath(Injection.isInjectionDeleted), false)
         
-        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [namePredicate, dosagePredicate, unitsPredicate, daysPredicate])
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [namePredicate, dosagePredicate, unitsPredicate, deletedPredicate])
         
         
         request.predicate = compoundPredicate
@@ -242,44 +244,21 @@ class InjectionProvider: NSObject{
             print(injections.count)
             
             for injection in injections{
-                
-                
-                if let date = date{
-                    if injection.time!.prettyTime == date.prettyTime{
                         
-                        
-                        if let objectID = existingInjection?.objectID{
-                            //make sure this isn't the same injection
-                            if injection.objectID != objectID{
-                                return true
-                            }
-                            
-                        }
-                        //if we're not updating an existing injection, this is a duplicate.
-                        else{
-                            return true
-                        }
-                        
-                        
-                    }
-                }
-                //if there's no date then it's an As Needed injection
-                else{
-                    
-                    if let objectID = existingInjection?.objectID{
-                        //make sure this isn't the same injection
-                        if injection.objectID != objectID{
-                            return true
-                        }
-                        
-                    }
-                    //if we're not updating an existing injection, this is a duplicate.
-                    else{
+                if let objectID = existingInjection?.objectID{
+                    //make sure this isn't the same injection
+                    if injection.objectID != objectID{
                         return true
                     }
+                            
                 }
-                
+                        //if we're not updating an existing injection, this is a duplicate.
+                else{
+                    return true
+                }
+                    
             }
+                
         }
         catch{
             print("failed to fetch injections")

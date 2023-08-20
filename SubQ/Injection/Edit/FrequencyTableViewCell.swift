@@ -15,6 +15,7 @@ class FrequencyTableViewCell: UITableViewCell {
         picker.datePickerMode = .time
         picker.preferredDatePickerStyle = .inline
         picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.backgroundColor = .red
         
         return picker
     }()
@@ -69,12 +70,16 @@ class FrequencyTableViewCell: UITableViewCell {
         contentView.addSubview(timePicker)
         contentView.addSubview(daysButton)
         
-        daysButton.snp.makeConstraints { make in
-            make.centerY.leadingMargin.equalToSuperview()
-        }
+        print(timePicker.contentHuggingPriority(for: .horizontal))
+        print(daysButton.contentHuggingPriority(for: .horizontal))
         
         timePicker.snp.makeConstraints { make in
             make.centerY.trailingMargin.equalToSuperview()
+        }
+        
+        daysButton.snp.makeConstraints { make in
+            make.centerY.leadingMargin.equalToSuperview()
+            make.trailingMargin.equalTo(timePicker.snp.leading)
         }
     }
     
