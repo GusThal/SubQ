@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import CoreData
 
-class EditInjectionTableViewController: UITableViewController {
+class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     let viewModel: EditInjectionViewModel
     
@@ -53,8 +53,8 @@ class EditInjectionTableViewController: UITableViewController {
         bindVariables()
         
         
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80
+       // tableView.rowHeight = UITableView.automaticDimension
+       // tableView.estimatedRowHeight = 80
         
     }
     

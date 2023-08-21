@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // NotificationManager.populateInjectionQueueForExistingNotifications()
         
      
-      /*  let storageProvider = StorageProvider.shared
+        let storageProvider = StorageProvider.shared
         
         let bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
         
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let siteProvider = SiteProvider(storageProvider: storageProvider)
         
-        siteProvider.insertInitialData()*/
+        siteProvider.insertInitialData()
         
         return true
     }

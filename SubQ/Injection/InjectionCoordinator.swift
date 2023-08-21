@@ -26,7 +26,7 @@ class InjectionCoordinator: Coordinator{
     }
     
     func start() {
-        let vc = InjectionViewController(viewModel: viewModel)
+        let vc = InjectionTableViewController(viewModel: viewModel)
         
         vc.coordinator = self
         vc.injectionCoordinator = self

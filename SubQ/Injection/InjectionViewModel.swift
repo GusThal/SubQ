@@ -34,8 +34,9 @@ class InjectionViewModel{
         
         let queueProvider = QueueProvider(storageProvider: storageProvider, fetchAllForInjection: injection)
         queueProvider.deleteAllInSnapshot()
-        
-        injectionProvider.deleteInjection(injection)*/
+   */
+   
+        injectionProvider.deleteInjection(injection)
     }
     
     func object(at indexPath: IndexPath) -> Injection {

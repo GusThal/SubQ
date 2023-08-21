@@ -28,6 +28,8 @@
 		CC4AF1C62A8EBC6B000FC22A /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */; };
 		CC4AF1CA2A900291000FC22A /* FrequencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */; };
 		CC4AF1CE2A926BE4000FC22A /* CenteredTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */; };
+		CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */; };
+		CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -114,6 +116,8 @@
 		CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyTableViewCell.swift; sourceTree = "<group>"; };
 		CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextTableViewCell.swift; sourceTree = "<group>"; };
+		CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableViewController.swift; sourceTree = "<group>"; };
+		CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableViewCell.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -244,6 +248,8 @@
 				CC1356DC2A294AE50073431B /* InjectionProvider.swift */,
 				CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */,
 				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
+				CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */,
+				CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */,
 			);
 			path = Injection;
 			sourceTree = "<group>";
@@ -544,6 +550,7 @@
 				CC31CD6A2A23ECB700C20CAB /* Injection+CoreDataProperties.swift in Sources */,
 				CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */,
 				CC4AF1C62A8EBC6B000FC22A /* TextInputTableViewCell.swift in Sources */,
+				CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
 				CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */,
 				CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */,
@@ -571,6 +578,7 @@
 				CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */,
 				CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */,
 				CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */,
+				CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */,
 				CC1356DF2A2CE1120073431B /* InjectionViewModel.swift in Sources */,
 				CCBCE22A2A17CD62001B73D6 /* TimePickerCollectionViewCell.swift in Sources */,
 				CC7762F02A7BEE5000AEC489 /* ResultsHeaderView.swift in Sources */,
