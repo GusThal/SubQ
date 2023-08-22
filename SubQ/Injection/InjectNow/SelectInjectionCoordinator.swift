@@ -34,7 +34,7 @@ class SelectInjectionCoordinator: ModalChildCoordinator{
 
     
     func start() {
-        let vc = SelectInjectionViewController(viewModel: viewModel!)
+        let vc = SelectInjectionTableViewController(viewModel: viewModel!)
         
         
         vc.coordinator = self

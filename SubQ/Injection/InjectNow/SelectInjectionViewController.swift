@@ -433,13 +433,6 @@ extension SelectInjectionViewController{
                 }
             }
             
-           
-            
-            
-            
-           
-            
-            
             cell.contentConfiguration = content
   
         }

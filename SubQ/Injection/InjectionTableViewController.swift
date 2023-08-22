@@ -25,6 +25,22 @@ class InjectionTableViewController: UIViewController {
     
     var cancellables = Set<AnyCancellable>()
     
+    class InjectionDiffableDataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID> {
+        
+        weak var viewController: InjectionTableViewController?
+        
+        override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete{
+                
+                let injection = viewController!.viewModel.object(at: indexPath)
+                
+                viewController?.presentDeleteAlertController(forInjection: injection)
+            }
+        }
+        
+    }
+
+    
     
     
     //UIViewController already has an "isEditing property"
@@ -209,19 +225,5 @@ extension InjectionTableViewController: UITableViewDelegate{
         }))
         
         self.present(alert, animated: true)
-    }
-}
-
-class InjectionDiffableDataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID> {
-    
-    weak var viewController: InjectionTableViewController?
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            
-            let injection = viewController!.viewModel.object(at: indexPath)
-            
-            viewController?.presentDeleteAlertController(forInjection: injection)
-        }
     }
 }

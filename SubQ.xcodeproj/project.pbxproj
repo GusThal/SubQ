@@ -30,6 +30,7 @@
 		CC4AF1CE2A926BE4000FC22A /* CenteredTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */; };
 		CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */; };
 		CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */; };
+		CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -118,6 +119,7 @@
 		CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextTableViewCell.swift; sourceTree = "<group>"; };
 		CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableViewController.swift; sourceTree = "<group>"; };
 		CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableViewCell.swift; sourceTree = "<group>"; };
+		CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionTableViewController.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */,
 				CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */,
 				CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */,
+				CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */,
 				CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */,
 			);
 			path = InjectNow;
@@ -575,6 +578,7 @@
 				CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */,
 				CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */,
 				CC57389C2A34C50B000257E0 /* Section+CoreDataProperties.swift in Sources */,
+				CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */,
 				CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */,
 				CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */,
 				CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */,
