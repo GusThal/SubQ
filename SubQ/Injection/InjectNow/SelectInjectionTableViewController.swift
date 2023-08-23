@@ -13,7 +13,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
     
     private class InjectionDiffableDataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID> {
         
-        weak var viewController: SelectInjectionViewController?
+        weak var viewController: SelectInjectionTableViewController?
         
         override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
             
@@ -24,15 +24,24 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
             Section(rawValue: section)?.description
         }
         
+        override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+            Section(rawValue: indexPath.section) == .queue ? true : false
+        }
         
-       /* override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+       override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete{
                 
-                let injection = viewController!.viewModel.object(at: indexPath)
+                print("delete")
                 
-                viewController?.presentDeleteAlertController(forInjection: injection)
+                viewController!.presentDeleteAlertController(forQueueObject: viewController!.viewModel.getQueueObject(forIndexPath: indexPath))
+                
+                
+               /* let injection = viewController!.viewModel.object(at: indexPath)
+                
+                viewController?.presentDeleteAlertController(forInjection: injection)*/
             }
-        }*/
+        }
         
     }
     
@@ -126,10 +135,10 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
            // setBarButtons()
             
             if isInEditMode{
-                tableView.isEditing = true
+                tableView.setEditing(true, animated: true)
             }
             else{
-                tableView.isEditing = false
+                tableView.setEditing(false, animated: true)
             }
         }
     }
@@ -149,6 +158,8 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                 self?.applySnapshots(queueSnapshot: queueSnapshot, injectionSnapshot: injectionSnapshot)
                 
                 if let queueSnapshot {
+                    self?.setBarButtons()
+                    
                     if queueSnapshot.numberOfItems == 0{
                         isQueueEmpty = true
                     }
@@ -234,7 +245,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
             
             if let snoozedUntil = object.snoozedUntil{
                 
-                NotificationManager.removeExistingNotifications(forInjection: object.injection!, snoozedUntil: snoozedUntil, originalDateDue: object.dateDue)
+                NotificationManager.removeExistingNotifications(forInjection: object.injection!, snoozedUntil: snoozedUntil, originalDateDue: object.dateDue, frequency: nil)
                 
             }
             
@@ -251,8 +262,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
         
         if let dataSource{
             
-            //greater than 1 because we have an expandable header item in the section
-            if dataSource.snapshot().numberOfItems(inSection: Section.queue.rawValue) > 1{
+            if dataSource.snapshot().numberOfItems(inSection: Section.queue.rawValue) > 0{
                 
                 if !isInEditMode{
                     
@@ -381,6 +391,8 @@ extension SelectInjectionTableViewController{
             }
                 
             let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+            
+            cell.accessoryType = .none
                 
             var content = cell.defaultContentConfiguration()
             content.text = injection.descriptionString
@@ -395,8 +407,9 @@ extension SelectInjectionTableViewController{
                 }
                     
                 if let selectedQueue = self.viewModel.selectedQueueObject{
-                        
-                    cell.accessoryType = .checkmark
+                    if selectedQueue == queueObject {
+                        cell.accessoryType = .checkmark
+                    }
                 }
                     
             }
@@ -420,6 +433,8 @@ extension SelectInjectionTableViewController{
             return cell
                 
         }
+        
+        dataSource.viewController = self
 
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
@@ -434,6 +449,118 @@ extension SelectInjectionTableViewController{
 
 extension SelectInjectionTableViewController: UITableViewDelegate{
     
+    func isCellDisabled(indexPath: IndexPath) -> Bool {
+        if Section(rawValue: indexPath.section) == .injection{
+            
+            if let snapshot = viewModel.typeSafeInjectionSnapshot{
+                let id =  snapshot.itemIdentifiers[indexPath.row]
+                
+                if viewModel.isInjectionInQueue(injectionManagedID: id){
+                    return true
+                }
+                else{
+                    return false
+                }
+            }
+            else{
+                return false
+            }
+            
+        }
+        else{
+            return false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        !isCellDisabled(indexPath: indexPath)
+
+    }
+    
+/*    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        if isCellDisabled(indexPath: indexPath) {
+            cell?.selectionStyle = .none
+            
+        } else {
+            
+        }
+    }*/
+    
+  /*  func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        isCellDisabled(indexPath: indexPath)
+        
+    }*/
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        guard !isCellDisabled(indexPath: indexPath) else { return }
+        
+        if indexPath.section == Section.queue.rawValue{
+            
+            //let path = IndexPath(item: indexPath.item-1, section: indexPath.section)
+            
+            viewModel.selectedInjection = nil
+            viewModel.selectedQueueObject = viewModel.getQueueObject(forIndexPath: indexPath)
+            
+            let injection = viewModel.selectedQueueObject!.injection!
+            
+            
+            //it's possible a person could have had a scheduled injection, missed a dose, and changed it to "As needed"
+            //so there'd still be a queued injection for that.
+            if injection.typeVal == .scheduled{
+                
+                let alert = UIAlertController(title: "Queued Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!). This injection is scheduled for \(injection.nextInjection!.timeUntil). You will still receive a notification.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                    self.dismiss(animated: true)
+                }))
+                
+                self.present(alert, animated: true)
+            }
+            else{
+                selectInjectionCoordinator?.dismiss()
+            }
+            
+            
+        }
+        else{
+            
+            if let snapshot = viewModel.typeSafeInjectionSnapshot{
+                //-1 on the index because the first row is always a header.
+                let id =  snapshot.itemIdentifiers[indexPath.row]
+                
+                let injection = viewModel.getInjection(withObjectID: id)
+                
+                    
+                    viewModel.selectedInjection = injection
+                    viewModel.selectedQueueObject = nil
+                    
+                    if injection.typeVal == .scheduled{
+                        let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString), and due in \(injection.nextInjection!.timeUntil). You will still receive a notification.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                            self.dismiss(animated: true)
+                        }))
+                        
+                        self.present(alert, animated: true)
+                    }
+                    else{
+                        selectInjectionCoordinator?.dismiss()
+                    }
+            }
+        }
+        
+        cell?.accessoryType = .checkmark
+        tableView.reloadData()
+        
+       
+    }
     
     
 }

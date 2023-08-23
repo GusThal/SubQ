@@ -159,7 +159,7 @@ class InjectNowViewModel{
                 injection = selectedQueueObject.injection!
                 
                 if let snoozedUntil = selectedQueueObject.snoozedUntil{
-                    NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: snoozedUntil, originalDateDue: selectedQueueObject.dateDue)
+                    NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: snoozedUntil, originalDateDue: selectedQueueObject.dateDue, frequency: nil)
                 }
             }
         }

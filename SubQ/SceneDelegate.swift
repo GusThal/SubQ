@@ -75,6 +75,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         NotificationManager.populateInjectionQueueForExistingNotifications()
         
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            
+            print("Pending notification count: \(requests.count)")
+            
+            for request in requests {
+                print("\(request.identifier) | \(request.trigger?.repeats)")
+            }
+        }
+        
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }

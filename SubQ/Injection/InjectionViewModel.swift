@@ -28,13 +28,13 @@ class InjectionViewModel{
     
     func deleteInjection(_ injection: Injection){
         
-  /*      if injection.daysVal != [.asNeeded]{
+        if injection.typeVal == .scheduled{
             NotificationManager.removeExistingNotifications(forInjection: injection)
         }
         
         let queueProvider = QueueProvider(storageProvider: storageProvider, fetchAllForInjection: injection)
         queueProvider.deleteAllInSnapshot()
-   */
+   
    
         injectionProvider.deleteInjection(injection)
     }

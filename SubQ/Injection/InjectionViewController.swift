@@ -245,7 +245,7 @@ extension InjectionViewController{
                 self.viewModel.updateAreNotificationsEnabled(forInjection: injection, withValue: !injection.areNotificationsEnabled)
                 
                 if injection.areNotificationsEnabled{
-                    NotificationManager.scheduleNotification(forInjection: injection)
+                    NotificationManager.scheduleNotifications(forInjection: injection)
                 }
                 else{
                     NotificationManager.removeExistingNotifications(forInjection: injection)
@@ -253,8 +253,6 @@ extension InjectionViewController{
             }))
             
             self.present(alert, animated: true)
-            
-        
             
         }
         

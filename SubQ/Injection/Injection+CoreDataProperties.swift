@@ -12,7 +12,14 @@ import CoreData
 
 extension Injection {
     
-    public typealias NextInjection = (date: Date, timeUntil : String)
+    public struct NextInjection: Comparable {
+        public let date: Date
+        public let timeUntil: String
+        
+        public static func < (lhs: Injection.NextInjection, rhs: Injection.NextInjection) -> Bool {
+            return lhs.date < rhs.date
+        }
+    }
     
     enum DosageUnits: String, CaseIterable{
         case cc = "cc", ml = "mL"
@@ -103,107 +110,112 @@ extension Injection {
     
     var nextInjection: NextInjection?{
         
-       /* let currentDate = Date()
         
-        let calendar = Calendar.current
-        
-        if daysVal == [.asNeeded]{
+        if self.typeVal == .asNeeded{
             return nil
         }
         else{
             
-            let injectionHour = calendar.component(.hour, from: time!)
-            let injectionMinute = calendar.component(.minute, from: time!)
+            let currentDate = Date()
+            let calendar = Calendar.current
+            var nextInjectionDates = [NextInjection]()
             
-            if daysVal == [.daily]{
-
-                var injectionDateComponents = DateComponents()
-
-                injectionDateComponents.hour = injectionHour
-                injectionDateComponents.minute = injectionMinute
-                injectionDateComponents.day = calendar.component(.day, from: currentDate)
-                injectionDateComponents.month = calendar.component(.month, from: currentDate)
-                injectionDateComponents.year = calendar.component(.year, from: currentDate)
+            for freq in self.frequency as! Set<Frequency> {
                 
-                let injectionDate = calendar.date(from: injectionDateComponents)!
+                let injectionHour = calendar.component(.hour, from: freq.time!)
+                let injectionMinute = calendar.component(.minute, from: freq.time!)
                 
-                if injectionDate > currentDate{
-                    let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: injectionDate)
-                    return NextInjection(date: injectionDate, timeUntil: "\(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
+                if freq.daysVal == [.daily]{
+                    
+                    var injectionDateComponents = DateComponents()
+                    
+                    injectionDateComponents.hour = injectionHour
+                    injectionDateComponents.minute = injectionMinute
+                    injectionDateComponents.day = calendar.component(.day, from: currentDate)
+                    injectionDateComponents.month = calendar.component(.month, from: currentDate)
+                    injectionDateComponents.year = calendar.component(.year, from: currentDate)
+                    
+                    let injectionDate = calendar.date(from: injectionDateComponents)!
+                    
+                    if injectionDate > currentDate{
+                        let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: injectionDate)
+                        nextInjectionDates.append(NextInjection(date: injectionDate, timeUntil: "\(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds"))
+                    }
+                    //we already injected today, so calculate the time until tomorrow's injection
+                    else{
+                        let tomorrow = calendar.date(byAdding: .day, value: 1, to: injectionDate)!
+                        let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: tomorrow)
+                        
+                        nextInjectionDates.append(NextInjection(date: tomorrow, timeUntil: "\(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds"))
+                    }
+                    
                 }
-                //we already injected today, so calculate the time until tomorrow's injection
                 else{
-                    let tomorrow = calendar.date(byAdding: .day, value: 1, to: injectionDate)!
-                    let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: tomorrow)
                     
-                    return NextInjection(date: tomorrow, timeUntil: "\(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
-                }
-                
-            }
-            else{
-                
-                let currentDay = calendar.component(.weekday, from: currentDate)
-                
-                var closestDay: Int?
-                
-                for day in daysVal{
+                    let currentDay = calendar.component(.weekday, from: currentDate)
                     
-                    if day.weekday == currentDay{
+                    var closestDay: Int?
+                    
+                    for day in freq.daysVal{
                         
-                        var injectionDateComponents = DateComponents()
-                        
-                        injectionDateComponents.minute = injectionMinute
-                        injectionDateComponents.hour = injectionHour
-                        injectionDateComponents.day = calendar.component(.day, from: currentDate)
-                        injectionDateComponents.month = calendar.component(.month, from: currentDate)
-                        injectionDateComponents.year = calendar.component(.year, from: currentDate)
-                        
-                        let injectionDate = calendar.date(from: injectionDateComponents)!
-                        
-                        if currentDate < injectionDate{
-                            let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: injectionDate)
-                            return NextInjection(date: injectionDate, timeUntil: "\(components.day!) days, \(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
+                        if day.weekday == currentDay{
+                            
+                            var injectionDateComponents = DateComponents()
+                            
+                            injectionDateComponents.minute = injectionMinute
+                            injectionDateComponents.hour = injectionHour
+                            injectionDateComponents.day = calendar.component(.day, from: currentDate)
+                            injectionDateComponents.month = calendar.component(.month, from: currentDate)
+                            injectionDateComponents.year = calendar.component(.year, from: currentDate)
+                            
+                            let injectionDate = calendar.date(from: injectionDateComponents)!
+                            
+                            if currentDate < injectionDate{
+                                let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: injectionDate)
+                                nextInjectionDates.append(NextInjection(date: injectionDate, timeUntil: "\(components.day!) days, \(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds"))
+                            }
+                            
+                        }
+                        else if currentDay < day.weekday!{
+                            closestDay = day.weekday
+                            
                         }
                         
-                    }
-                    else if currentDay < day.weekday!{
-                        closestDay = day.weekday
                         
                     }
+                    
+                    //if closest day is nil, then set it to days[0]
+                    
+                    var nextDate: Date
+                    
+                    if closestDay == nil{
+                        closestDay = freq.daysVal[0].weekday
                         
+                        let nextDayComponents = DateComponents(calendar: calendar, hour: injectionHour, minute: injectionMinute, weekday: closestDay)
                         
-                }
-                
-                //if closest day is nil, then set it to days[0]
-                
-                var nextDate: Date
-                
-                if closestDay == nil{
-                    closestDay = daysVal[0].weekday
+                        //get the date of the next day
+                        nextDate = calendar.nextDate(after: currentDate, matching: nextDayComponents, matchingPolicy: .nextTimePreservingSmallerComponents)! // Jan 14, 2018 at 12:00 AM"/
+                    }
+                    else{
+                        
+                        let nextDayComponents = DateComponents(calendar: calendar, hour: injectionHour, minute: injectionMinute, weekday: closestDay)
+                        
+                        nextDate = calendar.nextDate(after: currentDate, matching: nextDayComponents, matchingPolicy: .nextTimePreservingSmallerComponents)!
+                    }
                     
-                    let nextDayComponents = DateComponents(calendar: calendar, hour: injectionHour, minute: injectionMinute, weekday: closestDay)
-
-                    //get the date of the next day
-                    nextDate = calendar.nextDate(after: currentDate, matching: nextDayComponents, matchingPolicy: .nextTimePreservingSmallerComponents)! // Jan 14, 2018 at 12:00 AM"/
-                }
-                else{
                     
-                    let nextDayComponents = DateComponents(calendar: calendar, hour: injectionHour, minute: injectionMinute, weekday: closestDay)
+                    let components = calendar.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: nextDate)
+                    nextInjectionDates.append(NextInjection(date: nextDate, timeUntil: "\(components.day!) days, \(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds"))
                     
-                    nextDate = calendar.nextDate(after: currentDate, matching: nextDayComponents, matchingPolicy: .nextTimePreservingSmallerComponents)!
+                    
                 }
-                
-                
-                let components = calendar.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: nextDate)
-                return NextInjection(date: nextDate, timeUntil: "\(components.day!) days, \(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds")
-                
-                
             }
-        }*/
-        return nil
+            
+            return nextInjectionDates.min()
+        }
+        
         
     }
-    
     
 
 }

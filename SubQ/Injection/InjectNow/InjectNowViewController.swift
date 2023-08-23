@@ -327,10 +327,11 @@ class InjectNowViewController: UIViewController, Coordinated {
             scheduledLabel.text = "Scheduled \(injection.scheduledString )"
             lastInjectedLabel.text = "Last Injected: \(viewModel.getLastInjectedDate(forInjection: injection)?.fullDateTime ?? "-")"
             
-            
-            
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                self.nextInjectionTimerLabel.text = "Next injection: \(injection.nextInjection!.timeUntil)"
+            if injection.typeVal == .scheduled {
+                
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                    self.nextInjectionTimerLabel.text = "Next injection: \(injection.nextInjection!.timeUntil)"
+                }
             }
         }
         

@@ -239,7 +239,7 @@ class SelectInjectionViewController: UIViewController, Coordinated {
             
             if let snoozedUntil = object.snoozedUntil{
                 
-                NotificationManager.removeExistingNotifications(forInjection: object.injection!, snoozedUntil: snoozedUntil, originalDateDue: object.dateDue)
+                NotificationManager.removeExistingNotifications(forInjection: object.injection!, snoozedUntil: snoozedUntil, originalDateDue: object.dateDue, frequency: nil)
                 
             }
             

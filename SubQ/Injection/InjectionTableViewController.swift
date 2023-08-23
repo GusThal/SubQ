@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import CoreData
 
-class InjectionTableViewController: UIViewController {
+class InjectionTableViewController: UIViewController, Coordinated {
     
     let reuseIdentifier = "reuse-id"
     
@@ -157,7 +157,7 @@ extension InjectionTableViewController{
         
         dataSource = InjectionDiffableDataSource(tableView: tableView) { (tableView, indexPath, injectionId) -> UITableViewCell? in
             
-             let injection = self.viewModel.object(at: indexPath)
+            let injection = self.viewModel.object(at: indexPath)
             
            /* let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InjectionTableViewCell
             
@@ -173,8 +173,10 @@ extension InjectionTableViewController{
             
             cell.contentConfiguration = content
             
-            
-            
+            if injection.typeVal == .scheduled {
+                cell.accessoryView = self.createNotificationSwitchAccessoryView(forInjection: injection)
+            }
+
             return cell
         }
         
@@ -186,6 +188,46 @@ extension InjectionTableViewController{
         snapshot.appendSections([0])
         
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    func createNotificationSwitchAccessoryView(forInjection injection: Injection) -> UISwitch{
+        let notificationSwitch = UISwitch()
+        
+        notificationSwitch.isOn = injection.areNotificationsEnabled
+        
+        let action = UIAction { _ in
+            
+            let updatedStatusString = injection.areNotificationsEnabled ? "disable" : "enable"
+            
+            let alert = UIAlertController(title: "Disable Notifications", message: "Are you sure you want to \(updatedStatusString) notifications for \(injection.descriptionString) | \(injection.scheduledString)?", preferredStyle: .actionSheet)
+            
+            if injection.areNotificationsEnabled{
+                alert.message?.append("\n\n (note, You will still be able to select this injection via the Inject Now tab & and any notifications currently snoozed will be disabled.)")
+            }
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] _ in
+                notificationSwitch.setOn(injection.areNotificationsEnabled, animated: true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { [self] _ in
+                    
+                self.viewModel.updateAreNotificationsEnabled(forInjection: injection, withValue: !injection.areNotificationsEnabled)
+                
+                if injection.areNotificationsEnabled{
+                    NotificationManager.scheduleNotifications(forInjection: injection)
+                }
+                else{
+                    NotificationManager.removeExistingNotifications(forInjection: injection)
+                }
+            }))
+            
+            self.present(alert, animated: true)
+            
+        }
+        
+        notificationSwitch.addAction(action, for: .primaryActionTriggered)
+        
+        return notificationSwitch
     }
 }
 

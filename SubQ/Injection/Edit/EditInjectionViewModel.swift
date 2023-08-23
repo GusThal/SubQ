@@ -161,16 +161,16 @@ class EditInjectionViewModel{
     
     func deleteInjection(_ injection: Injection){
         
-        injectionProvider.deleteInjection(injection)
         
-       /* if injection.daysVal != [.asNeeded]{
+        
+        if injection.typeVal == .scheduled{
             NotificationManager.removeExistingNotifications(forInjection: injection)
         }
 
         let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchAllForInjection: injection)
         queueProvider.deleteAllInSnapshot()
         
-        injectionProvider.deleteInjection(injection)*/
+        injectionProvider.deleteInjection(injection)
     }
     
     func isDuplicateInjection(name: String, dosage: Double, units: Injection.DosageUnits) -> Bool{

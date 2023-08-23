@@ -139,15 +139,45 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             
             if let existingInjection = viewModel.injection{
                 
+                
+                //check the frequency of the injection before the edit controller was opened.
+                if existingInjection.typeVal != .asNeeded {
+                    //check if notifications were previously enabled
+                    if existingInjection.areNotificationsEnabled{
+                        
+                        //honestly, it makes sense to just remove all notifications regardless.
+                        NotificationManager.removeExistingNotifications(forInjection: existingInjection)
+                        
+                        //check if they're not currently enabled
+                        //this actually will prob remove notifications if its switched to as needed
+                       /* if !viewModel.areNotificationsEnabled{
+                            
+                            //remove the notifications.
+                            NotificationManager.removeExistingNotifications(forInjection: existingInjection)
+                        }
+                        else{
+                            //remove existing notifications only if the day or time has changed.
+                            //this will actually handle cases where we switch from A scheduled injection to As Needed
+                            if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
+                                
+                                NotificationManager.removeExistingNotifications(forInjection: existingInjection)
+                            }
+                        }*/
+                    }
+                }
+                
                 savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
                 
                 
             } else {
                 savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: viewModel.areNotificationsEnabled, isAsNeeded: viewModel.isAsNeeded)
                 
-                print(savedInjection)
-                print(savedInjection.frequency)
-                
+            }
+            
+            if !viewModel.isAsNeeded {
+                if viewModel.areNotificationsEnabled{
+                    NotificationManager.scheduleNotifications(forInjection: savedInjection)
+                }
             }
             
             editCoordinator?.savePressed()
