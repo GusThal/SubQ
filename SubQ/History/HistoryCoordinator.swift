@@ -24,7 +24,7 @@ class HistoryCoordinator: Coordinator{
 
     
     func start() {
-        let vc = HistoryCollectionViewController(viewModel: viewModel)
+        let vc = HistoryTableViewController(viewModel: viewModel)
         vc.coordinator = self
         vc.historyCoordinator = self
         

@@ -34,10 +34,8 @@ extension Injection {
         return NSFetchRequest<Injection>(entityName: "Injection")
     }
 
-    @NSManaged public var days: String?
     @NSManaged public var dosage: NSDecimalNumber?
     @NSManaged public var name: String?
-    @NSManaged public var time: Date?
     @NSManaged public var units: String?
     @NSManaged public var injectionHistory: NSSet?
     @NSManaged public var queue: NSSet?

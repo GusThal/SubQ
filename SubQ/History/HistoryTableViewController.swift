@@ -1,28 +1,43 @@
 //
-//  InjectionHistoryViewController.swift
+//  HistoryTableViewController.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 5/4/23.
+//  Created by Constantine Thalasinos on 8/24/23.
 //
 
 import UIKit
 import Combine
 import CoreData
 
-class HistoryCollectionViewController: UIViewController, Coordinated {
+class HistoryTableViewController: UIViewController, Coordinated {
+    
+    class HistoryDataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID> {
+        weak var viewController: HistoryTableViewController?
+        
+        override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete{
+                
+                let history = viewController!.viewModel.object(at: indexPath)
+                
+                viewController!.presentDeleteAlertController(forHistory: history)
+            }
+        }
+        
+    }
     
     weak var coordinator: Coordinator?
-    
     weak var historyCoordinator: HistoryCoordinator?
     
     let viewModel: HistoryViewModel
     
-    var dataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>! = nil
-    var collectionView: UICollectionView! = nil
+    var dataSource: HistoryDataSource! = nil
+    var tableView: UITableView! = nil
     
     var cancellables = Set<AnyCancellable>()
     
     var headerView: ResultsHeaderView?
+    
+    let reuseIdentifier = "reuse-id"
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -48,15 +63,13 @@ class HistoryCollectionViewController: UIViewController, Coordinated {
             setBarButtons()
             
             if isInEditMode{
-                collectionView.isEditing = true
+                tableView.setEditing(true, animated: true)
             }
             else{
-                collectionView.isEditing = false
+                tableView.setEditing(false, animated: true)
             }
         }
     }
-    
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,10 +107,13 @@ class HistoryCollectionViewController: UIViewController, Coordinated {
                 }*/
                 
                 self?.dataSource.apply(snapshot, animatingDifferences: true)
-                self?.collectionView.reloadData()
+                self?.tableView.reloadData()
             }
           })
           .store(in: &cancellables)
+        
+        
+
         // Do any additional setup after loading the view.
     }
     
@@ -134,7 +150,7 @@ class HistoryCollectionViewController: UIViewController, Coordinated {
     }
     
     func presentDeleteAlertController(forHistory history: History){
-        let alert = UIAlertController(title: "Delete History", message: "Are you sure you want to delete history entry for \(history.injection!.name!) from \(history.date!)?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete History", message: "Are you sure you want to delete history entry for \(history.injection!.name!) from \(history.date!)?", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -147,31 +163,10 @@ class HistoryCollectionViewController: UIViewController, Coordinated {
     }
     
 
+    
 }
 
-extension HistoryCollectionViewController{
-    private func createLayout() -> UICollectionViewLayout {
-        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        config.headerMode = .supplementary
-        
-        config.trailingSwipeActionsConfigurationProvider = { [unowned self] indexPath in
-
-            let history = self.viewModel.object(at: indexPath)
-            
-            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, sourceView, completion in
-                
-                presentDeleteAlertController(forHistory: history)
-             
-                completion(true)
-            }
-            return .init(actions: [deleteAction])
-        }
-        
-        return UICollectionViewCompositionalLayout.list(using: config)
-    }
-}
-
-extension HistoryCollectionViewController{
+extension HistoryTableViewController {
     
     private func configureSearchController(){
         searchController.searchResultsUpdater = self
@@ -183,57 +178,43 @@ extension HistoryCollectionViewController{
         definesPresentationContext = true
     }
     
-    private func configureHierarchy(){
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(collectionView)
-        collectionView.delegate = self
+    private func configureHierarchy() {
+        tableView = UITableView(frame: view.bounds, style: .insetGrouped)
+        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.delegate = self
+       // tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+       /* NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])*/
     }
     
     private func configureDataSource() {
         
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, NSManagedObjectID> { [weak self] (cell, indexPath, injectionId) in
+        dataSource = HistoryDataSource(tableView: tableView) { (tableView, indexPath, injectionId) -> UITableViewCell? in
+        
             
-            guard let history = self?.viewModel.object(at: indexPath) else {
-              return
-            }
+             let history = self.viewModel.object(at: indexPath)
             
-            guard let injection = history.injection else { return }
+            guard let injection = history.injection else { return nil }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
             
             var content = cell.defaultContentConfiguration()
             content.text = "\(history.date!.fullDateTime): \(injection.descriptionString) | \(history.status!)"
             content.secondaryText = "Due: \(history.dueDate!) | Scheduled: \(injection.scheduledString)"
             
             cell.contentConfiguration = content
-            
-            cell.accessories = [.delete(displayed: .whenEditing, actionHandler: {
-                
-                self?.presentDeleteAlertController(forHistory: history)
-                
-            })]
-            
+    
+            return cell
         }
         
-        let headerRegistration = UICollectionView.SupplementaryRegistration
-        <ResultsHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) {
-            [unowned self] (headerView, elementKind, indexPath) in
-            headerView.filterButton.addAction(filterAction, for: .primaryActionTriggered)
-            
-            self.headerView = headerView
-            
-        }
-        
-        dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, injectionId: NSManagedObjectID) -> UICollectionViewCell? in
-            
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: injectionId)
-        }
-        
-        dataSource.supplementaryViewProvider = { (view, kind, index) in
-            
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
-                using:  headerRegistration, for: index)
-        }
+        dataSource.viewController = self
 
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
@@ -244,9 +225,11 @@ extension HistoryCollectionViewController{
     
 }
 
-extension HistoryCollectionViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: false)
+extension HistoryTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        cell?.setSelected(false, animated: true)
         
         let history = viewModel.object(at: indexPath)
         
@@ -254,9 +237,31 @@ extension HistoryCollectionViewController: UICollectionViewDelegate {
             historyCoordinator?.showHistoryController(forObject: history)
         }
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, handler in
+            self.presentDeleteAlertController(forHistory: self.viewModel.object(at: indexPath))
+        }
+        
+        deleteAction.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        
+        return configuration
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = ResultsHeaderView()
+        headerView.filterButton.addAction(filterAction, for: .primaryActionTriggered)
+        
+        self.headerView = headerView
+        
+        return headerView
+        
+    }
 }
 
-extension HistoryCollectionViewController: UISearchResultsUpdating{
+extension HistoryTableViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         
         if let text = searchController.searchBar.text{
