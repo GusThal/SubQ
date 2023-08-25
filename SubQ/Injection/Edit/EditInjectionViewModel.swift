@@ -121,7 +121,9 @@ class EditInjectionViewModel{
     
     func areFrequenciesValid(frequencies: [EditInjectionTableViewController.FrequencyStruct]) -> Bool{
         
-        print(frequencies)
+        print("are frequncies valid  \(frequencies)")
+        
+        var validFrequencies = [Bool]()
         
         if isAsNeeded{
             return true
@@ -135,13 +137,24 @@ class EditInjectionViewModel{
                 
                 for frequency in frequencies {
                     if frequency.days != nil && frequency.time != nil {
-                        return true
+                        validFrequencies.append(true)
+                    }
+                    else{
+                        validFrequencies.append(false)
                     }
                 }
-                return false
+
             }
            
         }
+        
+        for bool in validFrequencies {
+            if !bool {
+                return false
+            }
+        }
+        
+        return true
     }
     
     

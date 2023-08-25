@@ -171,6 +171,15 @@ extension InjectionTableViewController{
             
             content.secondaryText = injection.scheduledString
             
+            if !injection.areNotificationsEnabled && injection.typeVal == .scheduled {
+                 content.textProperties.color = .gray
+                 content.secondaryTextProperties.color = .gray
+             }
+             else{
+                 content.textProperties.color = .label
+                 content.secondaryTextProperties.color = .label
+             }
+            
             cell.contentConfiguration = content
             
             if injection.typeVal == .scheduled {

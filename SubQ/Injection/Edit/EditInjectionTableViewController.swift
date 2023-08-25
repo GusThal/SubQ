@@ -442,14 +442,20 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     
                     if let injection = viewModel.injection, injection.typeVal == .scheduled{
                         
-                        cell.daysButtonTitle =  viewModel.frequencies[row].days!.count == 1 ? viewModel.frequencies[row].days![0].shortened : viewModel.frequencies[row].days?.map({ $0.shortened }).joined(separator: ", ")
+                        //account for frequencies that were just added. ther days will be nil
+                        if let days = viewModel.frequencies[row].days {
+                            cell.daysButtonTitle =  days.count == 1 ? days[0].shortened : days.map({ $0.shortened }).joined(separator: ", ")
+                        }
+                        
                         
                         cell.timePicker.date = viewModel.frequencies[row].time!
                         
                     }
                     
                     let dayButtonAction = UIAction { _ in
-                        self.viewModel.selectedFrequencyCell = indexPath.item
+                        let row = tableView.indexPath(for: cell)!.row
+                        
+                        self.viewModel.selectedFrequencyCell = row
                         self.editCoordinator?.showFrequencyController()
                         
                     }
@@ -457,7 +463,9 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     cell.daysButton.addAction(dayButtonAction, for: .primaryActionTriggered)
                     
                     let timePickerAction = UIAction { _ in
-                        self.viewModel.frequencies[row].time = cell.timePicker.date
+                        let index = tableView.indexPath(for: cell)!.row
+                        
+                        self.viewModel.frequencies[index].time = cell.timePicker.date
                         print(self.viewModel.frequencies)
                         //print(cell.timePicker.date)
                     }

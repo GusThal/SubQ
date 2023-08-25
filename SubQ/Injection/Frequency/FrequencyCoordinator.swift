@@ -35,6 +35,8 @@ class FrequencyCoordinator: ModalChildCoordinator{
     
     func start() {
         
+        print(viewModel!.selectedFrequencyCell)
+        
         let selectedDays = viewModel!.frequencies[viewModel!.selectedFrequencyCell].days
         
         let vc = FrequencyViewController(selectedFrequency: selectedDays)
