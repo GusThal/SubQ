@@ -34,17 +34,19 @@ class EditInjectionViewModel{
     
     @Published var dosage = ""
     
+    var selectedUnits: Injection.DosageUnits?
+    
     let injectionProvider: InjectionProvider
     
     var areNotificationsEnabled: Bool
     
     var isAsNeeded: Bool
     
-    lazy var frequenciesSubject: AnyPublisher<String?, Never> = {
+    lazy var daysSubject: AnyPublisher<String?, Never> = {
 
-          return currentValueSelectedDay.map({ frequency in
-              print(frequency)
-              return frequency.count == 1 ? frequency[0].shortened : frequency.map { $0.shortened }.joined(separator: ", ")
+          return currentValueSelectedDay.map({ days in
+              print(days)
+              return days.count == 1 ? days[0].shortened : days.map { $0.shortened }.joined(separator: ", ")
               
           }).eraseToAnyPublisher()
       }()
@@ -177,7 +179,7 @@ class EditInjectionViewModel{
         
         
         if injection.typeVal == .scheduled{
-            NotificationManager.removeExistingNotifications(forInjection: injection)
+            NotificationManager.removeExistingNotifications(forInjection: injection, removeQueued: true)
         }
 
         let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchAllForInjection: injection)

@@ -29,7 +29,7 @@ class InjectionViewModel{
     func deleteInjection(_ injection: Injection){
         
         if injection.typeVal == .scheduled{
-            NotificationManager.removeExistingNotifications(forInjection: injection)
+            NotificationManager.removeExistingNotifications(forInjection: injection, removeQueued: true)
         }
         
         let queueProvider = QueueProvider(storageProvider: storageProvider, fetchAllForInjection: injection)

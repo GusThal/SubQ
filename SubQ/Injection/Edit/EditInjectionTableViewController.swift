@@ -33,6 +33,32 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     let centeredTextReuseIdentifier = "centeredTextReuseIdentifier"
     
+    let allUnitsCases = Injection.DosageUnits.allCases
+    
+    lazy var nameAction: UIAction = {
+        return UIAction { _ in
+            self.viewModel.name = self.nameTextField.text!
+            
+            if let _ = self.viewModel.injection{
+                self.navigationItem.title = self.nameTextField.text
+            }
+                
+        }
+    }()
+    
+    lazy var dosageAction: UIAction = {
+        return UIAction { _ in
+            self.viewModel.dosage = self.dosageTextField.text!
+        }
+    }()
+    
+    lazy var unitsSegmentAction: UIAction = {
+        return UIAction { _ in
+            self.viewModel.selectedUnits = self.allUnitsCases[self.unitsSegmentedControl.selectedSegmentIndex]
+            print(self.viewModel.selectedUnits)
+        }
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,16 +115,16 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     func bindVariables(){
     
         
-            viewModel.frequenciesSubject.sink { frequency in
+            viewModel.daysSubject.sink { day in
                 
-                print(frequency)
+                print(day)
                 
                 if !self.viewModel.isAsNeeded{
                     
                     let indexPath = IndexPath(row: self.viewModel.selectedFrequencyCell, section: 2)
                     
                     if let frequencyCell = self.tableView.cellForRow(at: indexPath) as? FrequencyTableViewCell{
-                        frequencyCell.daysButtonTitle = frequency
+                        frequencyCell.daysButtonTitle = day
                     }
                     
                     
@@ -146,7 +172,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     if existingInjection.areNotificationsEnabled{
                         
                         //honestly, it makes sense to just remove all notifications regardless.
-                        NotificationManager.removeExistingNotifications(forInjection: existingInjection)
+                        NotificationManager.removeExistingNotifications(forInjection: existingInjection, removeQueued: false)
                         
                         //check if they're not currently enabled
                         //this actually will prob remove notifications if its switched to as needed
@@ -327,54 +353,62 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         
         if section == 0{
             
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: textInputReuseIdentifier, for: indexPath) as! TextInputTableViewCell
+            
+            cell.textField.removeAction(nameAction, for: .editingChanged)
+            cell.textField.removeAction(dosageAction, for: .editingChanged)
             
             if row == 0{
                 cell.label.text = "Injection Name:"
                 cell.textField.placeholder = "Beep Boop"
                 cell.textInputType = .text
                 
-                if let injection = viewModel.injection {
+                if viewModel.name != "" {
+                    cell.textField.text = viewModel.name
+                } else if let injection = viewModel.injection {
                     cell.textField.text = injection.name!
                 }
                 
                 nameTextField = cell.textField
                 
-                nameTextField.textPublisher()
-                    .assign(to: \.name, on: self.viewModel)
-                    .store(in: &self.cancellables)
-                
-                //only update the title for existing injections.
-                if let _ = viewModel.injection{
-                    let action = UIAction { _ in
-                        self.navigationItem.title = self.nameTextField.text
-                    }
-                    nameTextField.addAction(action, for: .editingChanged)
-                }
+                nameTextField.addAction(nameAction, for: .editingChanged)
+
             }
             else{
                 cell.label.text = "Dosage:"
                 cell.textField.placeholder = "0.0"
                 cell.textInputType = .number
                 
-               
+            
                 
-                let unitsArr = Injection.DosageUnits.allCases
+                if viewModel.dosage != "" {
+                    cell.textField.text = viewModel.dosage
+                }
                 
-                let segmentedControl = UISegmentedControl(items: unitsArr.map({ $0.rawValue }))
-                
-                segmentedControl.selectedSegmentIndex = 0
-                
-                if let injection = viewModel.injection {
+                else if let injection = viewModel.injection {
                     cell.textField.text = "\(injection.dosage!)"
+                }
+                
+                
+                let segmentedControl = UISegmentedControl(items: allUnitsCases.map({ $0.rawValue }))
+                
+                if let selectedUnits = viewModel.selectedUnits {
+                    for (index, units) in allUnitsCases.enumerated(){
+                        if selectedUnits == units {
+                            segmentedControl.selectedSegmentIndex = index
+                        }
+                    }
                     
-                    for (index, units) in unitsArr.enumerated(){
+                } else if let injection = viewModel.injection {
+                    for (index, units) in allUnitsCases.enumerated(){
                         if self.viewModel.injection?.unitsVal == units{
                             segmentedControl.selectedSegmentIndex = index
                         }
                     }
+                } else {
+                    segmentedControl.selectedSegmentIndex = 0
                 }
-                
                 
                 
                 cell.accessoryView = segmentedControl
@@ -382,10 +416,9 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 
                 dosageTextField = cell.textField
                 unitsSegmentedControl = segmentedControl
+                unitsSegmentedControl.addAction(unitsSegmentAction, for: .primaryActionTriggered)
                 
-                self.dosageTextField.textPublisher()
-                    .assign(to: \.dosage, on: self.viewModel)
-                    .store(in: &self.cancellables)
+                dosageTextField.addAction(dosageAction, for: .editingChanged)
                 
             }
             
@@ -608,8 +641,13 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 1{
-            return "Notifications will not be generated for As Needed injections. Injections that are Scheduled rather than As Needed can still be injectd as needed by selecting them in the Inject Now tab."
+            return "Notifications will not be generated for As Needed injections."
         }
+        
+        if section == 3 && !viewModel.isAsNeeded {
+           return  "This injection will be able to selected in the Inject Now tab, whether or not notifications are enabled."
+        }
+        
         return nil
     }
     

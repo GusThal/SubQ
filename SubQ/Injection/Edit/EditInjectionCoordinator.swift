@@ -120,7 +120,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     }
     
     func showFrequencyController(){
-        let child  = FrequencyCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
+        let child  = DaysCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
         
         childCoordinators.append(child)
         

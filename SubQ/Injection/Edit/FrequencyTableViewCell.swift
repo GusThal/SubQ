@@ -15,7 +15,10 @@ class FrequencyTableViewCell: UITableViewCell {
         picker.datePickerMode = .time
         picker.preferredDatePickerStyle = .inline
         picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.backgroundColor = .red
+       // picker.backgroundColor = .red
+        
+        picker.setContentHuggingPriority(.required, for: .horizontal)
+        picker.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         return picker
     }()
@@ -62,25 +65,38 @@ class FrequencyTableViewCell: UITableViewCell {
         return button
     }()
     
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [daysButton, timePicker])
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 5
+        
+        return stackView
+    }()
+    
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(timePicker)
-        contentView.addSubview(daysButton)
+        //contentView.addSubview(timePicker)
+        //contentView.addSubview(daysButton)
         
-        print(timePicker.contentHuggingPriority(for: .horizontal))
-        print(daysButton.contentHuggingPriority(for: .horizontal))
+        contentView.addSubview(stackView)
         
-        timePicker.snp.makeConstraints { make in
+        stackView.snp.makeConstraints { make in
+            make.margins.centerY.equalToSuperview()
+        }
+        
+       /* timePicker.snp.makeConstraints { make in
             make.centerY.trailingMargin.equalToSuperview()
         }
         
         daysButton.snp.makeConstraints { make in
             make.centerY.leadingMargin.equalToSuperview()
             make.trailingMargin.equalTo(timePicker.snp.leading)
-        }
+        }*/
     }
     
     required init?(coder: NSCoder) {

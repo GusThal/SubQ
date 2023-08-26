@@ -75,8 +75,8 @@
 		CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */; };
 		CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */; };
 		CCC4B8992A0D9FD1008BFF81 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC4B8982A0D9FD1008BFF81 /* SnapKit */; };
-		CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */; };
-		CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */; };
+		CCC4B8A12A0FD9DE008BFF81 /* DaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A02A0FD9DE008BFF81 /* DaysViewController.swift */; };
+		CCC4B8A32A0FDE77008BFF81 /* DaysCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8A22A0FDE77008BFF81 /* DaysCoordinator.swift */; };
 		CCC8F3802A51D72600BAAED1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */; };
 		CCC8F3822A53776F00BAAED1 /* InjectNowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */; };
 		CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */; };
@@ -166,8 +166,8 @@
 		CCC4B8712A04591B008BFF81 /* HistoryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewController.swift; sourceTree = "<group>"; };
 		CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionCoordinator.swift; sourceTree = "<group>"; };
-		CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyViewController.swift; sourceTree = "<group>"; };
-		CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyCoordinator.swift; sourceTree = "<group>"; };
+		CCC4B8A02A0FD9DE008BFF81 /* DaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysViewController.swift; sourceTree = "<group>"; };
+		CCC4B8A22A0FDE77008BFF81 /* DaysCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCoordinator.swift; sourceTree = "<group>"; };
 		CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowViewController.swift; sourceTree = "<group>"; };
 		CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowCoordinator.swift; sourceTree = "<group>"; };
@@ -294,8 +294,8 @@
 			children = (
 				CC4AF1BF2A8E8A67000FC22A /* Frequency+CoreDataClass.swift */,
 				CC4AF1C02A8E8A67000FC22A /* Frequency+CoreDataProperties.swift */,
-				CCC4B8A22A0FDE77008BFF81 /* FrequencyCoordinator.swift */,
-				CCC4B8A02A0FD9DE008BFF81 /* FrequencyViewController.swift */,
+				CCC4B8A22A0FDE77008BFF81 /* DaysCoordinator.swift */,
+				CCC4B8A02A0FD9DE008BFF81 /* DaysViewController.swift */,
 			);
 			path = Frequency;
 			sourceTree = "<group>";
@@ -561,7 +561,7 @@
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
 				CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */,
 				CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */,
-				CCC4B8A32A0FDE77008BFF81 /* FrequencyCoordinator.swift in Sources */,
+				CCC4B8A32A0FDE77008BFF81 /* DaysCoordinator.swift in Sources */,
 				CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */,
 				CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */,
 				CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */,
@@ -583,7 +583,7 @@
 				CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */,
 				CC57389C2A34C50B000257E0 /* Section+CoreDataProperties.swift in Sources */,
 				CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */,
-				CCC4B8A12A0FD9DE008BFF81 /* FrequencyViewController.swift in Sources */,
+				CCC4B8A12A0FD9DE008BFF81 /* DaysViewController.swift in Sources */,
 				CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */,
 				CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */,
 				CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */,

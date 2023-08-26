@@ -248,7 +248,7 @@ extension InjectionViewController{
                     NotificationManager.scheduleNotifications(forInjection: injection)
                 }
                 else{
-                    NotificationManager.removeExistingNotifications(forInjection: injection)
+                    NotificationManager.removeExistingNotifications(forInjection: injection, removeQueued: true)
                 }
             }))
             

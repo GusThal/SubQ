@@ -165,6 +165,8 @@ extension InjectionTableViewController{
             
             let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
             
+            cell.accessoryView = nil
+            
             var content = cell.defaultContentConfiguration()
             
             content.text = injection.descriptionString
@@ -226,7 +228,7 @@ extension InjectionTableViewController{
                     NotificationManager.scheduleNotifications(forInjection: injection)
                 }
                 else{
-                    NotificationManager.removeExistingNotifications(forInjection: injection)
+                    NotificationManager.removeExistingNotifications(forInjection: injection, removeQueued: true)
                 }
             }))
             

@@ -24,7 +24,8 @@ class TextInputTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [label, textField])
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 5
         
         return stackView
     }()
@@ -33,20 +34,23 @@ class TextInputTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Injection Name: "
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .purple
+        //label.backgroundColor = .purple
         label.frame.size = label.intrinsicContentSize
+        
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         return label
     }()
     let textField: UITextField = {
         let field = UITextField()
-        field.backgroundColor = .green
+       // field.backgroundColor = .green
         
         field.textAlignment = .left
         field.placeholder = "beep boop"
         
         field.translatesAutoresizingMaskIntoConstraints = false
-        field.setContentHuggingPriority(.required, for: .horizontal)
+        //field.setContentHuggingPriority(.required, for: .horizontal)
         
         
         //field.adjustsFontSizeToFitWidth = true
@@ -84,6 +88,12 @@ class TextInputTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        accessoryView = nil
+        label.text = ""
+        textField.text = ""
     }
 
 }

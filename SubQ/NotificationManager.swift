@@ -139,29 +139,31 @@ class NotificationManager{
         
     }
     
-   static func removeExistingNotifications(forInjection injection: Injection){
+    static func removeExistingNotifications(forInjection injection: Injection, removeQueued: Bool){
        
        for frequency in injection.frequency as! Set<Frequency> {
            
            NotificationManager.removeExistingNotifications(forInjection: injection, snoozedUntil: nil, originalDateDue: nil, frequency: frequency)
            
        }
+        
+        if removeQueued {
             
+            let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchSnoozedForInjection: injection)
             
-        let queueProvider = QueueProvider(storageProvider: StorageProvider.shared, fetchSnoozedForInjection: injection)
-            
-        for id in queueProvider.snapshot!.itemIdentifiers{
+            for id in queueProvider.snapshot!.itemIdentifiers{
                 
-            let queue = queueProvider.object(withObjectID: id)
+                let queue = queueProvider.object(withObjectID: id)
                 
-            let queuedInjection = queue.injection!
+                let queuedInjection = queue.injection!
                 
-            //remove snoozed / queue notifications for this injection
-            NotificationManager.removeExistingNotifications(forInjection: queuedInjection, snoozedUntil: queue.snoozedUntil, originalDateDue: queue.dateDue, frequency: nil)
+                //remove snoozed / queue notifications for this injection
+                NotificationManager.removeExistingNotifications(forInjection: queuedInjection, snoozedUntil: queue.snoozedUntil, originalDateDue: queue.dateDue, frequency: nil)
                 
-            //delete queue object
-            queueProvider.deleteObject(queue)
+                //delete queue object
+                queueProvider.deleteObject(queue)
                 
+            }
         }
         
     }

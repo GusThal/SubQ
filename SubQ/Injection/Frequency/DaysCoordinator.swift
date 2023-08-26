@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FrequencyCoordinator: ModalChildCoordinator{
+class DaysCoordinator: ModalChildCoordinator{
     
     
     weak var parentNavigationController: UINavigationController?
@@ -39,14 +39,14 @@ class FrequencyCoordinator: ModalChildCoordinator{
         
         let selectedDays = viewModel!.frequencies[viewModel!.selectedFrequencyCell].days
         
-        let vc = FrequencyViewController(selectedFrequency: selectedDays)
+        let vc = DaysViewController(selectedFrequency: selectedDays)
         //let vc = FrequencyViewController(selectedFrequency: viewModel!.selectedFrequency)
         vc.coordinator = self
         vc.frequencyCoordinator = self
         
         //navigationController.present(vc, animated: true)
         
-        vc.title = "Frequency"
+        vc.title = "Days"
         
         navigationController.navigationBar.prefersLargeTitles = true
         

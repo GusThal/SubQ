@@ -7,10 +7,10 @@
 
 import UIKit
 
-class FrequencyViewController: UIViewController, Coordinated {
+class DaysViewController: UIViewController, Coordinated {
     
     weak var coordinator: Coordinator?
-    weak var frequencyCoordinator: FrequencyCoordinator?
+    weak var frequencyCoordinator: DaysCoordinator?
     
     private var dataSource: UICollectionViewDiffableDataSource<Int, Frequency.InjectionDay>! = nil
     private var collectionView: UICollectionView! = nil
@@ -104,7 +104,7 @@ class FrequencyViewController: UIViewController, Coordinated {
 
 }
 
-extension FrequencyViewController{
+extension DaysViewController{
     
     private func createLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { [unowned self] section, layoutEnvironment in
@@ -188,7 +188,7 @@ extension FrequencyViewController{
     }
 }
 
-extension FrequencyViewController: UICollectionViewDelegate{
+extension DaysViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let section = indexPath.section
