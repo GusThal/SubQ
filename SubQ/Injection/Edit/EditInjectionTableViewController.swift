@@ -87,7 +87,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     init(viewModel: EditInjectionViewModel){
         self.viewModel = viewModel
         
-        if let injection = viewModel.injection {
+       /* if let injection = viewModel.injection {
             self.viewModel.isAsNeeded = injection.typeVal == .asNeeded ? true : false
             self.viewModel.areNotificationsEnabled = injection.areNotificationsEnabled
             
@@ -103,7 +103,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         else{
             self.viewModel.isAsNeeded = true
             self.viewModel.areNotificationsEnabled = true
-        }
+        }*/
         
         super.init(style: .insetGrouped)
     }

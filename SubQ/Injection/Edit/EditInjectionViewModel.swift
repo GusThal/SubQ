@@ -104,9 +104,17 @@ class EditInjectionViewModel{
             name = injection.name!
             dosage = "\(injection.dosage!)"
             
-            if injection.typeVal != .asNeeded{
-                self.isAsNeeded = false
+            self.isAsNeeded = injection.typeVal == .asNeeded ? true : false
+            self.areNotificationsEnabled = injection.areNotificationsEnabled
+            
+            for frequency in injection.frequency! as! Set<Frequency>{
+                frequencies.append(EditInjectionTableViewController.FrequencyStruct(days: frequency.daysVal, time: frequency.time))
+                
             }
+            
+           /* if injection.typeVal != .asNeeded{
+                self.isAsNeeded = false
+            }*/
             
          /*   if selectedFrequency != [.asNeeded]{
                 areNotificationsEnabled = injection.areNotificationsEnabled
