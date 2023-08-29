@@ -27,15 +27,32 @@ class SectionViewController: UIViewController, Coordinated {
     weak var coordinator: Coordinator?
     weak var sectionCoordinator: SectionCoordinator?
     
+    lazy var customizeButton: UIButton = {
+        var buttonConfig = UIButton.Configuration.plain()
+        buttonConfig.title = "Customize"
+        buttonConfig.baseForegroundColor = .systemBlue
+        
+        let action = UIAction { _ in
+            
+            let controller = self.sectionCoordinator!.navigationController.tabBarController
+            controller!.selectedIndex = 4
+        }
+        
+        return UIButton(configuration: buttonConfig, primaryAction: action)
+        
+    }()
+    
     let footerText = "To customize which body parts are displayed, please head to the Settings tab on the bottom bar."
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .red
-        
+                
         configureHierarchy()
         configureDataSource()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: customizeButton)
         
         viewModel.snapshot
           .sink(receiveValue: { [weak self] snapshot in
