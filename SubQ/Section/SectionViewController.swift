@@ -13,7 +13,6 @@ class SectionViewController: UIViewController, Coordinated {
     
     struct ElementKind{
         static let sectionHeader = "section-header-element-kind"
-        static let layoutFooter = "layout-footer-element-kind"
     }
     
     let enabledBodyParts: [BodyPart.Location] = [.upperArm, .abdomen, .thigh, .buttocks]
@@ -42,8 +41,6 @@ class SectionViewController: UIViewController, Coordinated {
         
     }()
     
-    let footerText = "To customize which body parts are displayed, please head to the Settings tab on the bottom bar."
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,10 +82,6 @@ class SectionViewController: UIViewController, Coordinated {
 extension SectionViewController{
     func createLayout() -> UICollectionViewLayout {
         
-        let layoutFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
-        
-        let layoutFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutFooterSize, elementKind: ElementKind.layoutFooter, alignment: .bottom)
-        
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
             layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
@@ -129,7 +122,6 @@ extension SectionViewController{
             return section
         }
         let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.boundarySupplementaryItems = [layoutFooter]
         layout.configuration = config
         return layout
     }
@@ -178,11 +170,7 @@ extension SectionViewController {
             supplementaryView.layer.borderColor = UIColor.black.cgColor
             supplementaryView.layer.borderWidth = 1.0*/
         }
-        
-        let layoutFooterRegistration = UICollectionView.SupplementaryRegistration<TextSupplementaryView>(elementKind: ElementKind.layoutFooter) { supplementaryView, elementKind, indexPath in
-            
-            supplementaryView.label.text = self.footerText
-        }
+
         
         dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: NSManagedObjectID) -> UICollectionViewCell? in
@@ -192,18 +180,7 @@ extension SectionViewController {
         }
         
         dataSource.supplementaryViewProvider = { (view, kind, index) in
-            
-            
-            //footer for the layout as a whole
-            if index.count == 1{
-                return self.collectionView.dequeueConfiguredReusableSupplementary(
-                    using: layoutFooterRegistration, for: index)
-            }
-            else{
-                return self.collectionView.dequeueConfiguredReusableSupplementary(
-                    using: headerRegistration, for: index)
-            }
-            
+            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
         }
 
         // initial data
