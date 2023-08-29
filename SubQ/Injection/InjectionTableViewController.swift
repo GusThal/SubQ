@@ -62,11 +62,15 @@ class InjectionTableViewController: UIViewController, Coordinated {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+    
         
         setBarButtons()
         
         configureHierarchy()
         configureDataSource()
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
         
         viewModel.snapshot
           .sink(receiveValue: { [weak self] snapshot in
@@ -79,7 +83,7 @@ class InjectionTableViewController: UIViewController, Coordinated {
                 }
                 
               self?.dataSource.apply(snapshot, animatingDifferences: true)
-                self?.tableView.reloadData()
+                //self?.tableView.reloadData()
             }
           })
           .store(in: &cancellables)
@@ -139,7 +143,7 @@ extension InjectionTableViewController{
         tableView = UITableView(frame: view.bounds, style: .insetGrouped)
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(InjectionTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
        // tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -159,15 +163,15 @@ extension InjectionTableViewController{
             
             let injection = self.viewModel.object(at: indexPath)
             
-           /* let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InjectionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InjectionTableViewCell
             
-            cell.setInjection(injection)*/
+            cell.setInjection(injection)
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+           // let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
             
             cell.accessoryView = nil
             
-            var content = cell.defaultContentConfiguration()
+           /* var content = cell.defaultContentConfiguration()
             
             content.text = injection.descriptionString
             
@@ -182,7 +186,7 @@ extension InjectionTableViewController{
                  content.secondaryTextProperties.color = .label
              }
             
-            cell.contentConfiguration = content
+            cell.contentConfiguration = content*/
             
             if injection.typeVal == .scheduled {
                 cell.accessoryView = self.createNotificationSwitchAccessoryView(forInjection: injection)

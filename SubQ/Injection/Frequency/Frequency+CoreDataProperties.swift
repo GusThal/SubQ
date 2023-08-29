@@ -72,6 +72,17 @@ extension Frequency {
             return shortened.joined(separator: ", ")
         }
     }
+    
+    var scheduledString: String{
+                
+        var str = self.shortenedDayString
+        str.append(" | \(self.time!.prettyTime)")
+            
+            
+        return str
+        
+        
+    }
 
 }
 
