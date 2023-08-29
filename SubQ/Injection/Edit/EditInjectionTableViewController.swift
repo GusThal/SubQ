@@ -81,6 +81,11 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         tableView.register(CenteredTextTableViewCell.self, forCellReuseIdentifier: centeredTextReuseIdentifier)
         tableView.register(TimePickerTableViewCell.self, forCellReuseIdentifier: timePickerCellReuseIdentifier)
         
+        //https://kaushalelsewhere.medium.com/how-to-dismiss-keyboard-in-a-view-controller-of-ios-3b1bfe973ad1
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
         bindVariables()
         
         
