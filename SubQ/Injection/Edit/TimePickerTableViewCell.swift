@@ -2,7 +2,7 @@
 //  TimePickerTableViewCell.swift
 //  SubQ
 //
-//  Created by Constantine Thalasinos on 5/18/23.
+//  Created by Constantine Thalasinos on 8/27/23.
 //
 
 import UIKit
@@ -10,20 +10,20 @@ import SnapKit
 
 class TimePickerTableViewCell: UITableViewCell {
     
-    let picker: UIDatePicker = {
+    let timePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .time
         picker.preferredDatePickerStyle = .wheels
-        
-        return picker
-    }()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+    
+         return picker
+     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(picker)
-        
-        picker.snp.makeConstraints { make in
+        contentView.addSubview(timePicker)
+        timePicker.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
@@ -32,6 +32,7 @@ class TimePickerTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -41,6 +42,10 @@ class TimePickerTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        self.timePicker.date = Date()
     }
 
 }

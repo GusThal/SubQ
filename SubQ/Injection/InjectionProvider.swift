@@ -86,7 +86,7 @@ class InjectionProvider: NSObject{
     }
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencySectionData], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
         var savedFrequencies = [Frequency]()
@@ -95,10 +95,13 @@ class InjectionProvider: NSObject{
            
             for frequency in frequencies {
                 
-                let obj = Frequency(context: persistentContainer.viewContext)
-                obj.days = frequency.days!.map({ $0.rawValue }).joined(separator: ", ")
-                obj.time = frequency.time
-                savedFrequencies.append(obj)
+                if !frequency.isTimePickerCell {
+                    
+                    let obj = Frequency(context: persistentContainer.viewContext)
+                    obj.days = frequency.days!.map({ $0.rawValue }).joined(separator: ", ")
+                    obj.time = frequency.time
+                    savedFrequencies.append(obj)
+                }
             }
         }
     
@@ -151,7 +154,7 @@ class InjectionProvider: NSObject{
     }
     
     @discardableResult
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencySectionData], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
         let persistentContainer = storageProvider.persistentContainer
         
@@ -171,10 +174,13 @@ class InjectionProvider: NSObject{
             
             for frequency in frequencies {
                 
-                let obj = Frequency(context: persistentContainer.viewContext)
-                obj.days = frequency.days!.map({ $0.rawValue }).joined(separator: ", ")
-                obj.time = frequency.time
-                savedFrequencies.append(obj)
+                if !frequency.isTimePickerCell {
+                    
+                    let obj = Frequency(context: persistentContainer.viewContext)
+                    obj.days = frequency.days!.map({ $0.rawValue }).joined(separator: ", ")
+                    obj.time = frequency.time
+                    savedFrequencies.append(obj)
+                }
             }
         }
         

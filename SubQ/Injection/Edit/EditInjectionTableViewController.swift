@@ -33,6 +33,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     let centeredTextReuseIdentifier = "centeredTextReuseIdentifier"
     
+    let timePickerCellReuseIdentifier = "timePickerCellReuseIdentifier"
+    
     let allUnitsCases = Injection.DosageUnits.allCases
     
     lazy var nameAction: UIAction = {
@@ -75,6 +77,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: defaultReuseIdentifier)
         tableView.register(FrequencyTableViewCell.self, forCellReuseIdentifier: frequencyReuseIdentifier)
         tableView.register(CenteredTextTableViewCell.self, forCellReuseIdentifier: centeredTextReuseIdentifier)
+        tableView.register(TimePickerTableViewCell.self, forCellReuseIdentifier: timePickerCellReuseIdentifier)
         
         bindVariables()
         
@@ -121,7 +124,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 
                 if !self.viewModel.isAsNeeded{
                     
-                    let indexPath = IndexPath(row: self.viewModel.selectedFrequencyCell, section: 2)
+                    let indexPath = IndexPath(row: self.viewModel.selectedDayCellIndex, section: 2)
                     
                     if let frequencyCell = self.tableView.cellForRow(at: indexPath) as? FrequencyTableViewCell{
                         frequencyCell.daysButtonTitle = day
@@ -324,7 +327,15 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         if !viewModel.isAsNeeded{
             //the frequency section
             if section == 2{
-                return viewModel.frequencies.count + 1
+                
+                var count = viewModel.frequencies.count + 1
+                
+                //not needed anymore since we're adding the time cell to the frequency obj
+               /* if let _ = viewModel.selectedTimeCellIndex {
+                    count += 1
+                }*/
+                
+                return count
             }
             //the notification switch
             else if section == 3{
@@ -441,7 +452,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
            let action = UIAction { _ in
                self.viewModel.isAsNeeded = switchView.isOn
                print("is as needed \(self.viewModel.isAsNeeded)")
-               self.viewModel.frequencies = [FrequencyStruct]()
+               self.viewModel.frequencies = [FrequencySectionData]()
                
                self.tableView.reloadData()
            }
@@ -458,6 +469,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             //frequency
             if !viewModel.isAsNeeded {
                 
+                
                 if row == tableView.numberOfRows(inSection: section) - 1 {
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: defaultReuseIdentifier, for: indexPath)
@@ -470,6 +482,27 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     
                     return cell
                 }
+                
+                else if let selectedRow = viewModel.selectedTimeCellIndex, selectedRow + 1 == row {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: timePickerCellReuseIdentifier, for: indexPath) as! TimePickerTableViewCell
+                    //add an action to the picker
+                    
+                    let selectedCell = tableView.cellForRow(at: IndexPath(row: viewModel.selectedTimeCellIndex!, section: 2)) as! FrequencyTableViewCell
+                    
+                    cell.timePicker.date = selectedCell.selectedTime
+                    
+                    let timePickerAction = UIAction { _ in
+                        let row = tableView.indexPath(for: cell)!.row - 1
+                        let frequencyCell = tableView.cellForRow(at: IndexPath(row: row, section: 2)) as! FrequencyTableViewCell
+                        frequencyCell.selectedTime = cell.timePicker.date
+                        self.viewModel.frequencies[row].time = cell.timePicker.date
+                    }
+                    
+                    cell.timePicker.addAction(timePickerAction, for: .primaryActionTriggered)
+                    
+                    return cell
+                }
+                
                 else{
                     let cell = tableView.dequeueReusableCell(withIdentifier: frequencyReuseIdentifier, for: indexPath) as! FrequencyTableViewCell
                     
@@ -480,22 +513,88 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                             cell.daysButtonTitle =  days.count == 1 ? days[0].shortened : days.map({ $0.shortened }).joined(separator: ", ")
                         }
                         
+                        if let time = viewModel.frequencies[row].time {
+                            cell.selectedTime = time
+                        }
                         
-                        cell.timePicker.date = viewModel.frequencies[row].time!
+                        
+                       // cell.timePicker.date = viewModel.frequencies[row].time!
                         
                     }
                     
                     let dayButtonAction = UIAction { _ in
                         let row = tableView.indexPath(for: cell)!.row
                         
-                        self.viewModel.selectedFrequencyCell = row
+                        self.viewModel.selectedDayCellIndex = row
                         self.editCoordinator?.showFrequencyController()
                         
                     }
                     
                     cell.daysButton.addAction(dayButtonAction, for: .primaryActionTriggered)
                     
-                    let timePickerAction = UIAction { _ in
+                    let timeButtonAction = UIAction { _ in
+                        let row = tableView.indexPath(for: cell)!.row
+                        
+                        print(row)
+                        print(self.viewModel.selectedTimeCellIndex)
+                        
+                        
+                        //dismiss datepicker cell if the same cell is clicked
+                       if let previouslySelectedRow = self.viewModel.selectedTimeCellIndex {
+                           
+                           print("uh?")
+                           
+                           if previouslySelectedRow == row {
+                               
+                               let path = IndexPath(row: row + 1, section: 2)
+                               
+                               self.viewModel.selectedTimeCellIndex = nil
+                               
+                               self.viewModel.frequencies.remove(at: path.row)
+                               
+                               tableView.deleteRows(at: [path], with: .automatic)
+                           } else {
+                               
+                               
+                               let deletePath = IndexPath(row: previouslySelectedRow + 1, section: 2)
+                               
+                               self.viewModel.selectedTimeCellIndex = nil
+                               
+                               self.viewModel.frequencies.remove(at: deletePath.row)
+                               
+                               tableView.deleteRows(at: [deletePath], with: .automatic)
+                               
+                               let rowAfterDelete = tableView.indexPath(for: cell)!.row
+                               
+                               self.viewModel.selectedTimeCellIndex = rowAfterDelete
+                               
+                               self.insertTimePickerRow(afterRow: rowAfterDelete, section: 2)
+                               
+                               //self.viewModel.selectedTimeCellIndex = row - 1
+                               
+                               //self.insertTimePickerRow(afterRow: row - 1, section: 2)
+                               
+                               
+                           }
+                        }
+                        
+                        else {
+                            print("glorp")
+                            self.viewModel.selectedTimeCellIndex = row
+                            
+                            self.insertTimePickerRow(afterRow: row, section: 2)
+                        }
+                        
+                        print(row)
+                    }
+                    
+                    
+                    
+                    cell.timeButton.addAction(timeButtonAction, for: .primaryActionTriggered)
+                    
+                    
+                    
+                   /* let timePickerAction = UIAction { _ in
                         let index = tableView.indexPath(for: cell)!.row
                         
                         self.viewModel.frequencies[index].time = cell.timePicker.date
@@ -503,7 +602,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                         //print(cell.timePicker.date)
                     }
                     
-                    cell.timePicker.addAction(timePickerAction, for: .primaryActionTriggered)
+                    cell.timePicker.addAction(timePickerAction, for: .primaryActionTriggered)*/
                     
                     return cell
                 }
@@ -590,12 +689,18 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        if !viewModel.isAsNeeded && indexPath.section == 2{
-            //frequency section
+        //frequency section
+        if !viewModel.isAsNeeded && indexPath.section == 2 {
+            
+            if let index = viewModel.selectedTimeCellIndex {
+                if index + 1 == indexPath.row {
+                    return false
+                }
+            }
+            
             return true
-        }
-        else{
+            
+        } else {
             return false
         }
         
@@ -624,19 +729,41 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 insertFrequencyRow(section: section)
                 
             } else {
+                
+                var pathsToDelete = [indexPath]
+                
+                if let timeCellIndex = viewModel.selectedTimeCellIndex {
+                    pathsToDelete.append(IndexPath(row: row + 1, section: section))
+                    viewModel.frequencies.remove(at: row + 1)
+                    viewModel.selectedTimeCellIndex = nil
+                }
+                
                 viewModel.frequencies.remove(at: row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                tableView.deleteRows(at: pathsToDelete, with: .automatic)
             }
             
         }
-        print(viewModel.frequencies)
+       // print(viewModel.frequencies)
         
         
     }
     
     func insertFrequencyRow(section: Int){
-        viewModel.frequencies.append(FrequencyStruct(time: Date()))
-        tableView.insertRows(at: [IndexPath(row: viewModel.frequencies.count-1, section: section)], with: .automatic)
+        viewModel.frequencies.append(FrequencySectionData(isTimePickerCell: false, time: Date()))
+        
+        let row = tableView.numberOfRows(inSection: 2)
+        
+        tableView.insertRows(at: [IndexPath(row: row - 1, section: section)], with: .automatic)
+    }
+    
+    func insertTimePickerRow(afterRow row: Int, section: Int) {
+        
+        viewModel.frequencies.insert(FrequencySectionData(isTimePickerCell: true), at: row + 1)
+        
+        let path = IndexPath(row: row + 1, section: section)
+        
+        tableView.insertRows(at: [path], with: .automatic)
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -673,7 +800,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
 
 extension EditInjectionTableViewController{
     
-    struct FrequencyStruct{
+    struct FrequencySectionData{
+        var isTimePickerCell: Bool
         var days: [Frequency.InjectionDay]?
         var time: Date?
     }

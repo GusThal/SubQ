@@ -35,9 +35,9 @@ class DaysCoordinator: ModalChildCoordinator{
     
     func start() {
         
-        print(viewModel!.selectedFrequencyCell)
+        print(viewModel!.selectedDayCellIndex)
         
-        let selectedDays = viewModel!.frequencies[viewModel!.selectedFrequencyCell].days
+        let selectedDays = viewModel!.frequencies[viewModel!.selectedDayCellIndex].days
         
         let vc = DaysViewController(selectedFrequency: selectedDays)
         //let vc = FrequencyViewController(selectedFrequency: viewModel!.selectedFrequency)
@@ -72,7 +72,7 @@ class DaysCoordinator: ModalChildCoordinator{
            // viewModel.currentValueFrequency.value = [.daily]
            // viewModel.selectedFrequency = [.daily]
             
-            viewModel.frequencies[viewModel.selectedFrequencyCell].days = [.daily]
+            viewModel.frequencies[viewModel.selectedDayCellIndex].days = [.daily]
             viewModel.currentValueSelectedDay.value = [.daily]
         }
       /*  else if isAsNeededSelected{
@@ -80,7 +80,7 @@ class DaysCoordinator: ModalChildCoordinator{
             viewModel.selectedFrequency = [.asNeeded]
         }*/
         else{
-            viewModel.frequencies[viewModel.selectedFrequencyCell].days = []
+            viewModel.frequencies[viewModel.selectedDayCellIndex].days = []
             viewModel.currentValueSelectedDay.value = []
             //viewModel.currentValueFrequency.value = []
             //viewModel.selectedFrequency = []
@@ -88,7 +88,7 @@ class DaysCoordinator: ModalChildCoordinator{
             for (i, day) in viewModel.days.enumerated(){
                 
                 if selectedDays[i]{
-                    viewModel.frequencies[viewModel.selectedFrequencyCell].days?.append(day)
+                    viewModel.frequencies[viewModel.selectedDayCellIndex].days?.append(day)
                     viewModel.currentValueSelectedDay.value.append(day)
                     //viewModel.currentValueFrequency.value.append(day)
                     //viewModel.selectedFrequency.append(day)

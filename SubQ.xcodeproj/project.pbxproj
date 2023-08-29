@@ -12,6 +12,7 @@
 		CC1356E12A2F7CC10073431B /* BodyPartProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1356E02A2F7CC10073431B /* BodyPartProvider.swift */; };
 		CC1356E32A2F8F1A0073431B /* BodyPartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1356E22A2F8F1A0073431B /* BodyPartViewModel.swift */; };
 		CC1A7CC82A9795C700F748EB /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A7CC72A9795C700F748EB /* HistoryTableViewController.swift */; };
+		CC1A7CCA2A9BF12000F748EB /* TimePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A7CC92A9BF12000F748EB /* TimePickerTableViewCell.swift */; };
 		CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */; };
 		CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */; };
 		CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD5F2A23ECB700C20CAB /* BodyPart+CoreDataClass.swift */; };
@@ -59,7 +60,6 @@
 		CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */; };
 		CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */; };
 		CCBCE21F2A1524D7001B73D6 /* SiteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */; };
-		CCBCE2242A16F10E001B73D6 /* TimePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2232A16F10E001B73D6 /* TimePickerTableViewCell.swift */; };
 		CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */; };
 		CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */; };
 		CCBCE22A2A17CD62001B73D6 /* TimePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2292A17CD62001B73D6 /* TimePickerCollectionViewCell.swift */; };
@@ -102,6 +102,7 @@
 		CC1356E02A2F7CC10073431B /* BodyPartProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartProvider.swift; sourceTree = "<group>"; };
 		CC1356E22A2F8F1A0073431B /* BodyPartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartViewModel.swift; sourceTree = "<group>"; };
 		CC1A7CC72A9795C700F748EB /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		CC1A7CC92A9BF12000F748EB /* TimePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerTableViewCell.swift; sourceTree = "<group>"; };
 		CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProvider.swift; sourceTree = "<group>"; };
 		CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Shared.swift"; sourceTree = "<group>"; };
 		CC31CD5F2A23ECB700C20CAB /* BodyPart+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BodyPart+CoreDataClass.swift"; path = "SubQ/BodyPart/BodyPart+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -151,7 +152,6 @@
 		CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSupplementaryView.swift; sourceTree = "<group>"; };
 		CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteViewController.swift; sourceTree = "<group>"; };
 		CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCoordinator.swift; sourceTree = "<group>"; };
-		CCBCE2232A16F10E001B73D6 /* TimePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerTableViewCell.swift; sourceTree = "<group>"; };
 		CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionViewController.swift; sourceTree = "<group>"; };
 		CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCBCE2292A17CD62001B73D6 /* TimePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -285,6 +285,7 @@
 				CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */,
 				CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */,
 				CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */,
+				CC1A7CC92A9BF12000F748EB /* TimePickerTableViewCell.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -418,7 +419,6 @@
 			children = (
 				CCA9802D2A281A5A00BF518C /* TimePickerCell */,
 				CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */,
-				CCBCE2232A16F10E001B73D6 /* TimePickerTableViewCell.swift */,
 				CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */,
 				CCBCE2332A1A7077001B73D6 /* CenteredTextLabelCell.swift */,
 				CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */,
@@ -537,7 +537,6 @@
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */,
 				CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */,
-				CCBCE2242A16F10E001B73D6 /* TimePickerTableViewCell.swift in Sources */,
 				CC1A7CC82A9795C700F748EB /* HistoryTableViewController.swift in Sources */,
 				CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */,
 				CC7762EE2A69EFB400AEC489 /* SelectInjectionCoordinator.swift in Sources */,
@@ -552,6 +551,7 @@
 				CCE943802A01B23B00514710 /* Coordinator.swift in Sources */,
 				CC57389E2A34CA38000257E0 /* SectionProvider.swift in Sources */,
 				CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */,
+				CC1A7CCA2A9BF12000F748EB /* TimePickerTableViewCell.swift in Sources */,
 				CC31CD6C2A23ECB700C20CAB /* History+CoreDataProperties.swift in Sources */,
 				CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */,
 				CC31CD6A2A23ECB700C20CAB /* Injection+CoreDataProperties.swift in Sources */,

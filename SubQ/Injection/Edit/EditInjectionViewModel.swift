@@ -18,9 +18,15 @@ class EditInjectionViewModel{
     
     let days = Frequency.InjectionDay.allCases.filter { Frequency.InjectionDay.daily != $0 }
     
-    @Published var frequencies = [EditInjectionTableViewController.FrequencyStruct]()
+    @Published var frequencies = [EditInjectionTableViewController.FrequencySectionData]() {
+        didSet {
+            print(frequencies)
+        }
+    }
     
-    var selectedFrequencyCell = 0
+    var selectedDayCellIndex = 0
+    
+    var selectedTimeCellIndex: Int? = nil
     
    // @Published var selectedFrequency = [Injection.Frequency]()
     
@@ -108,7 +114,7 @@ class EditInjectionViewModel{
             self.areNotificationsEnabled = injection.areNotificationsEnabled
             
             for frequency in injection.frequency! as! Set<Frequency>{
-                frequencies.append(EditInjectionTableViewController.FrequencyStruct(days: frequency.daysVal, time: frequency.time))
+                frequencies.append(EditInjectionTableViewController.FrequencySectionData(isTimePickerCell: false, days: frequency.daysVal, time: frequency.time))
                 
             }
             
@@ -129,9 +135,9 @@ class EditInjectionViewModel{
         }
     }
     
-    func areFrequenciesValid(frequencies: [EditInjectionTableViewController.FrequencyStruct]) -> Bool{
+    func areFrequenciesValid(frequencies: [EditInjectionTableViewController.FrequencySectionData]) -> Bool{
         
-        print("are frequncies valid  \(frequencies)")
+       // print("are frequncies valid  \(frequencies)")
         
         var validFrequencies = [Bool]()
         
@@ -146,10 +152,12 @@ class EditInjectionViewModel{
             else{
                 
                 for frequency in frequencies {
-                    if frequency.days != nil && frequency.time != nil {
+                    
+                    if frequency.isTimePickerCell {
                         validFrequencies.append(true)
-                    }
-                    else{
+                    } else if frequency.days != nil && frequency.time != nil {
+                        validFrequencies.append(true)
+                    } else {
                         validFrequencies.append(false)
                     }
                 }
@@ -169,14 +177,14 @@ class EditInjectionViewModel{
     
     
     @discardableResult
-    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
+    func saveInjection(name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencySectionData], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
         return injectionProvider.saveInjection(name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: areNotificationsEnabled, isAsNeeded: isAsNeeded)
         
         
     }
     @discardableResult
-    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencyStruct], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
+    func updateInjection(injection: Injection, name: String, dosage: Double, units: Injection.DosageUnits, frequencies: [EditInjectionTableViewController.FrequencySectionData], areNotificationsEnabled: Bool, isAsNeeded: Bool) -> Injection {
         
         return injectionProvider.updateInjection(injection: injection, name: name, dosage: dosage, units: units, frequencies: frequencies, areNotificationsEnabled: areNotificationsEnabled, isAsNeeded: isAsNeeded)
         

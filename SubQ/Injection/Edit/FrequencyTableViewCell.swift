@@ -10,7 +10,7 @@ import SnapKit
 
 class FrequencyTableViewCell: UITableViewCell {
     
-    let timePicker: UIDatePicker = {
+  /*  let timePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .time
         picker.preferredDatePickerStyle = .inline
@@ -21,11 +21,17 @@ class FrequencyTableViewCell: UITableViewCell {
         picker.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         return picker
-    }()
+    }()*/
     
     var daysButtonTitle: String?{
         didSet{
             daysButton.setNeedsUpdateConfiguration()
+        }
+    }
+    
+    var selectedTime: Date = Date() {
+        didSet {
+            timeButton.setNeedsUpdateConfiguration()
         }
     }
     
@@ -65,8 +71,30 @@ class FrequencyTableViewCell: UITableViewCell {
         return button
     }()
     
+    lazy var timeButton: UIButton = {
+        let action = UIAction { _ in
+            
+        }
+        
+        let button = UIButton(primaryAction: action)
+        
+        button.configurationUpdateHandler = { [unowned self] button in
+            
+            var config: UIButton.Configuration!
+            config = UIButton.Configuration.gray()
+            config.baseForegroundColor = .black
+            
+            config.title = selectedTime.prettyTime
+            
+            button.configuration = config
+        }
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [daysButton, timePicker])
+        let stackView = UIStackView(arrangedSubviews: [daysButton, timeButton])
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillProportionally
@@ -116,7 +144,17 @@ class FrequencyTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         daysButtonTitle = nil
-        timePicker.date = Date()
+        selectedTime = Date()
+        
+        timeButton.enumerateEventHandlers { action, selector, event, stop in
+            if event == .primaryActionTriggered {
+                if let action {
+                    timeButton.removeAction(action, for: .primaryActionTriggered)
+                }
+               
+            }
+        }
+        
     }
 
 }
