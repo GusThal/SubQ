@@ -68,8 +68,10 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
         
-        self.tableView.isEditing = true
-        self.tableView.allowsSelectionDuringEditing = true
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
+        tableView.isEditing = true
+        tableView.allowsSelectionDuringEditing = true
         
         
         
@@ -552,7 +554,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                                
                                self.viewModel.frequencies.remove(at: path.row)
                                
-                               tableView.deleteRows(at: [path], with: .automatic)
+                               tableView.deleteRows(at: [path], with: .fade)
                            } else {
                                
                                
@@ -562,7 +564,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                                
                                self.viewModel.frequencies.remove(at: deletePath.row)
                                
-                               tableView.deleteRows(at: [deletePath], with: .automatic)
+                               tableView.deleteRows(at: [deletePath], with: .fade)
                                
                                let rowAfterDelete = tableView.indexPath(for: cell)!.row
                                
@@ -749,6 +751,17 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         
     }
     
+  /*  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 2 {
+            if let selected = viewModel.selectedTimeCellIndex {
+                if indexPath.row == selected + 1 {
+                    return 216
+                }
+            }
+        }
+        return 44
+    }*/
+    
     func insertFrequencyRow(section: Int){
         viewModel.frequencies.append(FrequencySectionData(isTimePickerCell: false, time: Date()))
         
@@ -763,7 +776,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         
         let path = IndexPath(row: row + 1, section: section)
         
-        tableView.insertRows(at: [path], with: .automatic)
+        tableView.insertRows(at: [path], with: .fade)
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

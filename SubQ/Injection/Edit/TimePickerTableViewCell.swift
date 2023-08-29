@@ -24,7 +24,7 @@ class TimePickerTableViewCell: UITableViewCell {
         
         contentView.addSubview(timePicker)
         timePicker.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
     
@@ -46,6 +46,15 @@ class TimePickerTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.timePicker.date = Date()
+        
+        timePicker.enumerateEventHandlers { action, selector, event, stop in
+            if event == .primaryActionTriggered {
+                if let action {
+                    timePicker.removeAction(action, for: .primaryActionTriggered)
+                }
+               
+            }
+        }
     }
 
 }
