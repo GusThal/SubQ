@@ -21,8 +21,8 @@ class FilterTableViewController: UITableViewController, Coordinated {
         self.filterCoordinator?.dismiss()
     }
     
-    enum Section: Int{
-        case sort, status, date
+    enum Section: Int, CaseIterable{
+        case sort, status, type, date
     }
     
     let dateCellIdentifier = "dateCellReuseIdentifier"
@@ -31,6 +31,7 @@ class FilterTableViewController: UITableViewController, Coordinated {
     
     lazy var dateSegmentedControl = UISegmentedControl()
     lazy var statusSegmentedControl = UISegmentedControl()
+    lazy var typeSegmentedControl = UISegmentedControl()
     lazy var startDatePicker = UIDatePicker()
     lazy var endDatePicker = UIDatePicker()
     
@@ -102,7 +103,7 @@ class FilterTableViewController: UITableViewController, Coordinated {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return Section.allCases.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,7 +115,9 @@ class FilterTableViewController: UITableViewController, Coordinated {
             return 1
         } else if sectionVal == .status{
             return 1
-        } else{
+        } else if sectionVal == .type {
+            return 1
+        } else {
            return 1
         }
         
@@ -128,6 +131,8 @@ class FilterTableViewController: UITableViewController, Coordinated {
             return("Sort By")
         } else if sectionVal == .status{
             return("Status")
+        } else if sectionVal == .type {
+            return("Type")
         } else{
             return("Dates Between")
         }
@@ -167,7 +172,19 @@ class FilterTableViewController: UITableViewController, Coordinated {
             
             return cell
             
-        } else{
+        } else if sectionVal == .type {
+            let cell = tableView.dequeueReusableCell(withIdentifier: segmentedCellIdentifier, for: indexPath) as! SegmentedTableViewCell
+            
+            let allCases = Injection.InjectionType.allCases
+            
+            cell.createSegmentedControl(withItems: allCases.map({ $0.rawValue }))
+            
+            cell.segmentedControl.selectedSegmentIndex = allCases.firstIndex(of: viewModel.selectedType)!
+            
+            typeSegmentedControl = cell.segmentedControl
+            
+            return cell
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as! DateRangeTableViewCell
             
             startDatePicker = cell.startDatePicker
@@ -218,8 +235,12 @@ class FilterTableViewController: UITableViewController, Coordinated {
                 
                 let status = History.InjectStatus(rawValue: statusString!)!
                 
+                let typeString = self.typeSegmentedControl.titleForSegment(at: self.typeSegmentedControl.selectedSegmentIndex)
                 
-                self.filterCoordinator?.applyFilters(sortDateBy: dateSorting, status: status, startDate: self.startDatePicker.date, endDate: self.endDatePicker.date)
+                let type = Injection.InjectionType(rawValue: typeString!)!
+                
+                
+                self.filterCoordinator?.applyFilters(sortDateBy: dateSorting, status: status, type: type, startDate: self.startDatePicker.date, endDate: self.endDatePicker.date)
                 
                 
             }

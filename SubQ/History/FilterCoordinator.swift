@@ -45,8 +45,12 @@ class FilterCoordinator: ModalChildCoordinator{
        
         vc.title = "Filter"
         
+        //custom detent logic via https://nemecek.be/blog/159/how-to-configure-uikit-bottom-sheet-with-custom-size
+        
         if let presentationController = navigationController.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium(), .large()]
+            presentationController.detents = [.custom(resolver: { context in
+                return context.maximumDetentValue * 0.7
+            }), .large()]
             presentationController.prefersScrollingExpandsWhenScrolledToEdge = false
         }
         
@@ -56,9 +60,9 @@ class FilterCoordinator: ModalChildCoordinator{
         parentNavigationController!.present(navigationController, animated: true)
     }
     
-    func applyFilters(sortDateBy: HistoryViewModel.DateSorting, status: History.InjectStatus, startDate: Date, endDate: Date){
+    func applyFilters(sortDateBy: HistoryViewModel.DateSorting, status: History.InjectStatus, type: Injection.InjectionType, startDate: Date, endDate: Date){
         
-        viewModel.applyFilters(sortDateBy: sortDateBy, status: status, startDate: startDate, endDate: endDate)
+        viewModel.applyFilters(sortDateBy: sortDateBy, status: status, type: type, startDate: startDate, endDate: endDate)
         
         dismiss()
     }

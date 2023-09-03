@@ -26,7 +26,7 @@ extension Injection {
     }
     
     enum InjectionType: String, CaseIterable{
-        case asNeeded = "As Needed", scheduled = "Scheduled"
+        case all = "All", asNeeded = "As Needed", scheduled = "Scheduled"
     }
     
 

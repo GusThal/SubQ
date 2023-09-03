@@ -154,7 +154,7 @@ class HistoryProvider: NSObject{
         
     }
     
-    func applyFilters(dateSorting: HistoryViewModel.DateSorting, status: History.InjectStatus, startDate: Date, endDate: Date){
+    func applyFilters(dateSorting: HistoryViewModel.DateSorting, status: History.InjectStatus, type: Injection.InjectionType, startDate: Date, endDate: Date){
         
         var predicates = [NSPredicate]()
         
@@ -165,8 +165,13 @@ class HistoryProvider: NSObject{
             fetchedResultsController?.fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: true)]
         }
         
-        if status == .injected || status == .skipped{
+        if status == .injected || status == .skipped {
             let predicate = NSPredicate(format: "%K == %@", #keyPath(History.status), status.rawValue)
+            predicates.append(predicate)
+        }
+        
+        if type == .asNeeded || type == .scheduled {
+            let predicate = NSPredicate(format: "%K == %@", #keyPath(History.injection.type), type.rawValue)
             predicates.append(predicate)
         }
         
