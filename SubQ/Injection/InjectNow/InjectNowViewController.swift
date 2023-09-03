@@ -141,7 +141,10 @@ class InjectNowViewController: UIViewController, Coordinated {
             }
             
             config.imagePlacement = .trailing
-            config.image = UIImage(systemName: "chevron.down")
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 10)
+            config.image = UIImage(systemName: "chevron.down", withConfiguration: imageConfig)
+            
+
             button.configuration = config
         }
 

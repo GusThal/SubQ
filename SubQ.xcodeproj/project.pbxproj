@@ -13,6 +13,8 @@
 		CC1356E32A2F8F1A0073431B /* BodyPartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1356E22A2F8F1A0073431B /* BodyPartViewModel.swift */; };
 		CC1A7CC82A9795C700F748EB /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A7CC72A9795C700F748EB /* HistoryTableViewController.swift */; };
 		CC1A7CCA2A9BF12000F748EB /* TimePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A7CC92A9BF12000F748EB /* TimePickerTableViewCell.swift */; };
+		CC1A7CCC2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */; };
+		CC1A7CCE2AA288B300F748EB /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A7CCD2AA288B300F748EB /* HistoryTableViewCell.swift */; };
 		CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */; };
 		CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */; };
 		CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD5F2A23ECB700C20CAB /* BodyPart+CoreDataClass.swift */; };
@@ -103,6 +105,8 @@
 		CC1356E22A2F8F1A0073431B /* BodyPartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartViewModel.swift; sourceTree = "<group>"; };
 		CC1A7CC72A9795C700F748EB /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		CC1A7CC92A9BF12000F748EB /* TimePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerTableViewCell.swift; sourceTree = "<group>"; };
+		CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		CC1A7CCD2AA288B300F748EB /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProvider.swift; sourceTree = "<group>"; };
 		CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Shared.swift"; sourceTree = "<group>"; };
 		CC31CD5F2A23ECB700C20CAB /* BodyPart+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BodyPart+CoreDataClass.swift"; path = "SubQ/BodyPart/BodyPart+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -271,6 +275,7 @@
 				CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */,
 				CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */,
 				CC7762F32A7C10A600AEC489 /* FilterCoordinator.swift */,
+				CC1A7CCD2AA288B300F748EB /* HistoryTableViewCell.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */,
 				CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */,
 				CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */,
+				CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -525,6 +531,7 @@
 				CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
 				CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */,
+				CC1A7CCE2AA288B300F748EB /* HistoryTableViewCell.swift in Sources */,
 				CC4AF1C22A8E8A67000FC22A /* Frequency+CoreDataProperties.swift in Sources */,
 				CC1356E12A2F7CC10073431B /* BodyPartProvider.swift in Sources */,
 				CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */,
@@ -576,6 +583,7 @@
 				CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */,
 				CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
+				CC1A7CCC2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift in Sources */,
 				CC4AF1CE2A926BE4000FC22A /* CenteredTextTableViewCell.swift in Sources */,
 				CC1356E32A2F8F1A0073431B /* BodyPartViewModel.swift in Sources */,
 				CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */,

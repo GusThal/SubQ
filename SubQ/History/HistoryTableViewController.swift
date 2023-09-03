@@ -107,7 +107,7 @@ class HistoryTableViewController: UIViewController, Coordinated {
                 }*/
                 
                 self?.dataSource.apply(snapshot, animatingDifferences: true)
-                self?.tableView.reloadData()
+               // self?.tableView.reloadData()
             }
           })
           .store(in: &cancellables)
@@ -182,7 +182,7 @@ extension HistoryTableViewController {
         tableView = UITableView(frame: view.bounds, style: .insetGrouped)
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
        // tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -196,20 +196,21 @@ extension HistoryTableViewController {
     
     private func configureDataSource() {
         
-        dataSource = HistoryDataSource(tableView: tableView) { (tableView, indexPath, injectionId) -> UITableViewCell? in
+        dataSource = HistoryDataSource(tableView: tableView) { (tableView, indexPath, injectionId) -> HistoryTableViewCell? in
         
             
              let history = self.viewModel.object(at: indexPath)
             
             guard let injection = history.injection else { return nil }
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! HistoryTableViewCell
+            cell.setHistory(history)
             
-            var content = cell.defaultContentConfiguration()
+            /*var content = cell.defaultContentConfiguration()
             content.text = "\(history.date!.fullDateTime): \(injection.descriptionString) | \(history.status!)"
             content.secondaryText = "Due: \(history.dueDate!) | Scheduled: \(injection.scheduledString)"
             
-            cell.contentConfiguration = content
+            cell.contentConfiguration = content*/
     
             return cell
         }

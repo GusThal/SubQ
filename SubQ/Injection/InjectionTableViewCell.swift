@@ -7,47 +7,7 @@
 
 import UIKit
 
-class InjectionTableViewCell: UITableViewCell {
-    
-    var injection: Injection?
-    
-    
-    let nameLabel: UILabel = {
-        
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.setContentHuggingPriority(.required, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        
-       // label.backgroundColor = .brown
-        
-        return label
-    }()
-    
-    let dosageLabel: UILabel = {
-        let label = UILabel()
-        label.setContentHuggingPriority(.required, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        //label.backgroundColor = .red
-        return label
-    }()
-    
-    let unitsLabel: UILabel = {
-        let label = UILabel()
-        //label.backgroundColor = .blue
-        
-        return label
-    }()
-    
-    lazy var injectionDescriptionStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [nameLabel, dosageLabel, unitsLabel])
-        stack.axis = .horizontal
-        
-        stack.spacing = 5
-        
-        return stack
-    }()
-    
+class InjectionTableViewCell: InjectionDescriptionTableViewCell {
     
     lazy var mainStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [injectionDescriptionStackView, frequencyStackView])
@@ -66,12 +26,10 @@ class InjectionTableViewCell: UITableViewCell {
     
     var frequencyLabels = [UILabel]()
     
-    func setInjection(_ injection: Injection) {
+    override func setInjection(_ injection: Injection) {
         
+        super.setInjection(injection)
         
-        nameLabel.text = injection.name
-        dosageLabel.text = "\(injection.dosage!)"
-        unitsLabel.text = injection.units
         createFrequencyLabels(injection)
         
         if injection.typeVal == .scheduled && !injection.areNotificationsEnabled {
@@ -103,7 +61,7 @@ class InjectionTableViewCell: UITableViewCell {
             frequencyStackView.addArrangedSubview(label)
             frequencyLabels.append(label)
         } else {
-            for frequency in injection.frequency as! Set<Frequency> {
+            for frequency in injection.sortedFrequencies! {
                 let label = UILabel()
                 label.text = frequency.scheduledString
                 frequencyStackView.addArrangedSubview(label)
@@ -144,9 +102,7 @@ class InjectionTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         
-        nameLabel.text = ""
-        dosageLabel.text = ""
-        unitsLabel.text = ""
+        super.prepareForReuse()
         
         for label in frequencyLabels {
             label.removeFromSuperview()

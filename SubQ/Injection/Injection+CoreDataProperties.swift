@@ -215,6 +215,53 @@ extension Injection {
         
     }
     
+    var sortedFrequencies: [Frequency]? {
+        if typeVal == .asNeeded {
+            return nil
+        }
+        
+        let frequencySet = frequency as! Set<Frequency>
+        
+        
+        return frequencySet.sorted { item1, item2 in
+           
+           if item1.daysVal == [.daily] {
+               if item2.daysVal == [.daily] {
+                   return item1.time! < item2.time!
+               }
+               else {
+                   return true
+               }
+           } else {
+               
+               if item2.daysVal == [.daily] {
+                   return false
+               } else {
+                   
+                   var day2iterator = item2.daysVal.makeIterator()
+                   
+                   for day1 in item1.daysVal {
+                       
+                       if let nextDay2 = day2iterator.next() {
+                           if day1.weekday != nextDay2.weekday {
+                               return day1.weekday! < nextDay2.weekday!
+                           }
+                       } else {
+                           return false
+                       }
+                   }
+                   
+                   if item1.daysVal.count != item2.daysVal.count {
+                       return item1.daysVal.count < item2.daysVal.count
+                   }
+                   
+                   return item1.time! < item2.time!
+                  
+               }
+           }
+       }
+    }
+    
 
 }
 
