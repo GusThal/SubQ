@@ -26,6 +26,8 @@ class InjectionTableViewCell: InjectionDescriptionTableViewCell {
     
     var frequencyLabels = [UILabel]()
     
+    var frequencyViews = [UIView]()
+    
     override func setInjection(_ injection: Injection) {
         
         super.setInjection(injection)
@@ -57,15 +59,40 @@ class InjectionTableViewCell: InjectionDescriptionTableViewCell {
         
         if injection.typeVal == .asNeeded {
             let label = UILabel()
+            label.numberOfLines = 0
             label.text = Injection.InjectionType.asNeeded.rawValue
-            frequencyStackView.addArrangedSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            
+    
+            let view = UIView()
+            view.addSubview(label)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            
+            label.snp.makeConstraints { make in
+                make.margins.equalToSuperview()
+            }
+            
+            
+            frequencyStackView.addArrangedSubview(view)
             frequencyLabels.append(label)
+            frequencyViews.append(view)
         } else {
             for frequency in injection.sortedFrequencies! {
                 let label = UILabel()
+                label.numberOfLines = 0
                 label.text = frequency.scheduledString
-                frequencyStackView.addArrangedSubview(label)
+                
+                let view = UIView()
+                view.addSubview(label)
+                view.translatesAutoresizingMaskIntoConstraints = false
+                
+                label.snp.makeConstraints { make in
+                    make.margins.equalToSuperview()
+                }
+                
+                frequencyStackView.addArrangedSubview(view)
                 frequencyLabels.append(label)
+                frequencyViews.append(view)
             }
         }
     }
@@ -104,10 +131,15 @@ class InjectionTableViewCell: InjectionDescriptionTableViewCell {
         
         super.prepareForReuse()
         
+        for view in frequencyViews {
+            view.removeFromSuperview()
+        }
+        
         for label in frequencyLabels {
             label.removeFromSuperview()
         }
         
+        frequencyViews = [UIView]()
         frequencyLabels = [UILabel]()
     }
     
