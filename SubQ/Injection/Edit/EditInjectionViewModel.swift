@@ -20,7 +20,7 @@ class EditInjectionViewModel{
     
     @Published var frequencies = [EditInjectionTableViewController.FrequencySectionData]() {
         didSet {
-            print(frequencies)
+
         }
     }
     
@@ -133,6 +133,11 @@ class EditInjectionViewModel{
             
             
         }
+    }
+    
+    func getShortenedString(forDays days: [Frequency.InjectionDay]) -> String {
+        
+        return days.count == 1 ? days[0].shortened : days.map { $0.shortened }.joined(separator: ", ")
     }
     
     func areFrequenciesValid(frequencies: [EditInjectionTableViewController.FrequencySectionData]) -> Bool{

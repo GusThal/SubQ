@@ -127,15 +127,32 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         
             viewModel.daysSubject.sink { day in
                 
-                print(day)
-                
                 if !self.viewModel.isAsNeeded{
                     
-                    let indexPath = IndexPath(row: self.viewModel.selectedDayCellIndex, section: 2)
+                    let selectedIndex = self.viewModel.selectedDayCellIndex
                     
-                    if let frequencyCell = self.tableView.cellForRow(at: indexPath) as? FrequencyTableViewCell{
-                        frequencyCell.daysButtonTitle = day
+                    if let dupe = self.getDuplicateFrequency(indexForSelectedDays: selectedIndex, selectedDays: self.viewModel.currentValueSelectedDay.value) {
+                        
+                        let frequencyCell = self.tableView.cellForRow(at: IndexPath(row: selectedIndex, section: 2)) as! FrequencyTableViewCell
+                        
+                        frequencyCell.daysButtonTitle = nil
+                        
+                        let alert = UIAlertController(title: "Overlapping Day and Time", message: "Two frequency cells cannot contain the same time and day. A day in frequency \(self.viewModel.getShortenedString(forDays: dupe.days!)) already is scheduled for \(dupe.time!.prettyTime) on a day you selected.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                            self.viewModel.frequencies[selectedIndex].days = nil
+                        }))
+                        
+                        self.present(alert, animated: true)
+                    } else {
+                        
+                        let indexPath = IndexPath(row: selectedIndex, section: 2)
+                        
+                        if let frequencyCell = self.tableView.cellForRow(at: indexPath) as? FrequencyTableViewCell{
+                            frequencyCell.daysButtonTitle = day
+                        }
                     }
+                
                     
                     
                 }
@@ -499,10 +516,32 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     cell.timePicker.date = selectedCell.selectedTime
                     
                     let timePickerAction = UIAction { _ in
+                        
                         let row = tableView.indexPath(for: cell)!.row - 1
-                        let frequencyCell = tableView.cellForRow(at: IndexPath(row: row, section: 2)) as! FrequencyTableViewCell
-                        frequencyCell.selectedTime = cell.timePicker.date
-                        self.viewModel.frequencies[row].time = cell.timePicker.date
+                        
+                        
+                        if let dupe = self.getDuplicateFrequency(indexForSelectedTime: row, time: cell.timePicker.date) {
+                            
+                            let alert = UIAlertController(title: "Overlapping Day and Time", message: "Two frequency cells cannot contain the same time and day. A day in frequency \(self.viewModel.getShortenedString(forDays: dupe.days!)) already is scheduled for \(dupe.time!.prettyTime) on a day you selected.", preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                                let frequencyCell = tableView.cellForRow(at: IndexPath(row: row, section: 2)) as! FrequencyTableViewCell
+                                let date = Date()
+                                
+                                frequencyCell.selectedTime = date
+                                self.viewModel.frequencies[row].time = date
+                                cell.timePicker.date = date
+                            }))
+                            
+                            self.present(alert, animated: true)
+                        }
+                        
+                        else {
+                            let frequencyCell = tableView.cellForRow(at: IndexPath(row: row, section: 2)) as! FrequencyTableViewCell
+                            frequencyCell.selectedTime = cell.timePicker.date
+                            self.viewModel.frequencies[row].time = cell.timePicker.date
+                        }
+                           
                     }
                     
                     cell.timePicker.addAction(timePickerAction, for: .primaryActionTriggered)
@@ -766,6 +805,76 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         }
         return 44
     }*/
+    
+    func getDuplicateFrequency(indexForSelectedDays index: Int, selectedDays: [Frequency.InjectionDay]) -> FrequencySectionData? {
+        
+        let timeForSelectedCell = viewModel.frequencies[index].time
+        
+        for (i, frequency) in viewModel.frequencies.enumerated() {
+            if i != index {
+                if let freqTime = frequency.time {
+                    if freqTime.prettyTime == timeForSelectedCell!.prettyTime {
+                        
+                        for day in selectedDays {
+                            if let days = frequency.days {
+                                if selectedDays == [.daily] {
+                                    return frequency
+                                }
+                                else if days.contains(day) || days == [.daily] {
+                                    return frequency
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        return nil
+        
+    }
+    
+    func getDuplicateFrequency(indexForSelectedTime index: Int, time: Date) -> FrequencySectionData? {
+        
+        if let daysForSelectedTimeCell = viewModel.frequencies[index].days {
+            
+            for (i, frequency) in viewModel.frequencies.enumerated() {
+                
+                if i != index {
+                
+                    if let freqTime = frequency.time {
+                        if freqTime.prettyTime == time.prettyTime {
+                            
+                            for day in daysForSelectedTimeCell {
+                                
+                                //check if the days values have even been set for this frequency. if not, just ignore it.
+                                if let days = frequency.days {
+                                    if daysForSelectedTimeCell == [.daily] {
+                                        return frequency
+                                    } else if days.contains(day) || days == [.daily] {
+                                        return frequency
+                                    }
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    
+                    
+                    
+                }
+                
+            }
+            
+        }
+            
+        //either no day has been selected, or there's just no overlap
+        return nil
+        
+    }
     
     func insertFrequencyRow(section: Int){
         viewModel.frequencies.append(FrequencySectionData(isTimePickerCell: false, time: Date()))
