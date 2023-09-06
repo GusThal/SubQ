@@ -272,9 +272,11 @@ extension InjectionTableViewController: UITableViewDelegate{
     }
     
     func presentDeleteAlertController(forInjection injection: Injection){
-        let alert = UIAlertController(title: "Delete Injection", message: "Are you sure you want to delete \(injection.name!)? \n\n Note, this will also delete any snoozed/queued instances of this injection.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Delete Injection", message: "Are you sure you want to delete \(injection.name!) \(injection.dosage!) \(injection.units!)? \n\n Note, this will also delete any snoozed/queued instances of this injection.", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {[self] _ in
+            tableView.reloadData()
+        }))
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
                 
