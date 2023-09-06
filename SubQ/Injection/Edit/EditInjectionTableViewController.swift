@@ -37,6 +37,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     let allUnitsCases = Injection.DosageUnits.allCases
     
+    var wereChangesMade = false
+    
     lazy var nameAction: UIAction = {
         return UIAction { _ in
             self.viewModel.name = self.nameTextField.text!
@@ -123,6 +125,9 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     }
     
     func bindVariables(){
+        
+        viewModel.changesMadePublisher.assign(to: \.wereChangesMade, on: self)
+            .store(in: &cancellables)
     
         
             viewModel.daysSubject.sink { day in
@@ -160,16 +165,23 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             }
             .store(in: &cancellables)
         
-        viewModel.isValidInjectionPublisher
+        /*viewModel.isValidInjectionPublisher
+            .assign(to: \.isEnabled, on: navigationItem.rightBarButtonItem!)
+            .store(in: &cancellables)*/
+        
+        
+        viewModel.canSaveInjectionPublisher
             .assign(to: \.isEnabled, on: navigationItem.rightBarButtonItem!)
             .store(in: &cancellables)
+        
+        
     }
     
     
     @objc func cancelButtonPressed(_ sender: Any){
         print("cancel")
         
-        if viewModel.wereChangesMade {
+        if wereChangesMade {
             let alert = UIAlertController(title: nil, message: "Are you sure you want to discard your changes?", preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "Keep Editing", style: .cancel))

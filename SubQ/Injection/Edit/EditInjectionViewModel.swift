@@ -40,13 +40,13 @@ class EditInjectionViewModel{
     
     @Published var dosage = ""
     
-    var selectedUnits: Injection.DosageUnits?
+    @Published var selectedUnits: Injection.DosageUnits?
     
     let injectionProvider: InjectionProvider
     
-    var areNotificationsEnabled: Bool
+    @Published var areNotificationsEnabled: Bool
     
-    var isAsNeeded: Bool
+    @Published var isAsNeeded: Bool
     
     lazy var daysSubject: AnyPublisher<String?, Never> = {
 
@@ -85,7 +85,6 @@ class EditInjectionViewModel{
      */
     
     var areFrequenciesValidPublisher: AnyPublisher<Bool, Never> {
-        
         $frequencies.map { self.areFrequenciesValid(frequencies: $0) }
             .eraseToAnyPublisher()
     }
@@ -96,70 +95,102 @@ class EditInjectionViewModel{
             .eraseToAnyPublisher()
     }
     
-    var wereChangesMade: Bool {
-        get {
-            if let injection {
+    private var nameChangedPublisher: AnyPublisher<Bool, Never> {
+        $name.map { $0 != self.injection!.name! }
+            .eraseToAnyPublisher()
+    }
+    
+    private var dosageChangedPublisher: AnyPublisher<Bool, Never> {
+        $dosage.map { $0 != "\(self.injection!.dosage!)" }
+            .eraseToAnyPublisher()
+    }
+    
+    private var unitsChangedPublisher: AnyPublisher<Bool, Never> {
+        $selectedUnits.map { $0 != self.injection!.unitsVal }
+            .eraseToAnyPublisher()
+    }
+    
+    private var notificationsChangedPublisher: AnyPublisher<Bool, Never> {
+        $areNotificationsEnabled.map { $0 != self.injection!.areNotificationsEnabled }
+            .eraseToAnyPublisher()
+    }
+    
+    private var asNeededChangedPublisher: AnyPublisher<Bool, Never> {
+        $isAsNeeded.map { value in
+            if self.injection?.typeVal == .asNeeded && value {
+                return false
+            } else if self.injection?.typeVal == .scheduled && !value {
+                return false
+            } else{
+                return true
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    private var frequenciesChangedPublisher: AnyPublisher<Bool, Never> {
+        $frequencies.map { frequenciesSelected in
+            let currentInjection = self.injection!
+            
+            if currentInjection.typeVal == .scheduled {
                 
-                var asNeededChanged: Bool!
+                var freqCount = frequenciesSelected.count
                 
-                if injection.typeVal == .asNeeded && isAsNeeded {
-                    asNeededChanged = false
-                } else if injection.typeVal == .scheduled && !isAsNeeded {
-                    asNeededChanged = false
-                } else {
-                    asNeededChanged = true
+                if let _ = self.selectedTimeCellIndex {
+                    freqCount -= 1
                 }
                 
+                if freqCount != currentInjection.frequency!.count {
+                    return true
+                }
                 
-                var frequenciesChanged = false
-                
-                if injection.typeVal == .scheduled {
+                for freq in currentInjection.frequency as! Set<Frequency> {
                     
-                    var freqCount = frequencies.count
+                    var contains = false
                     
-                    if let selectedTimeCellIndex {
-                        freqCount -= 1
-                    }
-                    
-                    if freqCount != injection.frequency!.count {
-                        frequenciesChanged = true
-                    }
-                    
-                    if !frequenciesChanged {
-                        for freq in injection.frequency as! Set<Frequency> {
+                    for frequencySectionData in frequenciesSelected {
+                        
+                        if !frequencySectionData.isTimePickerCell {
                             
-                            var contains = false
-                            
-                            for frequencySectionData in frequencies {
-                                
-                                if !frequencySectionData.isTimePickerCell {
-                                    
-                                    if freq.daysVal == frequencySectionData.days && freq.time!.prettyTime == frequencySectionData.time!.prettyTime {
-                                        contains = true
-                                        break
-                                    }
-                                }
-                                
-                            }
-                            
-                            if !contains {
-                                frequenciesChanged = true
+                            if freq.daysVal == frequencySectionData.days && freq.time!.prettyTime == frequencySectionData.time!.prettyTime {
+                                contains = true
                                 break
                             }
-                            
                         }
-                                
-                    }
                         
+                    }
+                    
+                    if !contains {
+                        return true
+                    }
+                    
                 }
                 
-
-                return injection.name != name || "\(injection.dosage!)" != dosage || injection.unitsVal != selectedUnits || injection.areNotificationsEnabled != areNotificationsEnabled || asNeededChanged || frequenciesChanged
             }
-            else {
-                return !name.isEmpty || !dosage.isEmpty || !frequencies.isEmpty
-            }
+            return false
+        }.eraseToAnyPublisher()
+    }
+    
+    private var descriptionChangedPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest3(nameChangedPublisher, dosageChangedPublisher, unitsChangedPublisher).map { $0 || $1 || $2 }
+            .eraseToAnyPublisher()
+    }
+    
+    var changesMadePublisher: AnyPublisher<Bool, Never> {
+        
+        if let injection {
+            
+           return Publishers.CombineLatest4(descriptionChangedPublisher, notificationsChangedPublisher, asNeededChangedPublisher, frequenciesChangedPublisher).map { $0 || $1 || $2 || $3 }
+                .eraseToAnyPublisher()
+        } else {
+            return Publishers.CombineLatest3($name, $dosage, $frequencies).map { !$0.isEmpty || !$1.isEmpty || !$2.isEmpty }.eraseToAnyPublisher()
         }
+    }
+    
+    var canSaveInjectionPublisher: AnyPublisher<Bool, Never> {
+        
+        Publishers.CombineLatest(isValidInjectionPublisher, changesMadePublisher).map { $0 && $1 }
+            .eraseToAnyPublisher()
+        
     }
     
     
