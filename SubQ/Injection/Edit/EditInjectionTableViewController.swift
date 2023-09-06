@@ -168,7 +168,25 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     @objc func cancelButtonPressed(_ sender: Any){
         print("cancel")
-        editCoordinator?.cancelEdit()
+        
+        if viewModel.wereChangesMade {
+            let alert = UIAlertController(title: nil, message: "Are you sure you want to discard your changes?", preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Keep Editing", style: .cancel))
+            
+            alert.addAction(UIAlertAction(title: "Discard Changes", style: .destructive, handler: { [self] _ in
+                
+                editCoordinator?.cancelEdit()
+                
+            }))
+            
+            self.present(alert, animated: true)
+            
+        } else{
+            editCoordinator?.cancelEdit()
+        }
+        
+        
         
     }
     

@@ -96,6 +96,72 @@ class EditInjectionViewModel{
             .eraseToAnyPublisher()
     }
     
+    var wereChangesMade: Bool {
+        get {
+            if let injection {
+                
+                var asNeededChanged: Bool!
+                
+                if injection.typeVal == .asNeeded && isAsNeeded {
+                    asNeededChanged = false
+                } else if injection.typeVal == .scheduled && !isAsNeeded {
+                    asNeededChanged = false
+                } else {
+                    asNeededChanged = true
+                }
+                
+                
+                var frequenciesChanged = false
+                
+                if injection.typeVal == .scheduled {
+                    
+                    var freqCount = frequencies.count
+                    
+                    if let selectedTimeCellIndex {
+                        freqCount -= 1
+                    }
+                    
+                    if freqCount != injection.frequency!.count {
+                        frequenciesChanged = true
+                    }
+                    
+                    if !frequenciesChanged {
+                        for freq in injection.frequency as! Set<Frequency> {
+                            
+                            var contains = false
+                            
+                            for frequencySectionData in frequencies {
+                                
+                                if !frequencySectionData.isTimePickerCell {
+                                    
+                                    if freq.daysVal == frequencySectionData.days && freq.time!.prettyTime == frequencySectionData.time!.prettyTime {
+                                        contains = true
+                                        break
+                                    }
+                                }
+                                
+                            }
+                            
+                            if !contains {
+                                frequenciesChanged = true
+                                break
+                            }
+                            
+                        }
+                                
+                    }
+                        
+                }
+                
+
+                return injection.name != name || "\(injection.dosage!)" != dosage || injection.unitsVal != selectedUnits || injection.areNotificationsEnabled != areNotificationsEnabled || asNeededChanged || frequenciesChanged
+            }
+            else {
+                return !name.isEmpty || !dosage.isEmpty || !frequencies.isEmpty
+            }
+        }
+    }
+    
     
     init(injectionProvider: InjectionProvider, injection: Injection?) {
         self.injectionProvider = injectionProvider
@@ -109,6 +175,7 @@ class EditInjectionViewModel{
            // currentValueFrequency.value = injection.daysVal
             name = injection.name!
             dosage = "\(injection.dosage!)"
+            selectedUnits = injection.unitsVal
             
             self.isAsNeeded = injection.typeVal == .asNeeded ? true : false
             self.areNotificationsEnabled = injection.areNotificationsEnabled
