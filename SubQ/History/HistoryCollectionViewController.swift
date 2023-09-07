@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 import CoreData
-
+/*
 class HistoryCollectionViewController: UIViewController, Coordinated {
     
     weak var coordinator: Coordinator?
@@ -268,3 +268,4 @@ extension HistoryCollectionViewController: UISearchResultsUpdating{
     
     
 }
+*/

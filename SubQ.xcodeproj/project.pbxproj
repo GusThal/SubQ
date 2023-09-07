@@ -35,6 +35,7 @@
 		CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */; };
 		CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */; };
 		CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */; };
+		CC4C16D72AAA0F1600B55E66 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -127,6 +128,7 @@
 		CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableViewController.swift; sourceTree = "<group>"; };
 		CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableViewCell.swift; sourceTree = "<group>"; };
 		CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionTableViewController.swift; sourceTree = "<group>"; };
+		CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */,
 				CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */,
 				CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */,
+				CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				CC7762EE2A69EFB400AEC489 /* SelectInjectionCoordinator.swift in Sources */,
 				CCC4B8682A0447C9008BFF81 /* HistoryCoordinator.swift in Sources */,
 				CCBCE21F2A1524D7001B73D6 /* SiteCoordinator.swift in Sources */,
+				CC4C16D72AAA0F1600B55E66 /* BadgeButton.swift in Sources */,
 				CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */,
 				CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */,
 				CCC4B8722A04591B008BFF81 /* HistoryCollectionViewController.swift in Sources */,

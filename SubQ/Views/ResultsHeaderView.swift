@@ -8,22 +8,22 @@
 import UIKit
 import SnapKit
 
-class ResultsHeaderView: UICollectionReusableView {
+class ResultsHeaderView: UITableViewHeaderFooterView {
     
     let label = UILabel()
     
-    lazy var filterButton: UIButton = {
+    lazy var filterButton: BadgeButton = {
         
         var buttonConfig = UIButton.Configuration.gray()
         buttonConfig.buttonSize = .medium
         buttonConfig.cornerStyle = .small
         buttonConfig.title = "Filter"
         
-        return UIButton(configuration: buttonConfig)
+        return BadgeButton(configuration: buttonConfig)
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         
         addSubview(label)
         addSubview(filterButton)
@@ -33,12 +33,12 @@ class ResultsHeaderView: UICollectionReusableView {
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         
         label.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+            make.leadingMargin.equalToSuperview()
             make.centerY.equalToSuperview()
         }
         
         filterButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
+            make.trailingMargin.equalToSuperview()
             make.centerY.equalToSuperview()
         }
     }

@@ -39,6 +39,8 @@ class HistoryTableViewController: UIViewController, Coordinated {
     
     let reuseIdentifier = "reuse-id"
     
+    let headerIdentifier = "headerIdentifier"
+    
     private let searchController = UISearchController(searchResultsController: nil)
     
     lazy var filterAction = UIAction { _ in
@@ -113,6 +115,8 @@ class HistoryTableViewController: UIViewController, Coordinated {
           .store(in: &cancellables)
         
         
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -152,7 +156,9 @@ class HistoryTableViewController: UIViewController, Coordinated {
     func presentDeleteAlertController(forHistory history: History){
         let alert = UIAlertController(title: "Delete History", message: "Are you sure you want to delete history entry for \(history.injection!.name!) from \(history.date!)?", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] _ in
+            tableView.reloadData()
+        }))
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
                 
@@ -183,6 +189,8 @@ extension HistoryTableViewController {
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         tableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(ResultsHeaderView.self, forHeaderFooterViewReuseIdentifier: headerIdentifier)
+        
         tableView.delegate = self
        // tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -252,14 +260,27 @@ extension HistoryTableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ResultsHeaderView()
-        headerView.filterButton.addAction(filterAction, for: .primaryActionTriggered)
+       let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerIdentifier) as! ResultsHeaderView
         
-        self.headerView = headerView
         
-        return headerView
+        header.filterButton.addAction(filterAction, for: .primaryActionTriggered)
+        
+        self.headerView = header
+        
+        viewModel.filterCount
+            .assign(to: \.badgeCount, on: self.headerView!.filterButton)
+            .store(in: &cancellables)
+        
+        self.headerView!.filterButton.badgeBackgroundColor = .systemBlue
+        
+        return header
         
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
 }
 
 extension HistoryTableViewController: UISearchResultsUpdating{

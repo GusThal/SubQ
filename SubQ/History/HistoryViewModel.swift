@@ -25,6 +25,8 @@ class HistoryViewModel{
     var selectedDateSorting = DateSorting.newest
     var selectedType = Injection.InjectionType.all
     
+    var filterCount = CurrentValueSubject<Int, Never>(0)
+    
     lazy var snapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
         return historyProvider.$snapshot.eraseToAnyPublisher()
     }()
@@ -55,6 +57,32 @@ class HistoryViewModel{
     
     func applyFilters(sortDateBy: HistoryViewModel.DateSorting, status: History.InjectStatus, type: Injection.InjectionType, startDate: Date, endDate: Date){
         
+        var count = 0
+        
+        print("\(sortDateBy.rawValue) + \(status.rawValue) + \(type.rawValue) ")
+        
+        if sortDateBy == .oldest {
+            count += 1
+        }
+        
+        if status != .all {
+            count += 1
+        }
+        
+        if type != .all {
+            count += 1
+        }
+        
+        let startOfCurrentDate = Calendar.current.startOfDay(for: Date())
+        
+        let startOfEndDate = Calendar.current.startOfDay(for: endDate)
+        
+        if startDate != oldestDate || startOfCurrentDate != startOfEndDate {
+            count += 1
+        }
+        
+        filterCount.value = count
+        
         selectedDateSorting = sortDateBy
         selectedStatus = status
         selectedStartDate = startDate
@@ -66,6 +94,8 @@ class HistoryViewModel{
     }
     
     func applyDefaultFilters(){
+        
+        filterCount.value = 0
         
         selectedDateSorting = .newest
         selectedStatus = .all

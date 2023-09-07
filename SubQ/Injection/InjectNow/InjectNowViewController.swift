@@ -108,14 +108,14 @@ class InjectNowViewController: UIViewController, Coordinated {
         
     }()
     
-    lazy var selectInjectionButton: UIButton = {
+    lazy var selectInjectionButton: BadgeButton = {
         let action = UIAction { _ in
             
             self.injectNowCoordinator!.showSelectInjectionViewController()
         }
         
         
-        let button = UIButton(primaryAction: action)
+        let button = BadgeButton(primaryAction: action)
         
         button.configurationUpdateHandler = { [unowned self] button in
             
@@ -126,9 +126,9 @@ class InjectNowViewController: UIViewController, Coordinated {
                 
                 config.title = "Select Injection"
                 
-                if queueCount > 0{
+              /*  if queueCount > 0{
                     config.title?.append(" (\(queueCount))")
-                }
+                }*/
                 config.baseForegroundColor = .white
                 config.background.strokeColor = .white
             }
@@ -168,7 +168,7 @@ class InjectNowViewController: UIViewController, Coordinated {
     
     lazy var selectionInjectionViewController = SelectInjectionViewController(viewModel: viewModel)
     
-    var queueCount: Int = 0
+    //var queueCount: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,10 +179,14 @@ class InjectNowViewController: UIViewController, Coordinated {
             injectionDataStackView.addArrangedSubview(selectInjectionButton)
             
             viewModel.queueCount
+                .assign(to: \.badgeCount, on: self.selectInjectionButton)
+                .store(in: &cancellables)
+            
+          /*  viewModel.queueCount
                 .sink { count in
                     self.queueCount = count
                     self.selectInjectionButton.setNeedsUpdateConfiguration()
-            }.store(in: &cancellables)
+            }.store(in: &cancellables)*/
         }
         
         view.backgroundColor = .brown
