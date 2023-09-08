@@ -70,8 +70,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
         
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 50
+        /*tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50*/
         tableView.isEditing = true
         tableView.allowsSelectionDuringEditing = true
         
@@ -536,10 +536,10 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     
                     return cell
                 }
-                
+                //time picker cell
                 else if let selectedRow = viewModel.selectedTimeCellIndex, selectedRow + 1 == row {
                     let cell = tableView.dequeueReusableCell(withIdentifier: timePickerCellReuseIdentifier, for: indexPath) as! TimePickerTableViewCell
-                    //add an action to the picker
+                    
                     
                     let selectedCell = tableView.cellForRow(at: IndexPath(row: viewModel.selectedTimeCellIndex!, section: 2)) as! FrequencyTableViewCell
                     
@@ -622,6 +622,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                            
                            if previouslySelectedRow == row {
                                
+                               cell.timeButtonSelected = false
+                               
                                let path = IndexPath(row: row + 1, section: 2)
                                
                                self.viewModel.selectedTimeCellIndex = nil
@@ -634,6 +636,10 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                                
                                let deletePath = IndexPath(row: previouslySelectedRow + 1, section: 2)
                                
+                               let previouslySelectedCell = tableView.cellForRow(at: IndexPath(row: previouslySelectedRow, section: 2)) as! FrequencyTableViewCell
+                               
+                               previouslySelectedCell.timeButtonSelected = false
+                               
                                self.viewModel.selectedTimeCellIndex = nil
                                
                                self.viewModel.frequencies.remove(at: deletePath.row)
@@ -641,6 +647,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                                tableView.deleteRows(at: [deletePath], with: .fade)
                                
                                let rowAfterDelete = tableView.indexPath(for: cell)!.row
+                               
+                               cell.timeButtonSelected = true
                                
                                self.viewModel.selectedTimeCellIndex = rowAfterDelete
                                
@@ -657,6 +665,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                         else {
                             print("glorp")
                             self.viewModel.selectedTimeCellIndex = row
+                            
+                            cell.timeButtonSelected = true
                             
                             self.insertTimePickerRow(afterRow: row, section: 2)
                         }
@@ -825,16 +835,22 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         
     }
     
-  /*  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 2 {
             if let selected = viewModel.selectedTimeCellIndex {
                 if indexPath.row == selected + 1 {
                     return 216
                 }
             }
+            
+            if indexPath.row == tableView.numberOfRows(inSection: 2) - 1 {
+                return 44
+            } else {
+                return 60
+            }
         }
         return 44
-    }*/
+    }
     
     func getDuplicateFrequency(indexForSelectedDays index: Int, selectedDays: [Frequency.InjectionDay]) -> FrequencySectionData? {
         

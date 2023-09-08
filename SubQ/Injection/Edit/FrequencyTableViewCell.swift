@@ -10,18 +10,6 @@ import SnapKit
 
 class FrequencyTableViewCell: UITableViewCell {
     
-  /*  let timePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .time
-        picker.preferredDatePickerStyle = .inline
-        picker.translatesAutoresizingMaskIntoConstraints = false
-       // picker.backgroundColor = .red
-        
-        picker.setContentHuggingPriority(.required, for: .horizontal)
-        picker.setContentCompressionResistancePriority(.required, for: .horizontal)
-        
-        return picker
-    }()*/
     
     var daysButtonTitle: String?{
         didSet{
@@ -30,6 +18,12 @@ class FrequencyTableViewCell: UITableViewCell {
     }
     
     var selectedTime: Date = Date() {
+        didSet {
+            timeButton.setNeedsUpdateConfiguration()
+        }
+    }
+    
+    var timeButtonSelected = false {
         didSet {
             timeButton.setNeedsUpdateConfiguration()
         }
@@ -50,13 +44,14 @@ class FrequencyTableViewCell: UITableViewCell {
             
             if let daysButtonTitle{
                 config.title = daysButtonTitle
-                config.baseForegroundColor = .black
+                config.baseForegroundColor = .label
             }
             
             else{
-                config.baseForegroundColor = .blue
+                config.baseForegroundColor = .systemBlue
                 config.title = "Select Day(s)"
             }
+            
             
             config.imagePlacement = .trailing
             
@@ -82,7 +77,13 @@ class FrequencyTableViewCell: UITableViewCell {
             
             var config: UIButton.Configuration!
             config = UIButton.Configuration.gray()
-            config.baseForegroundColor = .black
+            
+            if timeButtonSelected {
+                config.baseForegroundColor = .systemRed
+            }
+            else {
+                config.baseForegroundColor = .label
+            }
             
             config.title = selectedTime.prettyTime
             
@@ -98,7 +99,7 @@ class FrequencyTableViewCell: UITableViewCell {
         return button
     }()
     
-    lazy var stackView: UIStackView = {
+    /*lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [daysButton, timeButton])
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -106,21 +107,34 @@ class FrequencyTableViewCell: UITableViewCell {
         stackView.spacing = 5
         
         return stackView
-    }()
+    }()*/
     
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //contentView.addSubview(timePicker)
-        //contentView.addSubview(daysButton)
+        contentView.addSubview(timeButton)
+        contentView.addSubview(daysButton)
         
-        contentView.addSubview(stackView)
+        timeButton.snp.makeConstraints { make in
+            make.trailingMargin.bottomMargin.topMargin.equalToSuperview().offset(5)
+            make.width.equalTo(100)
+            make.centerY.equalToSuperview()
+            //make.centerY.equalToSuperview()
+        }
+        
+        daysButton.snp.makeConstraints { make in
+            make.leadingMargin.bottomMargin.topMargin.equalToSuperview().offset(5)
+            make.right.equalTo(timeButton.snp.left).offset(-5)
+            make.centerY.equalToSuperview()
+        }
+        
+       /* contentView.addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
             make.margins.centerY.equalToSuperview()
-        }
+        }*/
         
        /* timePicker.snp.makeConstraints { make in
             make.centerY.trailingMargin.equalToSuperview()
@@ -150,6 +164,7 @@ class FrequencyTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         daysButtonTitle = nil
         selectedTime = Date()
+        timeButtonSelected = false
         
         timeButton.enumerateEventHandlers { action, selector, event, stop in
             if event == .primaryActionTriggered {

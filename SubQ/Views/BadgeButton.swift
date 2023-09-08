@@ -34,6 +34,8 @@ class BadgeButton: UIButton {
     }
     
     
+    
+    //based on https://nemecek.be/blog/17/how-to-add-badge-to-uibarbuttonitem
     lazy var badgeLabel: UILabel = {
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: badgeSize, height: badgeSize))
