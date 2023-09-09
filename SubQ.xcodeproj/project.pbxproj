@@ -36,6 +36,7 @@
 		CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */; };
 		CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */; };
 		CC4C16D72AAA0F1600B55E66 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */; };
+		CC4C16DB2AAB6ED800B55E66 /* InjectNowDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -129,6 +130,7 @@
 		CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionTableViewCell.swift; sourceTree = "<group>"; };
 		CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionTableViewController.swift; sourceTree = "<group>"; };
 		CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
+		CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowDataView.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */,
 				CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */,
 				CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */,
+				CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */,
 			);
 			path = InjectNow;
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 				CCC4B8702A045901008BFF81 /* SectionViewController.swift in Sources */,
 				CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */,
 				CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */,
+				CC4C16DB2AAB6ED800B55E66 /* InjectNowDataView.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
 				CC1A7CCC2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift in Sources */,
 				CC4AF1CE2A926BE4000FC22A /* CenteredTextTableViewCell.swift in Sources */,

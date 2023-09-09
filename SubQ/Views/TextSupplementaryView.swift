@@ -30,7 +30,7 @@ class TextSupplementaryView: UICollectionReusableView {
         label.adjustsFontForContentSizeCategory = true
         
         label.snp.makeConstraints { make in
-            make.leadingMargin.equalToSuperview()
+            make.leadingMargin.equalToSuperview().offset(15)
             make.centerY.equalToSuperview()
         }
         
@@ -46,7 +46,8 @@ class TextSupplementaryView: UICollectionReusableView {
         addSubview(secondaryLabel)
         
         secondaryLabel.snp.makeConstraints { make in
-            make.trailingMargin.centerY.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.trailingMargin.equalToSuperview().offset(-15)
             make.leadingMargin.equalTo(label.snp.trailingMargin)
         }
         

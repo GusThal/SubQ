@@ -18,50 +18,10 @@ class InjectNowViewController: UIViewController, Coordinated {
         
     let viewModel: InjectNowViewModel
     
-    let injectionDataStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.alignment = .leading
-        
-        return stack
-    }()
-    
-    let nextInjectionTimerLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        
-        return label
-    }()
-        
-    let injectionNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        return label
-    }()
-    
-    let scheduledLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        return label
-    }()
-    
-    let lastInjectedLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        return label
-    }()
-    
-    let dueDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        return label
-    }()
-    
-    let snoozedUntilLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        return label
+    lazy var injectionDataView: InjectNowDataView = {
+        let view = InjectNowDataView(viewModel: viewModel, coordinator: injectNowCoordinator!)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     
@@ -108,50 +68,7 @@ class InjectNowViewController: UIViewController, Coordinated {
         
     }()
     
-    lazy var selectInjectionButton: BadgeButton = {
-        let action = UIAction { _ in
-            
-            self.injectNowCoordinator!.showSelectInjectionViewController()
-        }
-        
-        
-        let button = BadgeButton(primaryAction: action)
-        
-        button.configurationUpdateHandler = { [unowned self] button in
-            
-            var config: UIButton.Configuration!
-            
-            if self.viewModel.selectedInjection == nil && self.viewModel.selectedQueueObject == nil{
-                config = UIButton.Configuration.bordered()
-                
-                config.title = "Select Injection"
-                
-              /*  if queueCount > 0{
-                    config.title?.append(" (\(queueCount))")
-                }*/
-                config.baseForegroundColor = .white
-                config.background.strokeColor = .white
-            }
-            else{
-                
-                config = UIButton.Configuration.filled()
-                config.baseBackgroundColor = .blue
-                config.baseForegroundColor = .white
-                config.title = viewModel.selectedInjection == nil ? viewModel.selectedQueueObject!.injection!.name : viewModel.selectedInjection!.name
-            }
-            
-            config.imagePlacement = .trailing
-            let imageConfig = UIImage.SymbolConfiguration(pointSize: 10)
-            config.image = UIImage(systemName: "chevron.down", withConfiguration: imageConfig)
-            
-
-            button.configuration = config
-        }
-
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
+ 
     
     var siteDataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>!
     
@@ -173,43 +90,27 @@ class InjectNowViewController: UIViewController, Coordinated {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpNavBar()
+        view.backgroundColor = .systemBackground
         
-        if !viewModel.isFromNotification{
-            injectionDataStackView.addArrangedSubview(selectInjectionButton)
-            
-            viewModel.queueCount
-                .assign(to: \.badgeCount, on: self.selectInjectionButton)
-                .store(in: &cancellables)
+        setUpNavBar()
             
           /*  viewModel.queueCount
                 .sink { count in
                     self.queueCount = count
                     self.selectInjectionButton.setNeedsUpdateConfiguration()
             }.store(in: &cancellables)*/
-        }
         
-        view.backgroundColor = .brown
+        
         //view.translatesAutoresizingMaskIntoConstraints = false
         
        /* injectionNameLabel.text = "injection Name \(viewModel.injection?.name)"
         scheduledLabel.text = "Scheduled"
         lastInjectedLabel.text = "Last Injected"*/
         
-        configureInjectionDataStackView(injectionObj: nil, queueObj: nil)
+        injectionDataView.createHierarchy(selectedQueueObject: nil, selectedInjectionObject: nil)
+        view.addSubview(injectionDataView)
         
-        if viewModel.isFromNotification{
-            injectionDataStackView.addArrangedSubview(injectionNameLabel)
-        }
-        injectionDataStackView.addArrangedSubview(scheduledLabel)
-        injectionDataStackView.addArrangedSubview(lastInjectedLabel)
-        injectionDataStackView.addArrangedSubview(dueDateLabel)
-        injectionDataStackView.addArrangedSubview(snoozedUntilLabel)
-        injectionDataStackView.addArrangedSubview(nextInjectionTimerLabel)
-        
-        view.addSubview(injectionDataStackView)
-        
-        injectionDataStackView.snp.makeConstraints { make in
+        injectionDataView.snp.makeConstraints { make in
             make.leadingMargin.rightMargin.equalToSuperview()
             make.topMargin.equalToSuperview()
         }
@@ -227,15 +128,6 @@ class InjectNowViewController: UIViewController, Coordinated {
             }
           })
           .store(in: &cancellables)
-        
-        if !viewModel.isFromNotification{
-            Publishers.Zip(viewModel.$selectedInjection, viewModel.$selectedQueueObject).sink { injection, queue in
-               
-                self.configureInjectionDataStackView(injectionObj: injection, queueObj: queue)
-                
-            }.store(in: &cancellables)
-            
-        }
         
         viewModel.fieldsSelectedPublisher.assign(to: \.isEnabled, on: injectButton)
             .store(in: &cancellables)
@@ -292,59 +184,7 @@ class InjectNowViewController: UIViewController, Coordinated {
         navigationItem.title = viewModel.isFromNotification ?"Injection Time!" : "Inject Now"
     }
     
-    func configureInjectionDataStackView(injectionObj: Injection?, queueObj: Queue?){
-        
-        var injection: Injection?
-        
-        if !viewModel.isFromNotification{
-            if let injectionObj{
-                injection = injectionObj
-                
-                dueDateLabel.text = ""
-                snoozedUntilLabel.text = ""
-            }
-            else if let queueObj{
-                injection = queueObj.injection!
-                
-                dueDateLabel.text = "Due: \(queueObj.dateDue!.fullDateTime)"
-                snoozedUntilLabel.text = "Snoozed Until: \(queueObj.snoozedUntil?.fullDateTime ?? "-")"
-            }
-            else{
-                print("both nil")
-                dueDateLabel.text = ""
-                snoozedUntilLabel.text = ""
-                scheduledLabel.text = ""
-                lastInjectedLabel.text = ""
-                nextInjectionTimerLabel.text = ""
-                
-            }
-            injectionNameLabel.text = ""
-            //selectInjectionButton.configuration?.title = injection?.descriptionString ?? "Select Injection"
-            selectInjectionButton.setNeedsUpdateConfiguration()
-            
-        }
-        else{
-            injection = viewModel.injectionFromNotification!
-            injectionNameLabel.text = injection?.descriptionString
-            dueDateLabel.text = ""
-            snoozedUntilLabel.text = ""
-        }
-        
-        if let injection{
-            scheduledLabel.text = "Scheduled \(injection.scheduledString )"
-            lastInjectedLabel.text = "Last Injected: \(viewModel.getLastInjectedDate(forInjection: injection)?.fullDateTime ?? "-")"
-            
-            if injection.typeVal == .scheduled {
-                
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    self.nextInjectionTimerLabel.text = "Next injection: \(injection.nextInjection!.timeUntil)"
-                }
-            }
-        }
-        
-        
-        
-    }
+
     
     func snoozeButtonPressed(){
         
@@ -436,7 +276,7 @@ extension InjectNowViewController{
         NSLayoutConstraint.activate([
             siteCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             siteCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            siteCollectionView.topAnchor.constraint(equalTo: injectionDataStackView.bottomAnchor),
+            siteCollectionView.topAnchor.constraint(equalTo: injectionDataView.bottomAnchor),
             siteCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
