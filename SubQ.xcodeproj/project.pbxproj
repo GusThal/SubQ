@@ -50,6 +50,7 @@
 		CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */; };
 		CC7762F82A7C5FFC00AEC489 /* SegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */; };
 		CC7762FA2A7D35E800AEC489 /* FilterTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */; };
+		CC815A812AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */; };
 		CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */; };
 		CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */; };
 		CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */; };
@@ -144,6 +145,7 @@
 		CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeTableViewCell.swift; sourceTree = "<group>"; };
 		CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedTableViewCell.swift; sourceTree = "<group>"; };
 		CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableFooterView.swift; sourceTree = "<group>"; };
+		CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectQueueObjectTableViewCell.swift; sourceTree = "<group>"; };
 		CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+textPublisher.swift"; sourceTree = "<group>"; };
 		CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+prettyTime.swift"; sourceTree = "<group>"; };
 		CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,6 +322,7 @@
 				CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */,
 				CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */,
 				CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */,
+				CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */,
 			);
 			path = InjectNow;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */,
 				CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */,
 				CC4C16DB2AAB6ED800B55E66 /* InjectNowDataView.swift in Sources */,
+				CC815A812AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
 				CC1A7CCC2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift in Sources */,
 				CC4AF1CE2A926BE4000FC22A /* CenteredTextTableViewCell.swift in Sources */,

@@ -48,7 +48,7 @@ class InjectNowDataView: UIView {
             case .scheduled: return "Scheduled:"
             case .lastInjected: return "Last Injected:"
             case .nextInjection: return "Next Due:"
-            case .originalDueDate: return "Original Due Date:"
+            case .originalDueDate: return "Originally Due:"
             case .snoozedUntil: return "Snoozed Until:"
             }
         }

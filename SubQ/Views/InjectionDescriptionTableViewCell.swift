@@ -9,7 +9,6 @@ import UIKit
 
 class InjectionDescriptionTableViewCell: UITableViewCell {
     
-    var injection: Injection?
     
     let nameLabel: UILabel = {
         
@@ -80,7 +79,6 @@ class InjectionDescriptionTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         
-        injection = nil
         nameLabel.text = ""
         dosageLabel.text = ""
         unitsLabel.text = ""

@@ -58,6 +58,10 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
     
     let reuseIdentifier = "reuse-id"
     
+    let injectionReuseIdentifier = "injectionReuseIdentifier"
+    
+    let queueReuseIdentifier = "queueReuseIdentifier"
+    
     private var dataSource: InjectionDiffableDataSource!
     
     var tableView: UITableView! = nil
@@ -304,6 +308,8 @@ extension SelectInjectionTableViewController{
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(InjectionTableViewCell.self, forCellReuseIdentifier: injectionReuseIdentifier)
+        tableView.register(SelectQueueObjectTableViewCell.self, forCellReuseIdentifier: queueReuseIdentifier)
         tableView.delegate = self
         view.addSubview(tableView)
     }
@@ -390,15 +396,27 @@ extension SelectInjectionTableViewController{
                 injection = self.viewModel.getInjection(withObjectID: objectID)
             }
                 
-            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
-            
-            cell.accessoryType = .none
-                
-            var content = cell.defaultContentConfiguration()
-            content.text = injection.descriptionString
-            content.secondaryText = injection.scheduledString
                 
             if indexPath.section == Section.queue.rawValue{
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: self.queueReuseIdentifier, for: indexPath) as! SelectQueueObjectTableViewCell
+                
+                cell.accessoryType = .none
+                
+                cell.setQueueObject(queueObject!)
+                
+                cell.mode = .small
+                
+                if let selectedQueue = self.viewModel.selectedQueueObject{
+                    if selectedQueue == queueObject {
+                        cell.accessoryType = .checkmark
+                    }
+                }
+                
+                    
+               /* var content = cell.defaultContentConfiguration()
+                content.text = injection.descriptionString
+                content.secondaryText = injection.scheduledString
                     
                 content.secondaryText?.append(" | Missed: \(queueObject!.dateDue!.fullDateTime)")
                     
@@ -411,14 +429,25 @@ extension SelectInjectionTableViewController{
                         cell.accessoryType = .checkmark
                     }
                 }
+                
+                cell.contentConfiguration = content*/
+                
+                return cell
                     
             }
             else{
                 
+                let cell = tableView.dequeueReusableCell(withIdentifier: self.injectionReuseIdentifier, for: indexPath) as! InjectionTableViewCell
+                cell.accessoryType = .none
+                
+                cell.setInjection(injection)
+                cell.mode = .small
+                
                     
                 if self.viewModel.isInjectionInQueue(injectionManagedID: injection.objectID){
-                    content.textProperties.color = .gray
-                    content.secondaryTextProperties.color = .gray
+                    cell.isInjectionDisabled = true
+                } else {
+                    cell.isInjectionDisabled = false
                 }
                     
                 if let selectedInjection = self.viewModel.selectedInjection{
@@ -426,11 +455,10 @@ extension SelectInjectionTableViewController{
                         cell.accessoryType = .checkmark
                     }
                 }
+                
+                return cell
             }
                 
-            cell.contentConfiguration = content
-            
-            return cell
                 
         }
         

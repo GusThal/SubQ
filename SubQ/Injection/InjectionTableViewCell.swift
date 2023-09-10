@@ -9,7 +9,36 @@ import UIKit
 
 class InjectionTableViewCell: InjectionDescriptionTableViewCell {
     
-    lazy var mainStackView: UIStackView = {
+    enum CellMode {
+        case normal, small
+    }
+    
+     class CellConfiguration {
+        let nameLabelFont: UIFont
+        let dosageLabelFont: UIFont
+        let unitsLabelFont: UIFont
+        let frequencyLabelFont: UIFont
+         
+         static let normalConfiguration = CellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 20), dosageLabelFont: UIFont.systemFont(ofSize: 16), unitsLabelFont: UIFont.systemFont(ofSize: 16), frequencyLabelFont: UIFont.systemFont(ofSize: 16))
+         
+         static let smallConfiguration = CellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 16), dosageLabelFont: UIFont.systemFont(ofSize: 12), unitsLabelFont: UIFont.systemFont(ofSize: 12), frequencyLabelFont: UIFont.systemFont(ofSize: 12))
+        
+        init(nameLabelFont: UIFont, dosageLabelFont: UIFont, unitsLabelFont: UIFont, frequencyLabelFont: UIFont) {
+            self.nameLabelFont = nameLabelFont
+            self.dosageLabelFont = dosageLabelFont
+            self.unitsLabelFont = unitsLabelFont
+            self.frequencyLabelFont = frequencyLabelFont
+        }
+        
+    }
+    
+    public var mode: CellMode = .normal {
+        didSet {
+           applyCellConfiguration(mode: mode)
+        }
+    }
+    
+    open lazy var mainStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [injectionDescriptionStackView, frequencyStackView])
         stack.axis = .vertical
         
@@ -17,16 +46,38 @@ class InjectionTableViewCell: InjectionDescriptionTableViewCell {
         
     }()
     
-    let frequencyStackView: UIStackView = {
+    public let frequencyStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         
         return stack
     }()
     
-    var frequencyLabels = [UILabel]()
+    var isInjectionDisabled: Bool = false {
+        didSet {
+            if isInjectionDisabled {
+                nameLabel.textColor = .gray
+                dosageLabel.textColor = .gray
+                unitsLabel.textColor = .gray
+                
+                for label in frequencyLabels {
+                    label.textColor = .gray
+                }
+            } else {
+                nameLabel.textColor = .label
+                dosageLabel.textColor = .label
+                unitsLabel.textColor = .label
+                
+                for label in frequencyLabels {
+                    label.textColor = .label
+                }
+            }
+        }
+    }
     
-    var frequencyViews = [UIView]()
+    public var frequencyLabels = [UILabel]()
+    
+    public var frequencyViews = [UIView]()
     
     override func setInjection(_ injection: Injection) {
         
@@ -34,24 +85,24 @@ class InjectionTableViewCell: InjectionDescriptionTableViewCell {
         
         createFrequencyLabels(injection)
         
-        if injection.typeVal == .scheduled && !injection.areNotificationsEnabled {
-            
-            nameLabel.textColor = .gray
-            dosageLabel.textColor = .gray
-            unitsLabel.textColor = .gray
-            
-            for label in frequencyLabels {
-                label.textColor = .gray
-            }
-            
+    
+    }
+    
+    public func applyCellConfiguration(mode: CellMode) {
+        var config: CellConfiguration
+        
+        if mode == .small {
+            config = CellConfiguration.smallConfiguration
         } else {
-            nameLabel.textColor = .label
-            dosageLabel.textColor = .label
-            unitsLabel.textColor = .label
-            
-            for label in frequencyLabels {
-                label.textColor = .label
-            }
+            config = CellConfiguration.normalConfiguration
+        }
+        
+        nameLabel.font = config.nameLabelFont
+        dosageLabel.font = config.dosageLabelFont
+        unitsLabel.font = config.unitsLabelFont
+        
+        for label in frequencyLabels {
+            label.font = config.frequencyLabelFont
         }
     }
     

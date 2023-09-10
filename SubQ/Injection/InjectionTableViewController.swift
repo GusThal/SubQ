@@ -166,6 +166,13 @@ extension InjectionTableViewController{
             let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InjectionTableViewCell
             
             cell.setInjection(injection)
+            cell.mode = .normal
+            
+            if injection.typeVal == .scheduled && !injection.areNotificationsEnabled {
+                cell.isInjectionDisabled = true
+            } else{
+                cell.isInjectionDisabled = false
+            }
             
            // let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
             
