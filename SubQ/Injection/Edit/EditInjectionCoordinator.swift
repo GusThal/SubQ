@@ -106,15 +106,21 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         parentCoordinator?.childDidFinish(self)
     }*/
     
-    func savePressed(){
+    func savePressed(injectionDescriptionString: String, action: InjectionTableViewController.EditAction){
         parentNavigationController!.dismiss(animated: true)
         
+        let injectionTableVC = parentNavigationController!.topViewController as! InjectionTableViewController
+        injectionTableVC.showConfirmationView(injectionDescriptionString: injectionDescriptionString, action: action)
 
         parentCoordinator?.childDidFinish(self)
     }
     
-    func deleteInjection(){
+    func deleteInjection(injectionDescriptionString: String){
         parentNavigationController!.dismiss(animated: true)
+        
+        let injectionTableVC = parentNavigationController!.topViewController as! InjectionTableViewController
+        
+        injectionTableVC.showConfirmationView(injectionDescriptionString: injectionDescriptionString, action: .deleted)
         
         parentCoordinator?.childDidFinish(self)
     }

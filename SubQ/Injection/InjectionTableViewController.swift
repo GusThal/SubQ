@@ -11,6 +11,10 @@ import CoreData
 
 class InjectionTableViewController: UIViewController, Coordinated {
     
+    enum EditAction: String {
+        case created = "created", deleted = "deleted", updated = "updated"
+    }
+    
     let reuseIdentifier = "reuse-id"
     
     weak var coordinator: Coordinator?
@@ -134,6 +138,57 @@ class InjectionTableViewController: UIViewController, Coordinated {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func showConfirmationView(injectionDescriptionString: String, action: EditAction) {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.layer.cornerRadius = 10
+        containerView.layer.masksToBounds = true
+        
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.text = "\(injectionDescriptionString) \(action.rawValue)."
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        
+        
+        if action == .deleted {
+            label.backgroundColor = .systemRed
+            containerView.backgroundColor = .systemRed
+        } else {
+            label.backgroundColor = .systemBlue
+            containerView.backgroundColor = .systemBlue
+        }
+        
+        containerView.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.trailing.bottom.equalToSuperview().offset(-7)
+            make.leading.top.equalToSuperview().offset(7)
+        }
+        
+        view.addSubview(containerView)
+        
+        containerView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottomMargin.equalToSuperview().offset(-60)
+            
+        }
+        
+        UIView.transition(with: containerView, duration: 5,
+                          options: .transitionCrossDissolve,
+                          animations: {
+                        containerView.alpha = 0
+            
+        }) { _ in
+            label.removeFromSuperview()
+            containerView.removeFromSuperview()
+        }
+        
     }
 
 }
@@ -292,4 +347,6 @@ extension InjectionTableViewController: UITableViewDelegate{
         
         self.present(alert, animated: true)
     }
+    
+    
 }

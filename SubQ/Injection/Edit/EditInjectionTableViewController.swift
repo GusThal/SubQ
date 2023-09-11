@@ -263,7 +263,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 }
             }
             
-            editCoordinator?.savePressed()
+            editCoordinator?.savePressed(injectionDescriptionString: savedInjection.descriptionString, action: viewModel.injection == nil ? .created : .updated)
         }
         
         else {
@@ -436,6 +436,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 }
                 
                 nameTextField = cell.textField
+                nameTextField.delegate = self
                 
                 nameTextField.addAction(nameAction, for: .editingChanged)
 
@@ -480,6 +481,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 
                 
                 dosageTextField = cell.textField
+                dosageTextField.delegate = self
                 unitsSegmentedControl = segmentedControl
                 unitsSegmentedControl.addAction(unitsSegmentAction, for: .primaryActionTriggered)
                 
@@ -958,10 +960,11 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
             
+            let description = viewModel.injection!.descriptionString
             
             viewModel.deleteInjection(viewModel.injection!)
             
-            editCoordinator?.deleteInjection()
+            editCoordinator?.deleteInjection(injectionDescriptionString: description)
         }))
         
         self.present(alert, animated: true)
@@ -969,6 +972,28 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
 
 
 
+}
+
+extension EditInjectionTableViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        let currentText = textField.text ?? ""
+
+        // attempt to read the range they are trying to change, or exit if we can't
+        guard let stringRange = Range(range, in: currentText) else { return false }
+
+        // add their new text to the existing text
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+
+        // make sure the result is under 16 characters
+        if textField === nameTextField {
+            return updatedText.count <= 20
+        } else {
+            return updatedText.count <= 5
+        }
+        
+        
+    }
 }
 
 extension EditInjectionTableViewController{
