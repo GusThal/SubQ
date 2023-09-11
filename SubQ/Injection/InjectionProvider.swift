@@ -28,7 +28,7 @@ class InjectionProvider: NSObject{
         self.storageProvider = storageProvider
         
         let request: NSFetchRequest<Injection> = Injection.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Injection.name, ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true, selector: #selector(NSString.localizedStandardCompare))]
         let predicate = NSPredicate(format: "%K==%d", #keyPath(Injection.isInjectionDeleted), false)
         request.predicate = predicate
         

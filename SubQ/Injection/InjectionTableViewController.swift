@@ -87,7 +87,7 @@ class InjectionTableViewController: UIViewController, Coordinated {
                 }
                 
               self?.dataSource.apply(snapshot, animatingDifferences: true)
-                //self?.tableView.reloadData()
+            self?.tableView.reloadData()
             }
           })
           .store(in: &cancellables)

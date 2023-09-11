@@ -974,6 +974,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
 
 }
 
+//https://www.hackingwithswift.com/example-code/uikit/how-to-limit-the-number-of-characters-in-a-uitextfield-or-uitextview
 extension EditInjectionTableViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
