@@ -155,7 +155,6 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
         
         Publishers.Zip(viewModel.injectionSnapshot, viewModel.currentSnapshot)
             .sink { [weak self] injectionSnapshot, queueSnapshot in
-                
                 var isQueueEmpty = false
                 var isInjectionEmpty = false
                 
@@ -194,7 +193,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                 }*/
                 
                 
-                self?.tableView.reloadData()
+                //self?.tableView.reloadData()
                 
                 if isQueueEmpty && isInjectionEmpty{
                     self?.displayNoInjectionView()
@@ -344,7 +343,8 @@ extension SelectInjectionTableViewController{
             snapshot.appendItems(items, toSection: Section.injection.rawValue)
         }
         
-        dataSource.apply(snapshot, animatingDifferences: true)
+        //dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.applySnapshotUsingReloadData(snapshot)
     }
     
  /*   func applySnapshot(_ snapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>, toSection section: Section){
@@ -379,7 +379,7 @@ extension SelectInjectionTableViewController{
         dataSource = InjectionDiffableDataSource(tableView: tableView) { (tableView, indexPath, objectID) -> UITableViewCell? in
                 
                 
-            var injection: Injection
+            var injection: Injection!
                 
             var queueObject: Queue?
                 
@@ -388,8 +388,8 @@ extension SelectInjectionTableViewController{
                 let path = IndexPath(item: indexPath.item, section: indexPath.section)
                     
                 queueObject = self.viewModel.getQueueObject(forIndexPath: path)
-                    
-                injection = queueObject!.injection!
+
+                //injection = queueObject!.injection!
             }
             else{
  

@@ -15,13 +15,9 @@ class BadgeButton: UIButton {
     var badgeCount = 0 {
         didSet {
             
-            print("set")
-            
             if badgeCount == 0 {
-                print("remove the heckin label dawg")
                 removeBadgeLabel()
             } else {
-                print("uhhh called?")
                 showBadgeLabel(withCount: badgeCount)
             }
         }

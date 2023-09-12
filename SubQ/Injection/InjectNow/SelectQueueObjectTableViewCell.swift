@@ -61,6 +61,8 @@ class SelectQueueObjectTableViewCell: InjectionTableViewCell {
     }
     
     func setQueueObject(_ object: Queue) {
+        guard let _ = object.injection else { return }
+        
         super.setInjection(object.injection!)
         
         originallyDueLabel.text = "Due: \(object.dateDue!.fullDateTime)"
