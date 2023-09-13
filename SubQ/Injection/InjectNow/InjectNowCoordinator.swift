@@ -56,10 +56,49 @@ class InjectNowCoordinator: ModalChildCoordinator{
         
     }
     
-    func injectPressed(){
-        dismissViewController()
+    func injectPressed(injection: Injection){
+        parentNavigationController!.dismiss(animated: true)
+        
+        var vc = parentNavigationController!.topViewController!
+        
+        if let tabController = vc as? MainTabBarController {
+            print("tab")
+            
+            vc = tabController.selectedViewController!
+        }
+        
+        let str = "\(injection.descriptionString) injected"
+        
+        vc.showConfirmationView(message: str, color: .systemBlue)
+
+        parentCoordinator?.childDidFinish(self)
     }
     
+    func snoozedPressed(injection: Injection) {
+        parentNavigationController!.dismiss(animated: true)
+        
+        let vc = parentNavigationController!.topViewController!
+        
+        let str = "\(injection.descriptionString) snoozed"
+        
+        vc.showConfirmationView(message: str, color: .systemOrange)
+    
+        parentCoordinator?.childDidFinish(self)
+    }
+    
+    func skipPressed(injection: Injection) {
+        parentNavigationController!.dismiss(animated: true)
+        
+        let vc = parentNavigationController!.topViewController!
+        
+        let str = "\(injection.descriptionString) skipped"
+        
+        vc.showConfirmationView(message: str, color: .systemRed)
+    
+        parentCoordinator?.childDidFinish(self)
+    }
+    
+    //for close button pressed, and also when the user has zero scheduled injections and clicks the "schedule injection" button
     func dismissViewController(){
         parentNavigationController!.dismiss(animated: true)
         

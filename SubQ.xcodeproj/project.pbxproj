@@ -51,6 +51,7 @@
 		CC7762F82A7C5FFC00AEC489 /* SegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */; };
 		CC7762FA2A7D35E800AEC489 /* FilterTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */; };
 		CC815A812AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */; };
+		CC815A832AB125A700EC0F0A /* UIViewController+showConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */; };
 		CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */; };
 		CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */; };
 		CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */; };
@@ -146,6 +147,7 @@
 		CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedTableViewCell.swift; sourceTree = "<group>"; };
 		CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableFooterView.swift; sourceTree = "<group>"; };
 		CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectQueueObjectTableViewCell.swift; sourceTree = "<group>"; };
+		CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showConfirmationView.swift"; sourceTree = "<group>"; };
 		CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+textPublisher.swift"; sourceTree = "<group>"; };
 		CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+prettyTime.swift"; sourceTree = "<group>"; };
 		CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,6 +387,7 @@
 				CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */,
 				CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */,
 				CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */,
+				CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */,
 			);
 			path = SubQ;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */,
 				CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */,
 				CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */,
+				CC815A832AB125A700EC0F0A /* UIViewController+showConfirmationView.swift in Sources */,
 				CC31CD692A23ECB700C20CAB /* Injection+CoreDataClass.swift in Sources */,
 				CCC8F3B92A62DFCF00BAAED1 /* QueueProvider.swift in Sources */,
 				CCC8F3802A51D72600BAAED1 /* NotificationManager.swift in Sources */,

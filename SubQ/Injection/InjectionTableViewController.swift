@@ -140,7 +140,7 @@ class InjectionTableViewController: UIViewController, Coordinated {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showConfirmationView(injectionDescriptionString: String, action: EditAction) {
+   /* func showConfirmationView(injectionDescriptionString: String, action: EditAction) {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.layer.cornerRadius = 10
@@ -189,7 +189,7 @@ class InjectionTableViewController: UIViewController, Coordinated {
             containerView.removeFromSuperview()
         }
         
-    }
+    }*/
 
 }
 

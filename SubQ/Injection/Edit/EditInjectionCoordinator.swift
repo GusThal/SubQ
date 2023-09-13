@@ -110,7 +110,12 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         parentNavigationController!.dismiss(animated: true)
         
         let injectionTableVC = parentNavigationController!.topViewController as! InjectionTableViewController
-        injectionTableVC.showConfirmationView(injectionDescriptionString: injectionDescriptionString, action: action)
+        
+        var str = injectionDescriptionString
+        
+        str.append(" \(action.rawValue)")
+        
+        injectionTableVC.showConfirmationView(message: str, color: .systemBlue)
 
         parentCoordinator?.childDidFinish(self)
     }
@@ -120,7 +125,13 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         
         let injectionTableVC = parentNavigationController!.topViewController as! InjectionTableViewController
         
-        injectionTableVC.showConfirmationView(injectionDescriptionString: injectionDescriptionString, action: .deleted)
+        var str = injectionDescriptionString
+        
+        str.append(" \(InjectionTableViewController.EditAction.deleted.rawValue)")
+        
+        //injectionTableVC.showConfirmationView(injectionDescriptionString: injectionDescriptionString, action: .deleted)
+        
+        injectionTableVC.showConfirmationView(message: str, color: .systemRed)
         
         parentCoordinator?.childDidFinish(self)
     }

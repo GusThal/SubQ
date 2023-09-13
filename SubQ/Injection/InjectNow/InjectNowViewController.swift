@@ -34,8 +34,22 @@ class InjectNowViewController: UIViewController, Coordinated {
         buttonConfig.baseBackgroundColor = .blue
         
         let action = UIAction { _ in
+            
+            var injection: Injection!
+            
+            if self.viewModel.isFromNotification {
+                injection = self.viewModel.injectionFromNotification
+                
+            } else {
+                if let obj = self.viewModel.selectedQueueObject {
+                   injection = obj.injection!
+                } else {
+                    injection = self.viewModel.selectedInjection!
+                }
+            }
+            
+            self.injectNowCoordinator!.injectPressed(injection: injection)
             self.viewModel.injectionPerformed(site: self.viewModel.selectedSite!)
-            self.injectNowCoordinator!.injectPressed()
             
         }
         return UIButton(configuration: buttonConfig, primaryAction: action)
@@ -48,7 +62,7 @@ class InjectNowViewController: UIViewController, Coordinated {
         
         let action = UIAction { _ in
             self.viewModel.skipInjection()
-            self.injectNowCoordinator?.dismissViewController()
+            self.injectNowCoordinator?.skipPressed(injection: self.viewModel.injectionFromNotification!)
         }
         
         return UIButton(configuration: buttonConfig, primaryAction: action)
@@ -212,7 +226,9 @@ class InjectNowViewController: UIViewController, Coordinated {
             
             //self.dismiss(animated: true)
             
-            self.injectNowCoordinator?.dismissViewController()
+            //self.injectNowCoordinator?.dismissViewController()
+            
+            self.injectNowCoordinator?.snoozedPressed(injection: self.viewModel.injectionFromNotification!)
         
         }))
         
