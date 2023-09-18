@@ -428,6 +428,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 cell.label.text = "Injection Name:"
                 cell.textField.placeholder = "Beep Boop"
                 cell.textInputType = .text
+                //cell.textField.backgroundColor = .lightGray
+                cell.textField.borderStyle = .roundedRect
                 
                 if viewModel.name != "" {
                     cell.textField.text = viewModel.name
@@ -445,6 +447,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 cell.label.text = "Dosage:"
                 cell.textField.placeholder = "0.0"
                 cell.textInputType = .number
+                cell.textField.borderStyle = .roundedRect
                 
             
                 
