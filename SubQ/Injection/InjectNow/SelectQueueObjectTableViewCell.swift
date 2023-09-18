@@ -7,8 +7,29 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class SelectQueueObjectTableViewCell: InjectionTableViewCell {
+    
+    lazy var snoozedUntilView: UIView = {
+        let view = UIView(frame: .zero)
+        view.addSubview(snoozedUntilLabel)
+        snoozedUntilLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        return view
+    }()
+    
+    lazy var originallyDueView: UIView = {
+        let view = UIView(frame: .zero)
+        view.addSubview(originallyDueLabel)
+        originallyDueLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        return view
+    }()
     
     let originallyDueLabel: UILabel = {
         let label = UILabel()
@@ -19,6 +40,8 @@ class SelectQueueObjectTableViewCell: InjectionTableViewCell {
     
     let snoozedUntilLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -30,7 +53,7 @@ class SelectQueueObjectTableViewCell: InjectionTableViewCell {
         
         static let normalQueueConfiguration = QueueCellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 20), dosageLabelFont: UIFont.systemFont(ofSize: 16), unitsLabelFont: UIFont.systemFont(ofSize: 16), frequencyLabelFont: UIFont.systemFont(ofSize: 16), originallyDueLabelFont: UIFont.systemFont(ofSize: 16), snoozedUntilLabelFont: UIFont.systemFont(ofSize: 16))
         
-        static let smallQueueConfiguration = QueueCellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 16), dosageLabelFont: UIFont.systemFont(ofSize: 12), unitsLabelFont: UIFont.systemFont(ofSize: 12), frequencyLabelFont: UIFont.systemFont(ofSize: 12), originallyDueLabelFont: UIFont.systemFont(ofSize: 14), snoozedUntilLabelFont: UIFont.systemFont(ofSize: 14))
+        static let smallQueueConfiguration = QueueCellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 16), dosageLabelFont: UIFont.systemFont(ofSize: 12), unitsLabelFont: UIFont.systemFont(ofSize: 12), frequencyLabelFont: UIFont.systemFont(ofSize: 12), originallyDueLabelFont: UIFont.boldSystemFont(ofSize: 14), snoozedUntilLabelFont: UIFont.systemFont(ofSize: 14))
         
         init(nameLabelFont: UIFont, dosageLabelFont: UIFont, unitsLabelFont: UIFont, frequencyLabelFont: UIFont, originallyDueLabelFont: UIFont, snoozedUntilLabelFont: UIFont) {
             self.originallyDueLabelFont = originallyDueLabelFont
@@ -68,7 +91,7 @@ class SelectQueueObjectTableViewCell: InjectionTableViewCell {
         originallyDueLabel.text = "Due: \(object.dateDue!.fullDateTime)"
         
         //insert before the frequency rows
-        mainStackView.insertArrangedSubview(originallyDueLabel, at: 1)
+        mainStackView.insertArrangedSubview(originallyDueView, at: 1)
         
         
         if let snoozed = object.snoozedUntil {
@@ -78,7 +101,7 @@ class SelectQueueObjectTableViewCell: InjectionTableViewCell {
                 snoozedUntilLabel.textColor = .systemRed
             }
             
-            mainStackView.insertArrangedSubview(snoozedUntilLabel, at: 2)
+            mainStackView.insertArrangedSubview(snoozedUntilView, at: 2)
         }
     }
     

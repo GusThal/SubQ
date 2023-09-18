@@ -12,7 +12,7 @@ extension UIViewController {
     func showConfirmationView(message: String, color: UIColor) {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.layer.cornerRadius = 10
+        containerView.layer.cornerRadius = 20
         containerView.layer.masksToBounds = true
         
         
@@ -34,8 +34,10 @@ extension UIViewController {
         
         containerView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.trailing.bottom.equalToSuperview().offset(-7)
-            make.leading.top.equalToSuperview().offset(7)
+            make.bottom.equalToSuperview().offset(-12)
+            make.top.equalToSuperview().offset(12)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-15)
         }
         
         view.addSubview(containerView)

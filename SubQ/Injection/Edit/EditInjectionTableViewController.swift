@@ -988,7 +988,7 @@ extension EditInjectionTableViewController: UITextFieldDelegate {
 
         // make sure the result is under 16 characters
         if textField === nameTextField {
-            return updatedText.count <= 20
+            return updatedText.count <= 15
         } else {
             return updatedText.count <= 5
         }

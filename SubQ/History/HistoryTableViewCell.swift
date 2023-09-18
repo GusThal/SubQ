@@ -23,6 +23,7 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         let label = UILabel()
         label.setContentHuggingPriority(.required, for: .horizontal)
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.font = UIFont.systemFont(ofSize: 14)
         
         return label
         
@@ -30,27 +31,55 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
     
     let historyDateLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 14)
         
         return label
     }()
     
+    
     lazy var statusStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [statusLabel, historyDateLabel])
+        let stack = UIStackView(arrangedSubviews: [statusLabel, historyView])
         stack.axis = .horizontal
+        stack.alignment = .firstBaseline
         stack.spacing = 5
         
         return stack
         
     }()
     
+    lazy var historyView: UIView = {
+        let view = UIView(frame: .zero)
+        view.addSubview(historyDateLabel)
+        historyDateLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        return view
+    }()
+    
+    lazy var dueDateView: UIView = {
+        let view = UIView(frame: .zero)
+        view.addSubview(dueDateLabel)
+        dueDateLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        return view
+    }()
+    
     let dueDateLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14)
         
         return label
     }()
     
     lazy var historyDataStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [statusStackView, dueDateLabel] )
+        let stack = UIStackView(arrangedSubviews: [statusStackView, dueDateView])
         stack.axis = .vertical
         
         
@@ -58,9 +87,16 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
     }()
     
     func setHistory(_ history: History) {
-        statusLabel.text = history.status
+        statusLabel.text = "\(history.status!.capitalized):"
+        
+        if history.statusVal == .injected {
+            statusLabel.textColor = .systemBlue
+        } else {
+            statusLabel.textColor = .systemRed
+        }
+        
         historyDateLabel.text = history.date!.fullDateTime
-        dueDateLabel.text = history.dueDate!.fullDateTime
+        dueDateLabel.text = "Originally Due: \(history.dueDate!.fullDateTime)"
         
         super.setInjection(history.injection!)
         

@@ -15,7 +15,7 @@ class InjectionDescriptionTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.setContentHuggingPriority(.required, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        //label.setContentCompressionResistancePriority(.required, for: .horizontal)
         
        // label.backgroundColor = .brown
         
@@ -32,6 +32,8 @@ class InjectionDescriptionTableViewCell: UITableViewCell {
     
     let unitsLabel: UILabel = {
         let label = UILabel()
+       // label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         //label.backgroundColor = .blue
         
         return label
