@@ -54,7 +54,8 @@ class FilterTableFooterView: UITableViewHeaderFooterView {
         contentView.addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+            make.left.right.bottomMargin.equalToSuperview()
         }
     }
     
