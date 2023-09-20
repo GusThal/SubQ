@@ -11,6 +11,10 @@ import CoreData
 
 class SettingsViewController: UIViewController, Coordinated {
     
+    struct ElementKind{
+        static let sectionHeader = "section-header-element-kind"
+    }
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
     var collectionView: UICollectionView! = nil
@@ -83,6 +87,7 @@ class SettingsViewController: UIViewController, Coordinated {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
 
     func createLayout() -> UICollectionViewLayout {
         
@@ -95,11 +100,26 @@ class SettingsViewController: UIViewController, Coordinated {
                 
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+                
+                let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                             heightDimension: .estimated(44))
                 
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.10))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
                 
+               // group.interItemSpacing = .fixed(10)
+               // group.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+
+                
                 let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 5)
+                
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: sectionHeaderSize,
+                    elementKind: ElementKind.sectionHeader, alignment: .top)
+                
+                section.boundarySupplementaryItems = [sectionHeader]
                 
                 return section
                 
@@ -108,6 +128,8 @@ class SettingsViewController: UIViewController, Coordinated {
                 let configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
     
                 let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+                
+                section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
            
                 return section
             }
@@ -129,19 +151,50 @@ extension SettingsViewController{
     }
     func configureDataSource() {
         
-        let bodyPartCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { [weak self] (cell, indexPath, bodyPart) in
+        let bodyPartCellRegistration = UICollectionView.CellRegistration<CheckableBodyPartCollectionViewCell, String> { [weak self] (cell, indexPath, bodyPart) in
             // Populate the cell with our item description.
             
             guard let self = self else { return }
             
+            cell.bodyPartButton.addAction(cell.buttonAction, for: .primaryActionTriggered)
+            
+            cell.contentView.layer.cornerRadius = 5
+            
             
             let obj = self.viewModel.object(at: indexPath)
+            cell.bodyPart = obj
+            cell.viewModel = viewModel
             
-            var content = cell.defaultContentConfiguration()
+            if obj.enabled {
+                cell.isButtonSelected = true
+            } else {
+                cell.isButtonSelected = false
+            }
+            
+            
+            //cell.bodyPartButton.addA
+            
+        /*    let action: UIAction  = UIAction { _ in
+                
+                
+                let object = self.viewModel.object(at: indexPath)
+    
+                //toggle value
+                let enabled = object.enabled ? false : true
+                
+                self.viewModel.setEnabled(forBodyPart: object, to: enabled)
+                cell.isButtonSelected = enabled
+                
+            }
+            
+            cell.bodyPartButton.addAction(action, for: .primaryActionTriggered)*/
+            
+            
+            /*var content = cell.defaultContentConfiguration()
             content.text = obj.part
             cell.contentConfiguration = content
             
-            cell.accessories = obj.enabled ? [.checkmark()] : []
+            cell.accessories = obj.enabled ? [.checkmark()] : []*/
         
         }
         
@@ -151,8 +204,21 @@ extension SettingsViewController{
             content.text = item
             cell.contentConfiguration = content
             
-            cell.accessories = indexPath.item == MiscCells.feedback.rawValue ? [.disclosureIndicator()]: [.detail()]
+            cell.accessories = [.disclosureIndicator()]
             
+        }
+        
+        
+        let headerRegistration = UICollectionView.SupplementaryRegistration
+        <TextSupplementaryView>(elementKind: ElementKind.sectionHeader) {
+            (supplementaryView, string, indexPath) in
+            
+            supplementaryView.label.text = "Body Parts"
+            
+           
+           /* supplementaryView.backgroundColor = .lightGray
+            supplementaryView.layer.borderColor = UIColor.black.cgColor
+            supplementaryView.layer.borderWidth = 1.0*/
         }
         
         dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView) {
@@ -165,6 +231,10 @@ extension SettingsViewController{
                 return collectionView.dequeueConfiguredReusableCell(using: miscCellRegistration, for: indexPath, item: item)
             }
             
+        }
+        
+        dataSource.supplementaryViewProvider = { (view, kind, index) in
+            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
         }
 
         // initial data
@@ -198,7 +268,9 @@ extension SettingsViewController: UICollectionViewDelegate{
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        if section == Section.bodyParts.rawValue{
+  /*      if section == Section.bodyParts.rawValue{
+            
+            print("selected")
             
             let object = viewModel.object(at: indexPath)
             
@@ -228,7 +300,7 @@ extension SettingsViewController: UICollectionViewDelegate{
         }
         else{
             
-        }
+        }*/
         
     }
     

@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "CAF4E9B3-052B-465E-8F85-5AE256F984ED"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B60188F-4039-4822-A988-CC4B1E508A1C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Coordinators/InjectionTableCoordinator.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "addInjection()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C2247867-41F1-4A3B-9AB2-0A3EB78C3EB4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/ViewModels/SectionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "dataDidUpdate(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3D292484-3FB8-474A-AE1E-AD4FB4F30516"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/ViewModels/SectionViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "dataDidUpdate(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "55805E71-75E6-4B38-9ACD-1CB33F5C3CB2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/SelectInjectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C01BF213-083D-4C4A-B987-0BE2704DCFDE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Injection+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "nextInjection"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EE28F712-20CE-4C9F-AF9F-7938CEE72661"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Injection+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "nextInjection"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "EE28F712-20CE-4C9F-AF9F-7938CEE72661 - 4c20d315baffcd6a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SubQ.Injection.timeUntilNextInjection.getter : Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/Injection+CoreDataProperties.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "7260">
+               </Location>
+               <Location
+                  uuid = "EE28F712-20CE-4C9F-AF9F-7938CEE72661 - 4c20d315baffcd6a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SubQ.Injection.timeUntilNextInjection.getter : Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/Injection+CoreDataProperties.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "7264">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "22064EE4-D1E1-490C-B78C-FC6EB5857ECC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Injection+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "nextInjection"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DCA9F19E-5279-46E2-BFD6-C3D19EAC4CA3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Injection+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "nextInjection"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B65D5712-F291-4918-B6E7-80431F1756E0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Injection+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "nextInjection"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7E33BCC8-AB96-4E8B-81B0-5D00D855FD2D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Injection+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "nextInjection"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "06B1E992-B04F-4D32-B86F-3552A8FAD560"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Injection+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "nextInjection"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "06B1E992-B04F-4D32-B86F-3552A8FAD560 - 4c20d315baffcbbb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SubQ.Injection.timeUntilNextInjection.getter : Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/Injection+CoreDataProperties.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "6024">
+               </Location>
+               <Location
+                  uuid = "06B1E992-B04F-4D32-B86F-3552A8FAD560 - 4c20d315baffcbbb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SubQ.Injection.timeUntilNextInjection.getter : Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/Injection+CoreDataProperties.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "6384">
+               </Location>
+               <Location
+                  uuid = "06B1E992-B04F-4D32-B86F-3552A8FAD560 - 4c20d315baffcbbb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SubQ.Injection.timeUntilNextInjection.getter : Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/Injection+CoreDataProperties.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "6292">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A014C85-AA36-40AA-A752-C09410EA0963"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/NotificationManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
+            landmarkName = "scheduleSnoozedNotification(forInjection:snoozedUntil:originalDateDue:queueObject:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0A014C85-AA36-40AA-A752-C09410EA0963 - a6a4b03c48932df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static SubQ.NotificationManager.scheduleSnoozedNotificationForInjectionWith(objectID: __C.NSManagedObjectID, name: Swift.String, dosage: Swift.Double, units: SubQ.Injection.DosageUnits, frequency: Swift.Array&lt;SubQ.Injection.Frequency&gt;, frequencyString: Swift.String, snoozedUntil: Foundation.Date, originalDateDue: Foundation.Date) -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/NotificationManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "214"
+                  endingLineNumber = "214"
+                  offsetFromSymbolStart = "3320">
+               </Location>
+               <Location
+                  uuid = "0A014C85-AA36-40AA-A752-C09410EA0963 - a6a4b03c4893108"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static SubQ.NotificationManager.scheduleSnoozedNotificationForInjectionWith(objectID: __C.NSManagedObjectID, name: Swift.String, dosage: Swift.Double, units: SubQ.Injection.DosageUnits, frequency: Swift.Array&lt;SubQ.Injection.Frequency&gt;, frequencyString: Swift.String, snoozedUntil: Foundation.Date, originalDateDue: Foundation.Date) -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/NotificationManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "3320">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C319C2B-AE70-43DC-A6F5-8C66DE0FF194"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Queue/QueueProvider.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "object(forInjection:withDateDue:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3EA2E3CF-38B3-42C2-8DCA-AA03128CA30F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3EA2E3CF-38B3-42C2-8DCA-AA03128CA30F - c7d5368c09714db7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SubQ.SceneDelegate.userNotificationCenter(_: __C.UNUserNotificationCenter, didReceive: __C.UNNotificationResponse, withCompletionHandler: () -&gt; ()) -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/SceneDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "3656">
+               </Location>
+               <Location
+                  uuid = "3EA2E3CF-38B3-42C2-8DCA-AA03128CA30F - c7d5368c09714c54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SubQ.SceneDelegate.userNotificationCenter(_: __C.UNUserNotificationCenter, didReceive: __C.UNNotificationResponse, withCompletionHandler: () -&gt; ()) -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/SceneDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "3668">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1F25D4A3-098E-4AC5-95ED-3B16B7CE6872"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/InjectNow/SelectInjectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1F25D4A3-098E-4AC5-95ED-3B16B7CE6872 - d0e99f1a7c1c52a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;) -&gt; () in SubQ.SelectInjectionViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/InjectNow/SelectInjectionViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "220">
+               </Location>
+               <Location
+                  uuid = "1F25D4A3-098E-4AC5-95ED-3B16B7CE6872 - d0e99f1a7c1c52a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;) -&gt; () in SubQ.SelectInjectionViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/InjectNow/SelectInjectionViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "256">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33D360E7-05E9-4D9B-B58A-E67D42E910B2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Edit/EditInjectionTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "saveButtonPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F341A227-1E0F-42D3-B280-33F259E67F0C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/InjectNow/InjectNowViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "delete(queueObject:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E8B0158C-3AA2-4301-ADC1-264E9B0FE1D2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Edit/EditInjectionTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "863"
+            endingLineNumber = "863"
+            landmarkName = "getDuplicateFrequency(indexForSelectedDays:selectedDays:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A07581D-C399-4838-AEAE-811BC3975C4A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Edit/EditInjectionTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "896"
+            endingLineNumber = "896"
+            landmarkName = "getDuplicateFrequency(indexForSelectedTime:time:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84FDF133-CC9F-4EB0-BC8B-05BEBBE6A804"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/Edit/EditInjectionTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
+            landmarkName = "getDuplicateFrequency(indexForSelectedTime:time:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "558FB152-321A-4B08-935E-ED494AE5AE63"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Queue/QueueProvider.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "deleteObject(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "88333226-AE71-4DB5-A882-598B52CB6926"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/InjectNow/SelectInjectionTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "88333226-AE71-4DB5-A882-598B52CB6926 - 620c48c7d880e7be"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;, Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;) -&gt; () in SubQ.SelectInjectionTableViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/InjectNow/SelectInjectionTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "532">
+               </Location>
+               <Location
+                  uuid = "88333226-AE71-4DB5-A882-598B52CB6926 - 620c48c7d880e7be"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;, Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;) -&gt; () in SubQ.SelectInjectionTableViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/InjectNow/SelectInjectionTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "444">
+               </Location>
+               <Location
+                  uuid = "88333226-AE71-4DB5-A882-598B52CB6926 - 620c48c7d880e7be"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;, Swift.Optional&lt;UIKit.NSDiffableDataSourceSnapshot&lt;Swift.Int, __C.NSManagedObjectID&gt;&gt;) -&gt; () in SubQ.SelectInjectionTableViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/InjectNow/SelectInjectionTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "396">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C55C81FE-23E5-438C-941F-CD3691B4F5C8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SubQ/Injection/InjectNow/SelectInjectionTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "presentDeleteAlertController(forQueueObject:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C55C81FE-23E5-438C-941F-CD3691B4F5C8 - 5adf0cdc0e46bb31"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in SubQ.SelectInjectionTableViewController.presentDeleteAlertController(forQueueObject: SubQ.Queue) -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/InjectNow/SelectInjectionTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "248"
+                  endingLineNumber = "248"
+                  offsetFromSymbolStart = "656">
+               </Location>
+               <Location
+                  uuid = "C55C81FE-23E5-438C-941F-CD3691B4F5C8 - 5adf0cdc0e46bb31"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in SubQ.SelectInjectionTableViewController.presentDeleteAlertController(forQueueObject: SubQ.Queue) -&gt; ()"
+                  moduleName = "SubQ"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gus/swift/SubQ/SubQ/Injection/InjectNow/SelectInjectionTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "248"
+                  endingLineNumber = "248"
+                  offsetFromSymbolStart = "548">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -57,7 +57,7 @@ class SectionViewController: UIViewController, Coordinated {
                 print("Number of Snapshot sections in publisher \(snapshot.numberOfSections)")
                 
               self?.dataSource.apply(snapshot, animatingDifferences: false)
-               // self?.collectionView.reloadData()
+               self?.collectionView.reloadData()
             }
           })
           .store(in: &cancellables)

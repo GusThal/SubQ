@@ -52,6 +52,7 @@
 		CC7762FA2A7D35E800AEC489 /* FilterTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */; };
 		CC815A812AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */; };
 		CC815A832AB125A700EC0F0A /* UIViewController+showConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */; };
+		CC815A852ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC815A842ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift */; };
 		CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */; };
 		CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */; };
 		CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */; };
@@ -148,6 +149,7 @@
 		CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableFooterView.swift; sourceTree = "<group>"; };
 		CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectQueueObjectTableViewCell.swift; sourceTree = "<group>"; };
 		CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showConfirmationView.swift"; sourceTree = "<group>"; };
+		CC815A842ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableBodyPartCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+textPublisher.swift"; sourceTree = "<group>"; };
 		CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+prettyTime.swift"; sourceTree = "<group>"; };
 		CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -443,6 +445,7 @@
 				CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */,
 				CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */,
 				CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */,
+				CC815A842ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */,
 				CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */,
 				CCE943802A01B23B00514710 /* Coordinator.swift in Sources */,
+				CC815A852ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift in Sources */,
 				CC57389E2A34CA38000257E0 /* SectionProvider.swift in Sources */,
 				CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */,
 				CC1A7CCA2A9BF12000F748EB /* TimePickerTableViewCell.swift in Sources */,

@@ -53,4 +53,9 @@ class TextSupplementaryView: UICollectionReusableView {
         
     }
     
+    override func prepareForReuse() {
+        label.text = ""
+        secondaryLabel.text = ""
+    }
+    
 }
