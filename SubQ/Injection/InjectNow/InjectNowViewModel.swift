@@ -16,7 +16,7 @@ class InjectNowViewModel{
     let siteProvider: SiteProvider
     let historyProvider: HistoryProvider
     let queueProvider: QueueProvider
-    let dateDue: Date?
+    var dateDue: Date?
     
     var injectionFromNotification: Injection?
     var queueObjectFromNotification: Queue?

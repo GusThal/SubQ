@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class HistoryTableViewCell: InjectionDescriptionTableViewCell {
     
@@ -23,7 +24,19 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         let label = UILabel()
         label.setContentHuggingPriority(.required, for: .horizontal)
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        
+        return label
+        
+    }()
+    
+    let dueLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Due:"
+        
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         
         return label
         
@@ -38,9 +51,40 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         return label
     }()
     
+    let statusImageView: UIImageView = {
+        let view = UIImageView()
+        view.setContentHuggingPriority(.required, for: .horizontal)
+        view.setContentCompressionResistancePriority(.required, for: .horizontal)
+        
+        return view
+    }()
+    
+   let dueImageView: UIImageView = {
+        let config = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 14))
+        let image = UIImage(systemName: "calendar.badge.clock", withConfiguration: config)
+        
+        let view = UIImageView(image: image)
+        view.tintColor = .label
+        view.setContentHuggingPriority(.required, for: .horizontal)
+        view.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        
+        return view
+    }()
+    
     
     lazy var statusStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [statusLabel, historyView])
+        let stack = UIStackView(arrangedSubviews: [statusImageView, statusLabel, historyView])
+        stack.axis = .horizontal
+        stack.alignment = .firstBaseline
+        stack.spacing = 5
+        
+        return stack
+        
+    }()
+    
+    lazy var dueStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [dueImageView, dueLabel, dueDateView])
         stack.axis = .horizontal
         stack.alignment = .firstBaseline
         stack.spacing = 5
@@ -58,6 +102,7 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         
         return view
     }()
+    
     
     lazy var dueDateView: UIView = {
         let view = UIView(frame: .zero)
@@ -79,7 +124,7 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
     }()
     
     lazy var historyDataStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [statusStackView, dueDateView])
+        let stack = UIStackView(arrangedSubviews: [statusStackView])
         stack.axis = .vertical
         
         
@@ -89,14 +134,25 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
     func setHistory(_ history: History) {
         statusLabel.text = "\(history.status!.capitalized):"
         
+        let symbolConfig = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 14))
+        
+        
         if history.statusVal == .injected {
-            statusLabel.textColor = .systemBlue
+            statusImageView.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: symbolConfig)
+            statusImageView.tintColor = .systemGreen
         } else {
-            statusLabel.textColor = .systemRed
+            statusImageView.image = UIImage(systemName: "x.circle.fill", withConfiguration: symbolConfig)
+            statusImageView.tintColor = .systemRed
         }
         
         historyDateLabel.text = history.date!.fullDateTime
-        dueDateLabel.text = "Originally Due: \(history.dueDate!.fullDateTime)"
+        
+        if let due = history.dueDate {
+            historyDataStackView.addArrangedSubview(dueStackView)
+            
+            dueDateLabel.text = due.fullDateTime
+        }
+        
         
         super.setInjection(history.injection!)
         
@@ -135,6 +191,8 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         statusLabel.text = ""
         historyDateLabel.text = ""
         dueDateLabel.text = ""
+        statusImageView.image = nil
+        dueStackView.removeFromSuperview()
         
     }
 

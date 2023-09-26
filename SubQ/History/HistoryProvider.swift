@@ -72,7 +72,7 @@ class HistoryProvider: NSObject{
         history.injection = injection
         history.site = site
         history.date = date
-        history.dueDate = date
+        history.dueDate = dateDue
         history.status = status.rawValue
 
         do{

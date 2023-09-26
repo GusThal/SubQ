@@ -158,6 +158,8 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                 var isQueueEmpty = false
                 var isInjectionEmpty = false
                 
+                print("snap reloaded")
+                
                 self?.applySnapshots(queueSnapshot: queueSnapshot, injectionSnapshot: injectionSnapshot)
                 
                 if let queueSnapshot {
@@ -405,7 +407,7 @@ extension SelectInjectionTableViewController{
                 
                 cell.setQueueObject(queueObject!)
                 
-                cell.mode = .small
+              //  cell.mode = .small
                 
                 if let selectedQueue = self.viewModel.selectedQueueObject{
                     if selectedQueue == queueObject {
@@ -535,6 +537,7 @@ extension SelectInjectionTableViewController: UITableViewDelegate{
             
             viewModel.selectedInjection = nil
             viewModel.selectedQueueObject = viewModel.getQueueObject(forIndexPath: indexPath)
+            viewModel.dateDue = viewModel.selectedQueueObject!.dateDue
             
             let injection = viewModel.selectedQueueObject!.injection!
             
@@ -568,6 +571,7 @@ extension SelectInjectionTableViewController: UITableViewDelegate{
                     
                     viewModel.selectedInjection = injection
                     viewModel.selectedQueueObject = nil
+                    viewModel.dateDue = nil
                     
                     if injection.typeVal == .scheduled{
                         let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString), and due in \(injection.nextInjection!.timeUntil). You will still receive a notification.", preferredStyle: .alert)

@@ -9,99 +9,193 @@ import Foundation
 import UIKit
 import SnapKit
 
-class SelectQueueObjectTableViewCell: InjectionTableViewCell {
+class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
     
-    lazy var snoozedUntilView: UIView = {
-        let view = UIView(frame: .zero)
-        view.addSubview(snoozedUntilLabel)
-        snoozedUntilLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
+    let dueImageView: UIImageView = {
+        let config = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 12))
+        let image = UIImage(systemName: "calendar.badge.clock", withConfiguration: config)
+         
+        let view = UIImageView(image: image)
+        view.tintColor = .label
+        view.setContentHuggingPriority(.required, for: .horizontal)
+        view.setContentCompressionResistancePriority(.required, for: .horizontal)
+         
         return view
-    }()
+     }()
     
-    lazy var originallyDueView: UIView = {
-        let view = UIView(frame: .zero)
-        view.addSubview(originallyDueLabel)
-        originallyDueLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        return view
-    }()
     
-    let originallyDueLabel: UILabel = {
+    let dueLabel: UILabel = {
         let label = UILabel()
+        label.text = "Due:"
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         return label
-        
     }()
     
-    let snoozedUntilLabel: UILabel = {
+    let dueDateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12)
+        
+        return label
+        
+    }()
+    
+    lazy var dueStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [dueImageView, dueLabel, dueDateView])
+        stack.axis = .horizontal
+        stack.spacing = 5
+        
+        return stack
+    }()
+    
+    lazy var dueDateView: UIView = {
+        let view = UIView(frame: .zero)
+        view.addSubview(dueDateLabel)
+        dueDateLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        return view
+    }()
+    
+    let warningImageView: UIImage = {
+        let config = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 12))
+        let image = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: config)!
+
+        return image
+     }()
+    
+    let snoozedImage: UIImage = {
+        let config = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 12))
+        let image = UIImage(systemName: "zzz", withConfiguration: config)!
+        
+        return image
+    }()
+    
+    lazy var snoozedImageView: UIImageView = {
+         
+        let view = UIImageView(image: snoozedImage)
+        view.tintColor = .systemOrange
+        view.setContentHuggingPriority(.required, for: .horizontal)
+        view.setContentCompressionResistancePriority(.required, for: .horizontal)
+        view.contentMode = .center
+        
+      //  view.setContentHuggingPriority(.required, for: .vertical)
+       // view.setContentCompressionResistancePriority(.required, for: .vertical)
+         
+        return view
+     }()
+    
+    let snoozedUntilLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Snoozed Until:"
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         return label
     }()
     
+    let snoozedUntilDateLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12)
+        
+        return label
+        
+    }()
     
-    class QueueCellConfiguration: CellConfiguration {
-        let originallyDueLabelFont: UIFont
-        let snoozedUntilLabelFont: UIFont
-        
-        static let normalQueueConfiguration = QueueCellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 20), dosageLabelFont: UIFont.systemFont(ofSize: 16), unitsLabelFont: UIFont.systemFont(ofSize: 16), frequencyLabelFont: UIFont.systemFont(ofSize: 16), originallyDueLabelFont: UIFont.systemFont(ofSize: 16), snoozedUntilLabelFont: UIFont.systemFont(ofSize: 16))
-        
-        static let smallQueueConfiguration = QueueCellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 16), dosageLabelFont: UIFont.systemFont(ofSize: 12), unitsLabelFont: UIFont.systemFont(ofSize: 12), frequencyLabelFont: UIFont.systemFont(ofSize: 12), originallyDueLabelFont: UIFont.boldSystemFont(ofSize: 14), snoozedUntilLabelFont: UIFont.systemFont(ofSize: 14))
-        
-        init(nameLabelFont: UIFont, dosageLabelFont: UIFont, unitsLabelFont: UIFont, frequencyLabelFont: UIFont, originallyDueLabelFont: UIFont, snoozedUntilLabelFont: UIFont) {
-            self.originallyDueLabelFont = originallyDueLabelFont
-            self.snoozedUntilLabelFont = snoozedUntilLabelFont
-            
-            super.init(nameLabelFont: nameLabelFont, dosageLabelFont: dosageLabelFont, unitsLabelFont: unitsLabelFont, frequencyLabelFont: frequencyLabelFont)
+    lazy var snoozedDateView: UIView = {
+        let view = UIView(frame: .zero)
+        view.addSubview(snoozedUntilDateLabel)
+        snoozedUntilDateLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
+        
+        return view
+    }()
+    
+    lazy var snoozedStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [snoozedImageView, snoozedUntilLabel, snoozedDateView])
+        stack.axis = .horizontal
+        stack.spacing = 5
+        
+        return stack
+    }()
+    
+    
+    
+    lazy var queueStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [dueStackView])
+        stack.axis = .vertical
+        
+        return stack
+    }()
+    
+    lazy var mainStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [injectionDescriptionStackView, queueStackView])
+        stack.axis = .vertical
+        
+        return stack
+        
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(mainStackView)
+        
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        dosageLabel.font = UIFont.systemFont(ofSize: 14)
+        unitsLabel.font = UIFont.systemFont(ofSize: 14)
+        
+        mainStackView.snp.makeConstraints { make in
+            make.margins.equalToSuperview()
+        }
+        
+        print("init")
     }
     
-    override func applyCellConfiguration(mode: InjectionTableViewCell.CellMode) {
-        var config: QueueCellConfiguration
-        
-        if mode == .small {
-            config = QueueCellConfiguration.smallQueueConfiguration
-        } else {
-            config = QueueCellConfiguration.normalQueueConfiguration
-        }
-        
-        nameLabel.font = config.nameLabelFont
-        dosageLabel.font = config.dosageLabelFont
-        unitsLabel.font = config.unitsLabelFont
-        originallyDueLabel.font = config.originallyDueLabelFont
-        snoozedUntilLabel.font = config.snoozedUntilLabelFont
-        
-        for label in frequencyLabels {
-            label.font = config.frequencyLabelFont
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
+
     
     func setQueueObject(_ object: Queue) {
         guard let _ = object.injection else { return }
         
         super.setInjection(object.injection!)
         
-        originallyDueLabel.text = "Due: \(object.dateDue!.fullDateTime)"
+        dueDateLabel.text = object.dateDue!.fullDateTime
         
         //insert before the frequency rows
-        mainStackView.insertArrangedSubview(originallyDueView, at: 1)
         
         
-        if let snoozed = object.snoozedUntil {
-            snoozedUntilLabel.text = "Snoozed Until: \(snoozed.fullDateTime)"
+       if let snoozedUntil = object.snoozedUntil {
+           snoozedUntilDateLabel.text = snoozedUntil.fullDateTime
+           //snoozedUntilDateLabel.text = object.snoozedFor
+           queueStackView.addArrangedSubview(snoozedStackView)
+           snoozedUntilLabel.text = "Snoozed Until:"
+           
+           if snoozedUntil > Date() {
+               snoozedImageView.image = snoozedImage
+               snoozedImageView.tintColor = .systemOrange
+           } else {
+               snoozedImageView.image = warningImageView
+               snoozedImageView.tintColor = .systemYellow
+           }
+           
             
-            if snoozed < Date() {
+           /* if snoozed < Date() {
                 snoozedUntilLabel.textColor = .systemRed
-            }
+            }*/
             
-            mainStackView.insertArrangedSubview(snoozedUntilView, at: 2)
+           // mainStackView.insertArrangedSubview(snoozedUntilView!, at: 2)
         }
     }
     
@@ -112,10 +206,20 @@ class SelectQueueObjectTableViewCell: InjectionTableViewCell {
         
         super.prepareForReuse()
         
-        for label in [originallyDueLabel, snoozedUntilLabel] {
+        for label in [dueDateLabel, snoozedUntilDateLabel, snoozedUntilLabel] {
             label.text = ""
-            label.removeFromSuperview()
+           // label.removeFromSuperview()
         }
+        snoozedImageView.image = nil
+        queueStackView.removeArrangedSubview(snoozedStackView)
+        
+ /*       if let _ = snoozedUntilView {
+            snoozedUntilView!.removeFromSuperview()
+            snoozedUntilView = nil
+        }
+        
+        originallyDueView!.removeFromSuperview()
+        originallyDueView = nil*/
         
         
         

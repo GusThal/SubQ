@@ -21,7 +21,7 @@ class InjectionTableViewCell: InjectionDescriptionTableViewCell {
          
          static let normalConfiguration = CellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 20), dosageLabelFont: UIFont.systemFont(ofSize: 16), unitsLabelFont: UIFont.systemFont(ofSize: 16), frequencyLabelFont: UIFont.systemFont(ofSize: 14))
          
-         static let smallConfiguration = CellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 16), dosageLabelFont: UIFont.systemFont(ofSize: 12), unitsLabelFont: UIFont.systemFont(ofSize: 12), frequencyLabelFont: UIFont.systemFont(ofSize: 12))
+         static let smallConfiguration = CellConfiguration(nameLabelFont: UIFont.boldSystemFont(ofSize: 16), dosageLabelFont: UIFont.systemFont(ofSize: 14), unitsLabelFont: UIFont.systemFont(ofSize: 14), frequencyLabelFont: UIFont.systemFont(ofSize: 12))
         
         init(nameLabelFont: UIFont, dosageLabelFont: UIFont, unitsLabelFont: UIFont, frequencyLabelFont: UIFont) {
             self.nameLabelFont = nameLabelFont
