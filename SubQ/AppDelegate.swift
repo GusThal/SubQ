@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("launched")
         
-        registerForNotifications()
+//        registerForNotifications()
         
         registerNotificationCategories()
         

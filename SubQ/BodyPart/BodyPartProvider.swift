@@ -56,6 +56,14 @@ class BodyPartProvider: NSObject{
 
     }
     
+    func object(withObjectID id: NSManagedObjectID) -> BodyPart{
+        
+        let object = storageProvider.persistentContainer.viewContext.object(with: id) as! BodyPart
+        
+        return object
+        
+    }
+    
     func object(at indexPath: IndexPath) -> BodyPart {
       return fetchedResultsController.object(at: indexPath)
     }

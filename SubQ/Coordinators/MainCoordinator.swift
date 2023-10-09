@@ -22,11 +22,27 @@ class MainCoordinator: Coordinator {
 
 
     func start() {
+        navigationController.setNavigationBarHidden(true, animated: true)
         let vc = MainTabBarController(coordinator: self, storageProvider: storageProvider)
-        
         
         navigationController.pushViewController(vc, animated: false)
         
     
+    }
+    
+    func startOnboardingFlow(){
+        
+        let child = OnboardingCoordinator(navigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider)
+        
+        childCoordinators.append(child)
+        
+        child.start()
+        
+        
+       /* let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionProvider: viewModel.injectionProvider, injection: nil)
+        
+        childCoordinators.append(child)
+        child.start()*/
+        
     }
 }

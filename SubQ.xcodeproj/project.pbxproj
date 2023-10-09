@@ -37,6 +37,7 @@
 		CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */; };
 		CC4C16D72AAA0F1600B55E66 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */; };
 		CC4C16DB2AAB6ED800B55E66 /* InjectNowDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */; };
+		CC4CB05B2AD49C9A00150079 /* TextTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -63,6 +64,8 @@
 		CC9F518129FEBD1E00E6FAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517F29FEBD1E00E6FAF6 /* LaunchScreen.storyboard */; };
 		CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */; };
 		CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980322A281B7D00BF518C /* DatePickerContentView.swift */; };
+		CCB20E702AC8EBE10009B696 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB20E6F2AC8EBE10009B696 /* OnboardingViewModel.swift */; };
+		CCB20E722ACA09760009B696 /* BodyPartHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB20E712ACA09760009B696 /* BodyPartHeader.swift */; };
 		CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2182A13C8BA001B73D6 /* SectionCollectionViewCell.swift */; };
 		CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */; };
 		CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */; };
@@ -101,6 +104,14 @@
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
+		CCE97A4C2AC38F70008B1293 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */; };
+		CCE97A512AC3974E008B1293 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */; };
+		CCE97A532AC47693008B1293 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A522AC47693008B1293 /* OnboardingViewController.swift */; };
+		CCE97A552AC5B917008B1293 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A542AC5B917008B1293 /* OnboardingCollectionViewCell.swift */; };
+		CCE97A572AC5B9C1008B1293 /* BodyPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A562AC5B9C1008B1293 /* BodyPartViewController.swift */; };
+		CCE97A592AC5B9F3008B1293 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A582AC5B9F3008B1293 /* NotificationsViewController.swift */; };
+		CCE97A5B2AC5BA04008B1293 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */; };
+		CCE97A5E2AC738E0008B1293 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CCE97A5D2AC738E0008B1293 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +145,7 @@
 		CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionTableViewController.swift; sourceTree = "<group>"; };
 		CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowDataView.swift; sourceTree = "<group>"; };
+		CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableHeaderView.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -162,6 +174,8 @@
 		CC9F518229FEBD1E00E6FAF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentConfiguration.swift; sourceTree = "<group>"; };
 		CCA980322A281B7D00BF518C /* DatePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentView.swift; sourceTree = "<group>"; };
+		CCB20E6F2AC8EBE10009B696 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		CCB20E712ACA09760009B696 /* BodyPartHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartHeader.swift; sourceTree = "<group>"; };
 		CCBCE2182A13C8BA001B73D6 /* SectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSupplementaryView.swift; sourceTree = "<group>"; };
 		CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +214,13 @@
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		CCE943832A01C87200514710 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		CCE97A522AC47693008B1293 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		CCE97A542AC5B917008B1293 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCE97A562AC5B9C1008B1293 /* BodyPartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartViewController.swift; sourceTree = "<group>"; };
+		CCE97A582AC5B9F3008B1293 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCC4B8992A0D9FD1008BFF81 /* SnapKit in Frameworks */,
+				CCE97A5E2AC738E0008B1293 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +386,8 @@
 		CC9F517029FEBD1B00E6FAF6 /* SubQ */ = {
 			isa = PBXGroup;
 			children = (
+				CCB20E732ACB12A50009B696 /* Interface */,
+				CCE97A4D2AC390FF008B1293 /* Onboarding */,
 				CCC8F3B32A5F433900BAAED1 /* Queue */,
 				CC864EEF2A4E37FC00869A8C /* Site */,
 				CC5738A42A3B5733000257E0 /* History */,
@@ -402,6 +426,13 @@
 				CCA980322A281B7D00BF518C /* DatePickerContentView.swift */,
 			);
 			path = TimePickerCell;
+			sourceTree = "<group>";
+		};
+		CCB20E732ACB12A50009B696 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		CCC4B8612A0403FF008BFF81 /* ViewControllers */ = {
@@ -446,6 +477,7 @@
 				CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */,
 				CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */,
 				CC815A842ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift */,
+				CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -458,6 +490,22 @@
 				CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */,
 			);
 			path = Queue;
+			sourceTree = "<group>";
+		};
+		CCE97A4D2AC390FF008B1293 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */,
+				CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */,
+				CCE97A522AC47693008B1293 /* OnboardingViewController.swift */,
+				CCE97A542AC5B917008B1293 /* OnboardingCollectionViewCell.swift */,
+				CCE97A562AC5B9C1008B1293 /* BodyPartViewController.swift */,
+				CCE97A582AC5B9F3008B1293 /* NotificationsViewController.swift */,
+				CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */,
+				CCB20E6F2AC8EBE10009B696 /* OnboardingViewModel.swift */,
+				CCB20E712ACA09760009B696 /* BodyPartHeader.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -478,6 +526,7 @@
 			name = SubQ;
 			packageProductDependencies = (
 				CCC4B8982A0D9FD1008BFF81 /* SnapKit */,
+				CCE97A5D2AC738E0008B1293 /* Lottie */,
 			);
 			productName = SubQ;
 			productReference = CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */;
@@ -509,6 +558,7 @@
 			mainGroup = CC9F516529FEBD1B00E6FAF6;
 			packageReferences = (
 				CCC4B8972A0D9FD1008BFF81 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				CCE97A5C2AC738E0008B1293 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = CC9F516F29FEBD1B00E6FAF6 /* Products */;
 			projectDirPath = "";
@@ -540,11 +590,14 @@
 				CC7762F42A7C10A600AEC489 /* FilterCoordinator.swift in Sources */,
 				CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */,
 				CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */,
+				CCE97A4C2AC38F70008B1293 /* OnboardingCoordinator.swift in Sources */,
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
+				CCB20E702AC8EBE10009B696 /* OnboardingViewModel.swift in Sources */,
 				CC4AF1C12A8E8A67000FC22A /* Frequency+CoreDataClass.swift in Sources */,
 				CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */,
 				CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
+				CCE97A512AC3974E008B1293 /* WelcomeViewController.swift in Sources */,
 				CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */,
 				CC1A7CCE2AA288B300F748EB /* HistoryTableViewCell.swift in Sources */,
 				CC4AF1C22A8E8A67000FC22A /* Frequency+CoreDataProperties.swift in Sources */,
@@ -558,6 +611,7 @@
 				CCC4B8642A0413C0008BFF81 /* InjectionCoordinator.swift in Sources */,
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */,
+				CCE97A552AC5B917008B1293 /* OnboardingCollectionViewCell.swift in Sources */,
 				CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */,
 				CC1A7CC82A9795C700F748EB /* HistoryTableViewController.swift in Sources */,
 				CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */,
@@ -593,13 +647,16 @@
 				CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */,
 				CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */,
 				CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */,
+				CCB20E722ACA09760009B696 /* BodyPartHeader.swift in Sources */,
 				CC7762FA2A7D35E800AEC489 /* FilterTableFooterView.swift in Sources */,
 				CCC8F3BB2A634B1600BAAED1 /* SelectInjectionViewController.swift in Sources */,
 				CC31CD6B2A23ECB700C20CAB /* History+CoreDataClass.swift in Sources */,
 				CCC4B8702A045901008BFF81 /* SectionViewController.swift in Sources */,
+				CCE97A592AC5B9F3008B1293 /* NotificationsViewController.swift in Sources */,
 				CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */,
 				CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */,
 				CC4C16DB2AAB6ED800B55E66 /* InjectNowDataView.swift in Sources */,
+				CC4CB05B2AD49C9A00150079 /* TextTableHeaderView.swift in Sources */,
 				CC815A812AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
 				CC1A7CCC2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift in Sources */,
@@ -611,6 +668,8 @@
 				CC57389C2A34C50B000257E0 /* Section+CoreDataProperties.swift in Sources */,
 				CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */,
 				CCC4B8A12A0FD9DE008BFF81 /* DaysViewController.swift in Sources */,
+				CCE97A572AC5B9C1008B1293 /* BodyPartViewController.swift in Sources */,
+				CCE97A5B2AC5BA04008B1293 /* TermsViewController.swift in Sources */,
 				CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */,
 				CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */,
 				CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */,
@@ -619,6 +678,7 @@
 				CC7762F02A7BEE5000AEC489 /* ResultsHeaderView.swift in Sources */,
 				CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */,
 				CCBCE2342A1A7077001B73D6 /* CenteredTextLabelCell.swift in Sources */,
+				CCE97A532AC47693008B1293 /* OnboardingViewController.swift in Sources */,
 				CC31CD682A23ECB700C20CAB /* BodyPart+CoreDataProperties.swift in Sources */,
 				CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */,
 				CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */,
@@ -852,6 +912,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		CCE97A5C2AC738E0008B1293 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -859,6 +927,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CCC4B8972A0D9FD1008BFF81 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		CCE97A5D2AC738E0008B1293 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCE97A5C2AC738E0008B1293 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 
