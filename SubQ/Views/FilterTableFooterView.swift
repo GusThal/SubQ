@@ -26,7 +26,7 @@ class FilterTableFooterView: UITableViewHeaderFooterView {
         buttonConfig.buttonSize = .large
         buttonConfig.cornerStyle = .capsule
         buttonConfig.title = "Apply"
-        buttonConfig.baseBackgroundColor = .blue
+        buttonConfig.baseBackgroundColor = InterfaceDefaults.primaryColor
         
         let button =  UIButton(configuration: buttonConfig)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +40,7 @@ class FilterTableFooterView: UITableViewHeaderFooterView {
         buttonConfig.buttonSize = .large
         buttonConfig.cornerStyle = .capsule
         buttonConfig.title = "Reset"
+        buttonConfig.baseForegroundColor = InterfaceDefaults.primaryColor
         
         let button =  UIButton(configuration: buttonConfig)
         button.translatesAutoresizingMaskIntoConstraints = false

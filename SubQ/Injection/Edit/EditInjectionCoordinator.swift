@@ -69,6 +69,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         //navigationController.present(vc, animated: true)
         
         navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
         
         if let injection = viewModel.injection, let name = injection.name{
             vc.title = "\(name)"

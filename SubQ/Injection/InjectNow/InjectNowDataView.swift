@@ -99,7 +99,7 @@ class InjectNowDataView: UIView {
             else{
                 
                 config = UIButton.Configuration.filled()
-                config.baseBackgroundColor = .blue
+                config.baseBackgroundColor = InterfaceDefaults.primaryColor
                 config.baseForegroundColor = .white
                 
                 

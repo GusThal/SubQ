@@ -65,7 +65,7 @@ class CheckableBodyPartCollectionViewCell: UICollectionViewCell {
                 config.image = UIImage(systemName: "checkmark", withConfiguration: imageConfig)
                 
                 config.imageColorTransformer = UIConfigurationColorTransformer({ _ in
-                    return .systemBlue
+                    return InterfaceDefaults.primaryColor!
                 })
                 
                // config.image = UIImage(systemName: "checkmark")

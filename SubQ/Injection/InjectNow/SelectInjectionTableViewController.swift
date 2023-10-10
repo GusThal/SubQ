@@ -277,6 +277,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                     }
                     
                     navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .edit, primaryAction: editAction)
+                    navigationItem.leftBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
                     navigationItem.rightBarButtonItem = nil
                     
                 }
@@ -289,6 +290,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                     }
                     
                     navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)
+                    navigationItem.rightBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
                 }
             }
             else{

@@ -55,9 +55,17 @@ class HistoryTableViewController: UIViewController, Coordinated {
         self.isInEditMode = false
     }
     
-    lazy var editButton = UIBarButtonItem(systemItem: .edit, primaryAction: editAction)
+    lazy var editButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(systemItem: .edit, primaryAction: editAction)
+        button.tintColor = InterfaceDefaults.primaryColor
+        return button
+    }()
     
-    lazy var doneButton = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)
+    lazy var doneButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)
+        button.tintColor = InterfaceDefaults.primaryColor
+        return button
+    }()
     
     var isInEditMode: Bool = false{
         didSet{
@@ -89,9 +97,11 @@ class HistoryTableViewController: UIViewController, Coordinated {
                 
                 if snapshot.numberOfItems == 0{
                     self?.navigationItem.leftBarButtonItem?.isEnabled = false
+                    //self?.navigationItem.leftBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
                 }
                 else{
                     self?.navigationItem.leftBarButtonItem?.isEnabled = true
+                    self?.navigationItem.leftBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
                 }
             }
             
@@ -271,7 +281,7 @@ extension HistoryTableViewController: UITableViewDelegate {
             .assign(to: \.badgeCount, on: self.headerView!.filterButton)
             .store(in: &cancellables)
         
-        self.headerView!.filterButton.badgeBackgroundColor = .systemBlue
+        self.headerView!.filterButton.badgeBackgroundColor = InterfaceDefaults.primaryColor!
         
         return header
         

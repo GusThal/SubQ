@@ -38,6 +38,8 @@
 		CC4C16D72AAA0F1600B55E66 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */; };
 		CC4C16DB2AAB6ED800B55E66 /* InjectNowDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */; };
 		CC4CB05B2AD49C9A00150079 /* TextTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */; };
+		CC4CB05D2AD5982700150079 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4CB05C2AD5982700150079 /* UIColor+Extensions.swift */; };
+		CC4CB05F2AD5999100150079 /* InterfaceDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4CB05E2AD5999100150079 /* InterfaceDefaults.swift */; };
 		CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738952A3153B7000257E0 /* SiteProvider.swift */; };
 		CC5738982A34C2A8000257E0 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
 		CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
@@ -146,6 +148,8 @@
 		CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowDataView.swift; sourceTree = "<group>"; };
 		CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableHeaderView.swift; sourceTree = "<group>"; };
+		CC4CB05C2AD5982700150079 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		CC4CB05E2AD5999100150079 /* InterfaceDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceDefaults.swift; sourceTree = "<group>"; };
 		CC5738952A3153B7000257E0 /* SiteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteProvider.swift; sourceTree = "<group>"; };
 		CC5738972A34C2A8000257E0 /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -414,6 +418,7 @@
 				CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */,
 				CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */,
 				CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */,
+				CC4CB05C2AD5982700150079 /* UIColor+Extensions.swift */,
 			);
 			path = SubQ;
 			sourceTree = "<group>";
@@ -431,6 +436,7 @@
 		CCB20E732ACB12A50009B696 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				CC4CB05E2AD5999100150079 /* InterfaceDefaults.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -619,6 +625,7 @@
 				CCC4B8682A0447C9008BFF81 /* HistoryCoordinator.swift in Sources */,
 				CCBCE21F2A1524D7001B73D6 /* SiteCoordinator.swift in Sources */,
 				CC4C16D72AAA0F1600B55E66 /* BadgeButton.swift in Sources */,
+				CC4CB05D2AD5982700150079 /* UIColor+Extensions.swift in Sources */,
 				CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */,
 				CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */,
 				CCC4B8722A04591B008BFF81 /* HistoryCollectionViewController.swift in Sources */,
@@ -681,6 +688,7 @@
 				CCE97A532AC47693008B1293 /* OnboardingViewController.swift in Sources */,
 				CC31CD682A23ECB700C20CAB /* BodyPart+CoreDataProperties.swift in Sources */,
 				CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */,
+				CC4CB05F2AD5999100150079 /* InterfaceDefaults.swift in Sources */,
 				CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */,
 				CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */,
 				CC815A832AB125A700EC0F0A /* UIViewController+showConfirmationView.swift in Sources */,

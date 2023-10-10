@@ -68,7 +68,9 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
+        navigationItem.leftBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
+        navigationItem.rightBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
         
         /*tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 50*/

@@ -29,7 +29,7 @@ class SectionViewController: UIViewController, Coordinated {
     lazy var customizeButton: UIButton = {
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = "Customize"
-        buttonConfig.baseForegroundColor = .systemBlue
+        buttonConfig.baseForegroundColor = InterfaceDefaults.primaryColor
         
         let action = UIAction { _ in
             

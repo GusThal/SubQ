@@ -65,7 +65,7 @@ extension UIViewController {
     
         //let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 137, height: 45))
         
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 91.3, height: 30))
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 75.35, height: 24.75))
         
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit

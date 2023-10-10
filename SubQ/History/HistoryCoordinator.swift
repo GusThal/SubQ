@@ -30,6 +30,7 @@ class HistoryCoordinator: Coordinator{
         
         navigationController.pushViewController(vc, animated: false)
         navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
        
         
         vc.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)

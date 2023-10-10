@@ -100,6 +100,7 @@ class InjectionTableViewController: UIViewController, Coordinated {
         if !isInEditMode{
             
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
+            navigationItem.leftBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
             
             if let dataSource{
                 if dataSource.snapshot().numberOfItems == 0{
@@ -108,10 +109,12 @@ class InjectionTableViewController: UIViewController, Coordinated {
             }
             
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+            navigationItem.rightBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
         }
         else{
             navigationItem.leftBarButtonItem = nil
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
+            navigationItem.rightBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
         }
     }
     

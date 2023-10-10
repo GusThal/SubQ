@@ -31,7 +31,7 @@ class InjectNowViewController: UIViewController, Coordinated {
         buttonConfig.buttonSize = .medium
         buttonConfig.cornerStyle = .capsule
         buttonConfig.title = "Inject"
-        buttonConfig.baseBackgroundColor = .blue
+        buttonConfig.baseBackgroundColor = InterfaceDefaults.primaryColor
         
         let action = UIAction { _ in
             

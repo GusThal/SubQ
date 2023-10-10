@@ -24,6 +24,7 @@ class MainCoordinator: Coordinator {
     func start() {
         navigationController.setNavigationBarHidden(true, animated: true)
         let vc = MainTabBarController(coordinator: self, storageProvider: storageProvider)
+        vc.tabBar.tintColor = InterfaceDefaults.primaryColor
         
         navigationController.pushViewController(vc, animated: false)
         

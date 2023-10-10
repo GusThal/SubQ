@@ -18,6 +18,7 @@ class ResultsHeaderView: UITableViewHeaderFooterView {
         buttonConfig.buttonSize = .medium
         buttonConfig.cornerStyle = .small
         buttonConfig.title = "Filter"
+        buttonConfig.baseForegroundColor = InterfaceDefaults.primaryColor
         
         return BadgeButton(configuration: buttonConfig)
     }()

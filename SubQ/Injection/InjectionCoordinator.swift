@@ -34,12 +34,13 @@ class InjectionCoordinator: Coordinator{
         vc.setLogoTitleView()
         
         navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
         
         navigationController.pushViewController(vc, animated: false)
         
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "cross.vial"), selectedImage: UIImage(systemName: "cross.vial.fill"))
 
-       vc.navigationItem.title = "Injections"
+       vc.navigationItem.title = "Your Injections"
     }
     
     func addInjection(){

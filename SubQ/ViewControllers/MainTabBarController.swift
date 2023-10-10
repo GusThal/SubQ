@@ -86,9 +86,6 @@ class MainTabBarController: UITabBarController {
         injectionHistoryCoordinator.start()
         
         settingsCoordinator.start()
-        
-        
-        view.backgroundColor = .green
 
         // Do any additional setup after loading the view.
     }
