@@ -150,12 +150,12 @@ extension SectionViewController {
             
             cell.section = sectionObject
             
-            cell.label.text = "\(sectionObject.bodyPart!.part) + \(sectionObject.quadrantVal.description)"
-            cell.contentView.backgroundColor = .systemGreen
+            //cell.label.text = "\(sectionObject.bodyPart!.part) + \(sectionObject.quadrantVal.description)"
+            //cell.contentView.backgroundColor = .systemGreen
            /* cell.contentView.layer.borderColor = UIColor.black.cgColor
             cell.contentView.layer.borderWidth = 1
             cell.contentView.layer.cornerRadius = SectionLayoutKind(rawValue: indexPath.section)! == .grid5 ? 8 : 0*/
-            cell.label.textAlignment = .center
+            //cell.label.textAlignment = .center
         }
         
         let headerRegistration = UICollectionView.SupplementaryRegistration

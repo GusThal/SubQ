@@ -76,7 +76,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
     
     lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -87,7 +87,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
     lazy var noInjectionStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [noInjectionsLabel, scheduleInjectionnButton])
         stack.axis = .vertical
-        stack.backgroundColor = .white
+        stack.backgroundColor = .systemBackground
         stack.distribution = .equalSpacing
         stack.spacing = CGFloat(10)
     
@@ -101,8 +101,9 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
         let label = UILabel()
         label.text = "You currently have no scheduled injections."
         label.textAlignment = .center
+        label.textColor = .label
         
-        label.backgroundColor = .green
+       // label.backgroundColor = .green
         
         return label
     }()
@@ -120,10 +121,15 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
             var config: UIButton.Configuration!
             
             if self.viewModel.selectedInjection == nil && self.viewModel.selectedQueueObject == nil{
-                config = UIButton.Configuration.plain()
+                config = UIButton.Configuration.bordered()
                 
                 config.title = "Schedule"
-                config.baseForegroundColor = .blue
+                config.baseForegroundColor = InterfaceDefaults.primaryColor
+                config.baseBackgroundColor = .systemBackground
+                config.background.strokeColor = InterfaceDefaults.primaryColor
+                config.cornerStyle = .capsule
+                
+                
             }
             
             button.configuration = config

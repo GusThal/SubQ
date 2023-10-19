@@ -14,6 +14,7 @@ class TermsViewController: UIViewController {
     let attributedString: NSAttributedString = {
         let str = NSMutableAttributedString(string: "By tapping 'Get Started' you agree to our terms of service.")
         str.addAttribute(.link, value: "https://reddit.com", range: NSRange(location: 42, length: 17))
+        str.addAttribute(.foregroundColor, value: UIColor.label, range: NSRange(location: 0, length: str.length))
         
         return str
     }()
@@ -22,7 +23,7 @@ class TermsViewController: UIViewController {
         let view = UITextView()
         view.isSelectable = true
         view.backgroundColor = .systemBackground
-        view.textColor = .black
+        view.textColor = .label
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textAlignment = .center
         

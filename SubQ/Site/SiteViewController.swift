@@ -101,12 +101,12 @@ extension SiteViewController{
             let site = self.viewModel.object(at: indexPath)
             // Populate the cell with our item description.
             cell.site = site
-            cell.label.text = "\(site.subQuadrantVal) + \(site.lastInjected)"
+           // cell.label.text = "\(site.subQuadrantVal) + \(site.lastInjected)"
            /* cell.contentView.backgroundColor = .cornflowerBlue
             cell.layer.borderColor = UIColor.black.cgColor
             cell.layer.borderWidth = 1*/
-            cell.label.textAlignment = .center
-            cell.label.font = UIFont.preferredFont(forTextStyle: .body)
+           // cell.label.textAlignment = .center
+            //cell.label.font = UIFont.preferredFont(forTextStyle: .body)
         }
         
         dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {

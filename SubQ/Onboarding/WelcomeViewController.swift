@@ -68,7 +68,7 @@ class WelcomeViewController: UIViewController {
     
     let animationView: LottieAnimationView = {
         
-        let view = LottieAnimationView(asset: "syringe")
+        let view = LottieAnimationView(asset: "injection")
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.loopMode = .loop

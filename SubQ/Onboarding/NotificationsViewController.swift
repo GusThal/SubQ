@@ -19,7 +19,6 @@ class NotificationsViewController: UIViewController {
         view.loopMode = .loop
         view.animationSpeed = 0.75
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .systemRed
         
         view.play()
         
