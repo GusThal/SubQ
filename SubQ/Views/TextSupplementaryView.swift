@@ -9,7 +9,11 @@ import UIKit
 
 class TextSupplementaryView: UICollectionReusableView {
     
-    var supplementaryViewKind: InjectNowViewController.SupplementaryViewKind = .header{
+    enum SupplementaryViewKind {
+        case header, footer
+    }
+    
+    var supplementaryViewKind: SupplementaryViewKind = .header{
         didSet{
             if supplementaryViewKind == .footer{
                 addSupplementaryLabel()

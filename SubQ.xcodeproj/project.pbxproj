@@ -103,6 +103,7 @@
 		CCC8F3B92A62DFCF00BAAED1 /* QueueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */; };
 		CCC8F3BB2A634B1600BAAED1 /* SelectInjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */; };
 		CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEC0812A87030500EB265E /* HistoryViewController.swift */; };
+		CCE20A7C2AE8049A0004EB62 /* OrientationCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -214,6 +215,7 @@
 		CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueProvider.swift; sourceTree = "<group>"; };
 		CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionViewController.swift; sourceTree = "<group>"; };
 		CCCEC0812A87030500EB265E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationCollectionHeader.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */,
 				CC815A842ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift */,
 				CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */,
+				CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */,
 				CCC4B8662A044738008BFF81 /* SectionCoordinator.swift in Sources */,
 				CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */,
+				CCE20A7C2AE8049A0004EB62 /* OrientationCollectionHeader.swift in Sources */,
 				CC864EEE2A4CD0AE00869A8C /* Date+prettyTime.swift in Sources */,
 				CC57389B2A34C50B000257E0 /* Section+CoreDataClass.swift in Sources */,
 				CCB20E722ACA09760009B696 /* BodyPartHeader.swift in Sources */,

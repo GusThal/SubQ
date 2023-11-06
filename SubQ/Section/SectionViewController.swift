@@ -13,6 +13,7 @@ class SectionViewController: UIViewController, Coordinated {
     
     struct ElementKind{
         static let sectionHeader = "section-header-element-kind"
+        static let globalHeader = "global-header-element-kind"
     }
     
     let enabledBodyParts: [BodyPart.Location] = [.upperArm, .abdomen, .thigh, .buttocks]
@@ -97,7 +98,8 @@ extension SectionViewController{
                                                   heightDimension: .fractionalHeight(0.5))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 3, leading: 3, bottom: 3, trailing: 3)
+
 
             let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
             
@@ -116,12 +118,28 @@ extension SectionViewController{
             
             section.boundarySupplementaryItems = [sectionHeader]
             
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 3, bottom: 3, trailing: 5)
+
+            
           
             
            // section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
             return section
         }
+        
+        let globalHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .absolute(44))
+        
+        let globalHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: globalHeaderSize, elementKind: ElementKind.globalHeader, alignment: .top)
+        
+        globalHeader.pinToVisibleBounds = true
+        globalHeader.zIndex = 2
+        
         let config = UICollectionViewCompositionalLayoutConfiguration()
+        
+        config.boundarySupplementaryItems = [globalHeader]
+        
+        
         layout.configuration = config
         return layout
     }
@@ -150,6 +168,8 @@ extension SectionViewController {
             
             cell.section = sectionObject
             
+            cell.contentView.layer.cornerRadius = 5
+            
             //cell.label.text = "\(sectionObject.bodyPart!.part) + \(sectionObject.quadrantVal.description)"
             //cell.contentView.backgroundColor = .systemGreen
            /* cell.contentView.layer.borderColor = UIColor.black.cgColor
@@ -158,7 +178,7 @@ extension SectionViewController {
             //cell.label.textAlignment = .center
         }
         
-        let headerRegistration = UICollectionView.SupplementaryRegistration
+        let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration
         <TextSupplementaryView>(elementKind: ElementKind.sectionHeader) {
             (supplementaryView, string, indexPath) in
             
@@ -170,6 +190,10 @@ extension SectionViewController {
             supplementaryView.layer.borderColor = UIColor.black.cgColor
             supplementaryView.layer.borderWidth = 1.0*/
         }
+        
+        let globalHeaderRegistration = UICollectionView.SupplementaryRegistration<OrientationCollectionHeader>(elementKind: ElementKind.globalHeader) { supplementaryView, elementKind, indexPath in
+            
+        }
 
         
         dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) {
@@ -180,7 +204,12 @@ extension SectionViewController {
         }
         
         dataSource.supplementaryViewProvider = { (view, kind, index) in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
+            if kind == ElementKind.globalHeader {
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: globalHeaderRegistration, for: index)
+            } else {
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: sectionHeaderRegistration, for: index)
+            }
+            
         }
 
         // initial data

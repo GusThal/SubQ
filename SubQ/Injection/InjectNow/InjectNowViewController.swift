@@ -12,8 +12,10 @@ import Combine
 
 class InjectNowViewController: UIViewController, Coordinated {
     
-    enum SupplementaryViewKind: String{
-        case header = "header", footer = "footer"
+    struct SupplementaryViewKind{
+        static let sectionHeader = "section-header-element-kind"
+        static let globalHeader = "global-header-element-kind"
+        static let sectionFooter = "section-footer-element-kind"
     }
         
     let viewModel: InjectNowViewModel
@@ -82,13 +84,15 @@ class InjectNowViewController: UIViewController, Coordinated {
         
     }()
     
- 
+    var screenHeight: CGFloat?
     
     var siteDataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>!
     
     var siteCollectionView: UICollectionView! = nil
     
     var cancellables = Set<AnyCancellable>()
+    
+    var selectedCellIndexPath: IndexPath?
     
     lazy var selectedSiteLabel = UILabel()
     
@@ -100,6 +104,33 @@ class InjectNowViewController: UIViewController, Coordinated {
     lazy var selectionInjectionViewController = SelectInjectionViewController(viewModel: viewModel)
     
     //var queueCount: Int = 0
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        
+       
+        
+        screenHeight = self.view.window!.frame.height
+        
+        configureHierarchy()
+        configureDataSource()
+             
+        viewModel.siteSnapshot
+            .sink(receiveValue: { [weak self] snapshot in
+                if let snapshot = snapshot {
+                    print("Number of items in snapshot \(snapshot.numberOfItems)")
+                     
+                    self?.siteDataSource.apply(snapshot, animatingDifferences: false)
+                 }
+            })
+            .store(in: &cancellables)
+             
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,7 +161,7 @@ class InjectNowViewController: UIViewController, Coordinated {
         }
         
         
-        configureHierarchy()
+ /*       configureHierarchy()
         configureDataSource()
         
         viewModel.siteSnapshot
@@ -141,7 +172,7 @@ class InjectNowViewController: UIViewController, Coordinated {
               self?.siteDataSource.apply(snapshot, animatingDifferences: false)
             }
           })
-          .store(in: &cancellables)
+          .store(in: &cancellables)*/
         
         viewModel.fieldsSelectedPublisher.assign(to: \.isEnabled, on: injectButton)
             .store(in: &cancellables)
@@ -250,31 +281,48 @@ extension InjectNowViewController{
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-       
-       /* let spacing = CGFloat(10)
-        group.interItemSpacing = .fixed(spacing)*/
         
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
+        
+        group.interItemSpacing = .fixed(5)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 2.5, bottom: 0, trailing: 2.5)
+        
 
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
         
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
+        
         let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                      heightDimension: .estimated(44))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerFooterSize,
-            elementKind: SupplementaryViewKind.header.rawValue, alignment: .top)
+            elementKind: SupplementaryViewKind.sectionHeader, alignment: .top)
         let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerFooterSize,
-            elementKind: SupplementaryViewKind.footer.rawValue, alignment: .bottom)
+            elementKind: SupplementaryViewKind.sectionFooter, alignment: .bottom)
         section.boundarySupplementaryItems = [sectionHeader, sectionFooter]
+        
+        let globalHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .absolute(44))
+        
+        let globalHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: globalHeaderSize, elementKind: SupplementaryViewKind.globalHeader, alignment: .top)
+        
+        globalHeader.pinToVisibleBounds = true
+        globalHeader.zIndex = 2
+        
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        
+        config.boundarySupplementaryItems = [globalHeader]
 
         
         let layout = UICollectionViewCompositionalLayout(section: section)
+        layout.configuration = config
+        
         return layout
     }
     
@@ -289,11 +337,14 @@ extension InjectNowViewController{
         siteCollectionView.delegate = self
         view.addSubview(siteCollectionView)
         
+        let collectionViewHeight = screenHeight! * 0.6
+        
         NSLayoutConstraint.activate([
             siteCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             siteCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             siteCollectionView.topAnchor.constraint(equalTo: injectionDataView.bottomAnchor),
-            siteCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            siteCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight)
+            //siteCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     func configureDataSource() {
@@ -302,6 +353,15 @@ extension InjectNowViewController{
             let site = self.viewModel.getSite(forIndexPath: indexPath)
             // Populate the cell with our item description.
             cell.site = site
+            
+            if let selected = self.selectedCellIndexPath {
+                if selected == indexPath {
+                    cell.setSelected(to: true)
+                }
+            }
+            
+            cell.contentView.layer.cornerRadius = 5
+            
             //cell.label.text = "\(site.subQuadrantVal) + \(site.lastInjected)"
            /* cell.contentView.backgroundColor = .cornflowerBlue
             cell.layer.borderColor = UIColor.black.cgColor
@@ -310,8 +370,8 @@ extension InjectNowViewController{
             //cell.label.font = UIFont.preferredFont(forTextStyle: .body)
         }
         
-        let headerRegistration = UICollectionView.SupplementaryRegistration
-        <TextSupplementaryView>(elementKind: SupplementaryViewKind.header.rawValue) {
+        let globalHeaderRegistration = UICollectionView.SupplementaryRegistration
+        <TextSupplementaryView>(elementKind: SupplementaryViewKind.globalHeader) {
             (supplementaryView, string, indexPath) in
             supplementaryView.label.text = "Injection Sites"
            // supplementaryView.backgroundColor = .lightGray
@@ -319,8 +379,12 @@ extension InjectNowViewController{
             //supplementaryView.layer.borderWidth = 1.0
         }
         
-        let footerRegistration = UICollectionView.SupplementaryRegistration
-        <TextSupplementaryView>(elementKind: SupplementaryViewKind.footer.rawValue) {
+        let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration<OrientationCollectionHeader>(elementKind: SupplementaryViewKind.sectionHeader) { supplementaryView, elementKind, indexPath in
+            
+        }
+        
+        let sectionFooterRegistration = UICollectionView.SupplementaryRegistration
+        <TextSupplementaryView>(elementKind: SupplementaryViewKind.sectionFooter) {
             (supplementaryView, string, indexPath) in
             supplementaryView.label.text = "Selected Site:"
             supplementaryView.supplementaryViewKind = .footer
@@ -338,8 +402,14 @@ extension InjectNowViewController{
         }
         
         siteDataSource.supplementaryViewProvider = { (view, kind, index) in
-            return self.siteCollectionView.dequeueConfiguredReusableSupplementary(
-                using: kind == SupplementaryViewKind.header.rawValue ? headerRegistration : footerRegistration, for: index)
+            
+            if kind == SupplementaryViewKind.globalHeader {
+                return self.siteCollectionView.dequeueConfiguredReusableSupplementary(using: globalHeaderRegistration, for: index)
+            } else if kind == SupplementaryViewKind.sectionHeader {
+                return self.siteCollectionView.dequeueConfiguredReusableSupplementary(using: sectionHeaderRegistration, for: index)
+            } else {
+                return self.siteCollectionView.dequeueConfiguredReusableSupplementary(using: sectionFooterRegistration, for: index)
+            }
         }
 
         // initial data
@@ -356,13 +426,24 @@ extension InjectNowViewController: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let cell = collectionView.cellForItem(at: indexPath) as! SiteCollectionViewCell
+        
+        selectedCellIndexPath = indexPath
+        
+        cell.setSelected(to: true)
+        
         let site = viewModel.getSite(forIndexPath: indexPath)
         
         selectedSiteLabel.text = "\(site.section!.bodyPart!.part) + \(site.section) + \(site.subQuadrant)"
         
         viewModel.selectedSite = site
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? SiteCollectionViewCell else { return }
         
+        cell.setSelected(to: false)
     }
     
 }

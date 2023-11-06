@@ -35,4 +35,13 @@ extension Date{
         
         return formatter.string(from: self)
     }
+    
+    var fullDate: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.timeZone = .autoupdatingCurrent
+        formatter.setLocalizedDateFormatFromTemplate("EEE MMM d yyyy")
+        
+        return formatter.string(from: self)
+    }
 }

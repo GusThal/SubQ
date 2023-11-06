@@ -18,11 +18,7 @@ class SectionCollectionViewCell: UICollectionViewCell {
             
             guard section != nil else { return }
             
-            if section?.bodyPart?.partVal != .abdomen {
-                imageView = UIImageView(image: UIImage(named: "man"))
-            } else {
-                imageView = UIImageView(image: UIImage(named: "\(section!.bodyPart!.part!.lowercased())-\(section!.quadrant!)"))
-            }
+            imageView = UIImageView(image: UIImage(named: "\(section!.bodyPart!.part!.lowercased())-\(section!.quadrant!)"))
             
             imageView!.translatesAutoresizingMaskIntoConstraints = false
             imageView!.backgroundColor = .secondarySystemBackground
