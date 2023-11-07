@@ -47,12 +47,13 @@ class TextSupplementaryView: UICollectionReusableView {
     private func addSupplementaryLabel(){
         
         secondaryLabel.translatesAutoresizingMaskIntoConstraints = false
+        secondaryLabel.numberOfLines = 2
         addSubview(secondaryLabel)
         
         secondaryLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailingMargin.equalToSuperview().offset(-15)
-            make.leadingMargin.equalTo(label.snp.trailingMargin)
+            make.leadingMargin.equalTo(label.snp.trailing).offset(15)
         }
         
     }

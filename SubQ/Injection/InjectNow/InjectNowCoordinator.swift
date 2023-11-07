@@ -38,7 +38,6 @@ class InjectNowCoordinator: ModalChildCoordinator{
     
     func start() {
         let vc = InjectNowViewController(viewModel: viewModel)
-        
         vc.coordinator = self
         vc.injectNowCoordinator = self
         

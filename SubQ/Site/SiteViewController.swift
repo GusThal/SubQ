@@ -34,7 +34,7 @@ class SiteViewController: UIViewController, Coordinated {
         
         view.backgroundColor = .systemBrown
         
-        navigationItem.title = "\(viewModel.section.bodyPart!.part) + \(viewModel.section.quadrantVal)"
+        navigationItem.title = "\(viewModel.section.quadrantVal.description) \(viewModel.section.bodyPart!.part!)"
     
         configureHierarchy()
         configureDataSource()

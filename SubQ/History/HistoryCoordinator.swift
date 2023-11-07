@@ -58,8 +58,6 @@ class HistoryCoordinator: Coordinator{
         
         let vc = HistoryViewController(history: history)
         
-        vc.title = "Hello"
-        
         navigationController.pushViewController(vc, animated: true)
         
     }

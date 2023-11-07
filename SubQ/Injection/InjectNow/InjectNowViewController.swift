@@ -105,16 +105,10 @@ class InjectNowViewController: UIViewController, Coordinated {
     
     //var queueCount: Int = 0
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
     
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
-        
-       
-        
+             
         screenHeight = self.view.window!.frame.height
         
         configureHierarchy()
@@ -131,11 +125,19 @@ class InjectNowViewController: UIViewController, Coordinated {
             .store(in: &cancellables)
              
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("disappear")
+        
+        UIApplication.shared.isIdleTimerDisabled = false
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        
+        UIApplication.shared.isIdleTimerDisabled = true
         
         setUpNavBar()
             
@@ -434,7 +436,7 @@ extension InjectNowViewController: UICollectionViewDelegate{
         
         let site = viewModel.getSite(forIndexPath: indexPath)
         
-        selectedSiteLabel.text = "\(site.section!.bodyPart!.part) + \(site.section) + \(site.subQuadrant)"
+        selectedSiteLabel.text = "\(site.subQuadrantVal.description) of \(site.section!.quadrantVal.description) of \(site.section!.bodyPart!.part!) "
         
         viewModel.selectedSite = site
         
