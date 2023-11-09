@@ -47,19 +47,42 @@ class SiteCollectionViewCell: UICollectionViewCell {
             imageView.backgroundColor = .secondarySystemBackground
             imageView.layer.cornerRadius = 5
             
-            let label = UILabel()
+            let topLabel = UILabel()
+            topLabel.text = " Last Used:"
+            topLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            topLabel.setContentHuggingPriority(.required, for: .vertical)
+            topLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             //label!.translatesAutoresizingMaskIntoConstraints = false
-            label.numberOfLines = 2
             
+            let bottomLabel = UILabel()
+            bottomLabel.text = " \(site!.lastInjected?.fullDate ?? "n/a")"
+            bottomLabel.font = UIFont.systemFont(ofSize: 14)
+            bottomLabel.setContentHuggingPriority(.required, for: .vertical)
+            bottomLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             
+           /* var text = " Last Used:"
             
-            label.text = " Last Used: \(site!.lastInjected?.fullDate ?? "-\n")"
+            if date == "n/a" {
+                text.append(" n/a\n")
+            } else {
+                text.append("\n \(date)")
+            }
+            let attributedStr = NSMutableAttributedString(string: text)
+            attributedStr.addAttributes([.font: UIFont.boldSystemFont(ofSize: 14)], range: NSRange(location: 0, length: 12))
+            
+            let str = NSAttributedString(string: "Hello", attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
+
+            
+            label.attributedText = str */
+           
+            
             //label.backgroundColor = .red
           //  label.setContentHuggingPriority(.required, for: .vertical)
           //  label.setContentCompressionResistancePriority(.required, for: .vertical)
             
             stackView.addArrangedSubview(imageView)
-            stackView.addArrangedSubview(label)
+            stackView.addArrangedSubview(topLabel)
+            stackView.addArrangedSubview(bottomLabel)
             
             stackView.clipsToBounds = true
             

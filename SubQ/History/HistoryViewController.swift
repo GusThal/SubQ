@@ -40,7 +40,7 @@ class HistoryViewController: UIViewController, Coordinated {
     
     let injectionDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.text = "Injection:"
         
         return label
@@ -48,14 +48,14 @@ class HistoryViewController: UIViewController, Coordinated {
     
     let injectionDescriptionDataLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 14)
         
         return label
     }()
     
     let injectedDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.text = "Injected:"
         
         return label
@@ -63,14 +63,14 @@ class HistoryViewController: UIViewController, Coordinated {
     
     let injectedDateDataLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 14)
         
         return label
     }()
     
     let dueDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.text = "Due:"
         
         return label
@@ -78,7 +78,7 @@ class HistoryViewController: UIViewController, Coordinated {
     
     let dueDateDataLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 14)
         
         return label
     }()
@@ -86,7 +86,7 @@ class HistoryViewController: UIViewController, Coordinated {
     
     let siteLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.text = "Site:"
         
         return label
@@ -94,7 +94,7 @@ class HistoryViewController: UIViewController, Coordinated {
     
     let siteDataLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 14)
         
         return label
     }()

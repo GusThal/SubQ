@@ -104,6 +104,7 @@
 		CCC8F3BB2A634B1600BAAED1 /* SelectInjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */; };
 		CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEC0812A87030500EB265E /* HistoryViewController.swift */; };
 		CCE20A7C2AE8049A0004EB62 /* OrientationCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */; };
+		CCE20A7E2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -216,6 +217,7 @@
 		CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionViewController.swift; sourceTree = "<group>"; };
 		CCCEC0812A87030500EB265E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationCollectionHeader.swift; sourceTree = "<group>"; };
+		CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackLabelFooterView.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 		CCC4B8962A0D9446008BFF81 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */,
 				CCA9802D2A281A5A00BF518C /* TimePickerCell */,
 				CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */,
 				CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */,
@@ -599,6 +602,7 @@
 				CC7762F42A7C10A600AEC489 /* FilterCoordinator.swift in Sources */,
 				CCC8F3862A55C0E400BAAED1 /* Coordinated.swift in Sources */,
 				CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */,
+				CCE20A7E2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift in Sources */,
 				CCE97A4C2AC38F70008B1293 /* OnboardingCoordinator.swift in Sources */,
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
 				CCB20E702AC8EBE10009B696 /* OnboardingViewModel.swift in Sources */,

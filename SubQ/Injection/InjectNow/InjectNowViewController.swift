@@ -96,6 +96,10 @@ class InjectNowViewController: UIViewController, Coordinated {
     
     lazy var selectedSiteLabel = UILabel()
     
+    lazy var selectedLabel = UILabel()
+    
+    lazy var collectionViewFooter = UICollectionReusableView()
+    
     
     weak var injectNowCoordinator: InjectNowCoordinator?
     
@@ -297,7 +301,7 @@ extension InjectNowViewController{
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
         
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
         
         let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                      heightDimension: .estimated(44))
@@ -386,12 +390,14 @@ extension InjectNowViewController{
         }
         
         let sectionFooterRegistration = UICollectionView.SupplementaryRegistration
-        <TextSupplementaryView>(elementKind: SupplementaryViewKind.sectionFooter) {
+        <VerticalStackLabelFooterView>(elementKind: SupplementaryViewKind.sectionFooter) {
             (supplementaryView, string, indexPath) in
             supplementaryView.label.text = "Selected Site:"
-            supplementaryView.supplementaryViewKind = .footer
+           // supplementaryView.supplementaryViewKind = .footer
             supplementaryView.secondaryLabel.text = "None Selected"
             self.selectedSiteLabel = supplementaryView.secondaryLabel
+            self.selectedLabel = supplementaryView.label
+            self.collectionViewFooter = supplementaryView
            // supplementaryView.backgroundColor = .lightGray
            // supplementaryView.layer.borderColor = UIColor.black.cgColor
            // supplementaryView.layer.borderWidth = 1.0
@@ -437,6 +443,10 @@ extension InjectNowViewController: UICollectionViewDelegate{
         let site = viewModel.getSite(forIndexPath: indexPath)
         
         selectedSiteLabel.text = "\(site.subQuadrantVal.description) of \(site.section!.quadrantVal.description) of \(site.section!.bodyPart!.part!) "
+       
+        //selectedLabel.textColor = .white
+        selectedSiteLabel.textColor = .systemGreen
+       // collectionViewFooter.backgroundColor = InterfaceDefaults.primaryColor
         
         viewModel.selectedSite = site
         
