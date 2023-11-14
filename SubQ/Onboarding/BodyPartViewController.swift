@@ -33,6 +33,37 @@ class BodyPartViewController: UIViewController {
         
         return view
     }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Select Injection Sites"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+       // label.backgroundColor = .brown
+        label.numberOfLines = 0
+        
+        return label
+    }()
+    
+    let subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "(Note: These Can Be Changed Later in Settings)"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = 0
+        label.textColor = .gray
+       // label.backgroundColor = .yellow
+        
+        return label
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+        stack.axis = .vertical
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = 10
+        return stack
+    }()
 
     
     
@@ -41,10 +72,16 @@ class BodyPartViewController: UIViewController {
         super.viewDidLoad()
         
         view.addSubview(animationView)
+        view.addSubview(stackView)
         
         animationView.snp.makeConstraints { make in
             make.top.leftMargin.rightMargin.equalToSuperview()
-            make.height.equalTo(300)
+            make.height.equalTo(350)
+        }
+        
+        stackView.snp.makeConstraints { make in
+            make.leftMargin.rightMargin.equalToSuperview()
+            make.top.equalTo(animationView.snp.bottom)
         }
         
         
@@ -82,7 +119,8 @@ extension BodyPartViewController{
     private func createLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { [unowned self] section, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-            config.headerMode = .supplementary
+            //config.headerMode = .supplementary
+            config.backgroundColor = .systemBackground
             
             return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
         }
@@ -96,7 +134,7 @@ extension BodyPartViewController{
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: animationView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -116,19 +154,18 @@ extension BodyPartViewController{
             content.text = obj.part
             
             if viewModel.selectedBodyParts[indexPath.item] {
-                cell.accessories = [.checkmark()]
+                cell.accessories = [.checkmark(options: .init(tintColor: InterfaceDefaults.primaryColor))]
             } else {
                 cell.accessories = []
             }
             
             
             cell.contentConfiguration = content
-
-        }
-        
-        let headerRegistration = UICollectionView.SupplementaryRegistration
-        <BodyPartHeader>(elementKind: UICollectionView.elementKindSectionHeader) {
-            (supplementaryView, string, indexPath) in
+            
+            var backgroundConfig = UIBackgroundConfiguration.listGroupedCell()
+            backgroundConfig.backgroundColor = .secondarySystemBackground
+            
+            cell.backgroundConfiguration = backgroundConfig
 
         }
         
@@ -139,9 +176,6 @@ extension BodyPartViewController{
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
         }
         
-        dataSource.supplementaryViewProvider = { (view, kind, index) in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
-        }
         
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
@@ -169,7 +203,7 @@ extension BodyPartViewController: UICollectionViewDelegate{
             cell.accessories = []
             viewModel.selectedBodyParts[item] = false
         } else{
-            cell.accessories = [.checkmark()]
+            cell.accessories = [.checkmark(options: .init(tintColor: InterfaceDefaults.primaryColor))]
             viewModel.selectedBodyParts[item] = true
         }
         

@@ -420,6 +420,7 @@ extension SelectInjectionTableViewController{
                 if let selectedQueue = self.viewModel.selectedQueueObject{
                     if selectedQueue == queueObject {
                         cell.accessoryType = .checkmark
+                        cell.tintColor = InterfaceDefaults.primaryColor
                     }
                 }
                 
@@ -463,6 +464,7 @@ extension SelectInjectionTableViewController{
                 if let selectedInjection = self.viewModel.selectedInjection{
                     if selectedInjection == injection{
                         cell.accessoryType = .checkmark
+                        cell.tintColor = InterfaceDefaults.primaryColor
                     }
                 }
                 
@@ -597,6 +599,7 @@ extension SelectInjectionTableViewController: UITableViewDelegate{
         }
         
         cell?.accessoryType = .checkmark
+        cell?.tintColor = InterfaceDefaults.primaryColor
         tableView.reloadData()
         
        

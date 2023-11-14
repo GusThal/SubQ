@@ -105,6 +105,9 @@
 		CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEC0812A87030500EB265E /* HistoryViewController.swift */; };
 		CCE20A7C2AE8049A0004EB62 /* OrientationCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */; };
 		CCE20A7E2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */; };
+		CCE20A802AFE7C980004EB62 /* LinkCollectionViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7F2AFE7C980004EB62 /* LinkCollectionViewListCell.swift */; };
+		CCE20A832AFE7DF00004EB62 /* LinkCollectionViewListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A822AFE7DF00004EB62 /* LinkCollectionViewListContentView.swift */; };
+		CCE20A852AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A842AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
 		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
@@ -218,6 +221,9 @@
 		CCCEC0812A87030500EB265E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationCollectionHeader.swift; sourceTree = "<group>"; };
 		CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackLabelFooterView.swift; sourceTree = "<group>"; };
+		CCE20A7F2AFE7C980004EB62 /* LinkCollectionViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCollectionViewListCell.swift; sourceTree = "<group>"; };
+		CCE20A822AFE7DF00004EB62 /* LinkCollectionViewListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCollectionViewListContentView.swift; sourceTree = "<group>"; };
+		CCE20A842AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCollectionViewListCellContentConfiguration.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -504,9 +510,20 @@
 			path = Queue;
 			sourceTree = "<group>";
 		};
+		CCE20A812AFE7CC20004EB62 /* TermsCollectionViewListCell */ = {
+			isa = PBXGroup;
+			children = (
+				CCE20A7F2AFE7C980004EB62 /* LinkCollectionViewListCell.swift */,
+				CCE20A822AFE7DF00004EB62 /* LinkCollectionViewListContentView.swift */,
+				CCE20A842AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift */,
+			);
+			path = TermsCollectionViewListCell;
+			sourceTree = "<group>";
+		};
 		CCE97A4D2AC390FF008B1293 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				CCE20A812AFE7CC20004EB62 /* TermsCollectionViewListCell */,
 				CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */,
 				CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */,
 				CCE97A522AC47693008B1293 /* OnboardingViewController.swift */,
@@ -622,6 +639,7 @@
 				CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */,
 				CCC8F3822A53776F00BAAED1 /* InjectNowViewController.swift in Sources */,
 				CCC4B8642A0413C0008BFF81 /* InjectionCoordinator.swift in Sources */,
+				CCE20A802AFE7C980004EB62 /* LinkCollectionViewListCell.swift in Sources */,
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */,
 				CCE97A552AC5B917008B1293 /* OnboardingCollectionViewCell.swift in Sources */,
@@ -648,6 +666,7 @@
 				CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */,
 				CC31CD6A2A23ECB700C20CAB /* Injection+CoreDataProperties.swift in Sources */,
 				CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */,
+				CCE20A852AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift in Sources */,
 				CC4AF1C62A8EBC6B000FC22A /* TextInputTableViewCell.swift in Sources */,
 				CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
@@ -680,6 +699,7 @@
 				CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */,
 				CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */,
 				CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */,
+				CCE20A832AFE7DF00004EB62 /* LinkCollectionViewListContentView.swift in Sources */,
 				CC57389C2A34C50B000257E0 /* Section+CoreDataProperties.swift in Sources */,
 				CC4AF1D42A941245000FC22A /* SelectInjectionTableViewController.swift in Sources */,
 				CCC4B8A12A0FD9DE008BFF81 /* DaysViewController.swift in Sources */,

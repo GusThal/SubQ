@@ -30,7 +30,6 @@ class NotificationsViewController: UIViewController {
         label.text = "Never Miss an Injection"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 30)
-        label.backgroundColor = .brown
         label.translatesAutoresizingMaskIntoConstraints = false
        // label.setContentHuggingPriority(.required, for: .vertical)
        // label.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -45,7 +44,7 @@ class NotificationsViewController: UIViewController {
         buttonConfig.buttonSize = .large
         buttonConfig.cornerStyle = .capsule
         buttonConfig.title = "Allow Notifications"
-        buttonConfig.baseBackgroundColor = .blue
+        buttonConfig.baseBackgroundColor = InterfaceDefaults.primaryColor
         
         let button =  UIButton(configuration: buttonConfig, primaryAction: notificationAction)
        // button.translatesAutoresizingMaskIntoConstraints = false
@@ -65,13 +64,13 @@ class NotificationsViewController: UIViewController {
         }
     }()
     
-    lazy var stackView: UIStackView = {
+ /*   lazy var stackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [notificationLabel, notificationButton])
         stack.axis = .vertical
        // stack.alignment = .center
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
-    }()
+    }()*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,13 +83,24 @@ class NotificationsViewController: UIViewController {
             make.height.equalTo(350)
         }
         
-        view.addSubview(stackView)
+        view.addSubview(notificationButton)
         
-        stackView.snp.makeConstraints { make in
-            make.bottomMargin.equalToSuperview().offset(-100)
+        view.addSubview(notificationLabel)
+    
+        
+       
+        
+        notificationLabel.snp.makeConstraints { make in
+            make.top.equalTo(animationView.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+        
+        notificationButton.snp.makeConstraints { make in
+            //make.bottomMargin.equalToSuperview().offset(-50)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
+            make.top.equalTo(notificationLabel.snp.bottom).offset(10)
         }
         
 
