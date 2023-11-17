@@ -12,6 +12,11 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    enum Keys: String {
+        case userOnboarded = "isUserOnboarded"
+        case bodyPartsPopulated = "areBodyPartsPopulated"
+    }
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,29 +27,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerNotificationCategories()
         
-       // NotificationManager.populateInjectionQueueForExistingNotifications()
+        print("Body parts populated \(UserDefaults.standard.bool(forKey: Keys.bodyPartsPopulated.rawValue))")
         
-     
-      /*  let storageProvider = StorageProvider.shared
+        if !UserDefaults.standard.bool(forKey: Keys.bodyPartsPopulated.rawValue) {
+            
+            print("populating body parts")
+            
+            let storageProvider = StorageProvider.shared
+             
+            let bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
+             
+            bodyPartProvider.insertInitialData()
+             
+            let sectionProvider = SectionProvider(storageProvider: storageProvider)
+             
+            sectionProvider.insertInitialData()
+             
+            let siteProvider = SiteProvider(storageProvider: storageProvider)
+             
+            siteProvider.insertInitialData()
+            
+            UserDefaults.standard.setValue(true, forKey: Keys.bodyPartsPopulated.rawValue)
+        }
         
-        let bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
-        
-        bodyPartProvider.insertInitialData()
-        
-        let sectionProvider = SectionProvider(storageProvider: storageProvider)
-        
-        sectionProvider.insertInitialData()
-        
-        let siteProvider = SiteProvider(storageProvider: storageProvider)
-        
-        siteProvider.insertInitialData()*/
         
         return true
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        print("plz")
         
         completionHandler(.newData)
     }

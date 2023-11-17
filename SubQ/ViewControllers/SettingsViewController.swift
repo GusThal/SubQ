@@ -202,7 +202,10 @@ extension SettingsViewController{
             
             var content = cell.defaultContentConfiguration()
             content.text = item
+            content.textProperties.color = .systemBlue
+            
             cell.contentConfiguration = content
+            
             
             cell.accessories = [.disclosureIndicator()]
             

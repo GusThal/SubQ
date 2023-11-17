@@ -36,6 +36,7 @@ class OnboardingCoordinator: Coordinator {
     
     func startButtonPressed() {
         viewModel.updateEnabledBodyParts()
+        UserDefaults.standard.setValue(true, forKey: AppDelegate.Keys.userOnboarded.rawValue)
         
         navigationController.dismiss(animated: true)
         parentCoordinator!.childDidFinish(self)

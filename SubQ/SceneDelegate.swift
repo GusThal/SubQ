@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         coordinator = mainCoordinator
         
-        if newUser {
+        if !UserDefaults.standard.bool(forKey: AppDelegate.Keys.userOnboarded.rawValue) {
             mainCoordinator.startOnboardingFlow()
             
         } else {
