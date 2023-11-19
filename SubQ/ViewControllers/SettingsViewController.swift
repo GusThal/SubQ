@@ -37,12 +37,13 @@ class SettingsViewController: UIViewController, Coordinated {
     }
     
     enum MiscCells: Int, CaseIterable{
-        case disc, privacy, feedback
+        case terms, medicalDisclaimer, privacy
         var description: String {
             switch self{
-            case .disc: return "Disclaimer"
-            case .privacy: return "Privacy Statement"
-            case .feedback: return "Send Feedback"
+            case .terms: return "Terms of Service"
+            case .medicalDisclaimer: return "Medical Disclaimer"
+            case .privacy: return "Privacy Policy"
+            
             }
         }
     }
@@ -270,6 +271,18 @@ extension SettingsViewController: UICollectionViewDelegate{
         let cell = collectionView.cellForItem(at: indexPath) as! UICollectionViewListCell
         
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        if section == Section.misc.rawValue {
+            
+            if index == MiscCells.privacy.rawValue {
+                UIApplication.shared.open(InterfaceDefaults.privacyPolicyURL)
+            } else if index == MiscCells.terms.rawValue {
+                UIApplication.shared.open(InterfaceDefaults.termsURL)
+            } else if index == MiscCells.medicalDisclaimer.rawValue {
+                UIApplication.shared.open(InterfaceDefaults.medicalDisclaimerURL)
+            }
+            
+        }
         
   /*      if section == Section.bodyParts.rawValue{
             

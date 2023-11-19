@@ -15,13 +15,12 @@ class DaysViewController: UIViewController, Coordinated {
     private var dataSource: UICollectionViewDiffableDataSource<Int, Frequency.InjectionDay>! = nil
     private var collectionView: UICollectionView! = nil
     
-   // let days = Injection.Frequency.allCases.filter { ![Injection.Frequency.asNeeded, Injection.Frequency.daily].contains($0) }
-    
+
     let days = Frequency.InjectionDay.allCases.filter { Frequency.InjectionDay.daily != $0 }
     
     
     var isDailySelected = false
-    //var isAsNeededSelected = false
+
     
     var isADaySelected: Bool{
         for day in selectedDays{
@@ -50,7 +49,7 @@ class DaysViewController: UIViewController, Coordinated {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
         
-        view.backgroundColor = .orange
+        navigationItem.rightBarButtonItem!.tintColor = InterfaceDefaults.primaryColor
         
         configureHierarchy()
         configureDataSource()
@@ -63,9 +62,6 @@ class DaysViewController: UIViewController, Coordinated {
     init(selectedFrequency: [Frequency.InjectionDay]?){
         
         if let selectedFrequency{
-            /*if selectedFrequency == [.asNeeded]{
-                isAsNeededSelected = true
-            }*/
             if selectedFrequency == [.daily]{
                 isDailySelected = true
             }
@@ -109,7 +105,6 @@ extension DaysViewController{
     private func createLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { [unowned self] section, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-            //config.footerMode = .supplementary
             
             return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
         }
@@ -131,14 +126,11 @@ extension DaysViewController{
             var content = cell.defaultContentConfiguration()
             content.text = item.rawValue
             
-           /* if indexPath.section == Section.asNeeded.rawValue && self.isAsNeededSelected{
-                cell.accessories = [.checkmark()]
-            }*/
             if indexPath.section == Section.daily.rawValue && self.isDailySelected{
-                cell.accessories = [.checkmark()]
+                cell.accessories = [.checkmark(options: .init(tintColor: InterfaceDefaults.primaryColor))]
             }
             else if indexPath.section == Section.days.rawValue && self.selectedDays[indexPath.item]{
-                cell.accessories = [.checkmark()]
+                cell.accessories = [.checkmark(options: .init(tintColor: InterfaceDefaults.primaryColor))]
             }
             
             
@@ -147,18 +139,7 @@ extension DaysViewController{
 
         }
         
- /*       let footerRegistration = UICollectionView.SupplementaryRegistration
-        <UICollectionViewListCell>(elementKind: UICollectionView.elementKindSectionFooter) {
-            [unowned self] (footerView, elementKind, indexPath) in
-            
-            if indexPath.section == Section.asNeeded.rawValue{
-                
-                // Configure footer view content
-                var configuration = footerView.defaultContentConfiguration()
-                configuration.text = "As needed injections will not generate notifications."
-                footerView.contentConfiguration = configuration
-            }
-        }*/
+
         
         dataSource = UICollectionViewDiffableDataSource<Int, Frequency.InjectionDay>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: Frequency.InjectionDay) -> UICollectionViewCell? in
@@ -166,17 +147,12 @@ extension DaysViewController{
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
         }
         
-      /*  dataSource.supplementaryViewProvider = { (view, kind, index) in
-            
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
-                using:  footerRegistration, for: index)
-        }*/
+
         
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, Frequency.InjectionDay>()
         
-        /*snapshot.appendSections([0])
-        snapshot.appendItems([Injection.Frequency.asNeeded])*/
+
         snapshot.appendSections([0])
         snapshot.appendItems([Frequency.InjectionDay.daily])
         snapshot.appendSections([1])
@@ -198,27 +174,7 @@ extension DaysViewController: UICollectionViewDelegate{
         
         
         
-        //as needed cell
-      /*  if section == Section.asNeeded.rawValue{
-            
-            if !cell.accessories.isEmpty{
-                cell.accessories = []
-                isAsNeededSelected = false
-            }
-            else{
-                cell.accessories = [.checkmark()]
-                isAsNeededSelected = true
-                
-                let dailyCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.daily.rawValue)) as! UICollectionViewListCell
-                dailyCell.accessories = []
-                isDailySelected = false
-                
-                uncheckAllDays()
-                
-            }
-            
-        }*/
-        //daily cell
+
         if section == Section.daily.rawValue{
             
             if !cell.accessories.isEmpty{
@@ -227,12 +183,10 @@ extension DaysViewController: UICollectionViewDelegate{
                 isDailySelected = false
             }
             else{
-                cell.accessories = [.checkmark()]
+                cell.accessories = [.checkmark(options: .init(tintColor: InterfaceDefaults.primaryColor))]
                 isDailySelected = true
                 
-               /* let asNeededCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.asNeeded.rawValue)) as! UICollectionViewListCell
-                asNeededCell.accessories = []
-                isAsNeededSelected = false*/
+
                 
                 uncheckAllDays()
             }
@@ -248,20 +202,16 @@ extension DaysViewController: UICollectionViewDelegate{
                // selectedDays[row] = false
             }
             else{
-                cell.accessories = [.checkmark()]
+                cell.accessories = [.checkmark(options: .init(tintColor: InterfaceDefaults.primaryColor))]
                 selectedDays[item] = true
                 
-              /*  let asNeededCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.asNeeded.rawValue)) as! UICollectionViewListCell
-                asNeededCell.accessories = []
-                isAsNeededSelected = false*/
-                
+
                 
                 let dailyCell = collectionView.cellForItem(at: IndexPath(item: 0, section: Section.daily.rawValue)) as! UICollectionViewListCell
-               // dailyCell.accessories = []
-               // isDailySelected = false
+
                 
                 if allDaysSelected(){
-                    dailyCell.accessories = [.checkmark()]
+                    dailyCell.accessories = [.checkmark(options: .init(tintColor: InterfaceDefaults.primaryColor))]
                     cell.accessories = []
                     isDailySelected = true
                     uncheckAllDays()
@@ -269,17 +219,8 @@ extension DaysViewController: UICollectionViewDelegate{
                 else{
                     dailyCell.accessories = []
                     isDailySelected = false
-                   // isAsNeededSelected = false
-                    
-                    
-                 /*   selectedFrequencies.removeAll { !days.contains($0) }
-                    selectedFrequencies.append(dataSource.itemIdentifier(for: indexPath)!)*/
-                    
-                    
                 }
                 
-                
-                //selectedDays[row] = true
             }
             
         }

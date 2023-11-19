@@ -35,11 +35,11 @@ class TermsViewController: UIViewController {
         return view
     }()
     
-    let disclaimerString = "This app was created by a junior iOS developer for his own learning purposes only, and as such should not be relied upon by the user as the sole method for tracking their injections."
+    
     
     let attributedString: NSAttributedString = {
         let str = NSMutableAttributedString(string: "By tapping 'Get Started' you agree to our Terms of Service.")
-        str.addAttribute(.link, value: "https://reddit.com", range: NSRange(location: 42, length: 17))
+        str.addAttribute(.link, value: "https://sites.google.com/view/subq-app/home", range: NSRange(location: 42, length: 17))
         str.addAttribute(.foregroundColor, value: UIColor.label, range: NSRange(location: 0, length: str.length))
         str.addAttribute(.font, value: UIFont.systemFont(ofSize: 17), range: NSRange(location: 0, length: str.length))
         
@@ -219,7 +219,7 @@ extension TermsViewController {
         /*snapshot.appendSections([0])
         snapshot.appendItems([Injection.Frequency.asNeeded])*/
         snapshot.appendSections([0])
-        snapshot.appendItems([disclaimerString])
+        snapshot.appendItems([InterfaceDefaults.disclaimerString])
         snapshot.appendItems(["Value 2"])
         //snapshot.appendItems(viewModel.bodyParts)
         

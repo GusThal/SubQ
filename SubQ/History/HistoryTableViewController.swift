@@ -187,7 +187,8 @@ extension HistoryTableViewController {
     private func configureSearchController(){
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search by injection name"
+        searchController.searchBar.placeholder = "Search by Injection Name"
+        searchController.searchBar.tintColor = InterfaceDefaults.primaryColor
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.preferredSearchBarPlacement = .stacked

@@ -188,7 +188,7 @@ class NotificationManager{
         for frequency in injection.frequency as! Set<Frequency> {
             
             let content = UNMutableNotificationContent()
-            content.title = "It's Injection O'Clock!"
+            content.title = "Injection Time!"
             content.body = "It's time for your injection \(injection.name!) of \(injection.dosage!) \(injection.units!), scheduled \(frequency.shortenedDayString) at \(frequency.time!.prettyTime)."
               
             content.sound = .defaultCritical
@@ -351,8 +351,8 @@ class NotificationManager{
     static func scheduleSnoozedNotification(forInjection injection: Injection, snoozedUntil: Date, originalDateDue: Date, queueObject: Queue){
         
         let content = UNMutableNotificationContent()
-        content.title = "It's Injection O'Clock!"
-        content.body = "It's time for your injection \(injection.name) of \(injection.dosage) \(injection.units), that was originally due \(originalDateDue) and snoozed until \(snoozedUntil.prettyTime)."
+        content.title = "Injection Time!"
+        content.body = "It's time for your injection \(injection.name!) of \(injection.dosage!) \(injection.units!), that was originally due \(originalDateDue) and snoozed until \(snoozedUntil.prettyTime)."
        
         content.sound = .defaultCritical
         content.interruptionLevel = .critical
