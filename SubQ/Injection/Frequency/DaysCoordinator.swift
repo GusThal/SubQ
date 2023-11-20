@@ -40,12 +40,10 @@ class DaysCoordinator: ModalChildCoordinator{
         let selectedDays = viewModel!.frequencies[viewModel!.selectedDayCellIndex].days
         
         let vc = DaysViewController(selectedFrequency: selectedDays)
-        //let vc = FrequencyViewController(selectedFrequency: viewModel!.selectedFrequency)
+    
         vc.coordinator = self
         vc.frequencyCoordinator = self
-        
-        //navigationController.present(vc, animated: true)
-        
+
         vc.title = "Days"
         
         navigationController.navigationBar.prefersLargeTitles = true
@@ -69,29 +67,21 @@ class DaysCoordinator: ModalChildCoordinator{
         
         
         if isDailySelected{
-           // viewModel.currentValueFrequency.value = [.daily]
-           // viewModel.selectedFrequency = [.daily]
-            
             viewModel.frequencies[viewModel.selectedDayCellIndex].days = [.daily]
             viewModel.currentValueSelectedDay.value = [.daily]
         }
-      /*  else if isAsNeededSelected{
-            viewModel.currentValueFrequency.value = [.asNeeded]
-            viewModel.selectedFrequency = [.asNeeded]
-        }*/
+
         else{
             viewModel.frequencies[viewModel.selectedDayCellIndex].days = []
             viewModel.currentValueSelectedDay.value = []
-            //viewModel.currentValueFrequency.value = []
-            //viewModel.selectedFrequency = []
+
             
             for (i, day) in viewModel.days.enumerated(){
                 
                 if selectedDays[i]{
                     viewModel.frequencies[viewModel.selectedDayCellIndex].days?.append(day)
                     viewModel.currentValueSelectedDay.value.append(day)
-                    //viewModel.currentValueFrequency.value.append(day)
-                    //viewModel.selectedFrequency.append(day)
+
                 }
                 
             }

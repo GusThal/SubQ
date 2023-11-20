@@ -35,11 +35,6 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                 print("delete")
                 
                 viewController!.presentDeleteAlertController(forQueueObject: viewController!.viewModel.getQueueObject(forIndexPath: indexPath))
-                
-                
-               /* let injection = viewController!.viewModel.object(at: indexPath)
-                
-                viewController?.presentDeleteAlertController(forInjection: injection)*/
             }
         }
         
@@ -182,26 +177,6 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                     }
                 }
                 
-               /* if let queueSnapshot{
-                    self?.applySnapshot(queueSnapshot, toSection: Section.queue)
-                    //only needs to be called when this snapshot updates, not when the injections do.
-                    self?.setBarButtons()
-                    
-                    if queueSnapshot.numberOfItems == 0{
-                        isQueueEmpty = true
-                    }
-                }
-                
-                if let injectionSnapshot{
-                    self?.applySnapshot(injectionSnapshot, toSection: Section.injection)
-                    
-                    if injectionSnapshot.numberOfItems == 0{
-                        isInjectionEmpty = true
-                    }
-                }*/
-                
-                
-                //self?.tableView.reloadData()
                 
                 if isQueueEmpty && isInjectionEmpty{
                     self?.displayNoInjectionView()
@@ -353,35 +328,9 @@ extension SelectInjectionTableViewController{
             snapshot.appendItems(items, toSection: Section.injection.rawValue)
         }
         
-        //dataSource.apply(snapshot, animatingDifferences: true)
         dataSource.applySnapshotUsingReloadData(snapshot)
     }
     
- /*   func applySnapshot(_ snapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>, toSection section: Section){
-        
-        
-        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-        
-        let title = section.description
-        
-        let headerItem = Item(title: title, objectID: nil)
-        sectionSnapshot.append([headerItem])
-        
-        var items = [Item]()
-        
-        for objectID in snapshot.itemIdentifiers{
-            
-            items.append(Item(title: nil, objectID: objectID))
-            
-        }
-        
-        sectionSnapshot.append(items, to: headerItem)
-        sectionSnapshot.expand([headerItem])
-        dataSource.apply(sectionSnapshot, to: section.rawValue, animatingDifferences: true)
-        
-        
-        
-    }*/
     
     func configureDataSource() {
         
@@ -398,8 +347,6 @@ extension SelectInjectionTableViewController{
                 let path = IndexPath(item: indexPath.item, section: indexPath.section)
                     
                 queueObject = self.viewModel.getQueueObject(forIndexPath: path)
-
-                //injection = queueObject!.injection!
             }
             else{
  
@@ -415,33 +362,12 @@ extension SelectInjectionTableViewController{
                 
                 cell.setQueueObject(queueObject!)
                 
-              //  cell.mode = .small
-                
                 if let selectedQueue = self.viewModel.selectedQueueObject{
                     if selectedQueue == queueObject {
                         cell.accessoryType = .checkmark
                         cell.tintColor = InterfaceDefaults.primaryColor
                     }
                 }
-                
-                    
-               /* var content = cell.defaultContentConfiguration()
-                content.text = injection.descriptionString
-                content.secondaryText = injection.scheduledString
-                    
-                content.secondaryText?.append(" | Missed: \(queueObject!.dateDue!.fullDateTime)")
-                    
-                if let snoozedUntil = queueObject?.snoozedUntil{
-                    content.secondaryText?.append("| Snoozed until: \(snoozedUntil)")
-                }
-                    
-                if let selectedQueue = self.viewModel.selectedQueueObject{
-                    if selectedQueue == queueObject {
-                        cell.accessoryType = .checkmark
-                    }
-                }
-                
-                cell.contentConfiguration = content*/
                 
                 return cell
                     
@@ -516,23 +442,6 @@ extension SelectInjectionTableViewController: UITableViewDelegate{
         !isCellDisabled(indexPath: indexPath)
 
     }
-    
-/*    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        
-        let cell = tableView.cellForRow(at: indexPath)
-        
-        if isCellDisabled(indexPath: indexPath) {
-            cell?.selectionStyle = .none
-            
-        } else {
-            
-        }
-    }*/
-    
-  /*  func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        isCellDisabled(indexPath: indexPath)
-        
-    }*/
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -102,8 +102,6 @@ class SelectInjectionViewController: UIViewController, Coordinated {
     var isInEditMode: Bool = false{
         didSet{
             
-           // setBarButtons()
-            
             if isInEditMode{
                 collectionView.isEditing = true
             }
@@ -156,47 +154,7 @@ class SelectInjectionViewController: UIViewController, Coordinated {
             
         }.store(in: &cancellables)
         
-  /*     viewModel.injectionSnapshot
-            .sink(receiveValue: { [weak self] snapshot in
-              if let snapshot = snapshot {
-                 
-                  self?.applySnapshot(snapshot, toSection: Section.injection)
-                  
-                  self?.collectionView.reloadData()
 
-              }
-            })
-            .store(in: &cancellables)*/
-
- /*       viewModel.queueSnapshot
-          .sink(receiveValue: { [weak self] snapshot in
-            if let snapshot = snapshot {
-                
-                print("Number of queue \(snapshot.numberOfItems)")
-                
-                self?.applySnapshot(snapshot, toSection: Section.queue)
-                //only needs to be called when this snapshot updates, not when the injections do.
-                self?.setBarButtons()
-                
-                self?.collectionView.reloadData()
-            }
-          })
-          .store(in: &cancellables)*/
-        
-   /*     viewModel.currentSnapshot
-            .sink { [weak self] snapshot in
-            
-            print("updated \(Date()) + \(snapshot?.itemIdentifiers)")
-            
-            if let snapshot = snapshot{
-                self?.applySnapshot(snapshot, toSection: Section.queue)
-                //only needs to be called when this snapshot updates, not when the injections do.
-                self?.setBarButtons()
-    
-                self?.collectionView.reloadData()
-                
-            }
-        }.store(in: &cancellables)*/
     }
     
     func displayNoInjectionView(){
@@ -384,7 +342,6 @@ extension SelectInjectionViewController{
                injection = queueObject!.injection!
             }
             else{
-               // let index = IndexPath(item: indexPath.item, section: 0)
                 
                 injection = self.viewModel.getInjection(withObjectID: item.objectID!)
             }
@@ -506,66 +463,6 @@ extension SelectInjectionViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath) as! UICollectionViewListCell
-        
-    /*    if indexPath.section == Section.queue.rawValue{
-            
-            let path = IndexPath(item: indexPath.item-1, section: indexPath.section)
-            
-            viewModel.selectedInjection = nil
-            viewModel.selectedQueueObject = viewModel.getQueueObject(forIndexPath: path)
-            
-            let injection = viewModel.selectedQueueObject!.injection!
-            
-            
-            //it's possible a person could have had a scheduled injection, missed a dose, and changed it to "As needed"
-            //so there'd still be a queued injection for that.
-            if !injection.daysVal.contains(.asNeeded){
-                
-                let alert = UIAlertController(title: "Queued Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!). This injection is scheduled for \(injection.nextInjection!.timeUntil). You will still receive a notification.", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                    self.dismiss(animated: true)
-                }))
-                
-                self.present(alert, animated: true)
-            }
-            else{
-                selectInjectionCoordinator?.dismiss()
-            }
-            
-            
-        }
-        else{
-            
-            if let snapshot = viewModel.typeSafeInjectionSnapshot{
-                //-1 on the index because the first row is always a header.
-                let id =  snapshot.itemIdentifiers[indexPath.row-1]
-                
-                let injection = viewModel.getInjection(withObjectID: id)
-                
-                    
-                    viewModel.selectedInjection = injection
-                    viewModel.selectedQueueObject = nil
-                    
-                    if !injection.daysVal.contains(.asNeeded){
-                        let alert = UIAlertController(title: "Scheduled Injection Selected", message: "You selected  \(injection.name!) \(injection.dosage!) \(injection.units!), scheduled \(injection.scheduledString), and due in \(injection.nextInjection!.timeUntil). You will still receive a notification.", preferredStyle: .alert)
-                        
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                            self.dismiss(animated: true)
-                        }))
-                        
-                        self.present(alert, animated: true)
-                    }
-                    else{
-                        selectInjectionCoordinator?.dismiss()
-                    }
-            }
-        }
-        
-        cell.accessories = [.checkmark()]
-        collectionView.reloadData()
-        
-        */
         
        
     }

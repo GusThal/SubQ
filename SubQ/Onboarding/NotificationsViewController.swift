@@ -31,10 +31,7 @@ class NotificationsViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
-       // label.setContentHuggingPriority(.required, for: .vertical)
-       // label.setContentCompressionResistancePriority(.required, for: .vertical)
-        
-        
+
         return label
     }()
     
@@ -47,8 +44,6 @@ class NotificationsViewController: UIViewController {
         buttonConfig.baseBackgroundColor = InterfaceDefaults.primaryColor
         
         let button =  UIButton(configuration: buttonConfig, primaryAction: notificationAction)
-       // button.translatesAutoresizingMaskIntoConstraints = false
-
         return button
     }()
     
@@ -64,13 +59,7 @@ class NotificationsViewController: UIViewController {
         }
     }()
     
- /*   lazy var stackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [notificationLabel, notificationButton])
-        stack.axis = .vertical
-       // stack.alignment = .center
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }()*/
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,15 +85,13 @@ class NotificationsViewController: UIViewController {
         }
         
         notificationButton.snp.makeConstraints { make in
-            //make.bottomMargin.equalToSuperview().offset(-50)
+
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
             make.top.equalTo(notificationLabel.snp.bottom).offset(10)
         }
-        
 
-        // Do any additional setup after loading the view.
     }
     
 

@@ -41,23 +41,13 @@ class BodyPartViewModel{
             return sectionSnapshot
         }.eraseToAnyPublisher()
         
-        //return bodyPartProvider.$snapshot.eraseToAnyPublisher()
     }()
     
     init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
         self.bodyPartProvider = BodyPartProvider(storageProvider: storageProvider)
         
-   /*     bodyPartProvider.$snapshot.sink { snap in
-            
-            print(snap?.itemIdentifiers)
-            
-        /*    for id in snap!.sectionIdentifiers{
-                print("\(id)")
-            }*/
-            
-           
-        }.store(in: &cancellables)*/
+
     }
     
     

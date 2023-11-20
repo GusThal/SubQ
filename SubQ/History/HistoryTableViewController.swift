@@ -110,16 +110,7 @@ class HistoryTableViewController: UIViewController, Coordinated {
         viewModel.snapshot
           .sink(receiveValue: { [weak self] snapshot in
             if let snapshot = snapshot {
-                
-              /*  if snapshot.numberOfItems == 0{
-                    self?.navigationItem.leftBarButtonItem?.isEnabled = false
-                }
-                else{
-                    self?.navigationItem.leftBarButtonItem?.isEnabled = true
-                }*/
-                
                 self?.dataSource.apply(snapshot, animatingDifferences: true)
-               // self?.tableView.reloadData()
             }
           })
           .store(in: &cancellables)
@@ -203,14 +194,7 @@ extension HistoryTableViewController {
         tableView.register(ResultsHeaderView.self, forHeaderFooterViewReuseIdentifier: headerIdentifier)
         
         tableView.delegate = self
-       // tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-       /* NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])*/
     }
     
     private func configureDataSource() {
@@ -224,12 +208,6 @@ extension HistoryTableViewController {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! HistoryTableViewCell
             cell.setHistory(history)
-            
-            /*var content = cell.defaultContentConfiguration()
-            content.text = "\(history.date!.fullDateTime): \(injection.descriptionString) | \(history.status!)"
-            content.secondaryText = "Due: \(history.dueDate!) | Scheduled: \(injection.scheduledString)"
-            
-            cell.contentConfiguration = content*/
     
             return cell
         }

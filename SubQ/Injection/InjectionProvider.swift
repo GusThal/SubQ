@@ -189,12 +189,6 @@ class InjectionProvider: NSObject{
         injection.dosage = NSDecimalNumber(decimal: Decimal(dosage))
         injection.units = units.rawValue
         
-        
-        
-       // injection.days = frequency.map({ $0.rawValue }).joined(separator: ", ")
-       // injection.days = frequency
-       // injection.time = time
-        
         if isAsNeeded{
             injection.type = Injection.InjectionType.asNeeded.rawValue
         }

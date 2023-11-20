@@ -39,9 +39,6 @@ class FilterCoordinator: ModalChildCoordinator{
         
         vc.coordinator = self
         vc.filterCoordinator = self
-        
-       // navigationController.modalPresentationStyle = .pageSheet
-        
        
         vc.title = "Filter"
         

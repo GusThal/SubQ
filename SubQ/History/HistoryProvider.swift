@@ -196,8 +196,6 @@ class HistoryProvider: NSObject{
             predicates.append(searchPredicate)
         }
         
-        //print(predicates)
-        
         fetchedResultsController!.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         try! fetchedResultsController!.performFetch()

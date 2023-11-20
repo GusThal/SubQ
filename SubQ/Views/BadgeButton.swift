@@ -44,7 +44,6 @@ class BadgeButton: UIButton {
         label.font = label.font.withSize(12)
         
         label.backgroundColor = badgeBackgroundColor
-        //label.text = String(count)
         
         return label
     }()
@@ -58,16 +57,12 @@ class BadgeButton: UIButton {
         NSLayoutConstraint.activate([
              badgeLabel.leftAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
              badgeLabel.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-             //badge.centerYAnchor.constraint(equalTo: filterButton.centerYAnchor),
              badgeLabel.widthAnchor.constraint(equalToConstant: 20),
              badgeLabel.heightAnchor.constraint(equalToConstant: 20)
          ])
      }
     
     private func removeBadgeLabel() {
-        /*if let badge = self.viewWithTag(badgeTag) {
-            badge.removeFromSuperview()
-        }*/
         
         badgeLabel.removeFromSuperview()
     

@@ -14,7 +14,7 @@ class CenteredTextTableViewCell: UITableViewCell {
         label.text = "Delete Injection"
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.textColor = .red
+        label.textColor = .systemRed
         label.frame.size = label.intrinsicContentSize
         
         return label

@@ -40,10 +40,5 @@ class MainCoordinator: Coordinator {
         child.start()
         
         
-       /* let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionProvider: viewModel.injectionProvider, injection: nil)
-        
-        childCoordinators.append(child)
-        child.start()*/
-        
     }
 }

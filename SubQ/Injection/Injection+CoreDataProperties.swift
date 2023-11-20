@@ -61,27 +61,6 @@ extension Injection {
         }
     }
     
-/*    var daysVal: [Injection.Frequency]{
-        get{
-            
-            days!.components(separatedBy: ", ").map({ Injection.Frequency(rawValue: $0)!})
-            
-        }
-        
-    }
-    
-    var shortenedDayString: String{
-        get{
-            
-            let arr = days!.components(separatedBy: ", ")
-            
-            let shortened = arr.map({Injection.Frequency(rawValue: $0)!.shortened})
-            
-            return shortened.joined(separator: ", ")
-        }
-    }*/
-    
-    
     var descriptionString: String{
         get{
             return "\(self.name!) \(self.dosage!) \(self.units!)"

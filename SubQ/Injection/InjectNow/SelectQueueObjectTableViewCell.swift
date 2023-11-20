@@ -84,9 +84,6 @@ class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
         view.setContentCompressionResistancePriority(.required, for: .horizontal)
         view.contentMode = .center
         
-      //  view.setContentHuggingPriority(.required, for: .vertical)
-       // view.setContentCompressionResistancePriority(.required, for: .vertical)
-         
         return view
      }()
     
@@ -178,7 +175,7 @@ class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
         
        if let snoozedUntil = object.snoozedUntil {
            snoozedUntilDateLabel.text = snoozedUntil.fullDateTime
-           //snoozedUntilDateLabel.text = object.snoozedFor
+          
            queueStackView.addArrangedSubview(snoozedStackView)
            snoozedUntilLabel.text = "Snoozed Until:"
            
@@ -190,16 +187,8 @@ class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
                snoozedImageView.tintColor = .systemYellow
            }
            
-            
-           /* if snoozed < Date() {
-                snoozedUntilLabel.textColor = .systemRed
-            }*/
-            
-           // mainStackView.insertArrangedSubview(snoozedUntilView!, at: 2)
         }
     }
-    
-
     
     
     override func prepareForReuse() {
@@ -212,21 +201,8 @@ class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
         }
         snoozedImageView.image = nil
         queueStackView.removeArrangedSubview(snoozedStackView)
-        
- /*       if let _ = snoozedUntilView {
-            snoozedUntilView!.removeFromSuperview()
-            snoozedUntilView = nil
-        }
-        
-        originallyDueView!.removeFromSuperview()
-        originallyDueView = nil*/
-        
-        
-        
-        
+  
         
     }
-    
-   
     
 }

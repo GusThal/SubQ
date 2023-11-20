@@ -142,57 +142,6 @@ class InjectionTableViewController: UIViewController, Coordinated {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-   /* func showConfirmationView(injectionDescriptionString: String, action: EditAction) {
-        let containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.layer.cornerRadius = 10
-        containerView.layer.masksToBounds = true
-        
-        
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        label.text = "\(injectionDescriptionString) \(action.rawValue)."
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        
-        
-        if action == .deleted {
-            label.backgroundColor = .systemRed
-            containerView.backgroundColor = .systemRed
-        } else {
-            label.backgroundColor = .systemBlue
-            containerView.backgroundColor = .systemBlue
-        }
-        
-        containerView.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.trailing.bottom.equalToSuperview().offset(-7)
-            make.leading.top.equalToSuperview().offset(7)
-        }
-        
-        view.addSubview(containerView)
-        
-        containerView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottomMargin.equalToSuperview().offset(-60)
-            
-        }
-        
-        UIView.transition(with: containerView, duration: 5,
-                          options: .transitionCrossDissolve,
-                          animations: {
-                        containerView.alpha = 0
-            
-        }) { _ in
-            label.removeFromSuperview()
-            containerView.removeFromSuperview()
-        }
-        
-    }*/
 
 }
 
@@ -203,14 +152,8 @@ extension InjectionTableViewController{
         
         tableView.register(InjectionTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
-       // tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-       /* NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])*/
+
     }
     
     func configureDataSource() {
@@ -232,26 +175,7 @@ extension InjectionTableViewController{
                 cell.isInjectionDisabled = false
             }
             
-           // let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
-            
             cell.accessoryView = nil
-            
-           /* var content = cell.defaultContentConfiguration()
-            
-            content.text = injection.descriptionString
-            
-            content.secondaryText = injection.scheduledString
-            
-            if !injection.areNotificationsEnabled && injection.typeVal == .scheduled {
-                 content.textProperties.color = .gray
-                 content.secondaryTextProperties.color = .gray
-             }
-             else{
-                 content.textProperties.color = .label
-                 content.secondaryTextProperties.color = .label
-             }
-            
-            cell.contentConfiguration = content*/
             
             if injection.typeVal == .scheduled {
                 cell.accessoryView = self.createNotificationSwitchAccessoryView(forInjection: injection)

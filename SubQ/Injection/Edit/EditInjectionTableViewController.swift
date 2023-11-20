@@ -71,9 +71,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         navigationItem.leftBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = InterfaceDefaults.primaryColor
-        
-        /*tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 50*/
+
         tableView.isEditing = true
         tableView.allowsSelectionDuringEditing = true
         
@@ -91,33 +89,11 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         view.addGestureRecognizer(tap)
         
         bindVariables()
-        
-        
-       // tableView.rowHeight = UITableView.automaticDimension
-       // tableView.estimatedRowHeight = 80
-        
     }
     
     init(viewModel: EditInjectionViewModel){
         self.viewModel = viewModel
-        
-       /* if let injection = viewModel.injection {
-            self.viewModel.isAsNeeded = injection.typeVal == .asNeeded ? true : false
-            self.viewModel.areNotificationsEnabled = injection.areNotificationsEnabled
-            
-            for frequency in injection.frequency! as! Set<Frequency>{
-                viewModel.frequencies.append(FrequencyStruct(days: frequency.daysVal, time: frequency.time))
-                
-            }
-            
-            print(viewModel.frequencies)
-            
-            
-        }
-        else{
-            self.viewModel.isAsNeeded = true
-            self.viewModel.areNotificationsEnabled = true
-        }*/
+
         
         super.init(style: .insetGrouped)
     }
@@ -167,10 +143,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             }
             .store(in: &cancellables)
         
-        /*viewModel.isValidInjectionPublisher
-            .assign(to: \.isEnabled, on: navigationItem.rightBarButtonItem!)
-            .store(in: &cancellables)*/
-        
         
         viewModel.canSaveInjectionPublisher
             .assign(to: \.isEnabled, on: navigationItem.rightBarButtonItem!)
@@ -211,11 +183,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
         
         let name = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let dosage = Double.init(dosageTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))!
-        
-        //let time = viewModel.selectedFrequency != [.asNeeded] ? selectedDate : nil
-        
-        //let frequency = viewModel.selectedFrequency.map({ $0.rawValue }).joined(separator: ", ")
-        
+
         let frequencies = viewModel.frequencies
         
         var savedInjection: Injection!
@@ -233,21 +201,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                         //honestly, it makes sense to just remove all notifications regardless.
                         NotificationManager.removeExistingNotifications(forInjection: existingInjection, removeQueued: false)
                         
-                        //check if they're not currently enabled
-                        //this actually will prob remove notifications if its switched to as needed
-                       /* if !viewModel.areNotificationsEnabled{
-                            
-                            //remove the notifications.
-                            NotificationManager.removeExistingNotifications(forInjection: existingInjection)
-                        }
-                        else{
-                            //remove existing notifications only if the day or time has changed.
-                            //this will actually handle cases where we switch from A scheduled injection to As Needed
-                            if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
-                                
-                                NotificationManager.removeExistingNotifications(forInjection: existingInjection)
-                            }
-                        }*/
                     }
                 }
                 
@@ -276,65 +229,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             
             self.present(alert, animated: true)
         }
-        
-      /*  if !viewModel.isDuplicateInjection(name: name, dosage: dosage, units: units, frequencyString: frequency, date: time){
-            
-            var savedInjection: Injection!
-            
-            
-            if let existingInjection = viewModel.injection{
-                
-                //check the frequency of the injection before the edit controller was opened.
-                if existingInjection.daysVal != [.asNeeded]{
-                    
-                    //check if notifications were previously enabled
-                    if existingInjection.areNotificationsEnabled{
-                        //check if they're not currently enabled
-                        if !viewModel.areNotificationsEnabled{
-                            
-                            //remove the notifications.
-                            NotificationManager.removeExistingNotifications(forInjection: existingInjection)
-                        }
-                        else{
-                            //remove existing notifications only if the day or time has changed.
-                            //this will actually handle cases where we switch from A scheduled injection to As Needed
-                            if existingInjection.daysVal != viewModel.selectedFrequency || existingInjection.time!.prettyTime != time?.prettyTime{
-                                
-                                NotificationManager.removeExistingNotifications(forInjection: existingInjection)
-                            }
-                        }
-                    }
-                    
-                }
-                
-                savedInjection = viewModel.updateInjection(injection: existingInjection, name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: viewModel.areNotificationsEnabled)
-                
-                
-            }
-            else{
-                savedInjection = viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequency, time: time, areNotificationsEnabled: viewModel.areNotificationsEnabled)
-                
-            }
-            
-            if viewModel.selectedFrequency != [.asNeeded]{
-                
-                if viewModel.areNotificationsEnabled{
-                    NotificationManager.scheduleNotification(forInjection: savedInjection)
-                }
-                
-            }
-            
-            editCoordinator?.savePressed()
-        }
-        
-        else{
-            let alert = UIAlertController(title: "Duplicate Injection", message: "An injection already exists with that name, dosage, units, and frequency (both day(s) and time)", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            
-            
-            self.present(alert, animated: true)
-        }*/
         
         
     }
@@ -386,10 +280,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 
                 var count = viewModel.frequencies.count + 1
                 
-                //not needed anymore since we're adding the time cell to the frequency obj
-               /* if let _ = viewModel.selectedTimeCellIndex {
-                    count += 1
-                }*/
                 
                 return count
             }
@@ -430,7 +320,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                 cell.label.text = "Injection Name:"
                 cell.textField.placeholder = "Beep Boop"
                 cell.textInputType = .text
-                //cell.textField.backgroundColor = .lightGray
+
                 cell.textField.borderStyle = .roundedRect
                 
                 if viewModel.name != "" {
@@ -599,10 +489,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                         if let time = viewModel.frequencies[row].time {
                             cell.selectedTime = time
                         }
-                        
-                        
-                       // cell.timePicker.date = viewModel.frequencies[row].time!
-                        
+
                     }
                     
                     let dayButtonAction = UIAction { _ in
@@ -660,12 +547,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                                self.viewModel.selectedTimeCellIndex = rowAfterDelete
                                
                                self.insertTimePickerRow(afterRow: rowAfterDelete, section: 2)
-                               
-                               //self.viewModel.selectedTimeCellIndex = row - 1
-                               
-                               //self.insertTimePickerRow(afterRow: row - 1, section: 2)
-                               
-                               
+   
                            }
                         }
                         
@@ -684,18 +566,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     
                     
                     cell.timeButton.addAction(timeButtonAction, for: .primaryActionTriggered)
-                    
-                    
-                    
-                   /* let timePickerAction = UIAction { _ in
-                        let index = tableView.indexPath(for: cell)!.row
-                        
-                        self.viewModel.frequencies[index].time = cell.timePicker.date
-                        print(self.viewModel.frequencies)
-                        //print(cell.timePicker.date)
-                    }
-                    
-                    cell.timePicker.addAction(timePickerAction, for: .primaryActionTriggered)*/
                     
                     return cell
                 }
@@ -739,12 +609,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             
             return cell
         }
-    
-
-        // Configure the cell...
-        
-        
-        
 
         return UITableViewCell()
     }
@@ -780,7 +644,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
 
     
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         //frequency section
         if !viewModel.isAsNeeded && indexPath.section == 2 {
@@ -837,9 +700,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             }
             
         }
-       // print(viewModel.frequencies)
-        
-        
+ 
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

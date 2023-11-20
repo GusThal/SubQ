@@ -73,18 +73,6 @@ class DateRangeTableViewCell: UITableViewCell {
             make.edges.equalToSuperview()
         }
         
-       /* contentView.addSubview(label)
-        contentView.addSubview(startDatePicker)
-        contentView.addSubview(endDatePicker)
-        
-        label.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview()
-        }
-        
-        datePicker.snp.makeConstraints { make in
-            make.trailing.top.bottom.equalToSuperview()
-        }*/
-        
     }
     
     required init?(coder: NSCoder) {

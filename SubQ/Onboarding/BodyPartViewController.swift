@@ -27,8 +27,7 @@ class BodyPartViewController: UIViewController {
         
         view.loopMode = .loop
         view.animationSpeed = 0.75
-        //view.contentMode = .scaleAspectFit
-        
+
         view.play()
         
         return view
@@ -39,7 +38,7 @@ class BodyPartViewController: UIViewController {
         label.text = "Select Injection Sites"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 30)
-       // label.backgroundColor = .brown
+
         label.numberOfLines = 0
         
         return label
@@ -52,8 +51,7 @@ class BodyPartViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 15)
         label.numberOfLines = 0
         label.textColor = .gray
-       // label.backgroundColor = .yellow
-        
+
         return label
     }()
     
@@ -93,7 +91,7 @@ class BodyPartViewController: UIViewController {
             if let snapshot = snapshot {
                 
                 self?.dataSource.apply(snapshot, animatingDifferences: true)
-               // self?.collectionView.reloadData()
+
             }
           })
           .store(in: &cancellables)
@@ -119,7 +117,7 @@ extension BodyPartViewController{
     private func createLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { [unowned self] section, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-            //config.headerMode = .supplementary
+
             config.backgroundColor = .systemBackground
             
             return NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
@@ -128,7 +126,6 @@ extension BodyPartViewController{
     
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        //collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -180,11 +177,8 @@ extension BodyPartViewController{
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
         
-        /*snapshot.appendSections([0])
-        snapshot.appendItems([Injection.Frequency.asNeeded])*/
         snapshot.appendSections([0])
-        //snapshot.appendItems(viewModel.bodyParts)
-        
+  
         dataSource.apply(snapshot, animatingDifferences: false)
         
     }

@@ -35,25 +35,13 @@ class SectionProvider: NSObject{
         
         setUpFetchedResultsController(applyingBodyPredicate: applyingBodyPredicate)
 
-      
-
         //delegate will be informed any time a managed object changes, a new one is inserted, or one is deleted
         
         if snapshot!.numberOfItems == 0{
             print("zero sections")
-            
-            //insertInitialData()
         }
         else{
             print("Number of Section objects \(snapshot!.numberOfItems)")
-            
-           /* for item in snapshot!.itemIdentifiers{
-                let obj = storageProvider.persistentContainer.viewContext.object(with: item) as! Section
-                print("\(obj.bodyPart!.part) + \(obj.quadrant)")
-            }*/
-            
-            
-            
         }
 
     }
@@ -140,20 +128,10 @@ class SectionProvider: NSObject{
             let obj = context.object(with: id) as! Section
             
             if obj.bodyPart == part{
-                //obj.bodyPart = part
                 ret.append(id)
             }
             
         }
-        
-      /*  do{
-            try storageProvider.persistentContainer.viewContext.save()
-            print("saved successfully")
-            
-        } catch{
-            print("failed with \(error)")
-            storageProvider.persistentContainer.viewContext.rollback()
-        }*/
         
         
         return ret
@@ -161,52 +139,7 @@ class SectionProvider: NSObject{
     }
     
     func refreshSnapshot(forBodyParts part: BodyPart){
-        
-      /*  let context  = storageProvider.persistentContainer.viewContext
-        
-        for part in parts{
-            fetchedResultsController.managedObjectContext.refresh(part, mergeChanges: true)
-        }*/
-        
-        //fetchedResultsController.managedObjectContext.refreshAllObjects()
-        
         setUpFetchedResultsController(applyingBodyPredicate: true)
-        
-        
-        //fetchedResultsController.managedObjectContext.refresh(part, mergeChanges: true)
-        
-        
-       /* for id in snapshot!.itemIdentifiers{
-            
-            let obj = context.object(with: id) as! Section
-            
-            if obj.bodyPart == part{
-                //obj.bodyPart = part
-                fetchedResultsController.managedObjectContext.refresh(obj.bodyPart!, mergeChanges: true)
-                fetchedResultsController.managedObjectContext.refresh(obj, mergeChanges: true)
-                
-                //fetchedResultsController.managedObjectContext.
-                
-            }
-            
-        }*/
-    
-        
-        
-        
-        
-       /* print(idsToReload[0])
-        
-        let section = snapshot!.sectionIdentifier(containingItem: idsToReload[0])
-        
-        var newSnapshot = snapshot!
-        
-        newSnapshot.reloadSections([section!])
-        
-        snapshot = newSnapshot*/
-        
-        
-        
         
     }
     

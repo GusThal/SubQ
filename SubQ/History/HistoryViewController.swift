@@ -19,14 +19,12 @@ class HistoryViewController: UIViewController, Coordinated {
         let image = UIImage(named: "\(history.site!.section!.bodyPart!.part!.lowercased())-\(history.site!.section!.quadrant!)-\(history.site!.subQuadrant!)")
         
         let view = UIImageView(image: image)
-       // view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
         
         return view
     }()
     
     lazy var stackView: UIStackView = {
-       // let stack = UIStackView(arrangedSubviews: [injectionDescriptionLabel, injectedDateLabel, siteLabel, dueDateLabel])
         let stack = UIStackView()
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -110,33 +108,11 @@ class HistoryViewController: UIViewController, Coordinated {
         
         
         view.addSubview(stackView)
- //       view.addSubview(imageView)
         
         stackView.snp.makeConstraints { make in
             make.leftMargin.rightMargin.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
         }
-        
-/*        imageView.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(10)
-           // make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }*/
-        
-        /*view.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }*/
-        
-/*        view.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.leadingMargin.equalToSuperview()
-            make.trailingMargin.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }*/
-        
-        
-
     }
     
     init(history: History){
@@ -167,31 +143,6 @@ class HistoryViewController: UIViewController, Coordinated {
         stackView.addArrangedSubview(siteLabel)
         stackView.addArrangedSubview(siteDataLabel)
         stackView.addArrangedSubview(imageView)
-        
-        
-   /*     let injectionDataView = DataView(field: "Injection:", data: history.injection!.descriptionString)
-        stackView.addArrangedSubview(injectionDataView)
-        
-        let dateDataView = DataView(field: "Injected:", data: history.date!.fullDateTime)
-        stackView.addArrangedSubview(dateDataView)
-        
-        
-        
-        if let dueDate = history.dueDate {
-            let dueDateDataView = DataView(field: "Due:", data: dueDate.fullDateTime)
-            stackView.addArrangedSubview(dueDateDataView)
-        }
-        
-        let siteDataView = DataView(field: "Site:", data: "\(history.site!.subQuadrant!) of \(history.site!.section!.quadrant!) of \(history.site!.section!.bodyPart!.part!)")
-        stackView.addArrangedSubview(siteDataView)*/
-        
-        
-       /* injectionDescriptionLabel.text = history.injection?.descriptionString
-        injectedDateLabel.text = history.date!.fullDateTime
-        siteLabel.text = "\(history.site!.section!.bodyPart!.part!) | \(history.site!.section!.quadrant!) | \(history.site!.subQuadrant!)"
-        dueDateLabel.text = history.dueDate?.fullDateTime ?? ""*/
-        
-        
         
     }
     

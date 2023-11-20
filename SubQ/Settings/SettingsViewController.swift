@@ -109,10 +109,6 @@ class SettingsViewController: UIViewController, Coordinated {
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.10))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
                 
-               // group.interItemSpacing = .fixed(10)
-               // group.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-
-                
                 let section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 5)
                 
@@ -171,31 +167,6 @@ extension SettingsViewController{
             } else {
                 cell.isButtonSelected = false
             }
-            
-            
-            //cell.bodyPartButton.addA
-            
-        /*    let action: UIAction  = UIAction { _ in
-                
-                
-                let object = self.viewModel.object(at: indexPath)
-    
-                //toggle value
-                let enabled = object.enabled ? false : true
-                
-                self.viewModel.setEnabled(forBodyPart: object, to: enabled)
-                cell.isButtonSelected = enabled
-                
-            }
-            
-            cell.bodyPartButton.addAction(action, for: .primaryActionTriggered)*/
-            
-            
-            /*var content = cell.defaultContentConfiguration()
-            content.text = obj.part
-            cell.contentConfiguration = content
-            
-            cell.accessories = obj.enabled ? [.checkmark()] : []*/
         
         }
         
@@ -218,11 +189,7 @@ extension SettingsViewController{
             (supplementaryView, string, indexPath) in
             
             supplementaryView.label.text = "Body Parts"
-            
-           
-           /* supplementaryView.backgroundColor = .lightGray
-            supplementaryView.layer.borderColor = UIColor.black.cgColor
-            supplementaryView.layer.borderWidth = 1.0*/
+
         }
         
         dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView) {
@@ -245,17 +212,9 @@ extension SettingsViewController{
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([Section.bodyParts, Section.misc])
         dataSource.apply(snapshot, animatingDifferences: false)
-
-        
-        
-       // var bodyPartsSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-        //zonesSnapshot.append(Site.zones)
-        //bodyPartsSnapshot.append(enabledBodyParts.map({ $0.rawValue }))
-      //  dataSource.apply(bodyPartsSnapshot, to: Section.bodyParts, animatingDifferences: false)
         
         var sitesSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-        //sitesSnapshot.append(Site.sites)
-        //sitesSnapshot.append(User.sites)
+
         sitesSnapshot.append(MiscCells.allCases.map({ $0.description }))
         dataSource.apply(sitesSnapshot, to: Section.misc, animatingDifferences: false)
         
@@ -283,40 +242,6 @@ extension SettingsViewController: UICollectionViewDelegate{
             }
             
         }
-        
-  /*      if section == Section.bodyParts.rawValue{
-            
-            print("selected")
-            
-            let object = viewModel.object(at: indexPath)
-            
-            //toggle value
-            let enabled = object.enabled ? false : true
-            
-            viewModel.setEnabled(forBodyPart: object, to: enabled)
-            
-          /*
-            
-            if cell.accessories.isEmpty{
-                
-                cell.accessories = [.checkmark()]
-                
-                if !enabledBodyParts.contains(bodyParts[index]){
-                    enabledBodyParts.append(bodyParts[index])
-                }
-            }
-            else{
-                cell.accessories = []
-                enabledBodyParts.removeAll { value in
-                    return value == bodyParts[index]
-                }
-            }*/
-            //applySnapshots()
-            
-        }
-        else{
-            
-        }*/
         
     }
     

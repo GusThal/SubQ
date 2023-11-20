@@ -36,10 +36,8 @@ class SiteCoordinator: Coordinator{
         vc.coordinator = self
         vc.siteCoordinator = self
         
-        
         navigationController.pushViewController(vc, animated: true)
-            
-        //parentNavigationController!.present(navigationController, animated: true)
+  
     }
     
     

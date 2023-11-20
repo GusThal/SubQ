@@ -99,14 +99,7 @@ class TermsViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         
-        //textView.text = "hello"f
-        
-   /*     view.addSubview(textView)
-        textView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.edges.equalToSuperview()
-        }
-    */
+
     }
     
     init(coordinator: OnboardingCoordinator) {
@@ -135,7 +128,6 @@ extension TermsViewController {
     
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        //collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.allowsMultipleSelection = true
         collectionView.isScrollEnabled = false
@@ -145,13 +137,6 @@ extension TermsViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(startButton.snp.top)
         }
-        
-       /* NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.centerYAnchor),
-            collectionView.bottomAnchor.constraint(equalToSystemSpacingBelow: startButton.topAnchor, multiplier: 1)
-        ])*/
         
         collectionView.delegate = self
     }
@@ -212,17 +197,12 @@ extension TermsViewController {
                 
         }
         
-        
-        // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
-        
-        /*snapshot.appendSections([0])
-        snapshot.appendItems([Injection.Frequency.asNeeded])*/
+
         snapshot.appendSections([0])
         snapshot.appendItems([InterfaceDefaults.disclaimerString])
         snapshot.appendItems(["Value 2"])
-        //snapshot.appendItems(viewModel.bodyParts)
-        
+
         dataSource.apply(snapshot, animatingDifferences: false)
         
     }
@@ -240,9 +220,7 @@ extension TermsViewController: UICollectionViewDelegate{
         } else {
             isTermsSelected = true
         }
-        
-       // collectionView.deselectItem(at: indexPath, animated: false)
-        
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

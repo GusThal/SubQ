@@ -41,8 +41,6 @@ class InjectNowCoordinator: ModalChildCoordinator{
         vc.coordinator = self
         vc.injectNowCoordinator = self
         
-        //navigationController.present(vc, animated: true)
-        
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
         

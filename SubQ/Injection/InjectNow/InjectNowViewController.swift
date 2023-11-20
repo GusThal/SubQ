@@ -144,19 +144,6 @@ class InjectNowViewController: UIViewController, Coordinated {
         UIApplication.shared.isIdleTimerDisabled = true
         
         setUpNavBar()
-            
-          /*  viewModel.queueCount
-                .sink { count in
-                    self.queueCount = count
-                    self.selectInjectionButton.setNeedsUpdateConfiguration()
-            }.store(in: &cancellables)*/
-        
-        
-        //view.translatesAutoresizingMaskIntoConstraints = false
-        
-       /* injectionNameLabel.text = "injection Name \(viewModel.injection?.name)"
-        scheduledLabel.text = "Scheduled"
-        lastInjectedLabel.text = "Last Injected"*/
         
         injectionDataView.createHierarchy(selectedQueueObject: nil, selectedInjectionObject: nil)
         view.addSubview(injectionDataView)
@@ -166,26 +153,9 @@ class InjectNowViewController: UIViewController, Coordinated {
             make.topMargin.equalToSuperview()
         }
         
-        
- /*       configureHierarchy()
-        configureDataSource()
-        
-        viewModel.siteSnapshot
-          .sink(receiveValue: { [weak self] snapshot in
-            if let snapshot = snapshot {
-                print("Number of items in snapshot \(snapshot.numberOfItems)")
-                
-              self?.siteDataSource.apply(snapshot, animatingDifferences: false)
-            }
-          })
-          .store(in: &cancellables)*/
-        
         viewModel.fieldsSelectedPublisher.assign(to: \.isEnabled, on: injectButton)
             .store(in: &cancellables)
         
-        //view.addSubview(siteCollectionView)
-
-        // Do any additional setup after loading the view.
     }
     
     init(viewModel: InjectNowViewModel) {
@@ -200,11 +170,6 @@ class InjectNowViewController: UIViewController, Coordinated {
     
     func setUpNavBar(){
         if viewModel.isFromNotification{
-            /*let button = UIBarButtonItem(title: "Skip", style: .done, target: self, action: nil)
-            
-            button.tintColor = .systemRed
-            navigationItem.leftBarButtonItem = button*/
-            
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: skipButton)
         }
         else{
@@ -215,9 +180,6 @@ class InjectNowViewController: UIViewController, Coordinated {
             
         }
         
-        
-        //let injectButton = UIBarButtonItem(customView: button)
-        
         var rightButtonArray = [UIBarButtonItem(customView: injectButton)]
         
         if viewModel.isFromNotification{
@@ -227,10 +189,6 @@ class InjectNowViewController: UIViewController, Coordinated {
         }
         
         navigationItem.rightBarButtonItems = rightButtonArray
-        
-           // navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: injectButton), UIBarButtonItem(customView: snoozeButton)]
-        
-        //navigationItem.rightBarButtonItem = injectButton
         
         navigationItem.title = viewModel.isFromNotification ?"Injection Time!" : "Inject Now"
     }
@@ -260,10 +218,6 @@ class InjectNowViewController: UIViewController, Coordinated {
             
             
             self.viewModel.snoozeInjection(forMinutes: text)
-            
-            //self.dismiss(animated: true)
-            
-            //self.injectNowCoordinator?.dismissViewController()
             
             self.injectNowCoordinator?.snoozedPressed(injection: self.viewModel.injectionFromNotification!)
         
@@ -337,7 +291,6 @@ extension InjectNowViewController{
 extension InjectNowViewController{
     func configureHierarchy() {
         siteCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-       // siteCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         siteCollectionView.translatesAutoresizingMaskIntoConstraints = false
         siteCollectionView.backgroundColor = .systemBackground
         siteCollectionView.delegate = self
@@ -350,7 +303,6 @@ extension InjectNowViewController{
             siteCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             siteCollectionView.topAnchor.constraint(equalTo: injectionDataView.bottomAnchor),
             siteCollectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight)
-            //siteCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     func configureDataSource() {
@@ -367,22 +319,14 @@ extension InjectNowViewController{
             }
             
             cell.contentView.layer.cornerRadius = 5
-            
-            //cell.label.text = "\(site.subQuadrantVal) + \(site.lastInjected)"
-           /* cell.contentView.backgroundColor = .cornflowerBlue
-            cell.layer.borderColor = UIColor.black.cgColor
-            cell.layer.borderWidth = 1*/
-            //cell.label.textAlignment = .center
-            //cell.label.font = UIFont.preferredFont(forTextStyle: .body)
+
         }
         
         let globalHeaderRegistration = UICollectionView.SupplementaryRegistration
         <TextSupplementaryView>(elementKind: SupplementaryViewKind.globalHeader) {
             (supplementaryView, string, indexPath) in
             supplementaryView.label.text = "Injection Sites"
-           // supplementaryView.backgroundColor = .lightGray
-            //supplementaryView.layer.borderColor = UIColor.black.cgColor
-            //supplementaryView.layer.borderWidth = 1.0
+
         }
         
         let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration<OrientationCollectionHeader>(elementKind: SupplementaryViewKind.sectionHeader) { supplementaryView, elementKind, indexPath in
@@ -398,9 +342,7 @@ extension InjectNowViewController{
             self.selectedSiteLabel = supplementaryView.secondaryLabel
             self.selectedLabel = supplementaryView.label
             self.collectionViewFooter = supplementaryView
-           // supplementaryView.backgroundColor = .lightGray
-           // supplementaryView.layer.borderColor = UIColor.black.cgColor
-           // supplementaryView.layer.borderWidth = 1.0
+
         }
         
         siteDataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: siteCollectionView) {
@@ -422,8 +364,6 @@ extension InjectNowViewController{
 
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
-        //snapshot.appendSections([0])
-        //snapshot.appendItems(Quadrant.allCases.map({ $0.description }))
         
         
         siteDataSource.apply(snapshot, animatingDifferences: false)
@@ -444,9 +384,7 @@ extension InjectNowViewController: UICollectionViewDelegate{
         
         selectedSiteLabel.text = "\(site.subQuadrantVal.description) of \(site.section!.quadrantVal.description) of \(site.section!.bodyPart!.part!) "
        
-        //selectedLabel.textColor = .white
         selectedSiteLabel.textColor = .systemGreen
-       // collectionViewFooter.backgroundColor = InterfaceDefaults.primaryColor
         
         viewModel.selectedSite = site
         

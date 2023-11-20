@@ -42,16 +42,10 @@ class BodyPartProvider: NSObject{
         if snapshot!.numberOfItems == 0{
             print("zero body parts")
             
-           // insertInitialData()
         }
         else{
             print("BodyPart Provider has \(snapshot!.numberOfItems)")
             
-           /* for item in snapshot!.itemIdentifiers{
-                let partObj = storageProvider.persistentContainer.viewContext.object(with: item) as! BodyPart
-                
-                print(partObj.part)
-            }*/
         }
 
     }

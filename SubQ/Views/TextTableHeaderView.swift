@@ -15,14 +15,10 @@ class TextTableHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        //contentView.backgroundColor = .red
-        
         contentView.addSubview(label)
         label.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(-4)
             make.top.equalToSuperview().offset(4)
-            
-           // make.centerY.equalToSuperview()
         }
     }
     

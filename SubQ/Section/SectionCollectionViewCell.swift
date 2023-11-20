@@ -9,8 +9,7 @@ import UIKit
 import SnapKit
 
 class SectionCollectionViewCell: UICollectionViewCell {
-    //let label = UILabel()
-    
+ 
     var imageView: UIImageView?
     
     var section: Section? {
@@ -36,17 +35,6 @@ class SectionCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
-       /* label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontForContentSizeCategory = true
-        contentView.addSubview(label)
-        
-        label.backgroundColor = .orange
-        
-        
-        label.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }*/
     }
     
     override func prepareForReuse() {

@@ -45,7 +45,6 @@ class SiteViewController: UIViewController, Coordinated {
                 print("Number of Snapshot sections in publisher \(snapshot.numberOfItems)")
                 
               self?.dataSource.apply(snapshot, animatingDifferences: false)
-               // self?.collectionView.reloadData()
             }
           })
           .store(in: &cancellables)
@@ -72,9 +71,7 @@ extension SiteViewController{
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         item.contentInsets = NSDirectionalEdgeInsets(top: 3, leading: 3, bottom: 3, trailing: 3)
-       
-       /* let spacing = CGFloat(10)
-        group.interItemSpacing = .fixed(spacing)*/
+
         
         let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
         
@@ -89,9 +86,7 @@ extension SiteViewController{
         
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 3, bottom: 3, trailing: 5)
         
-        /*section.interGroupSpacing = spacing
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-         */
+
         
         let globalHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .absolute(44))
@@ -126,12 +121,7 @@ extension SiteViewController{
             // Populate the cell with our item description.
             cell.site = site
             cell.contentView.layer.cornerRadius = 5
-           // cell.label.text = "\(site.subQuadrantVal) + \(site.lastInjected)"
-           /* cell.contentView.backgroundColor = .cornflowerBlue
-            cell.layer.borderColor = UIColor.black.cgColor
-            cell.layer.borderWidth = 1*/
-           // cell.label.textAlignment = .center
-            //cell.label.font = UIFont.preferredFont(forTextStyle: .body)
+
         }
         
         let globalHeaderRegistration = UICollectionView.SupplementaryRegistration<OrientationCollectionHeader>(elementKind: ElementKind.globalHeader) { supplementaryView, elementKind, indexPath in
@@ -150,9 +140,6 @@ extension SiteViewController{
 
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
-        //snapshot.appendSections([0])
-        //snapshot.appendItems(Quadrant.allCases.map({ $0.description }))
-        
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }

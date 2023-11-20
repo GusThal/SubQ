@@ -24,9 +24,7 @@ class SectionViewModel{
         self.sectionProvider = SectionProvider(storageProvider: storageProvider)
         
         let updateNotification = NSManagedObjectContext.didChangeObjectsNotification
-        
-        //NotificationCenter.default.addObserver(self, selector: #selector(dataDidUpdate(_:)), name: updateNotification, object: nil)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(bodyPartToggled(_:)), name: BodyPartProvider.bodyPartToggledNotification, object: nil)
     }
     
@@ -48,8 +46,7 @@ class SectionViewModel{
             print("Update Notification received")
             
             let set = update as! Set<BodyPart>
-            
-            //sectionProvider.refreshSnapshot(forBodyPart: set.first!)
+
         }
         
         
@@ -67,11 +64,7 @@ class SectionViewModel{
             
             
             sectionProvider.refreshSnapshot(forBodyParts: part)
-            
-            
-            //let set = update as! Set<BodyPart>
-            
-            //sectionProvider.refreshSnapshot(forBodyPart: set.first!)
+
         }
         
         

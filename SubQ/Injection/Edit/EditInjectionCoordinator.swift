@@ -27,25 +27,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     var injection: Injection?
     
     
-    /*
-    required init(navigationController: UINavigationController, parentCoordinator: Coordinator?, storageProvider: StorageProvider) {
-        self.navigationController = navigationController
-        self.storageProvider = storageProvider
-        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
-        
-        viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
-        
-    }
-    
-    required init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider) {
-        self.navigationController = navigationController
-        self.parentNavigationController = parentNavigationController
-        self.parentCoordinator = parentCoordinator
-        self.storageProvider = storageProvider
-        self.injectionProvider = InjectionProvider(storageProvider: storageProvider)
-        
-        viewModel = EditInjectionViewModel(injectionProvider: injectionProvider, injection: nil)
-    }*/
+
     
     init(navigationController: UINavigationController, parentNavigationController: UINavigationController, parentCoordinator: Coordinator, storageProvider: StorageProvider, injectionProvider: InjectionProvider, injection: Injection?) {
         self.navigationController = navigationController
@@ -59,14 +41,10 @@ class EditInjectionCoordinator: ModalChildCoordinator{
     }
     
     func start() {
-       // let vc = EditInjectionViewController(viewModel: viewModel)
-        
         let vc = EditInjectionTableViewController(viewModel: viewModel)
         
         vc.coordinator = self
         vc.editCoordinator = self
-        
-        //navigationController.present(vc, animated: true)
         
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
@@ -92,20 +70,6 @@ class EditInjectionCoordinator: ModalChildCoordinator{
 
         parentCoordinator?.childDidFinish(self)
     }
-/*    #warning("might be un used")
-    func saveEdit(name: String, dosage: Double, units: Injection.DosageUnits, frequency: [Injection.Frequency], date: Date){
-        
-        //print("\(name) + \(dosage) + \(units) + \(frequency) + \(date)")
-        
-        let frequencyString = frequency.map({ $0.rawValue }).joined(separator: ", ")
-        
-        viewModel.saveInjection(name: name, dosage: dosage, units: units, frequency: frequencyString, time: date)
-        
-        parentNavigationController!.dismiss(animated: true)
-        
-
-        parentCoordinator?.childDidFinish(self)
-    }*/
     
     func savePressed(injectionDescriptionString: String, action: InjectionTableViewController.EditAction){
         parentNavigationController!.dismiss(animated: true)
@@ -130,8 +94,7 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         
         str.append(" \(InjectionTableViewController.EditAction.deleted.rawValue)")
         
-        //injectionTableVC.showConfirmationView(injectionDescriptionString: injectionDescriptionString, action: .deleted)
-        
+
         injectionTableVC.showConfirmationView(message: str, color: .systemRed)
         
         parentCoordinator?.childDidFinish(self)

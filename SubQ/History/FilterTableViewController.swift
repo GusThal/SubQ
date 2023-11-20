@@ -81,12 +81,6 @@ class FilterTableViewController: UITableViewController, Coordinated {
         
         tableView.register(FilterTableFooterView.self, forHeaderFooterViewReuseIdentifier: footerIdentifier)
         
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     init(viewModel: HistoryViewModel){
@@ -107,7 +101,6 @@ class FilterTableViewController: UITableViewController, Coordinated {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         
         let sectionVal = Section(rawValue: section)
         
@@ -251,11 +244,6 @@ class FilterTableViewController: UITableViewController, Coordinated {
         
         return nil
     }
-    
- /*   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return
-    }*/
-    
     
 
 }

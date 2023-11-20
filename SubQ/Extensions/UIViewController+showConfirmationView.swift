@@ -62,8 +62,6 @@ extension UIViewController {
     
     func setLogoTitleView() {
         let image = UIImage(named: "logo")
-    
-        //let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 137, height: 45))
         
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 75.35, height: 24.75))
         

@@ -22,43 +22,9 @@ class OnboardingViewController: UIViewController {
     
     weak var coordinator: OnboardingCoordinator?
     
- /*   lazy var stackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [pageControl, startButton])
-        stack.axis = .vertical
-        stack.spacing = 10
-        
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stack
-    }()
-    
-    lazy var startButton: UIButton = {
-        
-        var buttonConfig = UIButton.Configuration.filled()
-        buttonConfig.buttonSize = .large
-        buttonConfig.cornerStyle = .capsule
-        buttonConfig.title = "Get Started"
-        buttonConfig.baseBackgroundColor = .blue
-        
-        let button =  UIButton(configuration: buttonConfig, primaryAction: startAction)
-        button.isEnabled = false
-       // button.translatesAutoresizingMaskIntoConstraints = false
-
-        return button
-    }()
-    
-    lazy var startAction: UIAction = {
-        return UIAction { _ in
-            self.coordinator!.startButtonPressed()
-        }
-    }()*/
-    
     lazy var pageControlAction: UIAction = {
         
         return UIAction { _ in
-            /*if self.pageControl.currentPage == self.controllers.count - 1 {
-                self.startButton.isEnabled = true
-            }*/
             self.moveCollectionView(toCellIndex: self.pageControl.currentPage)
         }
     
@@ -117,23 +83,6 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.navigationItem.title = "SubQ"
-        
-/*        let image = UIImage(named: "logo")
-    
-        //let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 137, height: 45))
-        
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 91.3, height: 30))
-        
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        
-        imageView.frame = containerView.bounds
-        
-        containerView.addSubview(imageView)
-        
-        navigationItem.titleView = containerView*/
-        
         setLogoTitleView()
         
         
@@ -150,17 +99,6 @@ class OnboardingViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
-
-       /* collectionView.snp.makeConstraints { make in
-            make.topMargin.left.right.equalToSuperview()
-            make.bottomMargin.equalToSuperview().offset(-200)
-        }*/
-        
-      /*  view.addSubview(pageControl)
-        pageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(collectionView.snp.bottom).offset(25)
-        }*/
         
         view.addSubview(pageControl)
         
@@ -187,15 +125,6 @@ extension OnboardingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! OnboardingCollectionViewCell
-        /*if indexPath.row == 0 {
-            cell.contentView.backgroundColor = .blue
-        } else if indexPath.row == 1 {
-            cell.contentView.backgroundColor = .gray
-        } else if indexPath.row == 2 {
-            cell.contentView.backgroundColor = .orange
-        } else {
-            cell.contentView.backgroundColor = .green
-        }*/
         
         cell.hostedView = controllers[indexPath.item].view
         
@@ -212,9 +141,7 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout{
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         guard let frame = self.view.window?.frame else { return CGSize(width: 0.0, height: 0.0) }
-        
-       // collectionViewHeight = frame.height
-        
+
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         
     }
@@ -252,19 +179,7 @@ extension OnboardingViewController: UIScrollViewDelegate{
                 displayedCellIndex = newIndex
                 pageControl.currentPage = newIndex
                 
-               /* if newIndex == controllers.count - 1 {
-                    startButton.isEnabled = true
-                }*/
             }
-        
-/*         if deltaX >= deltaY{
-                scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: scrollOffset.y)
-                
-                segmentedControl.moveSegment(toOffset: scrollView.contentOffset.x)
-            }
-            else{
-                scrollView.contentOffset = CGPoint(x: scrollOffset.x, y: scrollView.contentOffset.y)
-            }*/
             
         }
         

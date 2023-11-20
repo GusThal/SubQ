@@ -222,8 +222,6 @@ class InjectNowViewModel{
     
         let queueObject = queueProvider.saveObject(injection: injection, dateDue: dateDue!, snoozedUntil: snoozedDate)
         
-       /*NotificationManager.scheduleNotificationForInjectionWith(objectID: injection.objectID, name: injection.name!, dosage: Double(truncating: injection.dosage!), units: injection.unitsVal, frequency: injection.daysVal, frequencyString: injection.scheduledString, time: snoozedDate!, snoozed: true, originalDateDue: dateDue)*/
-        
         NotificationManager.scheduleSnoozedNotification(forInjection: injection, snoozedUntil: snoozedDate!, originalDateDue: dateDue!, queueObject: queueObject)
         
     }

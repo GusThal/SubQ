@@ -99,18 +99,6 @@ class FrequencyTableViewCell: UITableViewCell {
         return button
     }()
     
-    /*lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [daysButton, timeButton])
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 5
-        
-        return stackView
-    }()*/
-    
-    
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -130,20 +118,6 @@ class FrequencyTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
         
-       /* contentView.addSubview(stackView)
-        
-        stackView.snp.makeConstraints { make in
-            make.margins.centerY.equalToSuperview()
-        }*/
-        
-       /* timePicker.snp.makeConstraints { make in
-            make.centerY.trailingMargin.equalToSuperview()
-        }
-        
-        daysButton.snp.makeConstraints { make in
-            make.centerY.leadingMargin.equalToSuperview()
-            make.trailingMargin.equalTo(timePicker.snp.leading)
-        }*/
     }
     
     required init?(coder: NSCoder) {

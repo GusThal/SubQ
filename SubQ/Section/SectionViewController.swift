@@ -120,10 +120,6 @@ extension SectionViewController{
             
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 3, bottom: 3, trailing: 5)
 
-            
-          
-            
-           // section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
             return section
         }
         
@@ -149,7 +145,7 @@ extension SectionViewController {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        //collectionView.backgroundColor = .systemBackground
+
         view.addSubview(collectionView)
         collectionView.delegate = self
     }
@@ -158,24 +154,12 @@ extension SectionViewController {
         let cellRegistration = UICollectionView.CellRegistration<SectionCollectionViewCell, NSManagedObjectID> { (cell, indexPath, item) in
             
             // Populate the cell with our item description.
-            //cell.bodyPart = self.enabledBodyParts[indexPath.section]
-            
-           /* if let match = item.prefixMatch(of: /\w+\s\w+/){
-                cell.section = Quadrant.init(rawValue: String(match.0))
-            }*/
             
             let sectionObject = self.viewModel.object(at: indexPath)
             
             cell.section = sectionObject
             
             cell.contentView.layer.cornerRadius = 5
-            
-            //cell.label.text = "\(sectionObject.bodyPart!.part) + \(sectionObject.quadrantVal.description)"
-            //cell.contentView.backgroundColor = .systemGreen
-           /* cell.contentView.layer.borderColor = UIColor.black.cgColor
-            cell.contentView.layer.borderWidth = 1
-            cell.contentView.layer.cornerRadius = SectionLayoutKind(rawValue: indexPath.section)! == .grid5 ? 8 : 0*/
-            //cell.label.textAlignment = .center
         }
         
         let sectionHeaderRegistration = UICollectionView.SupplementaryRegistration
@@ -185,10 +169,6 @@ extension SectionViewController {
             let bodyPart = self.viewModel.bodyPart(for: indexPath)
             
             supplementaryView.label.text = "\(bodyPart.part!)"
-            
-           /* supplementaryView.backgroundColor = .lightGray
-            supplementaryView.layer.borderColor = UIColor.black.cgColor
-            supplementaryView.layer.borderWidth = 1.0*/
         }
         
         let globalHeaderRegistration = UICollectionView.SupplementaryRegistration<OrientationCollectionHeader>(elementKind: ElementKind.globalHeader) { supplementaryView, elementKind, indexPath in
@@ -215,15 +195,6 @@ extension SectionViewController {
         // initial data
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
-        
-     /*   for i in 0...3{
-            snapshot.appendSections([i])
-            
-            #warning("without the i, diffable datasource thinks these are duplicates. may not be an issue with")
-            let items = Quadrant.allCases.map({"\($0.rawValue) + \(i)" })
-            
-            snapshot.appendItems(items)
-        }*/
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }

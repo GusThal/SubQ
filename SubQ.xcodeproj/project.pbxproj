@@ -64,26 +64,18 @@
 		CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517A29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld */; };
 		CC9F517E29FEBD1E00E6FAF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517D29FEBD1E00E6FAF6 /* Assets.xcassets */; };
 		CC9F518129FEBD1E00E6FAF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9F517F29FEBD1E00E6FAF6 /* LaunchScreen.storyboard */; };
-		CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */; };
-		CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA980322A281B7D00BF518C /* DatePickerContentView.swift */; };
 		CCB20E702AC8EBE10009B696 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB20E6F2AC8EBE10009B696 /* OnboardingViewModel.swift */; };
 		CCB20E722ACA09760009B696 /* BodyPartHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB20E712ACA09760009B696 /* BodyPartHeader.swift */; };
 		CCBCE2192A13C8BA001B73D6 /* SectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2182A13C8BA001B73D6 /* SectionCollectionViewCell.swift */; };
 		CCBCE21B2A142096001B73D6 /* TextSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */; };
 		CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */; };
 		CCBCE21F2A1524D7001B73D6 /* SiteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */; };
-		CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */; };
-		CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */; };
-		CCBCE22A2A17CD62001B73D6 /* TimePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2292A17CD62001B73D6 /* TimePickerCollectionViewCell.swift */; };
-		CCBCE2342A1A7077001B73D6 /* CenteredTextLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCE2332A1A7077001B73D6 /* CenteredTextLabelCell.swift */; };
 		CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */; };
 		CCC4B8642A0413C0008BFF81 /* InjectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8632A0413C0008BFF81 /* InjectionCoordinator.swift */; };
 		CCC4B8662A044738008BFF81 /* SectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8652A044738008BFF81 /* SectionCoordinator.swift */; };
 		CCC4B8682A0447C9008BFF81 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8672A0447C9008BFF81 /* HistoryCoordinator.swift */; };
 		CCC4B86A2A0447E0008BFF81 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */; };
-		CCC4B86C2A0453B3008BFF81 /* InjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */; };
 		CCC4B8702A045901008BFF81 /* SectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B86F2A045901008BFF81 /* SectionViewController.swift */; };
-		CCC4B8722A04591B008BFF81 /* HistoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8712A04591B008BFF81 /* HistoryCollectionViewController.swift */; };
 		CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */; };
 		CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */; };
 		CCC4B8992A0D9FD1008BFF81 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCC4B8982A0D9FD1008BFF81 /* SnapKit */; };
@@ -109,7 +101,6 @@
 		CCE20A832AFE7DF00004EB62 /* LinkCollectionViewListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A822AFE7DF00004EB62 /* LinkCollectionViewListContentView.swift */; };
 		CCE20A852AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A842AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift */; };
 		CCE943802A01B23B00514710 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9437F2A01B23B00514710 /* Coordinator.swift */; };
-		CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943812A01B30B00514710 /* Storyboarded.swift */; };
 		CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE943832A01C87200514710 /* MainCoordinator.swift */; };
 		CCE97A4C2AC38F70008B1293 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */; };
 		CCE97A512AC3974E008B1293 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */; };
@@ -181,26 +172,18 @@
 		CC9F517D29FEBD1E00E6FAF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC9F518029FEBD1E00E6FAF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC9F518229FEBD1E00E6FAF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentConfiguration.swift; sourceTree = "<group>"; };
-		CCA980322A281B7D00BF518C /* DatePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentView.swift; sourceTree = "<group>"; };
 		CCB20E6F2AC8EBE10009B696 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		CCB20E712ACA09760009B696 /* BodyPartHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartHeader.swift; sourceTree = "<group>"; };
 		CCBCE2182A13C8BA001B73D6 /* SectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSupplementaryView.swift; sourceTree = "<group>"; };
 		CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteViewController.swift; sourceTree = "<group>"; };
 		CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCoordinator.swift; sourceTree = "<group>"; };
-		CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionViewController.swift; sourceTree = "<group>"; };
-		CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCollectionViewCell.swift; sourceTree = "<group>"; };
-		CCBCE2292A17CD62001B73D6 /* TimePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerCollectionViewCell.swift; sourceTree = "<group>"; };
-		CCBCE2332A1A7077001B73D6 /* CenteredTextLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextLabelCell.swift; sourceTree = "<group>"; };
 		CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		CCC4B8632A0413C0008BFF81 /* InjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8652A044738008BFF81 /* SectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8672A0447C9008BFF81 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
-		CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionViewController.swift; sourceTree = "<group>"; };
 		CCC4B86F2A045901008BFF81 /* SectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewController.swift; sourceTree = "<group>"; };
-		CCC4B8712A04591B008BFF81 /* HistoryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewController.swift; sourceTree = "<group>"; };
 		CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInjectionCoordinator.swift; sourceTree = "<group>"; };
 		CCC4B8A02A0FD9DE008BFF81 /* DaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysViewController.swift; sourceTree = "<group>"; };
@@ -226,7 +209,6 @@
 		CCE20A842AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCollectionViewListCellContentConfiguration.swift; sourceTree = "<group>"; };
 		CCE9437D29FEC42C00514710 /* SubQ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQ.entitlements; sourceTree = "<group>"; };
 		CCE9437F2A01B23B00514710 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		CCE943812A01B30B00514710 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		CCE943832A01C87200514710 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -256,13 +238,6 @@
 				CC5738972A34C2A8000257E0 /* Quadrant.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		CC31CD6F2A254A1100C20CAB /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		CC5738A12A3B4883000257E0 /* BodyPart */ = {
@@ -300,10 +275,9 @@
 				CC31CD622A23ECB700C20CAB /* Injection+CoreDataProperties.swift */,
 				CCC4B8632A0413C0008BFF81 /* InjectionCoordinator.swift */,
 				CC1356DC2A294AE50073431B /* InjectionProvider.swift */,
-				CCC4B86B2A0453B3008BFF81 /* InjectionViewController.swift */,
-				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
-				CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */,
 				CC4AF1D12A93BB28000FC22A /* InjectionTableViewCell.swift */,
+				CC4AF1CF2A92E383000FC22A /* InjectionTableViewController.swift */,
+				CC1356DE2A2CE1120073431B /* InjectionViewModel.swift */,
 			);
 			path = Injection;
 			sourceTree = "<group>";
@@ -311,17 +285,16 @@
 		CC5738A42A3B5733000257E0 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				CC7762F32A7C10A600AEC489 /* FilterCoordinator.swift */,
+				CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */,
 				CC31CD632A23ECB700C20CAB /* History+CoreDataClass.swift */,
 				CC31CD642A23ECB700C20CAB /* History+CoreDataProperties.swift */,
-				CCC4B8712A04591B008BFF81 /* HistoryCollectionViewController.swift */,
+				CCC4B8672A0447C9008BFF81 /* HistoryCoordinator.swift */,
+				CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */,
+				CC1A7CCD2AA288B300F748EB /* HistoryTableViewCell.swift */,
 				CC1A7CC72A9795C700F748EB /* HistoryTableViewController.swift */,
 				CCCEC0812A87030500EB265E /* HistoryViewController.swift */,
 				CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */,
-				CCC4B8672A0447C9008BFF81 /* HistoryCoordinator.swift */,
-				CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */,
-				CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */,
-				CC7762F32A7C10A600AEC489 /* FilterCoordinator.swift */,
-				CC1A7CCD2AA288B300F748EB /* HistoryTableViewCell.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -329,13 +302,12 @@
 		CC7762EA2A69EF1D00AEC489 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
-				CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */,
-				CCBCE2252A16FE02001B73D6 /* EditInjectionViewController.swift */,
-				CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */,
-				CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */,
-				CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */,
-				CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */,
 				CC4AF1CD2A926BE4000FC22A /* CenteredTextTableViewCell.swift */,
+				CCC4B8922A098D4D008BFF81 /* EditInjectionCoordinator.swift */,
+				CC4AF1C32A8EB5A7000FC22A /* EditInjectionTableViewController.swift */,
+				CC31CD702A254A3C00C20CAB /* EditInjectionViewModel.swift */,
+				CC4AF1C92A900291000FC22A /* FrequencyTableViewCell.swift */,
+				CC4AF1C52A8EBC6B000FC22A /* TextInputTableViewCell.swift */,
 				CC1A7CC92A9BF12000F748EB /* TimePickerTableViewCell.swift */,
 			);
 			path = Edit;
@@ -344,10 +316,10 @@
 		CC7762EB2A69EF4200AEC489 /* Frequency */ = {
 			isa = PBXGroup;
 			children = (
-				CC4AF1BF2A8E8A67000FC22A /* Frequency+CoreDataClass.swift */,
-				CC4AF1C02A8E8A67000FC22A /* Frequency+CoreDataProperties.swift */,
 				CCC4B8A22A0FDE77008BFF81 /* DaysCoordinator.swift */,
 				CCC4B8A02A0FD9DE008BFF81 /* DaysViewController.swift */,
+				CC4AF1BF2A8E8A67000FC22A /* Frequency+CoreDataClass.swift */,
+				CC4AF1C02A8E8A67000FC22A /* Frequency+CoreDataProperties.swift */,
 			);
 			path = Frequency;
 			sourceTree = "<group>";
@@ -355,13 +327,13 @@
 		CC7762EC2A69EF5800AEC489 /* InjectNow */ = {
 			isa = PBXGroup;
 			children = (
-				CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */,
 				CCC8F3832A55BE6100BAAED1 /* InjectNowCoordinator.swift */,
+				CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */,
+				CCC8F3812A53776F00BAAED1 /* InjectNowViewController.swift */,
 				CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */,
+				CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */,
 				CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */,
 				CC4AF1D32A941245000FC22A /* SelectInjectionTableViewController.swift */,
-				CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */,
-				CC4C16DA2AAB6ED800B55E66 /* InjectNowDataView.swift */,
 				CC815A802AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift */,
 			);
 			path = InjectNow;
@@ -370,13 +342,13 @@
 		CC864EEF2A4E37FC00869A8C /* Site */ = {
 			isa = PBXGroup;
 			children = (
+				CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */,
 				CCBCE21E2A1524D7001B73D6 /* SiteCoordinator.swift */,
 				CC31CD652A23ECB700C20CAB /* Site+CoreDataClass.swift */,
 				CC31CD662A23ECB700C20CAB /* Site+CoreDataProperties.swift */,
 				CC5738952A3153B7000257E0 /* SiteProvider.swift */,
 				CCBCE21C2A15149C001B73D6 /* SiteViewController.swift */,
 				CCC8F3872A58B7FF00BAAED1 /* SiteViewModel.swift */,
-				CCC8F3892A58E26500BAAED1 /* SiteCollectionViewCell.swift */,
 			);
 			path = Site;
 			sourceTree = "<group>";
@@ -400,47 +372,32 @@
 		CC9F517029FEBD1B00E6FAF6 /* SubQ */ = {
 			isa = PBXGroup;
 			children = (
-				CCB20E732ACB12A50009B696 /* Interface */,
-				CCE97A4D2AC390FF008B1293 /* Onboarding */,
-				CCC8F3B32A5F433900BAAED1 /* Queue */,
-				CC864EEF2A4E37FC00869A8C /* Site */,
-				CC5738A42A3B5733000257E0 /* History */,
-				CC5738A32A3B56DE000257E0 /* Injection */,
-				CC5738A22A3B48BD000257E0 /* Section */,
 				CC5738A12A3B4883000257E0 /* BodyPart */,
 				CCC4B8622A0412E1008BFF81 /* Coordinators */,
-				CC31CD6F2A254A1100C20CAB /* ViewModels */,
+				CCC4B8832A06A40D008BFF81 /* CoreData */,
+				CCE20A872B0A76AD0004EB62 /* Extensions */,
+				CC5738A42A3B5733000257E0 /* History */,
+				CCB20E732ACB12A50009B696 /* Interface */,
+				CC5738A32A3B56DE000257E0 /* Injection */,
+				CCE97A4D2AC390FF008B1293 /* Onboarding */,
+				CCC8F3B32A5F433900BAAED1 /* Queue */,
+				CC5738A22A3B48BD000257E0 /* Section */,
+				CCE20A862B0A76690004EB62 /* Settings */,
+				CC864EEF2A4E37FC00869A8C /* Site */,
 				CCC4B8612A0403FF008BFF81 /* ViewControllers */,
 				CCC4B8962A0D9446008BFF81 /* Views */,
-				CCC4B8832A06A40D008BFF81 /* CoreData */,
 				CCE9437D29FEC42C00514710 /* SubQ.entitlements */,
 				CC9F517129FEBD1B00E6FAF6 /* AppDelegate.swift */,
 				CC9F517329FEBD1B00E6FAF6 /* SceneDelegate.swift */,
+				CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */,
+				CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */,
 				CC9F517729FEBD1B00E6FAF6 /* Main.storyboard */,
 				CC9F517D29FEBD1E00E6FAF6 /* Assets.xcassets */,
 				CC9F517F29FEBD1E00E6FAF6 /* LaunchScreen.storyboard */,
 				CC9F518229FEBD1E00E6FAF6 /* Info.plist */,
 				CC9F517A29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld */,
-				CCE943812A01B30B00514710 /* Storyboarded.swift */,
-				CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */,
-				CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */,
-				CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */,
-				CCC8F37F2A51D72600BAAED1 /* NotificationManager.swift */,
-				CCC8F3852A55C0E400BAAED1 /* Coordinated.swift */,
-				CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */,
-				CC4CB05C2AD5982700150079 /* UIColor+Extensions.swift */,
 			);
 			path = SubQ;
-			sourceTree = "<group>";
-		};
-		CCA9802D2A281A5A00BF518C /* TimePickerCell */ = {
-			isa = PBXGroup;
-			children = (
-				CCBCE2292A17CD62001B73D6 /* TimePickerCollectionViewCell.swift */,
-				CCA980302A281B3C00BF518C /* DatePickerContentConfiguration.swift */,
-				CCA980322A281B7D00BF518C /* DatePickerContentView.swift */,
-			);
-			path = TimePickerCell;
 			sourceTree = "<group>";
 		};
 		CCB20E732ACB12A50009B696 /* Interface */ = {
@@ -455,7 +412,6 @@
 			isa = PBXGroup;
 			children = (
 				CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */,
-				CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -465,7 +421,6 @@
 			children = (
 				CCE9437F2A01B23B00514710 /* Coordinator.swift */,
 				CCE943832A01C87200514710 /* MainCoordinator.swift */,
-				CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -482,20 +437,17 @@
 		CCC4B8962A0D9446008BFF81 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */,
-				CCA9802D2A281A5A00BF518C /* TimePickerCell */,
-				CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */,
-				CCBCE2272A17C95E001B73D6 /* TextInputCollectionViewCell.swift */,
-				CCBCE2332A1A7077001B73D6 /* CenteredTextLabelCell.swift */,
-				CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */,
-				CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */,
-				CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */,
-				CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */,
-				CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */,
 				CC4C16D62AAA0F1600B55E66 /* BadgeButton.swift */,
 				CC815A842ABA391000EC0F0A /* CheckableBodyPartCollectionViewCell.swift */,
-				CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */,
+				CC7762F52A7C536800AEC489 /* DateRangeTableViewCell.swift */,
+				CC7762F92A7D35E800AEC489 /* FilterTableFooterView.swift */,
+				CC1A7CCB2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift */,
 				CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */,
+				CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */,
+				CC7762F72A7C5FFC00AEC489 /* SegmentedTableViewCell.swift */,
+				CCBCE21A2A142096001B73D6 /* TextSupplementaryView.swift */,
+				CC4CB05A2AD49C9A00150079 /* TextTableHeaderView.swift */,
+				CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -520,19 +472,40 @@
 			path = TermsCollectionViewListCell;
 			sourceTree = "<group>";
 		};
+		CCE20A862B0A76690004EB62 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */,
+				CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		CCE20A872B0A76AD0004EB62 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */,
+				CC4CB05C2AD5982700150079 /* UIColor+Extensions.swift */,
+				CC864EB02A489C0500869A8C /* UITextField+textPublisher.swift */,
+				CC815A822AB125A700EC0F0A /* UIViewController+showConfirmationView.swift */,
+				CC31CD5D2A22A85F00C20CAB /* UserDefaults+Shared.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		CCE97A4D2AC390FF008B1293 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				CCE20A812AFE7CC20004EB62 /* TermsCollectionViewListCell */,
-				CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */,
-				CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */,
-				CCE97A522AC47693008B1293 /* OnboardingViewController.swift */,
-				CCE97A542AC5B917008B1293 /* OnboardingCollectionViewCell.swift */,
+				CCB20E712ACA09760009B696 /* BodyPartHeader.swift */,
 				CCE97A562AC5B9C1008B1293 /* BodyPartViewController.swift */,
 				CCE97A582AC5B9F3008B1293 /* NotificationsViewController.swift */,
-				CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */,
+				CCE97A542AC5B917008B1293 /* OnboardingCollectionViewCell.swift */,
+				CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */,
+				CCE97A522AC47693008B1293 /* OnboardingViewController.swift */,
 				CCB20E6F2AC8EBE10009B696 /* OnboardingViewModel.swift */,
-				CCB20E712ACA09760009B696 /* BodyPartHeader.swift */,
+				CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */,
+				CCE20A812AFE7CC20004EB62 /* TermsCollectionViewListCell */,
+				CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -624,7 +597,6 @@
 				CC31CD6D2A23ECB700C20CAB /* Site+CoreDataClass.swift in Sources */,
 				CCB20E702AC8EBE10009B696 /* OnboardingViewModel.swift in Sources */,
 				CC4AF1C12A8E8A67000FC22A /* Frequency+CoreDataClass.swift in Sources */,
-				CCBCE2262A16FE02001B73D6 /* EditInjectionViewController.swift in Sources */,
 				CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
 				CCE97A512AC3974E008B1293 /* WelcomeViewController.swift in Sources */,
@@ -634,7 +606,6 @@
 				CC1356E12A2F7CC10073431B /* BodyPartProvider.swift in Sources */,
 				CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */,
 				CC4AF1CA2A900291000FC22A /* FrequencyTableViewCell.swift in Sources */,
-				CCC4B86C2A0453B3008BFF81 /* InjectionViewController.swift in Sources */,
 				CC4AF1C42A8EB5A7000FC22A /* EditInjectionTableViewController.swift in Sources */,
 				CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */,
 				CCC8F3822A53776F00BAAED1 /* InjectNowViewController.swift in Sources */,
@@ -653,7 +624,6 @@
 				CC4CB05D2AD5982700150079 /* UIColor+Extensions.swift in Sources */,
 				CC1356DD2A294AE50073431B /* InjectionProvider.swift in Sources */,
 				CCBCE21D2A15149C001B73D6 /* SiteViewController.swift in Sources */,
-				CCC4B8722A04591B008BFF81 /* HistoryCollectionViewController.swift in Sources */,
 				CC7762F82A7C5FFC00AEC489 /* SegmentedTableViewCell.swift in Sources */,
 				CCC4B8602A0337BC008BFF81 /* MainTabBarController.swift in Sources */,
 				CC5738962A3153B7000257E0 /* SiteProvider.swift in Sources */,
@@ -663,7 +633,6 @@
 				CCC4B8932A098D4D008BFF81 /* EditInjectionCoordinator.swift in Sources */,
 				CC1A7CCA2A9BF12000F748EB /* TimePickerTableViewCell.swift in Sources */,
 				CC31CD6C2A23ECB700C20CAB /* History+CoreDataProperties.swift in Sources */,
-				CCA980332A281B7D00BF518C /* DatePickerContentView.swift in Sources */,
 				CC31CD6A2A23ECB700C20CAB /* Injection+CoreDataProperties.swift in Sources */,
 				CC31CD5E2A22A85F00C20CAB /* UserDefaults+Shared.swift in Sources */,
 				CCE20A852AFE7E530004EB62 /* LinkCollectionViewListCellContentConfiguration.swift in Sources */,
@@ -671,11 +640,9 @@
 				CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
 				CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */,
-				CCA980312A281B3C00BF518C /* DatePickerContentConfiguration.swift in Sources */,
 				CCC4B8A32A0FDE77008BFF81 /* DaysCoordinator.swift in Sources */,
 				CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */,
 				CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */,
-				CCBCE2282A17C95E001B73D6 /* TextInputCollectionViewCell.swift in Sources */,
 				CCC4B8662A044738008BFF81 /* SectionCoordinator.swift in Sources */,
 				CC31CD672A23ECB700C20CAB /* BodyPart+CoreDataClass.swift in Sources */,
 				CCE20A7C2AE8049A0004EB62 /* OrientationCollectionHeader.swift in Sources */,
@@ -709,13 +676,10 @@
 				CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */,
 				CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */,
 				CC1356DF2A2CE1120073431B /* InjectionViewModel.swift in Sources */,
-				CCBCE22A2A17CD62001B73D6 /* TimePickerCollectionViewCell.swift in Sources */,
 				CC7762F02A7BEE5000AEC489 /* ResultsHeaderView.swift in Sources */,
 				CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */,
-				CCBCE2342A1A7077001B73D6 /* CenteredTextLabelCell.swift in Sources */,
 				CCE97A532AC47693008B1293 /* OnboardingViewController.swift in Sources */,
 				CC31CD682A23ECB700C20CAB /* BodyPart+CoreDataProperties.swift in Sources */,
-				CCE943822A01B30B00514710 /* Storyboarded.swift in Sources */,
 				CC4CB05F2AD5999100150079 /* InterfaceDefaults.swift in Sources */,
 				CC31CD6E2A23ECB700C20CAB /* Site+CoreDataProperties.swift in Sources */,
 				CCC8F3882A58B7FF00BAAED1 /* SiteViewModel.swift in Sources */,

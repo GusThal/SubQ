@@ -34,7 +34,6 @@ class TextInputTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Injection Name: "
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.backgroundColor = .purple
         label.frame.size = label.intrinsicContentSize
         
         label.setContentHuggingPriority(.required, for: .horizontal)
@@ -44,20 +43,10 @@ class TextInputTableViewCell: UITableViewCell {
     }()
     let textField: UITextField = {
         let field = UITextField()
-       // field.backgroundColor = .green
-        
         field.textAlignment = .left
         field.placeholder = "beep boop"
         
         field.translatesAutoresizingMaskIntoConstraints = false
-        //field.setContentHuggingPriority(.required, for: .horizontal)
-        
-        
-        //field.adjustsFontSizeToFitWidth = true
-        
-        
-        
-        //field.addTarget(self, action: #selector(nameTextFieldChanged), for: .editingChanged)
         
         return field
     }()
@@ -70,9 +59,6 @@ class TextInputTableViewCell: UITableViewCell {
         stackView.snp.makeConstraints { make in
             make.leadingMargin.trailingMargin.centerY.equalToSuperview()
         }
-    
-        
-        
     }
 
     required init?(coder: NSCoder) {

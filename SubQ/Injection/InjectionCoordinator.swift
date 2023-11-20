@@ -45,14 +45,6 @@ class InjectionCoordinator: Coordinator{
     
     func addInjection(){
         
-       /* let vc = EditInjectionViewController()
-        
-        let nc = UINavigationController(rootViewController: vc)
-        
-        vc.modalPresentationStyle = .automatic
-        
-        navigationController.viewControllers.first!.present(nc, animated: true)*/
-        
         
         let child  = EditInjectionCoordinator(navigationController: UINavigationController(), parentNavigationController: self.navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionProvider: viewModel.injectionProvider, injection: nil)
         

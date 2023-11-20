@@ -31,15 +31,7 @@ extension Site {
             subQuadrant = NSNumber(integerLiteral: newValue.rawValue)
         }
     }
-  /*
-    var sectionVal: InjectionSection{
-        get{
-            return InjectionSection(rawValue: section!)!
-        }
-        set{
-            section = newValue.rawValue
-        }
-    }*/
+
 
 }
 

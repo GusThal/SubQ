@@ -8,7 +8,6 @@
 import Foundation
 
 enum Quadrant: Int, CaseIterable{
-    //case topLeft = "Top Left", bottomLeft = "Bottom Left", topRight = "Top Right", bottomRight = "Bottom Right"
     case topLeft = 0, bottomLeft = 1, topRight = 2,  bottomRight = 3
     
     var description: String{

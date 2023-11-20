@@ -30,7 +30,7 @@ class OnboardingCoordinator: Coordinator {
     func start() {
         
         let vc = OnboardingViewController(viewModel: viewModel, coordinator: self)
-        //vc.coordinator = self
+
         navigationController.pushViewController(vc, animated: false)
     }
     

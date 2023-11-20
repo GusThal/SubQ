@@ -28,12 +28,6 @@ class EditInjectionViewModel{
     
     var selectedTimeCellIndex: Int? = nil
     
-   // @Published var selectedFrequency = [Injection.Frequency]()
-    
-   // @Published var selectedFrequencies = [Frequency.InjectionDay]()
-    
-   // var currentValueFrequency = CurrentValueSubject<[Injection.Frequency], Never>([Injection.Frequency]())
-    
     var currentValueSelectedDay = CurrentValueSubject<[Frequency.InjectionDay], Never>([Frequency.InjectionDay]())
     
     @Published var name = ""
@@ -57,16 +51,6 @@ class EditInjectionViewModel{
           }).eraseToAnyPublisher()
       }()
     
-    
-  /*  lazy var frequencySubject: AnyPublisher<String?, Never> = {
-
-        return currentValueFrequency.map({ frequency in
-            print(frequency)
-            return frequency.count == 1 ? frequency[0].shortened : frequency.map { $0.shortened }.joined(separator: ", ")
-            
-        }).eraseToAnyPublisher()
-    }() */
-    
     var isValidNamePublisher: AnyPublisher<Bool, Never> {
         $name.map { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             .eraseToAnyPublisher()
@@ -76,13 +60,6 @@ class EditInjectionViewModel{
         $dosage.map { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             .eraseToAnyPublisher()
     }
-    /*
-    
-    var isFrequencySelectedPublisher: AnyPublisher<Bool, Never> {
-        $selectedFrequency.map { $0 != [] }
-            .eraseToAnyPublisher()
-    }
-     */
     
     var areFrequenciesValidPublisher: AnyPublisher<Bool, Never> {
         $frequencies.map { self.areFrequenciesValid(frequencies: $0) }
@@ -202,8 +179,6 @@ class EditInjectionViewModel{
         
         if let injection{
             
-           // selectedFrequency = injection.daysVal
-           // currentValueFrequency.value = injection.daysVal
             name = injection.name!
             dosage = "\(injection.dosage!)"
             selectedUnits = injection.unitsVal
@@ -216,19 +191,6 @@ class EditInjectionViewModel{
                 
             }
             
-           /* if injection.typeVal != .asNeeded{
-                self.isAsNeeded = false
-            }*/
-            
-         /*   if selectedFrequency != [.asNeeded]{
-                areNotificationsEnabled = injection.areNotificationsEnabled
-            }
-            //always default to false for as needed.
-            else{
-                areNotificationsEnabled = false
-            }*/
-           
-            
             
         }
     }
@@ -239,9 +201,7 @@ class EditInjectionViewModel{
     }
     
     func areFrequenciesValid(frequencies: [EditInjectionTableViewController.FrequencySectionData]) -> Bool{
-        
-       // print("are frequncies valid  \(frequencies)")
-        
+
         var validFrequencies = [Bool]()
         
         if isAsNeeded{
