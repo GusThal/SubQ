@@ -222,7 +222,7 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
     
     
     func presentDeleteAlertController(forQueueObject object: Queue){
-        let alert = UIAlertController(title: "Delete Queue Object", message: "Are you sure you want to delete  \(object.injection!.name!), missed on \(object.dateDue?.fullDateTime) from the queue?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete Queue Object", message: "Are you sure you want to delete  \(object.injection!.name!), missed on \(object.dateDue!.fullDateTime) from the queue?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         

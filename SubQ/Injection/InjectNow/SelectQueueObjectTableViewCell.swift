@@ -11,6 +11,37 @@ import SnapKit
 
 class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
     
+    lazy var mainStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [injectionDescriptionStackView, queueStackView])
+        stack.axis = .vertical
+        
+        return stack
+        
+    }()
+    
+    lazy var queueStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [dueStackView])
+        stack.axis = .vertical
+        
+        return stack
+    }()
+    
+    lazy var dueStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [dueImageView, dueLabel, dueDateView])
+        stack.axis = .horizontal
+        stack.spacing = 5
+        
+        return stack
+    }()
+    
+    lazy var snoozedStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [snoozedImageView, snoozedUntilLabel, snoozedDateView])
+        stack.axis = .horizontal
+        stack.spacing = 5
+        
+        return stack
+    }()
+    
     let dueImageView: UIImageView = {
         let config = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 12))
         let image = UIImage(systemName: "calendar.badge.clock", withConfiguration: config)
@@ -42,14 +73,6 @@ class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
         
         return label
         
-    }()
-    
-    lazy var dueStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [dueImageView, dueLabel, dueDateView])
-        stack.axis = .horizontal
-        stack.spacing = 5
-        
-        return stack
     }()
     
     lazy var dueDateView: UIView = {
@@ -116,31 +139,8 @@ class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
         
         return view
     }()
+
     
-    lazy var snoozedStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [snoozedImageView, snoozedUntilLabel, snoozedDateView])
-        stack.axis = .horizontal
-        stack.spacing = 5
-        
-        return stack
-    }()
-    
-    
-    
-    lazy var queueStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [dueStackView])
-        stack.axis = .vertical
-        
-        return stack
-    }()
-    
-    lazy var mainStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [injectionDescriptionStackView, queueStackView])
-        stack.axis = .vertical
-        
-        return stack
-        
-    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

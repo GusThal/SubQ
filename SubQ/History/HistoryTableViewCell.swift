@@ -20,6 +20,34 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         
     }()
     
+    lazy var historyDataStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [statusStackView])
+        stack.axis = .vertical
+        
+        
+        return stack
+    }()
+    
+    lazy var statusStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [statusImageView, statusLabel, historyView])
+        stack.axis = .horizontal
+        //stack.alignment = .firstBaseline
+        stack.spacing = 5
+        
+        return stack
+        
+    }()
+    
+    lazy var dueStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [dueImageView, dueLabel, dueDateView])
+        stack.axis = .horizontal
+       // stack.alignment = .firstBaseline
+        stack.spacing = 5
+        
+        return stack
+        
+    }()
+    
     let statusLabel: UILabel = {
         let label = UILabel()
         label.setContentHuggingPriority(.required, for: .horizontal)
@@ -56,6 +84,9 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         view.setContentHuggingPriority(.required, for: .horizontal)
         view.setContentCompressionResistancePriority(.required, for: .horizontal)
         
+        view.setContentHuggingPriority(.required, for: .vertical)
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
+        
         return view
     }()
     
@@ -67,31 +98,14 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         view.tintColor = .label
         view.setContentHuggingPriority(.required, for: .horizontal)
         view.setContentCompressionResistancePriority(.required, for: .horizontal)
+       
+       view.setContentHuggingPriority(.required, for: .vertical)
+       view.setContentCompressionResistancePriority(.required, for: .vertical)
 
         
         return view
     }()
     
-    
-    lazy var statusStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [statusImageView, statusLabel, historyView])
-        stack.axis = .horizontal
-        stack.alignment = .firstBaseline
-        stack.spacing = 5
-        
-        return stack
-        
-    }()
-    
-    lazy var dueStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [dueImageView, dueLabel, dueDateView])
-        stack.axis = .horizontal
-        stack.alignment = .firstBaseline
-        stack.spacing = 5
-        
-        return stack
-        
-    }()
     
     lazy var historyView: UIView = {
         let view = UIView(frame: .zero)
@@ -123,13 +137,6 @@ class HistoryTableViewCell: InjectionDescriptionTableViewCell {
         return label
     }()
     
-    lazy var historyDataStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [statusStackView])
-        stack.axis = .vertical
-        
-        
-        return stack
-    }()
     
     func setHistory(_ history: History) {
         statusLabel.text = "\(history.status!.capitalized):"

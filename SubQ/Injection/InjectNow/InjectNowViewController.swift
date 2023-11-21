@@ -60,7 +60,7 @@ class InjectNowViewController: UIViewController, Coordinated {
     lazy var skipButton: UIButton = {
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = "Skip"
-        buttonConfig.baseForegroundColor = .red
+        buttonConfig.baseForegroundColor = .systemRed
         
         let action = UIAction { _ in
             self.viewModel.skipInjection()
@@ -74,7 +74,7 @@ class InjectNowViewController: UIViewController, Coordinated {
     lazy var snoozeButton: UIButton = {
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = "Snooze"
-        buttonConfig.baseForegroundColor = .orange
+        buttonConfig.baseForegroundColor = InterfaceDefaults.secondaryColor
         
         let action = UIAction { _ in
             self.snoozeButtonPressed()
@@ -105,7 +105,7 @@ class InjectNowViewController: UIViewController, Coordinated {
     
     weak var coordinator: Coordinator?
     
-    lazy var selectionInjectionViewController = SelectInjectionViewController(viewModel: viewModel)
+   // lazy var selectionInjectionViewController = SelectInjectionViewController(viewModel: viewModel)
     
     //var queueCount: Int = 0
     

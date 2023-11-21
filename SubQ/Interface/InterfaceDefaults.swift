@@ -24,6 +24,8 @@ struct InterfaceDefaults {
     
     static let disclaimerString = "This app was created by a junior iOS developer for his own learning purposes only, and as such should not be relied upon by the user as the sole method for tracking their injections."
     
+    static let disclaimerBoldSubstring = "should not be relied upon by the user as the sole method for tracking their injections."
+    
     static var termsURL: URL {
         get {
             URL(string: termsAddress)!

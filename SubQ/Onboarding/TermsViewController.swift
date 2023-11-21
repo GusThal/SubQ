@@ -149,7 +149,14 @@ extension TermsViewController {
             
             var content = cell.defaultContentConfiguration()
             
-            content.text = item
+           // content.text = item
+            
+            
+            var attributedString = AttributedString(stringLiteral: InterfaceDefaults.disclaimerString)
+            let range = attributedString.range(of: InterfaceDefaults.disclaimerBoldSubstring)!
+            attributedString[range].font = UIFont.boldSystemFont(ofSize: 17)
+            
+            content.attributedText = NSAttributedString(attributedString)
             
             
             cell.contentConfiguration = content

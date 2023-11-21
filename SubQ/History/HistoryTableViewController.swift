@@ -155,7 +155,7 @@ class HistoryTableViewController: UIViewController, Coordinated {
     }
     
     func presentDeleteAlertController(forHistory history: History){
-        let alert = UIAlertController(title: "Delete History", message: "Are you sure you want to delete history entry for \(history.injection!.name!) from \(history.date!)?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Delete History", message: "Are you sure you want to delete history entry for \(history.injection!.name!) from \(history.date!.fullDateTime)?", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [self] _ in
             tableView.reloadData()

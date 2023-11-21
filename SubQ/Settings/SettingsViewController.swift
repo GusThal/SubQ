@@ -122,11 +122,12 @@ class SettingsViewController: UIViewController, Coordinated {
                 
             } else{
                 
-                let configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
+                var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
+                configuration.footerMode = .supplementary
     
                 let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
                 
-                section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 10, trailing: 0)
            
                 return section
             }
@@ -192,6 +193,21 @@ extension SettingsViewController{
 
         }
         
+        let footerRegistration = UICollectionView.SupplementaryRegistration
+        <UICollectionViewListCell>(elementKind: UICollectionView.elementKindSectionFooter) {
+            [unowned self] (footerView, elementKind, indexPath) in
+            
+            var configuration = footerView.defaultContentConfiguration()
+            
+            var attributedString = AttributedString(stringLiteral: InterfaceDefaults.disclaimerString)
+            let range = attributedString.range(of: InterfaceDefaults.disclaimerBoldSubstring)!
+            attributedString[range].font = UIFont.boldSystemFont(ofSize: 13)
+            
+            configuration.attributedText = NSAttributedString(attributedString)
+            //configuration.text = InterfaceDefaults.disclaimerString
+            footerView.contentConfiguration = configuration
+        }
+        
         dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: String) -> UICollectionViewCell? in
             
@@ -205,7 +221,11 @@ extension SettingsViewController{
         }
         
         dataSource.supplementaryViewProvider = { (view, kind, index) in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
+            if index.section == Section.bodyParts.rawValue {
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
+            } else {
+                return self.collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration, for: index)
+            }
         }
 
         // initial data
@@ -246,3 +266,4 @@ extension SettingsViewController: UICollectionViewDelegate{
     }
     
 }
+
