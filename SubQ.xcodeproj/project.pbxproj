@@ -837,8 +837,10 @@
 				DEVELOPMENT_TEAM = KWJT7DFNU6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SubQ/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubQ;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -867,8 +869,10 @@
 				DEVELOPMENT_TEAM = KWJT7DFNU6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SubQ/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubQ;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

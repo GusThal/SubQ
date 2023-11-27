@@ -93,6 +93,7 @@ class BodyPartProvider: NSObject{
             obj.enabled = true
             obj.part = part.rawValue
             
+            
         }
         
         do{

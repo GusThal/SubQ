@@ -49,7 +49,7 @@ class NotificationsViewController: UIViewController {
     
     lazy var notificationAction: UIAction = {
         return UIAction { _ in
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound, .criticalAlert, .provisional] ) { success, error in
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound, .criticalAlert] ) { success, error in
                 if success {
                     print("Registered for notifications")
                 } else if let error = error {
