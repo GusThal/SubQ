@@ -60,7 +60,6 @@ class InjectNowCoordinator: ModalChildCoordinator{
         var vc = parentNavigationController!.topViewController!
         
         if let tabController = vc as? MainTabBarController {
-            print("tab")
             
             vc = tabController.selectedViewController!
         }

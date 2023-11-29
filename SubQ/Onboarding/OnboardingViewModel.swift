@@ -19,12 +19,7 @@ class OnboardingViewModel {
         return part1.rawValue < part2.rawValue
     }
     
-    var selectedBodyParts = Array(repeating: true, count: 4) {
-        didSet{
-            print(selectedBodyParts)
-        }
-        
-    }
+    var selectedBodyParts = Array(repeating: true, count: 4) 
     
     lazy var bodyPartSnapshot: AnyPublisher<NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?, Never> = {
         return bodyPartProvider.$snapshot.eraseToAnyPublisher()

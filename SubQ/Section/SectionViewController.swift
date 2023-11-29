@@ -55,7 +55,6 @@ class SectionViewController: UIViewController, Coordinated {
         viewModel.snapshot
           .sink(receiveValue: { [weak self] snapshot in
             if let snapshot = snapshot {
-                print("Number of Snapshot sections in publisher \(snapshot.numberOfSections)")
                 
               self?.dataSource.apply(snapshot, animatingDifferences: false)
                self?.collectionView.reloadData()

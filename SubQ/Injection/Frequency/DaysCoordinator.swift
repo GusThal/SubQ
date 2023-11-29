@@ -35,8 +35,6 @@ class DaysCoordinator: ModalChildCoordinator{
     
     func start() {
         
-        print(viewModel!.selectedDayCellIndex)
-        
         let selectedDays = viewModel!.frequencies[viewModel!.selectedDayCellIndex].days
         
         let vc = DaysViewController(selectedFrequency: selectedDays)

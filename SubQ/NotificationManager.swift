@@ -54,8 +54,7 @@ class NotificationManager{
     static func populateInjectionQueueForExistingNotifications(){
         
         UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
-            print("found \(notifications.count) notifications")
-            
+
             if notifications.count > 0{
                 
                 populateInjectionQueueFor(injectionNotifications: notifications)
@@ -126,8 +125,7 @@ class NotificationManager{
         
         let identifiers = getNotificationIDs(forInjection: injection, snoozedUntil: snoozedUntil, originalDateDue: originalDateDue, frequency: frequency)
         
-        print("removing notifications with id's \(identifiers)")
-            
+
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
         
         print(UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { notifications in
@@ -150,7 +148,6 @@ class NotificationManager{
             content.categoryIdentifier = NotificationManager.NotificationCategoryIdentifier.scheduledInjection.rawValue
               
             let objectID = injection.objectID
-            print(objectID)
              
             content.userInfo = [UserInfoKeys.injectionManagednObjectID.rawValue: objectID.uriRepresentation().absoluteString]
             
@@ -205,8 +202,6 @@ class NotificationManager{
                   
                 notificationCenter.add(request) { (error) in
                       
-                    print("notification added \(notificationIdentifiers[i])")
-                      
                     if error != nil {
                         // Handle any errors.
                     }
@@ -256,8 +251,6 @@ class NotificationManager{
         let notificationCenter = UNUserNotificationCenter.current()
             
         notificationCenter.add(request) { (error) in
-                
-            print("notification added \(identifiers[0])")
                 
             if error != nil {
                         // Handle any errors.

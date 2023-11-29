@@ -77,7 +77,6 @@ class HistoryProvider: NSObject{
 
         do{
             try persistentContainer.viewContext.save()
-            print("saved successfully")
             return true
             
         } catch{

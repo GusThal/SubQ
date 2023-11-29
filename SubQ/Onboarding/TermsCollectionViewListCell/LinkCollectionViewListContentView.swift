@@ -68,8 +68,6 @@ class LinkCollectionViewListContentView: UIView, UIContentView {
         // Replace current configuration with new configuration
         currentConfiguration = configuration
         
-        print(configuration.attributedText)
-        
         // Set data to UI elements
         textView.attributedText = configuration.attributedText
         

@@ -119,17 +119,14 @@ class InjectionTableViewController: UIViewController, Coordinated {
     }
     
     @objc func editButtonPressed(_ sender: Any){
-        print("edit")
         isInEditMode = true
     }
     
     @objc func addButtonPressed(_ sender: Any){
-        print("add")
         injectionCoordinator!.addInjection()
     }
     
     @objc func doneButtonPressed(_ sender: Any){
-        print("done")
         isInEditMode = false
     }
     

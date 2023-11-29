@@ -24,15 +24,12 @@ extension Coordinator{
         for (index, coordinator) in childCoordinators.enumerated() {
             if coordinator === child {
                 childCoordinators.remove(at: index)
-                print("Child coords \(childCoordinators)")
                 break
             }
         }
     }
     
     func startInjectNowCoordinator(forInjectionObjectIDAsString idString: String?, dateDue: Date?, queueObjectIDAsString: String?){
-        
-        print("starting coordinator")
         
         let injectNowCoordinator = InjectNowCoordinator(navigationController: UINavigationController(), parentNavigationController: navigationController, parentCoordinator: self, storageProvider: storageProvider, injectionIDString: idString, dateDue: dateDue, queueObjectIDString: queueObjectIDAsString)
         

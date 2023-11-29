@@ -16,7 +16,7 @@ struct InterfaceDefaults {
     
     static let navigationBarLargeTextAttributes: [NSAttributedString.Key : Any]? = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)]
     
-    private static let termsAddress = "https://sites.google.com/view/subq-app/home"
+    private static let termsAddress = "https://sites.google.com/view/subq-app/terms"
     
     private static let privacyPolicyAddress = termsAddress.appending("/#h.f5rbewwuj4ri")
     

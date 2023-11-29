@@ -45,7 +45,6 @@ class EditInjectionViewModel{
     lazy var daysSubject: AnyPublisher<String?, Never> = {
 
           return currentValueSelectedDay.map({ days in
-              print(days)
               return days.count == 1 ? days[0].shortened : days.map { $0.shortened }.joined(separator: ", ")
               
           }).eraseToAnyPublisher()

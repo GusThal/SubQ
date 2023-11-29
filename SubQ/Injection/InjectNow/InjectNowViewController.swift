@@ -121,8 +121,6 @@ class InjectNowViewController: UIViewController, Coordinated {
         viewModel.siteSnapshot
             .sink(receiveValue: { [weak self] snapshot in
                 if let snapshot = snapshot {
-                    print("Number of items in snapshot \(snapshot.numberOfItems)")
-                     
                     self?.siteDataSource.apply(snapshot, animatingDifferences: false)
                  }
             })
@@ -131,8 +129,7 @@ class InjectNowViewController: UIViewController, Coordinated {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("disappear")
-        
+
         UIApplication.shared.isIdleTimerDisabled = false
     }
 

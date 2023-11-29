@@ -38,15 +38,6 @@ class BodyPartProvider: NSObject{
         //delegate will be informed any time a managed object changes, a new one is inserted, or one is deleted
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
-        
-        if snapshot!.numberOfItems == 0{
-            print("zero body parts")
-            
-        }
-        else{
-            print("BodyPart Provider has \(snapshot!.numberOfItems)")
-            
-        }
 
     }
     
@@ -70,7 +61,6 @@ class BodyPartProvider: NSObject{
         
         do{
             try persistentContainer.viewContext.save()
-            print("saved Body Part successfully")
             
         } catch{
             print("failed with \(error)")
@@ -98,7 +88,6 @@ class BodyPartProvider: NSObject{
         
         do{
             try persistentContainer.viewContext.save()
-            print("saved successfully")
             
         } catch{
             print("failed with \(error)")
@@ -115,8 +104,6 @@ extension BodyPartProvider: NSFetchedResultsControllerDelegate{
     //from chapter 4 of Donny Wals's book Practical Core Data
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-        
-        print("body part NSFetchedResultsControllerDelegate triggered")
         
         var newSnapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
 
@@ -136,8 +123,6 @@ extension BodyPartProvider: NSFetchedResultsControllerDelegate{
 
           return true
         })
-
-        print(idsToReload)
         
         newSnapshot.reloadItems(idsToReload)
 

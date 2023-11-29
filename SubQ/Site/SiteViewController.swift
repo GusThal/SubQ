@@ -42,8 +42,7 @@ class SiteViewController: UIViewController, Coordinated {
         viewModel.snapshot
           .sink(receiveValue: { [weak self] snapshot in
             if let snapshot = snapshot {
-                print("Number of Snapshot sections in publisher \(snapshot.numberOfItems)")
-                
+
               self?.dataSource.apply(snapshot, animatingDifferences: false)
             }
           })

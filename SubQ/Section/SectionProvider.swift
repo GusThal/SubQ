@@ -36,13 +36,6 @@ class SectionProvider: NSObject{
         setUpFetchedResultsController(applyingBodyPredicate: applyingBodyPredicate)
 
         //delegate will be informed any time a managed object changes, a new one is inserted, or one is deleted
-        
-        if snapshot!.numberOfItems == 0{
-            print("zero sections")
-        }
-        else{
-            print("Number of Section objects \(snapshot!.numberOfItems)")
-        }
 
     }
     
@@ -80,8 +73,6 @@ class SectionProvider: NSObject{
               
               let partObj = persistentContainer.viewContext.object(with: bodyPart) as! BodyPart
               
-              print("-----------FOR: \(partObj.part)----------")
-              
               for quadrant in quadrants{
                 
                       
@@ -97,7 +88,6 @@ class SectionProvider: NSObject{
           
           do{
               try persistentContainer.viewContext.save()
-              print("saved successfully")
               
           } catch{
               print("failed with \(error)")
@@ -151,8 +141,6 @@ extension SectionProvider: NSFetchedResultsControllerDelegate{
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         
-        print("Section NSFetchedResultsControllerDelegate triggered")
-        
         var newSnapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
 
         let idsToReload = newSnapshot.itemIdentifiers.filter({ identifier in
@@ -171,8 +159,6 @@ extension SectionProvider: NSFetchedResultsControllerDelegate{
 
           return true
         })
-        
-        print("Number of sections in new snapshot: \(newSnapshot.numberOfSections)")
 
         newSnapshot.reloadItems(idsToReload)
 

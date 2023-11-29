@@ -29,8 +29,6 @@ class CheckableBodyPartCollectionViewCell: UICollectionViewCell {
          
          let enabled = !self.bodyPart!.enabled
          
-         print("setting \(self.bodyPart!.part!) to \(enabled)")
-            
          self.viewModel!.setEnabled(forBodyPart: self.bodyPart!, to: enabled)
          self.isButtonSelected = enabled
             

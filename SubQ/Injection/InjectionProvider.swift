@@ -126,7 +126,6 @@ class InjectionProvider: NSObject{
         
         do{
             try persistentContainer.viewContext.save()
-            print("saved successfully")
             
         } catch{
             print("failed with \(error)")
@@ -145,7 +144,6 @@ class InjectionProvider: NSObject{
         
         do{
             try persistentContainer.viewContext.save()
-            print("saved successfully")
             
         } catch{
             print("failed with \(error)")
@@ -205,7 +203,6 @@ class InjectionProvider: NSObject{
         
         do{
             try persistentContainer.viewContext.save()
-            print("saved successfully")
             
         } catch{
             print("failed with \(error)")
@@ -239,9 +236,6 @@ class InjectionProvider: NSObject{
         do{
             let injections = try storageProvider.persistentContainer.viewContext.fetch(request)
             
-            print(compoundPredicate)
-            
-            print(injections.count)
             
             for injection in injections{
                         

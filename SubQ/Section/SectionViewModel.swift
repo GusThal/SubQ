@@ -43,10 +43,7 @@ class SectionViewModel{
         
         
         if let update = notification.userInfo?[updatedKey], update is Set<BodyPart> {
-            print("Update Notification received")
-            
             let set = update as! Set<BodyPart>
-
         }
         
         
@@ -55,8 +52,6 @@ class SectionViewModel{
     @objc func bodyPartToggled(_ notification: Notification){
         
         let updatedKey = BodyPartProvider.updatedNotificationKey
-        
-        print("notification received")
         
         if let updatedBodyParts = notification.userInfo?[updatedKey]{
             

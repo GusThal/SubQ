@@ -47,18 +47,6 @@ class SiteProvider: NSObject{
         try! fetchedResultsController.performFetch()
         
         
-        if snapshot!.numberOfItems == 0{
-             print("zerooooo Sites")
-            // insertInitialData()
-             
-         }
-         else{
-             
-             print("number of sites \(snapshot!.numberOfItems)")
-             
-         }
-        
-        
     }
     
     func object(at indexPath: IndexPath) -> Site {
@@ -91,25 +79,17 @@ class SiteProvider: NSObject{
         let subQuadrants = Quadrant.allCases.map { $0.rawValue }
         
         
-        print("# of items \(sectionProvider.snapshot!.numberOfItems)")
-        
-        print("# of sections \(sectionProvider.snapshot!.numberOfSections)")
-        
         for section in sectionProvider.snapshot!.itemIdentifiers{
             
             let sectionObj = persistentContainer.viewContext.object(with: section) as! Section
             
-            print("-----------FOR: \(sectionObj.bodyPart?.part) + \(sectionObj.quadrantVal)----------")
-            
-            
+
             for subQuadrant in subQuadrants{
                 
                 let site = Site(context: persistentContainer.viewContext)
                 site.lastInjected = nil
                 site.subQuadrant = NSNumber(integerLiteral: subQuadrant)
                 site.section = sectionObj
-                
-                print("Created \(Quadrant(rawValue: subQuadrant))")
                 
             }
             

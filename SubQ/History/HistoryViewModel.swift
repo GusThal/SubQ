@@ -59,8 +59,6 @@ class HistoryViewModel{
         
         var count = 0
         
-        print("\(sortDateBy.rawValue) + \(status.rawValue) + \(type.rawValue) ")
-        
         if sortDateBy == .oldest {
             count += 1
         }

@@ -32,8 +32,6 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
        override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete{
                 
-                print("delete")
-                
                 viewController!.presentDeleteAlertController(forQueueObject: viewController!.viewModel.getQueueObject(forIndexPath: indexPath))
             }
         }
@@ -159,8 +157,6 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
                 var isQueueEmpty = false
                 var isInjectionEmpty = false
                 
-                print("snap reloaded")
-                
                 self?.applySnapshots(queueSnapshot: queueSnapshot, injectionSnapshot: injectionSnapshot)
                 
                 if let queueSnapshot {
@@ -205,8 +201,6 @@ class SelectInjectionTableViewController: UIViewController, Coordinated {
             make.leading.trailing.bottom.equalToSuperview()
         }
         
-       
-        print(noInjectionStackView.frame)
         
     }
     

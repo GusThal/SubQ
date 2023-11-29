@@ -59,7 +59,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     lazy var unitsSegmentAction: UIAction = {
         return UIAction { _ in
             self.viewModel.selectedUnits = self.allUnitsCases[self.unitsSegmentedControl.selectedSegmentIndex]
-            print(self.viewModel.selectedUnits)
         }
     }()
     
@@ -153,8 +152,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
     
     
     @objc func cancelButtonPressed(_ sender: Any){
-        print("cancel")
-        
+
         if wereChangesMade {
             let alert = UIAlertController(title: nil, message: "Are you sure you want to discard your changes?", preferredStyle: .actionSheet)
             
@@ -402,7 +400,7 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
            
            let action = UIAction { _ in
                self.viewModel.isAsNeeded = switchView.isOn
-               print("is as needed \(self.viewModel.isAsNeeded)")
+
                self.viewModel.frequencies = [FrequencySectionData]()
                
                self.tableView.reloadData()
@@ -505,14 +503,8 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                     let timeButtonAction = UIAction { _ in
                         let row = tableView.indexPath(for: cell)!.row
                         
-                        print(row)
-                        print(self.viewModel.selectedTimeCellIndex)
-                        
-                        
                         //dismiss datepicker cell if the same cell is clicked
                        if let previouslySelectedRow = self.viewModel.selectedTimeCellIndex {
-                           
-                           print("uh?")
                            
                            if previouslySelectedRow == row {
                                
@@ -552,7 +544,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                         }
                         
                         else {
-                            print("glorp")
                             self.viewModel.selectedTimeCellIndex = row
                             
                             cell.timeButtonSelected = true
@@ -560,7 +551,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
                             self.insertTimePickerRow(afterRow: row, section: 2)
                         }
                         
-                        print(row)
                     }
                     
                     
@@ -593,7 +583,6 @@ class EditInjectionTableViewController: UITableViewController, Coordinated {
             
             let action = UIAction { _ in
                 self.viewModel.areNotificationsEnabled = switchView.isOn
-                print("notifications enabled: \(self.viewModel.areNotificationsEnabled)")
             }
             
             switchView.addAction(action, for: .primaryActionTriggered)

@@ -49,7 +49,6 @@ class FilterTableFooterView: UITableViewHeaderFooterView {
     }()
     
     override init(reuseIdentifier: String?) {
-        print("init")
         super.init(reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(stackView)

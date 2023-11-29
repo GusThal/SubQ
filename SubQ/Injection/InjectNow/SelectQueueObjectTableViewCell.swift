@@ -154,7 +154,6 @@ class SelectQueueObjectTableViewCell: InjectionDescriptionTableViewCell {
             make.margins.equalToSuperview()
         }
         
-        print("init")
     }
     
     required init?(coder: NSCoder) {

@@ -92,7 +92,6 @@ class DaysViewController: UIViewController, Coordinated {
     }
     
     @objc func doneButtonPressed(_ sender: Any){
-        print("done")
         frequencyCoordinator?.done(isDailySelected: isDailySelected, selectedDays: selectedDays)
     }
     

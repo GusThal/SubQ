@@ -175,7 +175,6 @@ extension OnboardingViewController: UIScrollViewDelegate{
         if userScroll{
             
             if let newIndex = getNewSelectedIndex() {
-                print(newIndex)
                 displayedCellIndex = newIndex
                 pageControl.currentPage = newIndex
                 

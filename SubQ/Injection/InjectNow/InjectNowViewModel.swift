@@ -105,9 +105,7 @@ class InjectNowViewModel{
         else{
             isFromNotification = false
             queueProvider = QueueProvider(storageProvider: storageProvider)
-            print("QUEUE ITEMS \(queueProvider.snapshot?.numberOfItems)")
-            
-            
+  
             queueProvider.$snapshot.sink { snapshot in
                 
                 self.queuedInjectionIDs = snapshot?.itemIdentifiers.map({ self.getQueueObject(withIDString: $0.uriRepresentation().absoluteString).injection?.objectID }) as! [NSManagedObjectID]
@@ -194,7 +192,6 @@ class InjectNowViewModel{
     func delete(queueObject obj: Queue){
         
         if selectedQueueObject == obj{
-            print("equal")
             selectedQueueObject = nil
             
             //so the zipped publisher in InjectNowViewController will trigger
@@ -236,8 +233,6 @@ class InjectNowViewModel{
         
         //only snoozed injections will have a dateDue
         if let queueObjectFromNotification{
-            
-            print("deleting queue obj \(queueObjectFromNotification)")
             
             delete(queueObject: queueObjectFromNotification)
             

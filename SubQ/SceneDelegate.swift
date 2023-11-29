@@ -78,17 +78,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        print("foreground")
-        
         NotificationManager.populateInjectionQueueForExistingNotifications()
         
         UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-            
-            print("Pending notification count: \(requests.count)")
-            
-            for request in requests {
-                print("\(request.identifier) | \(request.trigger?.repeats)")
-            }
+
         }
         
         // Called as the scene transitions from the background to the foreground.
@@ -102,7 +95,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         
-        #warning("I commented this out, not sure if this will be needed")
+    
        // (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
@@ -113,14 +106,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate: UNUserNotificationCenterDelegate{
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        print("did receive")
         
         let userInfo = response.notification.request.content.userInfo
         
         //snoozed injections are already in the queue
         if response.actionIdentifier == UNNotificationDismissActionIdentifier && response.notification.request.content.categoryIdentifier == NotificationManager.NotificationCategoryIdentifier.scheduledInjection.rawValue{
             
-            print("dismiss")
             
             NotificationManager.populateInjectionQueueFor(injectionNotifications: [response.notification])
         }
@@ -177,12 +168,8 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
                 
                 let dateDue: Date = userInfo[NotificationManager.UserInfoKeys.originalDateDue.rawValue] as! Date? ?? response.notification.date
                 
-                print("due date \(dateDue)")
                 
                 let queueObjectID = userInfo[NotificationManager.UserInfoKeys.queueManagedObjectID.rawValue] as! String? ?? nil
-                
-                print("Queue Obj ID? \(queueObjectID)")
-                
                 
                 vc.coordinator?.startInjectNowCoordinator(forInjectionObjectIDAsString: userInfo["injectionObjectID"] as! String, dateDue: dateDue, queueObjectIDAsString: queueObjectID)
             }
