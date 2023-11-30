@@ -10,7 +10,10 @@ import CoreData
 import Combine
 import Lottie
 
-class BodyPartViewController: UIViewController {
+class BodyPartViewController: UIViewController, OnboardingChildViewController {
+    
+    
+    weak var onboardingViewController: OnboardingViewController?
 
     let viewModel: OnboardingViewModel
     

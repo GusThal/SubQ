@@ -9,7 +9,9 @@ import UIKit
 import Lottie
 import Combine
 
-class TermsViewController: UIViewController {
+class TermsViewController: UIViewController, OnboardingChildViewController {
+    
+    weak var onboardingViewController: OnboardingViewController?
     
     let coordinator: OnboardingCoordinator
     

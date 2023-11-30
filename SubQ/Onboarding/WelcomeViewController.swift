@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 import Lottie
 
-class WelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController, OnboardingChildViewController {
     
     let systemFont = UIFont(descriptor: UIFont.boldSystemFont(ofSize: 30).fontDescriptor.withDesign(.rounded)!, size: 30)
     
-    
+    weak var onboardingViewController: OnboardingViewController?
     
     let welcomeLabel: UILabel = {
         let label = UILabel()

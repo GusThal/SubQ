@@ -46,6 +46,7 @@
 		CC57389C2A34C50B000257E0 /* Section+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389A2A34C50B000257E0 /* Section+CoreDataProperties.swift */; };
 		CC57389E2A34CA38000257E0 /* SectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389D2A34CA38000257E0 /* SectionProvider.swift */; };
 		CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389F2A360ACA000257E0 /* SectionViewModel.swift */; };
+		CC58AF1A2B178CB0006CE719 /* OnboardingChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC58AF192B178CB0006CE719 /* OnboardingChildViewController.swift */; };
 		CC7762EE2A69EFB400AEC489 /* SelectInjectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */; };
 		CC7762F02A7BEE5000AEC489 /* ResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */; };
 		CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */; };
@@ -152,6 +153,7 @@
 		CC57389A2A34C50B000257E0 /* Section+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CC57389D2A34CA38000257E0 /* SectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionProvider.swift; sourceTree = "<group>"; };
 		CC57389F2A360ACA000257E0 /* SectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewModel.swift; sourceTree = "<group>"; };
+		CC58AF192B178CB0006CE719 /* OnboardingChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingChildViewController.swift; sourceTree = "<group>"; };
 		CC7762ED2A69EFB400AEC489 /* SelectInjectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionCoordinator.swift; sourceTree = "<group>"; };
 		CC7762EF2A7BEE5000AEC489 /* ResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsHeaderView.swift; sourceTree = "<group>"; };
 		CC7762F12A7BFEAB00AEC489 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */,
 				CCE20A812AFE7CC20004EB62 /* TermsCollectionViewListCell */,
 				CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */,
+				CC58AF192B178CB0006CE719 /* OnboardingChildViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				CCE20A802AFE7C980004EB62 /* LinkCollectionViewListCell.swift in Sources */,
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */,
+				CC58AF1A2B178CB0006CE719 /* OnboardingChildViewController.swift in Sources */,
 				CCE97A552AC5B917008B1293 /* OnboardingCollectionViewCell.swift in Sources */,
 				CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */,
 				CC1A7CC82A9795C700F748EB /* HistoryTableViewController.swift in Sources */,

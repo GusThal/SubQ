@@ -9,7 +9,9 @@ import UIKit
 import Lottie
 import SnapKit
 
-class NotificationsViewController: UIViewController {
+class NotificationsViewController: UIViewController, OnboardingChildViewController {
+    
+    weak var onboardingViewController: OnboardingViewController?
     
     let animationView: LottieAnimationView = {
         
@@ -54,6 +56,11 @@ class NotificationsViewController: UIViewController {
                     print("Registered for notifications")
                 } else if let error = error {
                     print(error.localizedDescription)
+                }
+                
+                print("clicked")
+                DispatchQueue.main.async{
+                    self.onboardingViewController!.moveToNextIndex()
                 }
             }
         }

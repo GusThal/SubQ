@@ -10,7 +10,7 @@ import SnapKit
 
 class OnboardingViewController: UIViewController {
     
-    let controllers: [UIViewController]
+    let controllers: [OnboardingChildViewController]
     
     let viewModel: OnboardingViewModel
                        
@@ -71,7 +71,12 @@ class OnboardingViewController: UIViewController {
         
         controllers = [WelcomeViewController(), NotificationsViewController(), BodyPartViewController(viewModel: viewModel), TermsViewController(coordinator: coordinator)]
         
+        
         super.init(nibName: nil, bundle: nil)
+        
+        for controller in controllers {
+            controller.onboardingViewController = self
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -254,6 +259,22 @@ extension OnboardingViewController: UIScrollViewDelegate{
             let frame = CGRect(x: collectionView.frame.maxX * CGFloat(index), y: collectionView.contentOffset.y, width: collectionView.frame.width, height: self.collectionView.frame.height)
 
             collectionView.scrollRectToVisible(frame, animated: true)
+        }
+        
+    }
+    
+    func moveToNextIndex() {
+        
+        let currentIndex = pageControl.currentPage
+        
+        if currentIndex < pageControl.numberOfPages - 1 {
+            
+            let nextIndex = currentIndex + 1
+            
+            pageControl.currentPage = nextIndex
+            
+            moveCollectionView(toCellIndex: nextIndex)
+            
         }
         
     }
