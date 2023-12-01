@@ -22,6 +22,14 @@ class SectionCollectionViewCell: UICollectionViewCell {
             imageView!.translatesAutoresizingMaskIntoConstraints = false
             imageView!.backgroundColor = .secondarySystemBackground
             
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                imageView!.contentMode = .scaleAspectFit
+
+            }
+                            
+            
+            imageView?.clipsToBounds = true
+            
             contentView.addSubview(imageView!)
             
             imageView!.snp.makeConstraints { make in

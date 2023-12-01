@@ -42,10 +42,13 @@ class SiteCollectionViewCell: UICollectionViewCell {
             
             imageView = UIImageView(image: UIImage(named: "\(section.bodyPart!.part!.lowercased())-\(section.quadrant!)-\(site!.subQuadrant!)"))
             
-            imageView.contentMode = .scaleAspectFill
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                imageView.contentMode = .scaleAspectFit
+            }
 
             imageView.backgroundColor = .secondarySystemBackground
             imageView.layer.cornerRadius = 5
+            imageView.clipsToBounds = true
             
             let topLabel = UILabel()
             topLabel.text = " Last Used:"
