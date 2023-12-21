@@ -96,6 +96,29 @@
 		CCC8F3B92A62DFCF00BAAED1 /* QueueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */; };
 		CCC8F3BB2A634B1600BAAED1 /* SelectInjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */; };
 		CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEC0812A87030500EB265E /* HistoryViewController.swift */; };
+		CCDEBAD92B2B589700B9ABB9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */; };
+		CCDEBADB2B2B589700B9ABB9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */; };
+		CCDEBADE2B2B589700B9ABB9 /* SubQWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDEBADD2B2B589700B9ABB9 /* SubQWidgetBundle.swift */; };
+		CCDEBAE02B2B589700B9ABB9 /* SubQWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDEBADF2B2B589700B9ABB9 /* SubQWidget.swift */; };
+		CCDEBAE22B2B589800B9ABB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCDEBAE12B2B589800B9ABB9 /* Assets.xcassets */; };
+		CCDEBAE62B2B589800B9ABB9 /* SubQWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CCDEBAD62B2B589700B9ABB9 /* SubQWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CCDEBB232B2BB16800B9ABB9 /* Injection+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD612A23ECB700C20CAB /* Injection+CoreDataClass.swift */; };
+		CCDEBB242B2BB16B00B9ABB9 /* Injection+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD622A23ECB700C20CAB /* Injection+CoreDataProperties.swift */; };
+		CCDEBB252B2BB18A00B9ABB9 /* Frequency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1BF2A8E8A67000FC22A /* Frequency+CoreDataClass.swift */; };
+		CCDEBB262B2BB18D00B9ABB9 /* Frequency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4AF1C02A8E8A67000FC22A /* Frequency+CoreDataProperties.swift */; };
+		CCDEBB272B2BB1C200B9ABB9 /* Date+prettyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC864EED2A4CD0AE00869A8C /* Date+prettyTime.swift */; };
+		CCDEBB292B2BB1D100B9ABB9 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC22B2B82A1E760F00EE9C85 /* StorageProvider.swift */; };
+		CCDEBB2A2B2BB1DE00B9ABB9 /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD632A23ECB700C20CAB /* History+CoreDataClass.swift */; };
+		CCDEBB2B2B2BB1E100B9ABB9 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD642A23ECB700C20CAB /* History+CoreDataProperties.swift */; };
+		CCDEBB2C2B2BB1F800B9ABB9 /* Site+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD652A23ECB700C20CAB /* Site+CoreDataClass.swift */; };
+		CCDEBB2D2B2BB1FA00B9ABB9 /* Site+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD662A23ECB700C20CAB /* Site+CoreDataProperties.swift */; };
+		CCDEBB2E2B2BB20100B9ABB9 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738992A34C50B000257E0 /* Section+CoreDataClass.swift */; };
+		CCDEBB2F2B2BB20400B9ABB9 /* Section+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57389A2A34C50B000257E0 /* Section+CoreDataProperties.swift */; };
+		CCDEBB302B2BB21A00B9ABB9 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5738972A34C2A8000257E0 /* Quadrant.swift */; };
+		CCDEBB312B2BB22A00B9ABB9 /* BodyPart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD602A23ECB700C20CAB /* BodyPart+CoreDataProperties.swift */; };
+		CCDEBB322B2BB22D00B9ABB9 /* BodyPart+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC31CD5F2A23ECB700C20CAB /* BodyPart+CoreDataClass.swift */; };
+		CCDEBB372B2E020B00B9ABB9 /* SubQ.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC9F517A29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld */; };
+		CCDEBB3A2B2F492400B9ABB9 /* InjectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDEBB382B2F457F00B9ABB9 /* InjectionView.swift */; };
 		CCE20A7C2AE8049A0004EB62 /* OrientationCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */; };
 		CCE20A7E2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */; };
 		CCE20A802AFE7C980004EB62 /* LinkCollectionViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE20A7F2AFE7C980004EB62 /* LinkCollectionViewListCell.swift */; };
@@ -112,6 +135,30 @@
 		CCE97A5B2AC5BA04008B1293 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */; };
 		CCE97A5E2AC738E0008B1293 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CCE97A5D2AC738E0008B1293 /* Lottie */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CCDEBB332B2BB2DA00B9ABB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9F516629FEBD1B00E6FAF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CCDEBAD52B2B589700B9ABB9;
+			remoteInfo = SubQWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CCDEBAEA2B2B589800B9ABB9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CCDEBAE62B2B589800B9ABB9 /* SubQWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CC1356DC2A294AE50073431B /* InjectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionProvider.swift; sourceTree = "<group>"; };
@@ -204,6 +251,15 @@
 		CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueProvider.swift; sourceTree = "<group>"; };
 		CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionViewController.swift; sourceTree = "<group>"; };
 		CCCEC0812A87030500EB265E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		CCDEBAD62B2B589700B9ABB9 /* SubQWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SubQWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		CCDEBADD2B2B589700B9ABB9 /* SubQWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubQWidgetBundle.swift; sourceTree = "<group>"; };
+		CCDEBADF2B2B589700B9ABB9 /* SubQWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubQWidget.swift; sourceTree = "<group>"; };
+		CCDEBAE12B2B589800B9ABB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CCDEBAE32B2B589800B9ABB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCDEBAEB2B2B58BD00B9ABB9 /* SubQWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SubQWidgetExtension.entitlements; sourceTree = "<group>"; };
+		CCDEBB382B2F457F00B9ABB9 /* InjectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionView.swift; sourceTree = "<group>"; };
 		CCE20A7B2AE8049A0004EB62 /* OrientationCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationCollectionHeader.swift; sourceTree = "<group>"; };
 		CCE20A7D2AFC5BF90004EB62 /* VerticalStackLabelFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackLabelFooterView.swift; sourceTree = "<group>"; };
 		CCE20A7F2AFE7C980004EB62 /* LinkCollectionViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCollectionViewListCell.swift; sourceTree = "<group>"; };
@@ -228,6 +284,15 @@
 			files = (
 				CCC4B8992A0D9FD1008BFF81 /* SnapKit in Frameworks */,
 				CCE97A5E2AC738E0008B1293 /* Lottie in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCDEBAD32B2B589700B9ABB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCDEBADB2B2B589700B9ABB9 /* SwiftUI.framework in Frameworks */,
+				CCDEBAD92B2B589700B9ABB9 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +423,10 @@
 		CC9F516529FEBD1B00E6FAF6 = {
 			isa = PBXGroup;
 			children = (
+				CCDEBAEB2B2B58BD00B9ABB9 /* SubQWidgetExtension.entitlements */,
 				CC9F517029FEBD1B00E6FAF6 /* SubQ */,
+				CCDEBADC2B2B589700B9ABB9 /* SubQWidget */,
+				CCDEBAD72B2B589700B9ABB9 /* Frameworks */,
 				CC9F516F29FEBD1B00E6FAF6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -367,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */,
+				CCDEBAD62B2B589700B9ABB9 /* SubQWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -464,6 +533,27 @@
 			path = Queue;
 			sourceTree = "<group>";
 		};
+		CCDEBAD72B2B589700B9ABB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */,
+				CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CCDEBADC2B2B589700B9ABB9 /* SubQWidget */ = {
+			isa = PBXGroup;
+			children = (
+				CCDEBB382B2F457F00B9ABB9 /* InjectionView.swift */,
+				CCDEBADF2B2B589700B9ABB9 /* SubQWidget.swift */,
+				CCDEBADD2B2B589700B9ABB9 /* SubQWidgetBundle.swift */,
+				CCDEBAE12B2B589800B9ABB9 /* Assets.xcassets */,
+				CCDEBAE32B2B589800B9ABB9 /* Info.plist */,
+			);
+			path = SubQWidget;
+			sourceTree = "<group>";
+		};
 		CCE20A812AFE7CC20004EB62 /* TermsCollectionViewListCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,10 +613,12 @@
 				CC9F516A29FEBD1B00E6FAF6 /* Sources */,
 				CC9F516B29FEBD1B00E6FAF6 /* Frameworks */,
 				CC9F516C29FEBD1B00E6FAF6 /* Resources */,
+				CCDEBAEA2B2B589800B9ABB9 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CCDEBB342B2BB2DA00B9ABB9 /* PBXTargetDependency */,
 			);
 			name = SubQ;
 			packageProductDependencies = (
@@ -537,6 +629,23 @@
 			productReference = CC9F516E29FEBD1B00E6FAF6 /* SubQ.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CCDEBAD52B2B589700B9ABB9 /* SubQWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCDEBAE72B2B589800B9ABB9 /* Build configuration list for PBXNativeTarget "SubQWidgetExtension" */;
+			buildPhases = (
+				CCDEBAD22B2B589700B9ABB9 /* Sources */,
+				CCDEBAD32B2B589700B9ABB9 /* Frameworks */,
+				CCDEBAD42B2B589700B9ABB9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SubQWidgetExtension;
+			productName = SubQWidgetExtension;
+			productReference = CCDEBAD62B2B589700B9ABB9 /* SubQWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -544,11 +653,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					CC9F516D29FEBD1B00E6FAF6 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					CCDEBAD52B2B589700B9ABB9 = {
+						CreatedOnToolsVersion = 15.1;
 					};
 				};
 			};
@@ -570,6 +682,7 @@
 			projectRoot = "";
 			targets = (
 				CC9F516D29FEBD1B00E6FAF6 /* SubQ */,
+				CCDEBAD52B2B589700B9ABB9 /* SubQWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -582,6 +695,14 @@
 				CC9F518129FEBD1E00E6FAF6 /* LaunchScreen.storyboard in Resources */,
 				CC9F517E29FEBD1E00E6FAF6 /* Assets.xcassets in Resources */,
 				CC9F517929FEBD1B00E6FAF6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCDEBAD42B2B589700B9ABB9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCDEBAE22B2B589800B9ABB9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,7 +815,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CCDEBAD22B2B589700B9ABB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCDEBB2D2B2BB1FA00B9ABB9 /* Site+CoreDataProperties.swift in Sources */,
+				CCDEBB292B2BB1D100B9ABB9 /* StorageProvider.swift in Sources */,
+				CCDEBB3A2B2F492400B9ABB9 /* InjectionView.swift in Sources */,
+				CCDEBB2F2B2BB20400B9ABB9 /* Section+CoreDataProperties.swift in Sources */,
+				CCDEBB302B2BB21A00B9ABB9 /* Quadrant.swift in Sources */,
+				CCDEBB372B2E020B00B9ABB9 /* SubQ.xcdatamodeld in Sources */,
+				CCDEBB312B2BB22A00B9ABB9 /* BodyPart+CoreDataProperties.swift in Sources */,
+				CCDEBB2E2B2BB20100B9ABB9 /* Section+CoreDataClass.swift in Sources */,
+				CCDEBB262B2BB18D00B9ABB9 /* Frequency+CoreDataProperties.swift in Sources */,
+				CCDEBAE02B2B589700B9ABB9 /* SubQWidget.swift in Sources */,
+				CCDEBB232B2BB16800B9ABB9 /* Injection+CoreDataClass.swift in Sources */,
+				CCDEBB2B2B2BB1E100B9ABB9 /* History+CoreDataProperties.swift in Sources */,
+				CCDEBB322B2BB22D00B9ABB9 /* BodyPart+CoreDataClass.swift in Sources */,
+				CCDEBADE2B2B589700B9ABB9 /* SubQWidgetBundle.swift in Sources */,
+				CCDEBB272B2BB1C200B9ABB9 /* Date+prettyTime.swift in Sources */,
+				CCDEBB242B2BB16B00B9ABB9 /* Injection+CoreDataProperties.swift in Sources */,
+				CCDEBB2A2B2BB1DE00B9ABB9 /* History+CoreDataClass.swift in Sources */,
+				CCDEBB2C2B2BB1F800B9ABB9 /* Site+CoreDataClass.swift in Sources */,
+				CCDEBB252B2BB18A00B9ABB9 /* Frequency+CoreDataClass.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CCDEBB342B2BB2DA00B9ABB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CCDEBAD52B2B589700B9ABB9 /* SubQWidgetExtension */;
+			targetProxy = CCDEBB332B2BB2DA00B9ABB9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CC9F517729FEBD1B00E6FAF6 /* Main.storyboard */ = {
@@ -833,6 +988,7 @@
 		CC9F518629FEBD1E00E6FAF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SubQ/SubQ.entitlements;
@@ -847,6 +1003,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -866,6 +1023,7 @@
 		CC9F518729FEBD1E00E6FAF6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SubQ/SubQ.entitlements;
@@ -880,6 +1038,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -890,6 +1049,73 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CCDEBAE82B2B589800B9ABB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SubQWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KWJT7DFNU6;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SubQWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubQWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GusThal.SubQ.SubQWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CCDEBAE92B2B589800B9ABB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SubQWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KWJT7DFNU6;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SubQWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SubQWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GusThal.SubQ.SubQWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -913,6 +1139,15 @@
 			buildConfigurations = (
 				CC9F518629FEBD1E00E6FAF6 /* Debug */,
 				CC9F518729FEBD1E00E6FAF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCDEBAE72B2B589800B9ABB9 /* Build configuration list for PBXNativeTarget "SubQWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCDEBAE82B2B589800B9ABB9 /* Debug */,
+				CCDEBAE92B2B589800B9ABB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

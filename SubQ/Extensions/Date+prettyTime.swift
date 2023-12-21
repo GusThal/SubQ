@@ -19,6 +19,15 @@ extension Date{
         }
     }
     
+    var shortenedDateTime: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.timeZone = .autoupdatingCurrent
+        formatter.setLocalizedDateFormatFromTemplate("EEE MM d yy'T'hh:mm")
+        
+        return formatter.string(from: self)
+    }
+    
     var fullDateTime: String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US")

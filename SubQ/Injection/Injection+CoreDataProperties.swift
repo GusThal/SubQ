@@ -148,7 +148,7 @@ extension Injection {
                             let injectionDate = calendar.date(from: injectionDateComponents)!
                             
                             if currentDate < injectionDate{
-                                let components = calendar.dateComponents([.hour, .minute, .second], from: currentDate, to: injectionDate)
+                                let components = calendar.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: injectionDate)
                                 nextInjectionDates.append(NextInjection(date: injectionDate, timeUntil: "\(components.day!) days, \(components.hour!) hours, \(components.minute!) minutes, and \(components.second!) seconds"))
                             }
                             
@@ -263,4 +263,21 @@ extension Injection {
 
 extension Injection : Identifiable {
 
+}
+
+extension Injection {
+    static let scheduledInjections: NSFetchRequest<Injection> = {
+        let request: NSFetchRequest<Injection> = Injection.fetchRequest()
+        request.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Injection.name, ascending: false)
+        ]
+        let deletedPredicate = NSPredicate(format: "%K==%d", #keyPath(Injection.isInjectionDeleted), false)
+        let scheduledPredicate = NSPredicate(format: "%K==%d", #keyPath(Injection.areNotificationsEnabled), true)
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [deletedPredicate, scheduledPredicate])
+        
+        request.predicate = compoundPredicate
+        
+        return request
+    }()
 }
