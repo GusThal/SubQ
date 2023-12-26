@@ -10,6 +10,8 @@ import UIKit
 
 struct InterfaceDefaults {
     
+    static let widgetKind = "SubQWidget"
+    
     static let primaryColor = UIColor(hex: "#6167afff")
     
     static let secondaryColor = UIColor(hex: "#F79345ff")

@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import CoreData
+import WidgetKit
 
 class InjectionTableViewController: UIViewController, Coordinated {
     
@@ -139,6 +140,10 @@ class InjectionTableViewController: UIViewController, Coordinated {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func reloadWidgetTimelines() {
+        WidgetCenter.shared.reloadTimelines(ofKind: InterfaceDefaults.widgetKind)
+    }
 
 }
 
@@ -220,6 +225,8 @@ extension InjectionTableViewController{
                 else{
                     NotificationManager.removeExistingNotifications(forInjection: injection, removeQueued: true)
                 }
+                
+                reloadWidgetTimelines()
             }))
             
             if let popoverController = alert.popoverPresentationController {
@@ -274,6 +281,7 @@ extension InjectionTableViewController: UITableViewDelegate{
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] _ in
                 
             self.viewModel.deleteInjection(injection)
+            reloadWidgetTimelines()
         }))
         
         if let popoverController = alert.popoverPresentationController {

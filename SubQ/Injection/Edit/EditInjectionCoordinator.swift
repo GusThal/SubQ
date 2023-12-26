@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 class EditInjectionCoordinator: ModalChildCoordinator{
 
@@ -65,6 +66,10 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         
     }
     
+    func reloadWidgetTimelines() {
+        WidgetCenter.shared.reloadTimelines(ofKind: InterfaceDefaults.widgetKind)
+    }
+    
     func cancelEdit(){
         parentNavigationController!.dismiss(animated: true)
 
@@ -81,6 +86,8 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         str.append(" \(action.rawValue)")
         
         injectionTableVC.showConfirmationView(message: str, color: .systemBlue)
+        
+        reloadWidgetTimelines()
 
         parentCoordinator?.childDidFinish(self)
     }
@@ -96,6 +103,8 @@ class EditInjectionCoordinator: ModalChildCoordinator{
         
 
         injectionTableVC.showConfirmationView(message: str, color: .systemRed)
+        
+        reloadWidgetTimelines()
         
         parentCoordinator?.childDidFinish(self)
     }
