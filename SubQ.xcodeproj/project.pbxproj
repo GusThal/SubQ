@@ -91,11 +91,11 @@
 		CCC8F38C2A5AE9E400BAAED1 /* InjectNowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */; };
 		CCC8F3902A5C627A00BAAED1 /* HistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */; };
 		CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */; };
-		CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B42A5F436200BAAED1 /* Queue+CoreDataClass.swift */; };
-		CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B52A5F436200BAAED1 /* Queue+CoreDataProperties.swift */; };
 		CCC8F3B92A62DFCF00BAAED1 /* QueueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */; };
 		CCC8F3BB2A634B1600BAAED1 /* SelectInjectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */; };
 		CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEC0812A87030500EB265E /* HistoryViewController.swift */; };
+		CCDBD0202B3B8D5B00AC943F /* Queue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD01F2B3B8D5B00AC943F /* Queue+CoreDataProperties.swift */; };
+		CCDBD0222B3B8D6400AC943F /* Queue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD0212B3B8D6400AC943F /* Queue+CoreDataClass.swift */; };
 		CCDEBAD92B2B589700B9ABB9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */; };
 		CCDEBADB2B2B589700B9ABB9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */; };
 		CCDEBADE2B2B589700B9ABB9 /* SubQWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDEBADD2B2B589700B9ABB9 /* SubQWidgetBundle.swift */; };
@@ -246,11 +246,11 @@
 		CCC8F38B2A5AE9E400BAAED1 /* InjectNowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectNowViewModel.swift; sourceTree = "<group>"; };
 		CCC8F38F2A5C627A00BAAED1 /* HistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProvider.swift; sourceTree = "<group>"; };
 		CCC8F3912A5DF07C00BAAED1 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
-		CCC8F3B42A5F436200BAAED1 /* Queue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		CCC8F3B52A5F436200BAAED1 /* Queue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueProvider.swift; sourceTree = "<group>"; };
 		CCC8F3BA2A634B1600BAAED1 /* SelectInjectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjectionViewController.swift; sourceTree = "<group>"; };
 		CCCEC0812A87030500EB265E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		CCDBD01F2B3B8D5B00AC943F /* Queue+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CCDBD0212B3B8D6400AC943F /* Queue+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CCDEBAD62B2B589700B9ABB9 /* SubQWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SubQWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -526,8 +526,8 @@
 		CCC8F3B32A5F433900BAAED1 /* Queue */ = {
 			isa = PBXGroup;
 			children = (
-				CCC8F3B42A5F436200BAAED1 /* Queue+CoreDataClass.swift */,
-				CCC8F3B52A5F436200BAAED1 /* Queue+CoreDataProperties.swift */,
+				CCDBD01F2B3B8D5B00AC943F /* Queue+CoreDataProperties.swift */,
+				CCDBD0212B3B8D6400AC943F /* Queue+CoreDataClass.swift */,
 				CCC8F3B82A62DFCF00BAAED1 /* QueueProvider.swift */,
 			);
 			path = Queue;
@@ -724,11 +724,12 @@
 				CC7762F62A7C536800AEC489 /* DateRangeTableViewCell.swift in Sources */,
 				CCC8F3842A55BE6100BAAED1 /* InjectNowCoordinator.swift in Sources */,
 				CCE97A512AC3974E008B1293 /* WelcomeViewController.swift in Sources */,
-				CCC8F3B62A5F436200BAAED1 /* Queue+CoreDataClass.swift in Sources */,
+				CCDBD0202B3B8D5B00AC943F /* Queue+CoreDataProperties.swift in Sources */,
 				CC1A7CCE2AA288B300F748EB /* HistoryTableViewCell.swift in Sources */,
 				CC4AF1C22A8E8A67000FC22A /* Frequency+CoreDataProperties.swift in Sources */,
 				CC1356E12A2F7CC10073431B /* BodyPartProvider.swift in Sources */,
 				CC22B2B92A1E760F00EE9C85 /* StorageProvider.swift in Sources */,
+				CCDBD0222B3B8D6400AC943F /* Queue+CoreDataClass.swift in Sources */,
 				CC4AF1CA2A900291000FC22A /* FrequencyTableViewCell.swift in Sources */,
 				CC4AF1C42A8EB5A7000FC22A /* EditInjectionTableViewController.swift in Sources */,
 				CC9F517C29FEBD1B00E6FAF6 /* SubQ.xcdatamodeld in Sources */,
@@ -764,7 +765,6 @@
 				CC4AF1C62A8EBC6B000FC22A /* TextInputTableViewCell.swift in Sources */,
 				CC4AF1D22A93BB28000FC22A /* InjectionTableViewCell.swift in Sources */,
 				CCC4B8742A04592F008BFF81 /* SettingsViewController.swift in Sources */,
-				CCC8F3B72A5F436200BAAED1 /* Queue+CoreDataProperties.swift in Sources */,
 				CCC4B8A32A0FDE77008BFF81 /* DaysCoordinator.swift in Sources */,
 				CC864EB12A489C0500869A8C /* UITextField+textPublisher.swift in Sources */,
 				CC9F517229FEBD1B00E6FAF6 /* AppDelegate.swift in Sources */,
