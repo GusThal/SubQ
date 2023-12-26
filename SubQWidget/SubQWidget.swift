@@ -27,11 +27,12 @@ struct Provider: TimelineProvider {
     }
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), injections: [Injection]())
+        let injections = getInjectionsSortedByNextDate()
+        
+        return SimpleEntry(date: Date(), injections: injections)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        
         let injections = getInjectionsSortedByNextDate()
         
         let entry = SimpleEntry(date: Date(), injections: injections)
@@ -39,24 +40,27 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        
-        print("timeline called")
-        
         let injections = getInjectionsSortedByNextDate()
         
-        
-        let nextInjectionDate = injections[0].nextInjection!.date
-        
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        
-        let first = SimpleEntry(date: Date(), injections: injections)
-        
-        let last = SimpleEntry(date: nextInjectionDate, injections: injections)
-        var entries: [SimpleEntry] = [first, last]
-        
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+        if injections.count > 0 {
+            
+            let nextInjectionDate = injections[0].nextInjection!.date
+            
+            // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+            
+            let first = SimpleEntry(date: Date(), injections: injections)
+            
+            let last = SimpleEntry(date: nextInjectionDate, injections: injections)
+            var entries: [SimpleEntry] = [first, last]
+            
+            
+            let timeline = Timeline(entries: entries, policy: .atEnd)
+            completion(timeline)
+        } else {
+            let entry = SimpleEntry(date: Date(), injections: [Injection]())
+            let timeline = Timeline(entries: [entry], policy: .never)
+            completion(timeline)
+        }
     }
     
 }
@@ -87,16 +91,7 @@ struct SimpleEntry: TimelineEntry {
 
 struct SubQWidgetEntryView : View {
     var entry: Provider.Entry
-    
-/*    @FetchRequest(fetchRequest: Injection.scheduledInjections)
-    private var injections: FetchedResults<Injection>*/
     @Environment(\.widgetFamily) private var widgetFamily
-    
- /*   private var sortedInjections: [Injection] {
-        return injections.sorted { inj1, inj2 in
-            return inj1.nextInjection!.date < inj2.nextInjection!.date
-        }
-    }*/
 
     var body: some View {
        
@@ -119,18 +114,27 @@ struct SubQWidgetEntryView : View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 34.25, height: 11.25)
-            }
+            }.unredacted()
             Divider()
             
-            ForEach(entry.getLimitedInjections(forWidgetFamily: widgetFamily)) { injection in
+            if entry.getLimitedInjections(forWidgetFamily: widgetFamily).count == 0 {
+                Spacer()
                 
-                InjectionView(injection: injection)
-                    
-                Divider()
+                Text("No injections currently scheduled.")
+                    .font(.caption2)
                 
+                Spacer()
+            } else {
+                ForEach(entry.getLimitedInjections(forWidgetFamily: widgetFamily)) { injection in
+                
+                    InjectionView(injection: injection)
+                
+                    Divider()
+                
+                }
+                
+                Spacer()
             }
-            
-            Spacer()
             
         }
     }
