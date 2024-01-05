@@ -38,5 +38,16 @@ class SettingsCoordinator: Coordinator{
         vc.navigationItem.title = "Settings"
     }
     
+    func showScreenLockSettingsController(){
+        
+        let vc = ScreenLockSettingsViewController()
+        
+        vc.title = "Screen Lock"
+        vc.view.backgroundColor = .systemBackground
+        
+        navigationController.pushViewController(vc, animated: true)
+        
+    }
+    
     
 }

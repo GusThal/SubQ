@@ -27,16 +27,17 @@ class SettingsViewController: UIViewController, Coordinated {
     var cancellables = Set<AnyCancellable>()
     
     enum Section: Int{
-        case bodyParts, misc
+        case bodyParts, misc, legal
         var description: String {
             switch self {
             case .bodyParts: return "Body Parts"
+            case .legal: return "Legal"
             case .misc: return "Misc"
             }
         }
     }
     
-    enum MiscCells: Int, CaseIterable{
+    enum LegalCells: Int, CaseIterable{
         case terms, medicalDisclaimer, privacy
         var description: String {
             switch self{
@@ -44,6 +45,15 @@ class SettingsViewController: UIViewController, Coordinated {
             case .medicalDisclaimer: return "Medical Disclaimer"
             case .privacy: return "Privacy Policy"
             
+            }
+        }
+    }
+    
+    enum MiscCells: Int, CaseIterable {
+        case lock
+        var description: String {
+            switch self{
+            case .lock: return "Screen Lock"
             }
         }
     }
@@ -171,11 +181,24 @@ extension SettingsViewController{
         
         }
         
-        let miscCellRegistration = UICollectionView.CellRegistration <UICollectionViewListCell, String> { cell, indexPath, item in
+        let legalCellRegistration = UICollectionView.CellRegistration <UICollectionViewListCell, String> { cell, indexPath, item in
             
             var content = cell.defaultContentConfiguration()
             content.text = item
             content.textProperties.color = .systemBlue
+            
+            cell.contentConfiguration = content
+            
+            
+            cell.accessories = [.disclosureIndicator()]
+            
+        }
+        
+        let miscCellRegistration = UICollectionView.CellRegistration <UICollectionViewListCell, String> { cell, indexPath, item in
+            
+            var content = cell.defaultContentConfiguration()
+            content.text = item
+            content.textProperties.color = .label
             
             cell.contentConfiguration = content
             
@@ -199,11 +222,17 @@ extension SettingsViewController{
             
             var configuration = footerView.defaultContentConfiguration()
             
-            var attributedString = AttributedString(stringLiteral: InterfaceDefaults.disclaimerString)
-            let range = attributedString.range(of: InterfaceDefaults.disclaimerBoldSubstring)!
-            attributedString[range].font = UIFont.boldSystemFont(ofSize: 13)
+            if indexPath.section == Section.legal.rawValue {
+                var attributedString = AttributedString(stringLiteral: InterfaceDefaults.disclaimerString)
+                let range = attributedString.range(of: InterfaceDefaults.disclaimerBoldSubstring)!
+                attributedString[range].font = UIFont.boldSystemFont(ofSize: 13)
+                
+                configuration.attributedText = NSAttributedString(attributedString)
+            } else {
+                configuration.text = "Require Face ID or device passcode to unlock SubQ."
+            }
             
-            configuration.attributedText = NSAttributedString(attributedString)
+           
             //configuration.text = InterfaceDefaults.disclaimerString
             footerView.contentConfiguration = configuration
         }
@@ -213,8 +242,9 @@ extension SettingsViewController{
             
             if indexPath.section == Section.bodyParts.rawValue{
                 return collectionView.dequeueConfiguredReusableCell(using: bodyPartCellRegistration, for: indexPath, item: item)
-            }
-            else{
+            } else if indexPath.section == Section.legal.rawValue{
+                return collectionView.dequeueConfiguredReusableCell(using: legalCellRegistration, for: indexPath, item: item)
+            } else {
                 return collectionView.dequeueConfiguredReusableCell(using: miscCellRegistration, for: indexPath, item: item)
             }
             
@@ -230,13 +260,20 @@ extension SettingsViewController{
 
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
-        snapshot.appendSections([Section.bodyParts, Section.misc])
+        snapshot.appendSections([Section.bodyParts, Section.misc, Section.legal])
         dataSource.apply(snapshot, animatingDifferences: false)
         
-        var sitesSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-
-        sitesSnapshot.append(MiscCells.allCases.map({ $0.description }))
-        dataSource.apply(sitesSnapshot, to: Section.misc, animatingDifferences: false)
+        var miscSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+        miscSnapshot.append(MiscCells.allCases.map({ $0.description }))
+        
+        dataSource.apply(miscSnapshot, to: Section.misc, animatingDifferences: false)
+        
+        var legalSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
+        legalSnapshot.append(LegalCells.allCases.map({ $0.description }))
+        
+        dataSource.apply(legalSnapshot, to: Section.legal, animatingDifferences: false)
+        
+       
         
         
     }
@@ -251,16 +288,20 @@ extension SettingsViewController: UICollectionViewDelegate{
         
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        if section == Section.misc.rawValue {
+        if section == Section.legal.rawValue {
             
-            if index == MiscCells.privacy.rawValue {
+            if index == LegalCells.privacy.rawValue {
                 UIApplication.shared.open(InterfaceDefaults.privacyPolicyURL)
-            } else if index == MiscCells.terms.rawValue {
+            } else if index == LegalCells.terms.rawValue {
                 UIApplication.shared.open(InterfaceDefaults.termsURL)
-            } else if index == MiscCells.medicalDisclaimer.rawValue {
+            } else if index == LegalCells.medicalDisclaimer.rawValue {
                 UIApplication.shared.open(InterfaceDefaults.medicalDisclaimerURL)
             }
             
+        } else if section == Section.misc.rawValue {
+            if index == MiscCells.lock.rawValue {
+                settingsCoordinator?.showScreenLockSettingsController()
+            }
         }
         
     }
