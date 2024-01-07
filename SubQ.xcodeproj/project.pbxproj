@@ -96,7 +96,8 @@
 		CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEC0812A87030500EB265E /* HistoryViewController.swift */; };
 		CCDBD0202B3B8D5B00AC943F /* Queue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD01F2B3B8D5B00AC943F /* Queue+CoreDataProperties.swift */; };
 		CCDBD0222B3B8D6400AC943F /* Queue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD0212B3B8D6400AC943F /* Queue+CoreDataClass.swift */; };
-		CCDBD0382B4859EF00AC943F /* ScreenLockSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD0372B4859EF00AC943F /* ScreenLockSettingsViewController.swift */; };
+		CCDBD03A2B485F7100AC943F /* ScreenLockSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD0392B485F7100AC943F /* ScreenLockSettingsViewController.swift */; };
+		CCDBD03E2B4A078C00AC943F /* FaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD03D2B4A078C00AC943F /* FaceIDViewController.swift */; };
 		CCDEBAD92B2B589700B9ABB9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */; };
 		CCDEBADB2B2B589700B9ABB9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */; };
 		CCDEBADE2B2B589700B9ABB9 /* SubQWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDEBADD2B2B589700B9ABB9 /* SubQWidgetBundle.swift */; };
@@ -252,7 +253,8 @@
 		CCCEC0812A87030500EB265E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		CCDBD01F2B3B8D5B00AC943F /* Queue+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CCDBD0212B3B8D6400AC943F /* Queue+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataClass.swift"; sourceTree = "<group>"; };
-		CCDBD0372B4859EF00AC943F /* ScreenLockSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLockSettingsViewController.swift; sourceTree = "<group>"; };
+		CCDBD0392B485F7100AC943F /* ScreenLockSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLockSettingsViewController.swift; sourceTree = "<group>"; };
+		CCDBD03D2B4A078C00AC943F /* FaceIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewController.swift; sourceTree = "<group>"; };
 		CCDEBAD62B2B589700B9ABB9 /* SubQWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SubQWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -485,6 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				CCC4B85F2A0337BC008BFF81 /* MainTabBarController.swift */,
+				CCDBD03D2B4A078C00AC943F /* FaceIDViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -571,7 +574,7 @@
 			children = (
 				CCC4B8732A04592F008BFF81 /* SettingsViewController.swift */,
 				CCC4B8692A0447E0008BFF81 /* SettingsCoordinator.swift */,
-				CCDBD0372B4859EF00AC943F /* ScreenLockSettingsViewController.swift */,
+				CCDBD0392B485F7100AC943F /* ScreenLockSettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -742,7 +745,7 @@
 				CCE943842A01C87200514710 /* MainCoordinator.swift in Sources */,
 				CCC8F3922A5DF07C00BAAED1 /* HistoryViewModel.swift in Sources */,
 				CC58AF1A2B178CB0006CE719 /* OnboardingChildViewController.swift in Sources */,
-				CCDBD0382B4859EF00AC943F /* ScreenLockSettingsViewController.swift in Sources */,
+				CCDBD03A2B485F7100AC943F /* ScreenLockSettingsViewController.swift in Sources */,
 				CCE97A552AC5B917008B1293 /* OnboardingCollectionViewCell.swift in Sources */,
 				CC5738A02A360ACB000257E0 /* SectionViewModel.swift in Sources */,
 				CC1A7CC82A9795C700F748EB /* HistoryTableViewController.swift in Sources */,
@@ -787,6 +790,7 @@
 				CC7762F22A7BFEAB00AEC489 /* FilterTableViewController.swift in Sources */,
 				CC4C16DB2AAB6ED800B55E66 /* InjectNowDataView.swift in Sources */,
 				CC4CB05B2AD49C9A00150079 /* TextTableHeaderView.swift in Sources */,
+				CCDBD03E2B4A078C00AC943F /* FaceIDViewController.swift in Sources */,
 				CC815A812AADFD0A00EC0F0A /* SelectQueueObjectTableViewCell.swift in Sources */,
 				CC31CD712A254A3C00C20CAB /* EditInjectionViewModel.swift in Sources */,
 				CC1A7CCC2AA285B900F748EB /* InjectionDescriptionTableViewCell.swift in Sources */,

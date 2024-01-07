@@ -37,13 +37,12 @@ class SettingsCoordinator: Coordinator{
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "gear"), selectedImage: nil)
         vc.navigationItem.title = "Settings"
     }
-    
+     
     func showScreenLockSettingsController(){
         
-        let vc = ScreenLockSettingsViewController()
+        let vc = ScreenLockSettingsViewController(style: .insetGrouped)
         
         vc.title = "Screen Lock"
-        vc.view.backgroundColor = .systemBackground
         
         navigationController.pushViewController(vc, animated: true)
         

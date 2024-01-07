@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     enum Keys: String {
         case userOnboarded = "isUserOnboarded"
         case bodyPartsPopulated = "areBodyPartsPopulated"
+        case isScreenLockEnabled = "isScreenLockEnabled"
     }
     
 

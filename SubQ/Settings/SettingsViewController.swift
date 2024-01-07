@@ -132,12 +132,12 @@ class SettingsViewController: UIViewController, Coordinated {
                 
             } else{
                 
-                var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
+                var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
                 configuration.footerMode = .supplementary
     
                 let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
                 
-                section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 10, trailing: 0)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 10, bottom: 10, trailing: 10)
            
                 return section
             }
@@ -229,7 +229,7 @@ extension SettingsViewController{
                 
                 configuration.attributedText = NSAttributedString(attributedString)
             } else {
-                configuration.text = "Require Face ID or device passcode to unlock SubQ."
+                configuration.text = "Require Face ID or device passcode (if Face ID is disabled) to unlock SubQ."
             }
             
            
