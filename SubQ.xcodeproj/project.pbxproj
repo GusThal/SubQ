@@ -1007,6 +1007,7 @@
 				INFOPLIST_FILE = SubQ/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SubQ;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "\"Use Face ID to unlock SubQ.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -1042,6 +1043,7 @@
 				INFOPLIST_FILE = SubQ/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SubQ;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "\"Use Face ID to unlock SubQ.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;

@@ -42,6 +42,8 @@ class SettingsCoordinator: Coordinator{
         
         let vc = ScreenLockSettingsViewController(style: .insetGrouped)
         
+        vc.coordinator = self
+        
         vc.title = "Screen Lock"
         
         navigationController.pushViewController(vc, animated: true)

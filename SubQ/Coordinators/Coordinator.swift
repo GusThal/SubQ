@@ -38,6 +38,20 @@ extension Coordinator{
         injectNowCoordinator.start()
     }
     
+    func presentFaceIDViewController() {
+        let vc = FaceIDViewController(coordinator: self)
+        vc.navigationItem.hidesBackButton = true
+        vc.modalPresentationStyle = .fullScreen
+        
+        navigationController.present(vc, animated: false)
+    }
+    
+    @MainActor
+    func dismissFaceIDViewController() {
+        navigationController.dismiss(animated: true)
+        
+    }
+    
 }
 
 protocol ModalChildCoordinator: Coordinator{

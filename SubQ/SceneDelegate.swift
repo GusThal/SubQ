@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -14,8 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var coordinator: MainCoordinator?
     
     //let storageProvider = StorageProvider()
-    
-    
 
 
     //I think it makes the most sense to keep a MainCoordinator that launches the TabBarController. This Coordinator can instantiate the Login/account creation flow.
@@ -69,10 +68,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        
         NotificationManager.populateInjectionQueueForExistingNotifications()
         
         UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
 
+        }
+        
+        
+        print("screen lock enabled: \(UserDefaults.standard.bool(forKey: AppDelegate.Keys.isScreenLockEnabled.rawValue))")
+        
+        if UserDefaults.standard.bool(forKey: AppDelegate.Keys.isScreenLockEnabled.rawValue) {
+            
+            let context = LAContext()
+            var error: NSError?
+            
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                
+                if let vc = getViewControllerToPresentFrom() as? Coordinated{
+                    
+                    vc.coordinator?.presentFaceIDViewController()
+                    
+                }
+            } else if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+                
+                Task {
+                    do {
+                        try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Unlock SubQ.")
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
+                
+                
+            } else {
+                print("screen lock not enabled")
+            }
+            
         }
         
         // Called as the scene transitions from the background to the foreground.
@@ -110,51 +142,8 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
         
         else{
             
-            let navController = window?.rootViewController as! UINavigationController
-            
-            let tabBarController = navController.topViewController as! MainTabBarController
-            
-            
-            let selectedVC = tabBarController.selectedViewController
-            
-            var vcToPresentFrom: UIViewController!
-            
-            
-            
-            //check if the currently selected tab is displaying a modal view controller
-            if let presented = selectedVC?.presentedViewController{
-                
-                var presentedVC = presented.presentedViewController
-                
-                while presentedVC != nil{
-                    vcToPresentFrom = presentedVC
-                    presentedVC = presentedVC!.presentedViewController
-                }
-                
-                if vcToPresentFrom == nil{
-                    vcToPresentFrom = presented
-                }
-                
-                if let navController = vcToPresentFrom as? UINavigationController{
-                    vcToPresentFrom = navController.topViewController
-                }
-                
-            }
-            
-            else{
-                
-                //check if the currently selected VC is a UINavController. if so, get the top ViewController
-                if let nav = selectedVC as? UINavigationController{
-                    vcToPresentFrom = nav.topViewController
-                }
-                else{
-                    vcToPresentFrom = selectedVC
-                }
-                
-            }
-            
             //check if the VC conforms to Coordinated--basically a protocol to indicate whether there's a coordinator object.
-            if let vc = vcToPresentFrom as? Coordinated{
+            if let vc =  getViewControllerToPresentFrom() as? Coordinated{
                 
                 
                 let dateDue: Date = userInfo[NotificationManager.UserInfoKeys.originalDateDue.rawValue] as! Date? ?? response.notification.date
@@ -178,6 +167,53 @@ extension SceneDelegate: UNUserNotificationCenterDelegate{
         completionHandler([.banner, .list, .sound])
         
         
+    }
+    
+    func getViewControllerToPresentFrom() -> UIViewController {
+        let navController = window?.rootViewController as! UINavigationController
+        
+        let tabBarController = navController.topViewController as! MainTabBarController
+        
+        
+        let selectedVC = tabBarController.selectedViewController
+        
+        var vcToPresentFrom: UIViewController!
+        
+        
+        
+        //check if the currently selected tab is displaying a modal view controller
+        if let presented = selectedVC?.presentedViewController{
+            
+            var presentedVC = presented.presentedViewController
+            
+            while presentedVC != nil{
+                vcToPresentFrom = presentedVC
+                presentedVC = presentedVC!.presentedViewController
+            }
+            
+            if vcToPresentFrom == nil{
+                vcToPresentFrom = presented
+            }
+            
+            if let navController = vcToPresentFrom as? UINavigationController{
+                vcToPresentFrom = navController.topViewController
+            }
+            
+        }
+        
+        else{
+            
+            //check if the currently selected VC is a UINavController. if so, get the top ViewController
+            if let nav = selectedVC as? UINavigationController{
+                vcToPresentFrom = nav.topViewController
+            }
+            else{
+                vcToPresentFrom = selectedVC
+            }
+            
+        }
+        
+        return vcToPresentFrom
     }
 }
 

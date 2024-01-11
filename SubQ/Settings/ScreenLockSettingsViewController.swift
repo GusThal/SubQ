@@ -8,7 +8,8 @@
 import UIKit
 import LocalAuthentication
 
-class ScreenLockSettingsViewController: UITableViewController {
+class ScreenLockSettingsViewController: UITableViewController, Coordinated {
+    var coordinator: Coordinator?
     
     let defaultReuseIdentifier = "defaultReuseIdentifier"
     let footerIdentifier = "footerReuseIdentifier"
