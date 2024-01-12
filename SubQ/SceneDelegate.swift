@@ -69,40 +69,45 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         
-        NotificationManager.populateInjectionQueueForExistingNotifications()
         
-        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+        if UserDefaults.standard.bool(forKey: AppDelegate.Keys.userOnboarded.rawValue) {
+        
+            NotificationManager.populateInjectionQueueForExistingNotifications()
+            
+            UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
 
-        }
-        
-        
-        print("screen lock enabled: \(UserDefaults.standard.bool(forKey: AppDelegate.Keys.isScreenLockEnabled.rawValue))")
-        
-        if UserDefaults.standard.bool(forKey: AppDelegate.Keys.isScreenLockEnabled.rawValue) {
+            }
             
-            let context = LAContext()
-            var error: NSError?
             
-            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            print("screen lock enabled: \(UserDefaults.standard.bool(forKey: AppDelegate.Keys.isScreenLockEnabled.rawValue))")
+            
+            if UserDefaults.standard.bool(forKey: AppDelegate.Keys.isScreenLockEnabled.rawValue) {
                 
-                if let vc = getViewControllerToPresentFrom() as? Coordinated{
-                    
-                    vc.coordinator?.presentFaceIDViewController()
-                    
-                }
-            } else if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+                let context = LAContext()
+                var error: NSError?
                 
-                Task {
-                    do {
-                        try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Unlock SubQ.")
-                    } catch let error {
-                        print(error.localizedDescription)
+                if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                    
+                    if let vc = getViewControllerToPresentFrom() as? Coordinated{
+                        
+                        vc.coordinator?.presentFaceIDViewController()
+                        
                     }
+                } else if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+                    
+                    Task {
+                        do {
+                            try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Unlock SubQ.")
+                        } catch let error {
+                            print(error.localizedDescription)
+                        }
+                    }
+                    
+                    
+                } else {
+                    print("screen lock not enabled")
                 }
                 
-                
-            } else {
-                print("screen lock not enabled")
             }
             
         }

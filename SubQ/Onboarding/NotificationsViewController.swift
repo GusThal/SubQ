@@ -49,6 +49,24 @@ class NotificationsViewController: UIViewController, OnboardingChildViewControll
         return button
     }()
     
+    lazy var skipButton: UIButton = {
+        
+        var buttonConfig = UIButton.Configuration.plain()
+        buttonConfig.buttonSize = .large
+       // buttonConfig.cornerStyle = .capsule
+        buttonConfig.title = "Skip"
+        buttonConfig.baseForegroundColor = InterfaceDefaults.primaryColor
+        //buttonConfig.baseBackgroundColor = InterfaceDefaults.primaryColor
+        
+        let action = UIAction { _ in
+            self.onboardingViewController!.moveToNextIndex()
+        }
+        
+        let button =  UIButton(configuration: buttonConfig, primaryAction: action)
+        return button
+        
+    }()
+    
     lazy var notificationAction: UIAction = {
         return UIAction { _ in
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .carPlay, .sound, .criticalAlert] ) { success, error in
@@ -66,6 +84,15 @@ class NotificationsViewController: UIViewController, OnboardingChildViewControll
         }
     }()
     
+    lazy var buttonStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [notificationButton, skipButton])
+        view.axis = .vertical
+       // view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
 
 
     override func viewDidLoad() {
@@ -79,9 +106,11 @@ class NotificationsViewController: UIViewController, OnboardingChildViewControll
             make.height.equalTo(350)
         }
         
-        view.addSubview(notificationButton)
+       // view.addSubview(notificationButton)
         
         view.addSubview(notificationLabel)
+        
+        view.addSubview(buttonStackView)
     
         
        
@@ -91,13 +120,14 @@ class NotificationsViewController: UIViewController, OnboardingChildViewControll
             make.centerX.equalToSuperview()
         }
         
-        notificationButton.snp.makeConstraints { make in
-
+        
+        buttonStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
-            make.top.equalTo(notificationLabel.snp.bottom).offset(10)
+            make.top.equalTo(notificationLabel.snp.bottom).offset(15)
         }
+        
 
     }
     

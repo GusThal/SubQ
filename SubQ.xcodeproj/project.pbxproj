@@ -98,6 +98,7 @@
 		CCDBD0222B3B8D6400AC943F /* Queue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD0212B3B8D6400AC943F /* Queue+CoreDataClass.swift */; };
 		CCDBD03A2B485F7100AC943F /* ScreenLockSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD0392B485F7100AC943F /* ScreenLockSettingsViewController.swift */; };
 		CCDBD03E2B4A078C00AC943F /* FaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD03D2B4A078C00AC943F /* FaceIDViewController.swift */; };
+		CCDBD0402B5036F300AC943F /* ScreenLockOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBD03F2B5036F300AC943F /* ScreenLockOnboardingViewController.swift */; };
 		CCDEBAD92B2B589700B9ABB9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */; };
 		CCDEBADB2B2B589700B9ABB9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */; };
 		CCDEBADE2B2B589700B9ABB9 /* SubQWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDEBADD2B2B589700B9ABB9 /* SubQWidgetBundle.swift */; };
@@ -255,6 +256,7 @@
 		CCDBD0212B3B8D6400AC943F /* Queue+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CCDBD0392B485F7100AC943F /* ScreenLockSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLockSettingsViewController.swift; sourceTree = "<group>"; };
 		CCDBD03D2B4A078C00AC943F /* FaceIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewController.swift; sourceTree = "<group>"; };
+		CCDBD03F2B5036F300AC943F /* ScreenLockOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLockOnboardingViewController.swift; sourceTree = "<group>"; };
 		CCDEBAD62B2B589700B9ABB9 /* SubQWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SubQWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCDEBAD82B2B589700B9ABB9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CCDEBADA2B2B589700B9ABB9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -596,15 +598,16 @@
 			children = (
 				CCB20E712ACA09760009B696 /* BodyPartHeader.swift */,
 				CCE97A562AC5B9C1008B1293 /* BodyPartViewController.swift */,
+				CCDBD03F2B5036F300AC943F /* ScreenLockOnboardingViewController.swift */,
 				CCE97A582AC5B9F3008B1293 /* NotificationsViewController.swift */,
 				CCE97A542AC5B917008B1293 /* OnboardingCollectionViewCell.swift */,
 				CCE97A4B2AC38F70008B1293 /* OnboardingCoordinator.swift */,
 				CCE97A522AC47693008B1293 /* OnboardingViewController.swift */,
 				CCB20E6F2AC8EBE10009B696 /* OnboardingViewModel.swift */,
+				CC58AF192B178CB0006CE719 /* OnboardingChildViewController.swift */,
 				CCE97A502AC3974E008B1293 /* WelcomeViewController.swift */,
 				CCE20A812AFE7CC20004EB62 /* TermsCollectionViewListCell */,
 				CCE97A5A2AC5BA04008B1293 /* TermsViewController.swift */,
-				CC58AF192B178CB0006CE719 /* OnboardingChildViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -808,6 +811,7 @@
 				CCC8F38A2A58E26500BAAED1 /* SiteCollectionViewCell.swift in Sources */,
 				CCCEC0822A87030500EB265E /* HistoryViewController.swift in Sources */,
 				CC4AF1D02A92E383000FC22A /* InjectionTableViewController.swift in Sources */,
+				CCDBD0402B5036F300AC943F /* ScreenLockOnboardingViewController.swift in Sources */,
 				CC1356DF2A2CE1120073431B /* InjectionViewModel.swift in Sources */,
 				CC7762F02A7BEE5000AEC489 /* ResultsHeaderView.swift in Sources */,
 				CC9F517429FEBD1B00E6FAF6 /* SceneDelegate.swift in Sources */,

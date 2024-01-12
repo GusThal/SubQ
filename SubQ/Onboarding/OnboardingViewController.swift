@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import LocalAuthentication
 
 class OnboardingViewController: UIViewController {
     
@@ -69,7 +70,27 @@ class OnboardingViewController: UIViewController {
         self.viewModel = viewModel
         self.coordinator = coordinator
         
-        controllers = [WelcomeViewController(), NotificationsViewController(), BodyPartViewController(viewModel: viewModel), TermsViewController(coordinator: coordinator)]
+        let context = LAContext()
+        var error: NSError?
+        
+        var lockMethod: ScreenLockOnboardingViewController.LockMethod?
+        
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            lockMethod = .faceId
+        }
+            
+        else if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            lockMethod = .passcode
+        }
+        
+        if let lockMethod {
+            
+            controllers = [WelcomeViewController(), NotificationsViewController(), BodyPartViewController(viewModel: viewModel), ScreenLockOnboardingViewController(enabledLockMethod: lockMethod), TermsViewController(coordinator: coordinator)]
+        } else {
+            controllers = [WelcomeViewController(), NotificationsViewController(), BodyPartViewController(viewModel: viewModel), TermsViewController(coordinator: coordinator)]
+
+        }
         
         
         super.init(nibName: nil, bundle: nil)
