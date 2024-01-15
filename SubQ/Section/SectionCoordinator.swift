@@ -30,15 +30,14 @@ class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
         navigationController.delegate = self
         navigationController.pushViewController(vc, animated: false)
         
-        
-        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "figure.arms.open"), selectedImage: nil)
-        vc.navigationItem.title = "Injection Sites"
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
         
-        let backButton = UIBarButtonItem()
-        backButton.tintColor = .label
-        vc.navigationItem.backBarButtonItem = backButton
+        
+        vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "figure.arms.open"), selectedImage: nil)
+        vc.navigationItem.title = "Injection Sites"
+        vc.navigationItem.backButtonTitle = ""
+        
     }
     
     func showSites(forSection section: Section){

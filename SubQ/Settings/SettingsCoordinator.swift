@@ -36,6 +36,7 @@ class SettingsCoordinator: Coordinator{
         
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "gear"), selectedImage: nil)
         vc.navigationItem.title = "Settings"
+        vc.navigationItem.backButtonTitle = ""
     }
      
     func showScreenLockSettingsController(){

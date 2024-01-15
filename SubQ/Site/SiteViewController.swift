@@ -31,9 +31,6 @@ class SiteViewController: UIViewController, Coordinated {
         super.viewDidLoad()
         
         
-        
-        view.backgroundColor = .systemBrown
-        
         navigationItem.title = "\(viewModel.section.quadrantVal.description) \(viewModel.section.bodyPart!.part!)"
     
         configureHierarchy()

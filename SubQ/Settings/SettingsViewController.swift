@@ -65,8 +65,6 @@ class SettingsViewController: UIViewController, Coordinated {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .green
-        
         
         configureHierarchy()
         configureDataSource()
