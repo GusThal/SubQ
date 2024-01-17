@@ -87,8 +87,8 @@ class InjectionTableViewController: UIViewController, Coordinated {
                     self?.navigationItem.leftBarButtonItem?.isEnabled = true
                 }
                 
-              self?.dataSource.apply(snapshot, animatingDifferences: true)
-            self?.tableView.reloadData()
+                self?.dataSource.apply(snapshot, animatingDifferences: false)
+                self?.tableView.reloadData()
             }
           })
           .store(in: &cancellables)
