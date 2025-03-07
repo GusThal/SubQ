@@ -31,17 +31,20 @@ class HistoryCoordinator: Coordinator{
         navigationController.pushViewController(vc, animated: false)
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
+        navigationController.navigationBar.tintColor = .label
        
         
         vc.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
         vc.navigationItem.title = "Injection History"
+        vc.navigationItem.backButtonDisplayMode = .minimal
+    
         
         
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "clock"), selectedImage: UIImage(systemName: "clock.fill"))
         
-        let backButton = UIBarButtonItem()
+       /* let backButton = UIBarButtonItem()
         backButton.tintColor = .label
-        vc.navigationItem.backBarButtonItem = backButton
+        vc.navigationItem.backBarButtonItem = backButton*/
     }
     
     func showFilterController(){

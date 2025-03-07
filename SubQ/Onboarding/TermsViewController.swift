@@ -132,7 +132,7 @@ extension TermsViewController {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.allowsMultipleSelection = true
-        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = true
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(animationView.snp.bottom)

@@ -32,11 +32,12 @@ class SectionCoordinator: NSObject, Coordinator, UINavigationControllerDelegate{
         
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
-        
+        navigationController.navigationBar.tintColor = .label
         
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "figure.arms.open"), selectedImage: nil)
         vc.navigationItem.title = "Injection Sites"
-        vc.navigationItem.backButtonTitle = ""
+       // vc.navigationItem.backButtonTitle = ""
+        vc.navigationItem.backButtonDisplayMode = .minimal
         
     }
     

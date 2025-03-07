@@ -33,10 +33,12 @@ class SettingsCoordinator: Coordinator{
         
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.largeTitleTextAttributes = InterfaceDefaults.navigationBarLargeTextAttributes
+        navigationController.navigationBar.tintColor = .label
         
         vc.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "gear"), selectedImage: nil)
         vc.navigationItem.title = "Settings"
-        vc.navigationItem.backButtonTitle = ""
+        vc.navigationItem.backButtonDisplayMode = .minimal
+        //vc.navigationItem.backButtonTitle = ""
     }
      
     func showScreenLockSettingsController(){
